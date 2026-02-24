@@ -455,14 +455,15 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .prop-row.bound{border-color:var(--grn-b);background:var(--grn-d)}
 .prop-row.active-bind{border-color:var(--acc);background:var(--acc-d)}
 
-.prop-main{flex:1;min-width:0;padding:5px 10px 6px}
-.prop-val{display:flex;align-items:center;gap:5px;min-height:18px}
+.prop-main{flex:1;min-width:0;padding:7px 10px 8px}
+.prop-val{display:flex;align-items:center;gap:5px;min-height:20px}
 .prop-static{background:transparent;border:none;outline:none;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;width:100%}
 .prop-static::placeholder{color:var(--t3);font-style:italic}
 .prop-bound-chip{display:none;align-items:center;gap:4px;background:var(--grn-d);border:1px solid var(--grn-b);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--grn);cursor:pointer;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
-.prop-bound-detail{flex-direction:column;align-items:flex-start;gap:3px;max-width:none;overflow:visible;background:transparent;border:none;padding:0;flex:1}
-.prop-bound-ctx{font-size:10px;color:var(--t3);letter-spacing:.3px;font-family:'DM Sans',sans-serif}
-.prop-bound-field{font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;width:fit-content;background:#fce4ec;color:#e84393;border-radius:10px;font-weight:600}
+.prop-bound-detail{flex-direction:column;align-items:flex-start;gap:4px;max-width:none;overflow:visible;background:transparent;border:none;padding:2px 0;flex:1}
+.prop-bound-ctx{font-size:11px;color:var(--t3);letter-spacing:.3px;font-family:'DM Sans',sans-serif;cursor:pointer;border-radius:4px;padding:2px 6px;margin:-2px -6px;transition:background .12s,color .12s}
+.prop-bound-ctx:hover{background:var(--acc-d);color:var(--acc)}
+.prop-bound-field{font-size:11px;padding:3px 9px;display:inline-flex;align-items:center;gap:5px;width:fit-content;background:#fce4ec;color:#e84393;border-radius:10px;font-weight:600}
 .prop-row.bound .prop-bound-chip{display:flex}
 .prop-row.bound .prop-static{display:none}
 .chip-x{opacity:.6;margin-left:2px;font-size:11px}
@@ -473,6 +474,26 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .prop-row.bound .bind-btn{color:var(--grn);border-color:var(--grn-b)}
 .bind-btn:hover{color:var(--acc)}
 .bind-btn svg{width:12px;height:12px;pointer-events:none}
+
+/* ── FUNCTION PARAMS (sub-properties) */
+.fn-params{margin-top:2px;padding:4px 0 0 12px;border-left:2px solid color-mix(in srgb, var(--acc) 30%, var(--b1))}
+.fn-params-header{display:flex;align-items:center;gap:4px;margin-bottom:5px}
+.fn-params-label{font-size:9px;font-weight:500;color:var(--t3);text-transform:uppercase;letter-spacing:.5px}
+.fn-param-wrap{margin-bottom:4px}
+.fn-param-wrap:last-child{margin-bottom:0}
+.fn-param-key{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-bottom:2px}
+.fn-param-row{display:flex;align-items:stretch;border:1px solid var(--b1);border-radius:6px;overflow:hidden;transition:border-color .15s;background:var(--sur)}
+.fn-param-row:hover{border-color:var(--b3)}
+.fn-param-row.bound{border-color:var(--grn-b);background:var(--grn-d)}
+.fn-param-row.active-bind{border-color:var(--acc);background:var(--acc-d)}
+.fn-param-row .prop-main{flex:1;min-width:0;padding:3px 8px}
+.fn-param-row .prop-bound-chip{display:none}
+.fn-param-row.bound .prop-bound-chip{display:flex}
+.fn-param-row .bind-btn{width:24px;border-left:1px solid var(--b1)}
+.fn-param-row.bound .bind-btn{color:var(--grn);border-color:var(--grn-b)}
+.fn-param-input{width:100%;border:none;outline:none;background:transparent;font-size:11px;font-family:'DM Sans',sans-serif;color:var(--t1);padding:2px 0}
+.fn-param-input::placeholder{color:var(--t3);font-style:italic;font-size:10px}
+.fn-param-input.has-value{color:var(--t1)}
 
 /* ── DROPDOWN */
 .dd{position:fixed;z-index:600;background:var(--sur2);border:1px solid var(--b2);border-radius:10px;width:260px;box-shadow:0 12px 40px #00000070;display:none;overflow:hidden}
@@ -1193,13 +1214,13 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
               <span class="src-tag" id="src-el-temp"></span>
               <span class="val" id="v-el-temp">24°C</span>
             </div>
-            <!-- Condition - not bound yet -->
-            <div class="c-el c-el-text" id="el-cond" onclick="selEl(event,'el-cond')">
+            <!-- Condition - bound to weatherLabel() -->
+            <div class="c-el c-el-text bound" id="el-cond" onclick="selEl(event,'el-cond')">
               <div class="c-el-overlay"></div>
-            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">⚡ myFunctions · weatherLabel</div></div>
               <div class="bound-dot"></div>
               <span class="src-tag" id="src-el-cond"></span>
-              <span class="val static" id="v-el-cond">This is a Title</span>
+              <span class="val" id="v-el-cond">☀️ Tel Aviv · Sunny</span>
             </div>
           </div>
         </div>
@@ -1504,7 +1525,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
         <div class="ctx-pill" id="pill-sec-msb"></div>
         <div style="padding:24px 24px 12px">
           <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t1);margin-bottom:4px">Articles</div>
-          <div style="font-size:12px;color:var(--t3)">Multi-State Container driven by <b>itemsStatus</b> enum from CMS · Articles</div>
+          <div style="font-size:12px;color:var(--t3)">Multi-State Container driven by <b>itemsStatus</b> states from CMS · Articles</div>
         </div>
         <div class="msb bound" id="msb-articles" onclick="selEl(event,'msb-articles')" style="margin:12px 24px 24px">
           <div class="c-el-overlay" style="border-radius:12px"></div>
@@ -1993,7 +2014,7 @@ const CTX_DEFS = [
     ]},
   { id:'cms-articles', name:'CMS · Articles', icon:'📚', type:'list', source:'CMS', group:'CMS',
     fields:[
-      {name:'itemsStatus', type:'enum', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
+      {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
       {name:'items',       type:'array',   sample:'[{title, author, …}]', itemFields:[
         {name:'title',       type:'string',  sample:'"Article Title"'},
         {name:'author',      type:'string',  sample:'"Jane Doe"'},
@@ -2229,6 +2250,18 @@ const FN_LIBS = [
       {name:'isRequired()',   type:'boolean', sample:'false',           description:'Checks if value exists'},
       {name:'minLength()',    type:'boolean', sample:'true',            description:'Checks minimum length'},
     ]},
+  { id:'lib-my-functions', name:'myFunctions', icon:'⚡', description:'Custom formatters & helpers',
+    functions:[
+      {name:'weatherLabel()', type:'string', sample:'"☀️ Tel Aviv · Sunny"', template:'☀️ {city} · {condition}', description:'Combines city and condition into a styled weather label',
+        params:[
+          {name:'city',      type:'string', description:'The city name', default:'text'},
+          {name:'condition', type:'string', description:'Weather condition text', default:'text'},
+        ]},
+      {name:'greetUser()', type:'string', sample:'"👋 Hello, Dana!"', template:'👋 Hello, {name}!', description:'Creates a personalized greeting',
+        params:[
+          {name:'name', type:'string', description:'User display name', default:'text'},
+        ]},
+    ]},
 ];
 
 const FN_DEFS = FN_LIBS.flatMap(lib =>
@@ -2239,7 +2272,8 @@ const FN_DEFS = FN_LIBS.flatMap(lib =>
     type: 'function',
     source: lib.name,
     libId: lib.id,
-    fields: [{ name: fn.name.replace('()',''), type: fn.type, sample: fn.sample }],
+    params: fn.params || null,
+    fields: [{ name: fn.name.replace('()',''), type: fn.type, sample: fn.sample, template: fn.template || null, params: fn.params || null }],
   }))
 );
 
@@ -2362,7 +2396,9 @@ function findFnLib(id) {
       name: fn.name,
       type: fn.type,
       sample: fn.sample,
-      description: fn.description
+      template: fn.template || null,
+      description: fn.description,
+      params: fn.params || null,
     }))
   };
 }
@@ -2449,7 +2485,7 @@ const EL_DEFS = {
       {id:'hasItems', name:'Has Items', enumValues:['hasItems']},
     ],
     activeView:'hasItems',
-    props:[{k:'Active State',t:'enum'}]},
+    props:[{k:'Active State',t:'states'}]},
   'el-msb-loading-text':  {name:'Loading Text',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'loading',  props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-title':   {name:'Empty Title',     type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-btn':     {name:'Browse Button',   type:'Button', section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'}]},
@@ -2522,6 +2558,11 @@ const S = {
     'el-city|Value':      {ctxId:'weather',          fieldName:'city',        sample:'"Tel Aviv"'},
     'el-temp|Value':      {ctxId:'weather',          fieldName:'temperature', sample:'"24°C"'},
     'el-countdown|Value': {ctxId:'custom-countdown', fieldName:'timeLeft',    sample:'"20:45:11"'},
+    'el-cond|Value': {ctxId:'lib-my-functions', fieldName:'weatherLabel', sample:'"☀️ Tel Aviv · Sunny"', fnHasParams:true,
+      fnTemplate:'☀️ {city} · {condition}',
+      fnParams:[{name:'city',type:'string',description:'The city name'},{name:'condition',type:'string',description:'Weather condition text'}]},
+    'el-cond|Value|param:city': {ctxId:'weather', fieldName:'city', sample:'"Tel Aviv"'},
+    'el-cond|Value|param:condition': {static:true, value:'Sunny'},
     'el-rel-title|Value':    {ctxId:'stores-current-item', fieldName:'name',        sample:'"Sunny Day Tee"'},
     'el-rel-desc|Value':     {ctxId:'stores-current-item', fieldName:'description', sample:'"Classic cotton tee…"'},
     'el-rel-img|Source':     {ctxId:'stores-current-item', fieldName:'image',       sample:'[img url]'},
@@ -2555,7 +2596,7 @@ const S = {
     'el-art-title|Value':  'Article Title',
     'el-art-author|Value': 'Author name',
   },
-  dd: {open:false, elId:null, propKey:null, step:'source', srcId:null, fieldName:null},
+  dd: {open:false, elId:null, propKey:null, paramName:null, step:'source', srcId:null, fieldName:null},
   modal: {target:null, selId:null},
   ctxSettingsView: null,
   currentPage: 'Homepage',
@@ -2688,6 +2729,23 @@ function renderRP() {
 
 function switchTab(t) { S.tab = t; S.ctxSettingsView = null; renderRP(); }
 
+function navigateToCtx(ctxId, e) {
+  if (e) e.stopPropagation();
+  if (!ctxId || ctxId.startsWith('lib-')) return;
+  let targetSection = null;
+  for (const secId of Object.keys(S.ctxMap)) {
+    if ((S.ctxMap[secId] || []).includes(ctxId)) { targetSection = secId; break; }
+  }
+  if (!targetSection) return;
+  S.sel = targetSection;
+  S.tab = 'context';
+  S.ctxSettingsView = null;
+  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+  const secEl = document.getElementById(targetSection);
+  if (secEl) secEl.classList.add('sel');
+  renderRP();
+}
+
 function renderBody() {
   const body = document.getElementById('rp-body');
   if (!body) return;
@@ -2744,7 +2802,7 @@ function renderSettings() {
             <div class="prop-val">
               ${b && ctx
                 ? `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
-                    <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+                    <span class="prop-bound-ctx" onclick="navigateToCtx('${b.ctxId}',event)">${ctx.icon} ${ctx.name}</span>
                     <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${S.sel}','Items',event)">✕</span></span>
                   </div>`
                 : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to an array field →</span>`}
@@ -2767,7 +2825,7 @@ function renderSettings() {
     const bkey = S.sel + '|Active State';
     const b = S.bindings[bkey];
     const ctx = b ? findSource(b.ctxId) : null;
-    const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+    const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && (f.type === 'enum' || f.type === 'states')) : null;
     const enumVals = ctxField?.enumValues || [];
     const views = def.views || [];
     const activeView = def.activeView || views[0]?.id;
@@ -2811,13 +2869,13 @@ function renderSettings() {
             <div class="prop-val">
               ${b && ctx
                 ? `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
-                    <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+                    <span class="prop-bound-ctx" onclick="navigateToCtx('${b.ctxId}',event)">${ctx.icon} ${ctx.name}</span>
                     <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${S.sel}','Active State',event)">✕</span></span>
                   </div>`
-                : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to an enum field →</span>`}
+                : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to a states field →</span>`}
             </div>
           </div>
-          <div class="bind-btn" onclick="openDd(event,'${S.sel}','Active State')" title="Connect to context enum">
+          <div class="bind-btn" onclick="openDd(event,'${S.sel}','Active State')" title="Connect to states field">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
               <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
             </svg>
@@ -2903,6 +2961,8 @@ function renderPropRow(elId, prop) {
     return renderImgPropRow(elId, prop.k, isBound, isActiveDd, ctx, b);
   }
 
+  const fnParamsHtml = (isBound && b.fnHasParams && b.fnParams) ? renderFnParams(elId, prop.k, b) : '';
+
   return `<div class="prop-wrap" id="pr-${elId}-${prop.k.replace(/\s/g,'_')}">
     <div class="prop-key">${prop.k}</div>
     <div class="prop-row ${isBound?'bound':''} ${isActiveDd?'active-bind':''}">
@@ -2911,7 +2971,7 @@ function renderPropRow(elId, prop) {
           <input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
                  oninput="onStaticInput('${elId}','${prop.k}',this.value)">
           ${isBound && ctx ? `<div class="prop-bound-chip prop-bound-detail">
-            <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+            <span class="prop-bound-ctx" onclick="navigateToCtx('${b.ctxId}',event)">${ctx.icon} ${ctx.name}</span>
             <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>
           </div>` : `<span class="prop-bound-chip"><span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>`}
         </div>
@@ -2922,6 +2982,51 @@ function renderPropRow(elId, prop) {
         </svg>
       </div>
     </div>
+    ${fnParamsHtml}
+  </div>`;
+}
+
+function renderFnParams(elId, propKey, binding) {
+  const params = binding.fnParams || [];
+  if (!params.length) return '';
+  const paramRows = params.map(p => {
+    const paramBKey = `${elId}|${propKey}|param:${p.name}`;
+    const pb = S.bindings[paramBKey];
+    const isBoundCtx = pb && !pb.static;
+    const isStatic = pb && pb.static;
+    const pCtx = isBoundCtx ? findSource(pb.ctxId) : null;
+    const isParamActiveDd = S.dd.open && S.dd.elId === elId && S.dd.propKey === propKey && S.dd.paramName === p.name;
+    const staticVal = isStatic ? pb.value.replace(/"/g,'&quot;') : '';
+    let innerHtml;
+    if (isBoundCtx && pCtx) {
+      innerHtml = `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
+        <span class="prop-bound-ctx" onclick="navigateToCtx('${pb.ctxId}',event)">${pCtx.icon} ${pCtx.name}</span>
+        <span class="prop-bound-field">${pb.fieldName}<span class="chip-x" onclick="unbindParam('${elId}','${propKey}','${p.name}',event)">✕</span></span>
+      </div>`;
+    } else {
+      innerHtml = `<input class="fn-param-input${isStatic ? ' has-value' : ''}" type="text" value="${staticVal}" placeholder="Type value or connect →" oninput="setParamStatic('${elId}','${propKey}','${p.name}',this.value)" onblur="onParamBlur('${elId}','${propKey}')" onkeydown="if(event.key==='Enter'){this.blur()}" />`;
+    }
+    return `<div class="fn-param-wrap" id="pr-${elId}-${propKey.replace(/\s/g,'_')}-param-${p.name}">
+      <div class="fn-param-key">${p.name}</div>
+      <div class="fn-param-row ${isBoundCtx?'bound':''} ${isParamActiveDd?'active-bind':''}">
+        <div class="prop-main">
+          <div class="prop-val">
+            ${innerHtml}
+          </div>
+        </div>
+        <div class="bind-btn" onclick="openParamDd(event,'${elId}','${propKey}','${p.name}')" title="Connect parameter">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+          </svg>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+  return `<div class="fn-params">
+    <div class="fn-params-header">
+      <span class="fn-params-label">Parameters</span>
+    </div>
+    ${paramRows}
   </div>`;
 }
 
@@ -2940,7 +3045,7 @@ function renderVisibleProp(elId, prop) {
         <div class="prop-main">
           <div class="prop-val">
             <div class="prop-bound-chip prop-bound-detail" style="display:flex">
-              <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+              <span class="prop-bound-ctx" onclick="navigateToCtx('${b.ctxId}',event)">${ctx.icon} ${ctx.name}</span>
               <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','Visible',event)">✕</span></span>
             </div>
           </div>
@@ -3038,10 +3143,65 @@ function unbind(elId, propKey, e) {
   }
 
   const bkey = `${elId}|${propKey}`;
+  const oldBinding = S.bindings[bkey];
+  if (oldBinding?.fnHasParams && oldBinding.fnParams) {
+    oldBinding.fnParams.forEach(p => delete S.bindings[`${bkey}|param:${p.name}`]);
+  }
   delete S.bindings[bkey];
   applyBindingToCanvas(elId, propKey, null);
   toast('Binding removed');
+  if (def?.isRepeater) {
+    renderBody();
+    refreshAllPills();
+  } else {
+    updatePropRowDOM(elId, propKey);
+  }
+}
+
+function unbindParam(elId, propKey, paramName, e) {
+  e.stopPropagation();
+  const paramBKey = `${elId}|${propKey}|param:${paramName}`;
+  delete S.bindings[paramBKey];
+  toast(`Parameter ${paramName} disconnected`);
+  updateFnCanvasPreview(elId, propKey);
   updatePropRowDOM(elId, propKey);
+}
+
+function setParamStatic(elId, propKey, paramName, value) {
+  const paramBKey = `${elId}|${propKey}|param:${paramName}`;
+  if (!value) {
+    delete S.bindings[paramBKey];
+  } else {
+    S.bindings[paramBKey] = {static: true, value: value};
+  }
+  updateFnCanvasPreview(elId, propKey);
+}
+function onParamBlur(elId, propKey) {
+  updateFnCanvasPreview(elId, propKey);
+}
+
+function updateFnCanvasPreview(elId, propKey) {
+  const bkey = `${elId}|${propKey}`;
+  const b = S.bindings[bkey];
+  if (!b || !b.fnHasParams || !b.fnParams) return;
+  const valEl = document.getElementById('v-' + elId);
+  if (!valEl) return;
+  const template = b.fnTemplate;
+  if (!template) return;
+  let text = template;
+  let allFilled = true;
+  b.fnParams.forEach(p => {
+    const pb = S.bindings[`${bkey}|param:${p.name}`];
+    if (pb && pb.static) {
+      text = text.replace(`{${p.name}}`, pb.value);
+    } else if (pb && pb.ctxId) {
+      text = text.replace(`{${p.name}}`, (pb.sample || '').replace(/^"|"$/g, ''));
+    } else {
+      text = text.replace(`{${p.name}}`, '___');
+      allFilled = false;
+    }
+  });
+  valEl.textContent = text;
 }
 
 /* ── CONTEXT TAB ── */
@@ -3171,7 +3331,7 @@ function refreshAllPills() {
     const binding = S.bindings[id + '|Items'];
     if (binding) {
       const ctx = findSource(binding.ctxId);
-      const ctxLabel = ctx ? `Connected · ${binding.fieldName}` : binding.fieldName;
+      const ctxLabel = binding.fieldName;
       pill.innerHTML = buildBindTagHTML(id, ctxLabel);
     } else {
       pill.innerHTML = '';
@@ -3186,7 +3346,7 @@ function refreshAllPills() {
     const binding = S.bindings[id + '|Active State'];
     if (binding) {
       const ctx = findSource(binding.ctxId);
-      const ctxLabel = ctx ? `Connected · ${binding.fieldName}` : binding.fieldName;
+      const ctxLabel = binding.fieldName;
       pill.innerHTML = buildBindTagHTML(id, ctxLabel);
     } else {
       pill.innerHTML = '';
@@ -3206,7 +3366,7 @@ function refreshElementBindTags() {
     if (bindKeys.length === 0) return;
     const b = S.bindings[bindKeys[0]];
     const ctx = b.ctxId ? findSource(b.ctxId) : null;
-    const ctxLabel = (ctx ? 'Connected' : '?') + ' · ' + b.fieldName;
+    const ctxLabel = b.fieldName;
     bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
   });
 }
@@ -3278,7 +3438,7 @@ function autoBindRepeater(repeaterId, ctxId, fieldName) {
   if (repEl) {
     repEl.classList.add('bound');
     const countEl = document.getElementById('rep-count-' + repeaterId.replace('repeater-', ''));
-    if (countEl) countEl.textContent = `Connected · ${fieldName} · 3 items`;
+    if (countEl) countEl.textContent = `${fieldName} · 3 items`;
   }
   refreshAllPills();
   if (S.sel) renderRP();
@@ -3288,7 +3448,7 @@ function autoBindRepeater(repeaterId, ctxId, fieldName) {
 function getFieldTypeIcon(type) {
   const map = {
     'string':'Aa','number':'#','boolean':'◆','image':'🖼','dateTime':'📅',
-    'enum':'☰','array':'[ ]','object':'{ }','function':'ƒ'
+    'enum':'☰','states':'◫','array':'[ ]','object':'{ }','function':'ƒ'
   };
   return map[type] || '·';
 }
@@ -3710,7 +3870,7 @@ function openCodeEditor(e, ctxId) {
   if (tabs[1]) tabs[1].classList.add('active');
 
   const fieldsCode = ctx.fields.map(f => {
-    const typeMap = {string:'string', number:'number', boolean:'boolean', image:'string', dateTime:'string', enum:'string', url:'string', array:'Array<any>', object:'Record<string, any>'};
+    const typeMap = {string:'string', number:'number', boolean:'boolean', image:'string', dateTime:'string', enum:'string', states:'string', url:'string', array:'Array<any>', object:'Record<string, any>'};
     const tsType = typeMap[f.type] || 'any';
     return `  ${f.name}: ${tsType};`;
   }).join('\n');
@@ -3726,7 +3886,7 @@ function openCodeEditor(e, ctxId) {
     {text: `<span class="hl-cm">// Field type definitions</span>`},
     {text: `<span class="hl-kw">interface</span> <span class="hl-ty">${ctx.name.replace(/[^a-zA-Z0-9]/g,'')}Fields</span> {`},
     ...ctx.fields.map(f => {
-      const typeMap = {string:'string', number:'number', boolean:'boolean', image:'string', dateTime:'string', enum:'string', url:'string', array:'Array&lt;any&gt;', object:'Record&lt;string, any&gt;'};
+      const typeMap = {string:'string', number:'number', boolean:'boolean', image:'string', dateTime:'string', enum:'string', states:'string', url:'string', array:'Array&lt;any&gt;', object:'Record&lt;string, any&gt;'};
       const tsType = typeMap[f.type] || 'any';
       return {text: `  ${f.name}<span class="hl-op">:</span> <span class="hl-ty">${tsType}</span>;`, highlight: f.empty};
     }),
@@ -4179,7 +4339,7 @@ function createDroppedComponent(type) {
             <div class="rep-skeleton-overlay">
               <span class="rep-skel-icon">◫</span>
               <div class="rep-skel-title">No data connected</div>
-              <div class="rep-skel-desc">Add a context with an enum field<br>to control which view is shown</div>
+              <div class="rep-skel-desc">Add a context with a states field<br>to control which view is shown</div>
               <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${secId}')">＋ Add Context</button>
             </div>
           </div>
@@ -4226,7 +4386,7 @@ function insertComponentIntoSection(type, sectionId) {
       <div class="rep-header">
         <span class="rep-icon">↻</span>
         <span class="rep-label">Repeater</span>
-        <span class="rep-count" id="rep-count-${shortId}">${isBound ? 'Connected · ' + arrayField.name + ' · 3 items' : '0 items'}</span>
+        <span class="rep-count" id="rep-count-${shortId}">${isBound ? arrayField.name + ' · 3 items' : '0 items'}</span>
         <div class="rep-bind-btn" onclick="openDd(event,'${compId}','Items')" title="Connect to list">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
             <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
@@ -4338,7 +4498,7 @@ function insertComponentIntoSection(type, sectionId) {
     for (const ctxId of ctxIds) {
       const ctx = findSource(ctxId);
       if (!ctx) continue;
-      const ef = ctx.fields.find(f => f.type === 'enum');
+      const ef = ctx.fields.find(f => f.type === 'enum' || f.type === 'states');
       if (ef) { enumCtx = ctx; enumField = ef; break; }
     }
 
@@ -4366,7 +4526,7 @@ function insertComponentIntoSection(type, sectionId) {
           <div style="font-size:12px;color:var(--t2);text-align:center">
             <div style="font-size:20px;margin-bottom:8px">◫</div>
             <div style="font-weight:500;margin-bottom:4px">State: ${activeView}</div>
-            <div style="font-size:11px;color:var(--t3)">Connected to ${enumCtx.name} · ${enumField.name}</div>
+            <div style="font-size:11px;color:var(--t3)">${enumCtx.name} · ${enumField.name}</div>
           </div>
         </div>`;
 
@@ -4375,7 +4535,7 @@ function insertComponentIntoSection(type, sectionId) {
         isMultiState: true,
         stateBinding: {ctxId: enumCtx.id, fieldName: enumField.name},
         views: views, activeView: activeView,
-        props: [{k: 'Active State', t: 'enum'}]
+        props: [{k: 'Active State', t: 'states'}]
       };
 
       target.appendChild(wrapper);
@@ -4394,8 +4554,8 @@ function insertComponentIntoSection(type, sectionId) {
           </div>
           <div class="rep-skeleton-overlay">
             <span class="rep-skel-icon">⚠️</span>
-            <div class="rep-skel-title">No enum data available</div>
-            <div class="rep-skel-desc">The attached context has no enum fields<br>to control which view is shown</div>
+            <div class="rep-skel-title">No states data available</div>
+            <div class="rep-skel-desc">The attached context has no states field<br>to control which view is shown</div>
             <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${sectionId}')">Change Context</button>
           </div>
         </div>`;
@@ -4403,12 +4563,12 @@ function insertComponentIntoSection(type, sectionId) {
       EL_DEFS[compId] = {
         name: 'Multi-State Container', type: 'MultiStateBox', section: sectionId,
         isMultiState: true, views: [], activeView: null,
-        props: [{k: 'Active State', t: 'enum'}]
+        props: [{k: 'Active State', t: 'states'}]
       };
 
       target.appendChild(wrapper);
       refreshAllPills();
-      toast('Multi-State Box added — no enum field found in context');
+      toast('Multi-State Box added — no states field found in context');
     }
   }
 
@@ -4452,33 +4612,56 @@ function openDd(e, elId, propKey) {
   const existingBinding = S.bindings[elId + '|' + propKey];
   const preSrc = existingBinding ? existingBinding.ctxId : null;
   const preField = existingBinding ? existingBinding.fieldName : null;
-  S.dd = {open:true, elId, propKey, step:'source', srcId:preSrc, fieldName:preField, openPanel: preSrc && preField ? null : (preSrc ? 'field' : 'src')};
+  S.dd = {open:true, elId, propKey, paramName:null, step:'source', srcId:preSrc, fieldName:preField, openPanel: preSrc && preField ? null : (preSrc ? 'field' : 'src')};
   const rect = e.currentTarget.getBoundingClientRect();
   const dd = document.getElementById('dd');
-  // position below the button, aligned right to panel
   const panelLeft = window.innerWidth - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--panel'));
   dd.style.top  = (rect.bottom + 5) + 'px';
   dd.style.left = Math.max(8, panelLeft - 240) + 'px';
   dd.classList.add('open');
   document.getElementById('dd-title').textContent = `Connect · ${propKey}`;
   renderDd();
-  // just highlight the active row without re-rendering the whole panel
-  document.querySelectorAll('.prop-row').forEach(r => r.classList.remove('active-bind'));
+  document.querySelectorAll('.prop-row,.fn-param-row').forEach(r => r.classList.remove('active-bind'));
   const rowId = `pr-${elId}-${propKey.replace(/\s/g,'_')}`;
   document.getElementById(rowId)?.classList.add('active-bind');
+}
+
+function openParamDd(e, elId, propKey, paramName) {
+  e.stopPropagation();
+  const paramBKey = `${elId}|${propKey}|param:${paramName}`;
+  const existingBinding = S.bindings[paramBKey];
+  const preSrc = existingBinding ? existingBinding.ctxId : null;
+  const preField = existingBinding ? existingBinding.fieldName : null;
+  S.dd = {open:true, elId, propKey, paramName, step:'source', srcId:preSrc, fieldName:preField, openPanel: preSrc && preField ? null : (preSrc ? 'field' : 'src')};
+  const rect = e.currentTarget.getBoundingClientRect();
+  const dd = document.getElementById('dd');
+  const panelLeft = window.innerWidth - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--panel'));
+  dd.style.top  = (rect.bottom + 5) + 'px';
+  dd.style.left = Math.max(8, panelLeft - 240) + 'px';
+  dd.classList.add('open');
+  document.getElementById('dd-title').textContent = `Connect · ${paramName}`;
+  renderDd();
+  document.querySelectorAll('.prop-row,.fn-param-row').forEach(r => r.classList.remove('active-bind'));
+  const rowId = `pr-${elId}-${propKey.replace(/\s/g,'_')}-param-${paramName}`;
+  document.getElementById(rowId)?.querySelector('.fn-param-row')?.classList.add('active-bind');
 }
 
 function closeDd() {
   S.dd.open = false;
   S.dd.openPanel = null;
+  S.dd.paramName = null;
   document.getElementById('dd').classList.remove('open');
-  // remove highlight without full re-render
-  document.querySelectorAll('.prop-row').forEach(r => r.classList.remove('active-bind'));
+  document.querySelectorAll('.prop-row,.fn-param-row').forEach(r => r.classList.remove('active-bind'));
 }
 
 function renderDd() {
   const body = document.getElementById('dd-body');
   const elId = S.dd.elId, propKey = S.dd.propKey;
+
+  if (S.dd.paramName) {
+    renderDdParam(body, elId, propKey, S.dd.paramName);
+    return;
+  }
 
   // Special case: Repeater "Items" binding — select the context itself (no field step)
   if (propKey === 'Items') {
@@ -4649,15 +4832,30 @@ function confirmBind(e) {
   const ctx = findSource(srcId);
   const field = ctx.fields.find(f=>f.name===fieldName);
   const bkey = `${elId}|${propKey}`;
-  S.bindings[bkey] = {ctxId:srcId, fieldName, sample:field.sample};
+  const bindingData = {ctxId:srcId, fieldName, sample:field.sample};
+  if (field.params) {
+    bindingData.fnHasParams = true;
+    bindingData.fnParams = field.params;
+    if (field.template) bindingData.fnTemplate = field.template;
+  }
+  S.bindings[bkey] = bindingData;
+  if (field.params) {
+    field.params.forEach(p => {
+      if (p.default) {
+        S.bindings[`${bkey}|param:${p.name}`] = {static: true, value: p.default};
+      }
+    });
+  }
   applyBindingToCanvas(elId, propKey, field, srcId);
-  // if this is a repeater template element, propagate to all sibling items
+  if (field.params && field.template) {
+    updateFnCanvasPreview(elId, propKey);
+  }
   const def = EL_DEFS[elId];
   if (def?.repTemplate) {
     applyRepBindingToAll(def.repTemplate, propKey, field, srcId);
   }
   closeDd();
-  toast(`✓ ${propKey} → ${ctx.name} · ${fieldName} (all items)`, true);
+  toast(`✓ ${propKey} → ${ctx.name} · ${fieldName}`, true);
   updatePropRowDOM(elId, propKey);
   if (def?.isMultiState) { refreshMsbState(); renderBody(); }
 }
@@ -4675,7 +4873,7 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
     // Repeater items binding — update the count pill and header
     if (propKey === 'Items') {
       const countEl = document.getElementById('rep-count-' + elId.replace('repeater-',''));
-      if (countEl) countEl.textContent = `Connected · ${field.name} · 3 items`;
+      if (countEl) countEl.textContent = `${field.name} · 3 items`;
       return;
     }
 
@@ -4686,14 +4884,14 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
       if (svgEl) svgEl.style.opacity = '0.35';
       // show a condition label
       const bindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = (ctx ? 'Connected' : '') + ' · ' + field.name;
+      const ctxLabel = field.name;
       if (bindTag) bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
       return;
     }
 
     if (valEl && domEl.classList.contains('c-el-text')) {
       const bindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = `${ctx ? 'Connected' : '?'} · ${field.name}`;
+      const ctxLabel = field.name;
       if (bindTag) bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
       valEl.textContent = field.sample.replace(/^"|"$/g, '');
       valEl.style.color = '';
@@ -4706,14 +4904,18 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
       const cimgEl = document.getElementById('cimg-' + elId);
       if (cimgEl) cimgEl.src = IMG_SKY;
       const imgBindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = (ctx ? 'Connected' : '') + ' · ' + field.name;
+      const ctxLabel = field.name;
       if (imgBindTag) imgBindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
     }
 
     const btnEl = domEl.querySelector('.c-el-btn');
     if (btnEl) {
       btnEl.classList.add('bound');
-      btnEl.textContent = `${field.name} → ${field.sample}`;
+      if (propKey === 'Click Action') {
+        btnEl.textContent = `⚡ ${field.name.replace('()','').replace(/\(\)/g,'')}()`;
+      } else {
+        btnEl.textContent = `${field.name} → ${field.sample}`;
+      }
     }
 
   } else {
@@ -4778,12 +4980,13 @@ function getAvailableCtx(elId, includeUnmodified) {
 }
 
 function isCompat(fieldType, propType) {
-  if (!propType || propType==='string') return ['string','number','enum','dateTime','boolean'].includes(fieldType);
+  if (!propType || propType==='string') return ['string','number','enum','states','dateTime','boolean'].includes(fieldType);
   if (propType==='image')   return fieldType==='image';
   if (propType==='boolean') return fieldType==='boolean';
   if (propType==='url')     return fieldType==='url';
   if (propType==='action')  return fieldType==='action';
   if (propType==='enum')    return fieldType==='enum';
+  if (propType==='states')  return fieldType==='states';
   return true;
 }
 
@@ -5179,7 +5382,7 @@ function confirmCtx() {
             if (repEl) {
               repEl.classList.add('bound');
               const countEl = document.getElementById('rep-count-' + repeaterInSection.replace('repeater-', ''));
-              if (countEl) countEl.textContent = `Connected · ${arrayField.name} · 3 items`;
+              if (countEl) countEl.textContent = `${arrayField.name} · 3 items`;
             }
             break;
           }
@@ -5541,7 +5744,7 @@ function msbShowAssign(e, viewId) {
   const bkey = 'msb-articles|Active State';
   const b = S.bindings[bkey];
   const ctx = b ? findSource(b.ctxId) : null;
-  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && (f.type === 'enum' || f.type === 'states')) : null;
   const enumVals = ctxField?.enumValues || [];
   const view = def.views.find(v => v.id === viewId);
   if (!view) return;
@@ -5590,7 +5793,7 @@ function msbResetJoins(e) {
   const bkey = 'msb-articles|Active State';
   const b = S.bindings[bkey];
   const ctx = b ? findSource(b.ctxId) : null;
-  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && (f.type === 'enum' || f.type === 'states')) : null;
   const enumVals = ctxField?.enumValues || [];
   def.views = enumVals.map(val => ({
     id: val,
@@ -5645,7 +5848,7 @@ function refreshMsbState() {
     if (pill) {
       const b = S.bindings[bkey];
       const ctx = findSource(b.ctxId);
-      const ctxLabel = (ctx ? 'Connected' : '') + ' · ' + b.fieldName;
+      const ctxLabel = b.fieldName;
       pill.innerHTML = buildBindTagHTML(msbId, ctxLabel);
     }
     document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
@@ -5736,9 +5939,9 @@ function applyRepBindingToAll(templateKey, propKey, field, ctxId) {
     S.bindings[elId + '|' + propKey] = {ctxId, fieldName: field.name, sample: '"' + realVal + '"'};
     domEl.classList.add('bound');
     const srcTag = document.getElementById('src-' + elId);
-    if (srcTag) srcTag.textContent = ctx ? 'Connected · ' + field.name : '';
+    if (srcTag) srcTag.textContent = ctx ? field.name : '';
     const bindTag = domEl.querySelector('.el-bind-tag');
-    if (bindTag) bindTag.textContent = ctx ? 'Connected · ' + field.name : '';
+    if (bindTag) bindTag.textContent = ctx ? field.name : '';
     // update value: text elements use v-{id}, image elements use cimg-{id}
     if (domEl.classList.contains('c-el-img') || domEl.classList.contains('c-el-badge') && false) {
       const cimg = document.getElementById('cimg-' + elId);
@@ -5754,6 +5957,108 @@ function applyRepBindingToAll(templateKey, propKey, field, ctxId) {
 }
 
 /* ── REPEATER ITEMS DROPDOWN — two-step: context → array field ── */
+function renderDdParam(body, elId, propKey, paramName) {
+  const mainBinding = S.bindings[`${elId}|${propKey}`];
+  const param = mainBinding?.fnParams?.find(p => p.name === paramName);
+  if (!param) return;
+
+  const available = getAvailableCtx(elId, true);
+  const srcId = S.dd.srcId;
+  const fieldName = S.dd.fieldName;
+  const srcOpen = S.dd.openPanel === 'src';
+  const fieldOpen = S.dd.openPanel === 'field';
+  const selectedCtx = srcId ? findSource(srcId) : null;
+
+  if (!S.dd.srcId && available.length === 1) {
+    S.dd.srcId = available[0].id;
+    S.dd.openPanel = 'field';
+  }
+
+  const ctxItems = available.length === 0
+    ? `<div class="dd-notice" style="padding:8px 12px;line-height:1.6">No contexts available.</div>`
+    : available.map(ctx => `
+        <div class="dd-sel-item ${S.dd.srcId===ctx.id?'sel':''}" onclick="ddParamSelSource(event,'${ctx.id}')">
+          <span style="font-size:13px">${ctx.icon}</span>
+          <div style="flex:1;min-width:0">
+            <div>${ctx.name}</div>
+            <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
+          </div>
+        </div>`).join('');
+
+  const srcItems = `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;padding-top:4px">CONTEXTS</div>` + ctxItems;
+
+  const filteredFields = !selectedCtx ? [] : selectedCtx.fields.filter(f => isCompat(f.type, param.type));
+
+  const fieldItems = !selectedCtx
+    ? `<div class="dd-sel-item" style="opacity:.4;pointer-events:none;padding:8px 10px;font-size:11px;color:var(--t3)">Select a source first</div>`
+    : filteredFields.length === 0
+    ? `<div style="padding:12px 14px;text-align:center">
+        <div style="font-size:22px;margin-bottom:6px">🔍</div>
+        <div style="font-size:11px;font-weight:600;color:var(--t2);margin-bottom:4px">No compatible fields</div>
+        <div style="font-size:10px;color:var(--t3);line-height:1.5">No fields match <span style="font-family:'DM Mono',monospace;color:var(--acc)">${param.type}</span> for this parameter.</div>
+      </div>`
+    : filteredFields.map(f => `<div class="dd-sel-item ${fieldName===f.name?'sel':''}" onclick="ddParamSelField(event,'${f.name}')">
+          <div style="flex:1;min-width:0">
+            <div>${f.name}</div>
+            <div class="dd-sel-item-sub">${f.sample || f.type}</div>
+          </div>
+          <span class="dd-sel-tag">${f.type}</span>
+        </div>`).join('');
+
+  body.innerHTML = `
+    <div style="padding:6px 10px;font-size:9px;color:var(--acc);font-family:'DM Mono',monospace;background:var(--acc-d);border-bottom:1px solid color-mix(in srgb, var(--acc) 20%, transparent)">
+      <span style="text-transform:uppercase;letter-spacing:.5px">⚡ PARAM: ${paramName}</span>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3);margin-top:2px;text-transform:none;letter-spacing:0">${param.description || ''}</div>
+    </div>
+    <div class="dd-selectors">
+      <div class="dd-sel-group">
+        <div class="dd-sel-label">Select Source</div>
+        <div class="dd-sel-box ${S.dd.srcId?'filled':''} ${srcOpen?'open':''}" id="dd-src-box">
+          <div class="dd-sel-trigger ${S.dd.srcId?'has-val':''}" onclick="toggleParamSrcBox(event)">
+            ${S.dd.srcId && selectedCtx
+              ? `<span>${selectedCtx.icon}</span><span>${selectedCtx.name}</span>`
+              : `<span style="color:var(--t3)">Select…</span>`}
+            <span class="dd-sel-chevron">▾</span>
+          </div>
+          <div class="dd-sel-dropdown">${srcItems}</div>
+        </div>
+      </div>
+      <div class="dd-sel-group">
+        <div class="dd-sel-label">Select Field</div>
+        <div class="dd-sel-box ${fieldName?'filled':''} ${fieldOpen?'open':''} ${!S.dd.srcId?'style="opacity:.5;pointer-events:none"':''}" id="dd-field-box">
+          <div class="dd-sel-trigger ${fieldName?'has-val green':''}" onclick="toggleParamFieldBox(event)">
+            ${fieldName ? `<span>${fieldName}</span>` : `<span style="color:var(--t3)">${S.dd.srcId ? 'Select…' :'Pick source first'}</span>`}
+            <span class="dd-sel-chevron">▾</span>
+          </div>
+          <div class="dd-sel-dropdown">${fieldItems}</div>
+        </div>
+      </div>
+    </div>
+    <button class="dd-confirm ${(S.dd.srcId && fieldName)?'show':''}" onclick="confirmParamBind(event)">
+      ✓ Bind · ${paramName}${fieldName ? ` → ${fieldName}` : ''}
+    </button>
+  `;
+}
+
+function toggleParamSrcBox(e) { if (e) e.stopPropagation(); S.dd.openPanel = S.dd.openPanel === 'src' ? null : 'src'; renderDd(); }
+function toggleParamFieldBox(e) { if (e) e.stopPropagation(); if (!S.dd.srcId) return; S.dd.openPanel = S.dd.openPanel === 'field' ? null : 'field'; renderDd(); }
+function ddParamSelSource(e, id) { if (e) e.stopPropagation(); S.dd.srcId = id; S.dd.fieldName = null; S.dd.openPanel = 'field'; renderDd(); }
+function ddParamSelField(e, name) { if (e) e.stopPropagation(); S.dd.fieldName = name; S.dd.openPanel = null; renderDd(); }
+
+function confirmParamBind(e) {
+  if (e) e.stopPropagation();
+  const {elId, propKey, paramName, srcId, fieldName} = S.dd;
+  if (!srcId || !fieldName || !paramName) return;
+  const ctx = findSource(srcId);
+  const field = ctx.fields.find(f => f.name === fieldName);
+  const paramBKey = `${elId}|${propKey}|param:${paramName}`;
+  S.bindings[paramBKey] = {ctxId: srcId, fieldName, sample: field?.sample || ''};
+  closeDd();
+  toast(`✓ ${paramName} → ${ctx.name} · ${fieldName}`, true);
+  updateFnCanvasPreview(elId, propKey);
+  updatePropRowDOM(elId, propKey);
+}
+
 function renderDdRepeaterItems(body, elId, srcId) {
   const def = EL_DEFS[elId];
   const parentId = def?.section;
@@ -5906,7 +6211,7 @@ function ddBindRepeater(e, ctxId, fieldName) {
   if (domEl) {
     domEl.classList.add('bound');
     const countEl = document.getElementById('rep-count-' + elId.replace('repeater-',''));
-    if (countEl) countEl.textContent = `Connected · ${fieldName} · 3 items`;
+    if (countEl) countEl.textContent = `${fieldName} · 3 items`;
   }
   closeDd();
   toast(`✓ Repeater → ${ctx.name} · ${fieldName}`, true);
@@ -5928,8 +6233,9 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
     + '<span class="img-ctrl-chip">' + ctxIcon + ' ' + fieldName + '</span></div>'
     : '';
 
+  var ctxId = (b && b.ctxId) ? b.ctxId : '';
   var actionsHtml = isBound
-    ? '<span class="prop-bound-ctx">' + ctxIcon + ' ' + ctxName + '</span>'
+    ? '<span class="prop-bound-ctx" onclick="navigateToCtx(\'' + ctxId + '\',event)">' + ctxIcon + ' ' + ctxName + '</span>'
     + '<span class="prop-bound-field">' + fieldName + '<span class="chip-x" onclick="unbind(\'' + elId + '\',\'' + propK + '\',event)">&#x2715;</span></span>'
     : '<span class="img-ctrl-hint">Static image</span>';
 
@@ -5955,11 +6261,14 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
 }
 // Initialize bound classes from S.bindings
 Object.keys(S.bindings).forEach(bkey => {
+  if (bkey.includes('|param:')) return;
   const [elId] = bkey.split('|');
   const domEl = document.getElementById(elId);
   if (!domEl) return;
   if (domEl.classList.contains('c-el')) domEl.classList.add('bound');
   if (domEl.classList.contains('c-repeater') && bkey.endsWith('|Items')) domEl.classList.add('bound');
+  const b = S.bindings[bkey];
+  if (b && b.fnHasParams && b.fnTemplate) updateFnCanvasPreview(elId, bkey.split('|')[1]);
 });
 refreshAllPills();
 
