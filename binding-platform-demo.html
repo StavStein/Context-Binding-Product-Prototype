@@ -1745,6 +1745,9 @@ const CTX_DEFS = [
       {name:'category',    type:'string',  sample:'"Tech"'},
       {name:'thumbnail',   type:'image',   sample:'[img url]'},
       {name:'readTime',    type:'number',  sample:'"5 min"'},
+      {name:'tags',        type:'array',   sample:'["Tech","AI","Design"]', itemFields:[
+        {name:'tag value',  type:'string',  sample:'"Tech"'},
+      ]},
     ],
     itemActions:[
       {name:'navigateToItem', label:'Navigate to item page', icon:'→'},
