@@ -29,13 +29,13 @@ html.dark {
 body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-size:13px;height:100vh;overflow:hidden;display:flex;flex-direction:column}
 
 /* TOPBAR */
-.topbar{height:var(--top);background:var(--sur);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 10px;gap:0;flex-shrink:0;z-index:200}
-.tb-left{display:flex;align-items:center;gap:0;height:100%}
+.topbar{height:var(--top);background:var(--sur);border-bottom:1px solid var(--b1);display:flex;align-items:center;padding:0 16px;gap:0;flex-shrink:0;z-index:200}
+.tb-left{display:flex;align-items:center;gap:4px;height:100%}
 .tb-icon{width:30px;height:30px;border-radius:6px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0}
 .tb-icon svg{width:18px;height:18px}
-.sep{width:1px;height:18px;background:var(--b2);margin:0 6px}
+.sep{width:1px;height:18px;background:var(--b2);margin:0 10px}
 .page-sel-wrap{position:relative}
-.page-sel{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--t1);font-weight:500;transition:.12s}
+.page-sel{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--t1);font-weight:500;transition:.12s}
 .page-sel:hover{background:var(--sur2)}
 .page-sel-chevron{font-size:8px;color:var(--t3);margin-left:2px}
 
@@ -49,25 +49,25 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .pp-sub:hover{background:var(--sur2);color:var(--t1)}
 .pp-manage{padding:8px 14px;font-size:11px;color:var(--acc);cursor:pointer;text-align:center;border-top:1px solid var(--b1);margin-top:4px}
 .pp-manage:hover{background:var(--sur2)}
-.tb-tabs{display:flex;align-items:center;gap:0;height:100%;margin-left:6px}
-.tb-tab{padding:0 12px;height:100%;display:flex;align-items:center;font-size:12px;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:.12s;user-select:none}
+.tb-tabs{display:flex;align-items:center;gap:2px;height:100%;margin-left:0}
+.tb-tab{padding:0 14px;height:100%;display:flex;align-items:center;font-size:12px;color:var(--t3);cursor:pointer;border-bottom:2px solid transparent;transition:.12s;user-select:none}
 .tb-tab:hover{color:var(--t2)}
 .tb-tab.active{color:var(--t1);border-bottom-color:var(--acc);font-weight:500}
 
-.tb-center{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;height:100%}
+.tb-center{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:100%}
 .tb-tool{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--t3);cursor:pointer;font-size:13px;transition:.12s}
 .tb-tool:hover{background:var(--sur2);color:var(--t1)}
 .tb-zoom{font-size:11px;color:var(--t3);font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px;cursor:pointer}
 .tb-zoom:hover{background:var(--sur2);color:var(--t2)}
-.tb-url{display:flex;align-items:center;gap:6px;background:var(--sur2);border:1px solid var(--b1);border-radius:16px;padding:3px 10px;font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;max-width:280px;overflow:hidden;white-space:nowrap}
-.tb-url-link{color:var(--acc);font-size:10px;cursor:pointer;white-space:nowrap}
+.tb-url{display:flex;align-items:center;gap:6px;background:var(--sur2);border:1px solid var(--b1);border-radius:12px;padding:3px 10px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;max-width:240px;overflow:hidden;white-space:nowrap}
+.tb-url-link{color:var(--acc);font-size:9px;cursor:pointer;white-space:nowrap}
 
-.tb-right{display:flex;align-items:center;gap:6px;margin-left:auto}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto}
 .btn-ghost{padding:4px 12px;border-radius:6px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:.15s}
 .btn-ghost:hover{color:var(--t1);border-color:var(--b3)}
-.btn-upgrade{padding:5px 14px;border-radius:6px;border:1px solid #7c3aed;background:transparent;color:#7c3aed;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s}
+.btn-upgrade{padding:6px 16px;border-radius:6px;border:1px solid #7c3aed;background:transparent;color:#7c3aed;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s}
 .btn-upgrade:hover{background:#7c3aed12}
-.btn-pub{padding:5px 16px;border-radius:6px;border:none;background:#2563eb;color:#fff;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s}
+.btn-pub{padding:6px 20px;border-radius:6px;border:none;background:#2563eb;color:#fff;cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s}
 .btn-pub:hover{background:#1d4ed8}
 .btn-preview{width:28px;height:28px;border-radius:6px;border:1px solid var(--b2);background:transparent;color:var(--t3);cursor:pointer;transition:.15s;display:flex;align-items:center;justify-content:center;padding:0}
 .btn-preview:hover{color:var(--t1);border-color:var(--b3);background:var(--sur2)}
@@ -134,6 +134,27 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .items-card-title{font-family:'Syne',sans-serif;font-style:italic;font-weight:600;font-size:13px;color:#1a1aff;margin-bottom:6px}
 .items-card-desc{font-size:10px;color:#555;line-height:1.6;margin-bottom:10px}
 .items-card-btn{display:inline-block;padding:6px 14px;background:#111;color:#fff;font-size:10px;font-weight:600;border-radius:2px;cursor:pointer;letter-spacing:.3px}
+
+/* Multi-State Box */
+.msb{border:2px dashed var(--b2);border-radius:12px;position:relative;overflow:visible;cursor:pointer;transition:border-color .2s,box-shadow .2s;background:var(--sur)}
+.msb:hover{border-color:var(--t3)}
+.msb.sel{border-color:var(--t3);box-shadow:0 0 0 3px var(--b2)}
+.msb.bound{border-color:var(--acc)}
+.msb.bound:hover{border-color:color-mix(in srgb, var(--acc) 80%, transparent)}
+.msb.bound.sel{border-color:var(--acc);box-shadow:0 0 0 3px var(--acc-d)}
+.msb-header{display:flex;align-items:center;gap:8px;padding:8px 12px;border-bottom:1px solid var(--b1);font-size:11px;font-family:'DM Mono',monospace}
+.msb-icon{font-size:14px}
+.msb-label{font-weight:600;color:var(--acc)}
+.msb-binding{font-size:10px;color:var(--t3)}
+.msb-view-sel{margin-left:auto;display:flex;align-items:center;gap:0;background:var(--sur2);border-radius:6px;border:1px solid var(--b1);overflow:hidden}
+.msb-view-btn{padding:4px 10px;font-size:10px;font-family:'DM Mono',monospace;cursor:pointer;color:var(--t3);transition:.12s;border:none;background:none}
+.msb-view-btn:hover{color:var(--t1);background:var(--b1)}
+.msb-view-btn.active{background:var(--acc);color:#fff;font-weight:600}
+.msb-view-btn.disabled{opacity:.35;text-decoration:line-through;pointer-events:auto}
+.msb-view-btn.disabled.active{background:var(--t3);opacity:.5;text-decoration:line-through}
+.msb-body{min-height:120px;padding:16px;position:relative}
+.msb-view{display:none}
+.msb-view.active{display:block}
 
 /* Item Detail Page */
 .item-detail-page{position:relative;z-index:1;width:720px;background:#fff;border-radius:8px;box-shadow:0 2px 16px #0001;overflow:visible;display:none}
@@ -275,6 +296,13 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .c-el-btn{padding:8px 20px;border-radius:7px;background:var(--acc);color:#fff;font-size:13px;font-weight:500;font-family:'DM Sans',sans-serif;pointer-events:none;white-space:nowrap}
 .c-el-btn.bound{background:var(--sur3);color:var(--grn);border:1px solid var(--grn-b);font-family:'DM Mono',monospace;font-size:11px}
 
+/* Toggle element */
+.c-el-toggle{position:relative;min-height:30px}
+.c-el-toggle .toggle-track.on{background:var(--acc)!important}
+
+/* Dropdown element */
+.c-el-dropdown{position:relative;min-height:30px}
+
 /* Bound indicator dot */
 .bound-dot{width:5px;height:5px;border-radius:50%;background:var(--grn);position:absolute;top:6px;right:7px;display:none}
 .c-el.bound .bound-dot{display:none}
@@ -391,17 +419,21 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .anim-add{font-size:11px;color:var(--acc);cursor:pointer;margin-left:auto}
 
 /* ── BINDING CONTROLLER (property row) */
-.prop-row{display:flex;align-items:stretch;border:1px solid var(--b2);border-radius:7px;overflow:hidden;margin-bottom:7px;transition:border-color .15s;background:var(--sur2)}
+.prop-wrap{margin-bottom:7px}
+.prop-key{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-bottom:3px}
+.prop-row{display:flex;align-items:stretch;border:1px solid var(--b2);border-radius:7px;overflow:hidden;transition:border-color .15s;background:var(--sur2)}
 .prop-row:hover{border-color:var(--b3)}
 .prop-row.bound{border-color:var(--grn-b);background:var(--grn-d)}
 .prop-row.active-bind{border-color:var(--acc);background:var(--acc-d)}
 
 .prop-main{flex:1;min-width:0;padding:5px 10px 6px}
-.prop-key{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-bottom:3px}
 .prop-val{display:flex;align-items:center;gap:5px;min-height:18px}
 .prop-static{background:transparent;border:none;outline:none;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;width:100%}
 .prop-static::placeholder{color:var(--t3);font-style:italic}
 .prop-bound-chip{display:none;align-items:center;gap:4px;background:var(--grn-d);border:1px solid var(--grn-b);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--grn);cursor:pointer;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
+.prop-bound-detail{flex-direction:column;align-items:flex-start;gap:3px;max-width:none;overflow:visible;background:transparent;border:none;padding:0;flex:1}
+.prop-bound-ctx{font-size:10px;color:var(--t3);letter-spacing:.3px;font-family:'DM Sans',sans-serif}
+.prop-bound-field{font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;width:fit-content;background:#fce4ec;color:#e84393;border-radius:10px;font-weight:600}
 .prop-row.bound .prop-bound-chip{display:flex}
 .prop-row.bound .prop-static{display:none}
 .chip-x{opacity:.6;margin-left:2px;font-size:11px}
@@ -459,6 +491,45 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 /* ── CONTEXT PANEL */
 .ctx-group{background:transparent;border:none;border-radius:0;padding:0;margin-bottom:0}
 .ctx-group:last-of-type{margin-bottom:6px}
+.ctx-link-connector{display:flex;align-items:center;gap:6px;margin:0 20px;padding:2px 0;color:var(--t3);font-size:10px;font-family:'DM Mono',monospace}
+.ctx-link-line{flex:1;height:0;border-top:1px dashed var(--grn);opacity:.4}
+.ctx-link-icon{display:flex;align-items:center;gap:4px;color:var(--grn);font-size:10px;white-space:nowrap;opacity:.8}
+.ctx-link-icon svg{width:12px;height:12px;stroke:var(--grn);fill:none;stroke-width:2}
+.ctx-filter-row{display:flex;align-items:center;gap:8px;margin:6px 0 2px;padding:5px 8px;background:var(--b1);border:1px solid var(--b2);border-radius:5px;font-size:10px;color:var(--t2);font-family:'Inter',sans-serif;position:relative}
+.ctx-filter-row.off{background:var(--b1);border-color:var(--b2);color:var(--t3)}
+.ctx-filter-row.off .ctx-filter-label{opacity:.6}
+.ctx-filter-label{flex:1;display:flex;align-items:center;gap:5px}
+.ctx-filter-label svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.ctx-filter-toggle{position:relative;width:30px;height:16px;flex-shrink:0;cursor:pointer}
+.ctx-filter-toggle input{opacity:0;width:0;height:0;position:absolute}
+.ctx-filter-slider{position:absolute;inset:0;background:var(--b2);border-radius:8px;transition:.2s}
+.ctx-filter-slider:before{content:'';position:absolute;height:12px;width:12px;left:2px;bottom:2px;background:#fff;border-radius:50%;transition:.2s}
+.ctx-filter-toggle input:checked + .ctx-filter-slider{background:#4caf50}
+.ctx-filter-toggle input:checked + .ctx-filter-slider:before{transform:translateX(14px)}
+.ctx-filter-confirm{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.25);padding:10px 12px;z-index:100;font-family:'Inter',sans-serif;display:none}
+.ctx-filter-confirm.open{display:block}
+.ctx-filter-confirm-msg{font-size:11px;color:var(--t2);line-height:1.5;margin-bottom:8px}
+.ctx-filter-confirm-actions{display:flex;gap:6px;justify-content:flex-end}
+.ctx-filter-confirm-actions button{border:none;border-radius:5px;padding:4px 10px;font-size:11px;cursor:pointer;font-family:'Inter',sans-serif;transition:.12s}
+.ctx-filter-confirm-actions .btn-off{background:var(--acc);color:#fff}
+.ctx-filter-confirm-actions .btn-off:hover{background:var(--acc-h)}
+.ctx-filter-confirm-actions .btn-keep{background:var(--b1);color:var(--t2)}
+.ctx-filter-confirm-actions .btn-keep:hover{background:var(--b2)}
+.ctx-link-toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--sur);border:1px solid var(--b2);border-radius:8px;padding:8px 16px;font-size:12px;color:var(--t2);box-shadow:0 4px 16px rgba(0,0,0,.3);z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;font-family:'Inter',sans-serif}
+.ctx-link-toast.show{opacity:1}
+.ctx-section-label{padding:8px 14px 4px;font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);display:flex;align-items:center;gap:6px}
+.ctx-section-label:after{content:'';flex:1;height:1px;background:var(--b1)}
+.ctx-parent-note-wrap{margin:8px 14px 0;padding:0}
+.ctx-parent-note-label{font-size:10px;color:var(--t3);margin-bottom:2px;padding:0 2px}
+.ctx-parent-note-item{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:5px;font-size:11px;color:var(--t2);cursor:pointer;transition:.12s}
+.ctx-parent-note-item:hover{background:var(--b1);color:var(--acc)}
+.ctx-parent-note-arrow{font-size:10px;color:var(--t3);margin-left:auto;opacity:0;transition:.12s}
+.ctx-parent-note-item:hover .ctx-parent-note-arrow{opacity:1;color:var(--acc)}
+.ctx-tree-cta{display:flex;align-items:center;gap:6px;margin:4px 14px 10px;padding:6px 10px;border-radius:6px;font-size:11px;color:var(--t3);cursor:pointer;transition:.12s}
+.ctx-tree-cta:hover{background:var(--b1);color:var(--t1)}
+.ctx-tree-cta svg{opacity:.5;transition:.12s}
+.ctx-tree-cta:hover svg{opacity:1}
+
 .ctx-card{background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative;margin:6px 14px}
 .ctx-card.primary{border-left:3px solid var(--acc);background:color-mix(in srgb, var(--acc) 4%, var(--sur2))}
 .ctx-card.unconfigured{border-left:3px solid var(--yel);border-style:dashed;border-left-style:solid;opacity:.85}
@@ -552,7 +623,11 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .modal-title{font-family:'Syne',sans-serif;font-weight:700;font-size:15px}
 .modal-x{cursor:pointer;color:var(--t3);font-size:16px}
 .modal-x:hover{color:var(--t1)}
-.modal-list{padding:10px;display:flex;flex-direction:column;gap:5px;max-height:280px;overflow-y:auto}
+.modal-list{padding:10px;display:flex;flex-direction:column;gap:4px;max-height:360px;overflow-y:auto}
+.modal-group-label{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.4px;padding:8px 4px 4px;margin-top:4px;font-family:'DM Mono',monospace}
+.modal-group-label:first-child{margin-top:0;padding-top:4px}
+.modal-create-btn{display:flex;align-items:center;gap:8px;padding:7px 12px;border-radius:8px;border:1px dashed var(--b2);cursor:pointer;transition:.15s;color:var(--acc);font-size:12px;font-weight:500}
+.modal-create-btn:hover{background:var(--acc-d);border-color:var(--acc)}
 .modal-item{padding:9px 12px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:10px}
 .modal-item:hover{background:var(--sur3);border-color:var(--b2)}
 .modal-item.sel{border-color:var(--acc);background:var(--acc-d)}
@@ -610,15 +685,40 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .ctx-field-row{display:flex;align-items:center;gap:8px;padding:6px 4px;border-radius:5px;transition:.1s}
 .ctx-field-row:hover{background:var(--b1)}
 .ctx-field-icon{width:20px;height:20px;border-radius:4px;background:var(--b1);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--t2);flex-shrink:0;font-family:'DM Sans',sans-serif}
-.ctx-field-name{flex:1;font-size:12px;color:var(--t1);min-width:0}
+.ctx-field-name{flex:1;font-size:12px;color:var(--t1);min-width:0;border-radius:4px;padding:1px 3px;margin:-1px -3px;transition:.12s}
+.ctx-field-name[onclick]:hover{background:var(--acc-d);color:var(--acc)}
 .ctx-field-badge{font-size:9px;font-weight:600;padding:2px 8px;border-radius:10px;flex-shrink:0}
 .ctx-field-badge.in-use{background:#fce4ec;color:#e84393}
 .ctx-field-badge.unused{color:var(--t3);font-weight:400;font-style:italic}
 .ctx-field-add{font-size:10px;color:var(--acc);cursor:pointer;padding:2px 4px 4px;margin-top:-2px}
 .ctx-field-add:hover{text-decoration:underline}
+.ctx-field-remove{font-size:13px;color:var(--t3);cursor:pointer;padding:0 2px;margin-left:2px;line-height:1;border-radius:3px;opacity:0;transition:.15s}
+.ctx-field-row:hover .ctx-field-remove{opacity:1}
+.ctx-field-remove:hover{color:#e84393;background:rgba(232,67,147,.1)}
 .ctx-fields-footer{margin-top:6px;padding-top:6px;border-top:1px solid var(--b1)}
+.ctx-fields-section{margin-top:6px;padding-top:6px;border-top:1px solid var(--b1)}
+.ctx-fields-section-head{display:flex;align-items:center;justify-content:space-between;padding:4px 4px;font-size:10px;color:var(--t3);cursor:pointer;border-radius:5px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.3px}
+.ctx-fields-section-head:hover{background:var(--b1);color:var(--t2)}
+.ctx-fields-section-head .ctx-expand-chevron{font-size:9px;display:inline-block;transition:transform .2s;transform:rotate(0deg)}
+.ctx-fields-section-head .ctx-expand-chevron.open{transform:rotate(90deg)}
+.ctx-fields-section-body{display:none;padding-top:2px}
+.ctx-fields-section-body.open{display:block}
+.ctx-action-row{display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:5px;transition:.1s;cursor:pointer}
+.ctx-action-row:hover{background:var(--b1)}
+.ctx-action-icon{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+.ctx-action-icon.item-action{background:var(--acc-d);color:var(--acc)}
+.ctx-action-icon.ctx-action{background:rgba(76,175,80,.1);color:var(--grn)}
+.ctx-action-label{flex:1;font-size:11px;color:var(--t2)}
+.ctx-action-scope{font-size:8px;color:var(--t3);font-family:'DM Mono',monospace;padding:1px 5px;border-radius:3px;background:var(--b1);flex-shrink:0}
+.ctx-meta-row{display:flex;align-items:center;gap:8px;padding:5px 4px;border-radius:5px;transition:.1s}
+.ctx-meta-row:hover{background:var(--b1)}
+.ctx-meta-icon{width:20px;height:20px;border-radius:4px;background:rgba(255,193,7,.1);display:flex;align-items:center;justify-content:center;font-size:10px;color:#f59e0b;flex-shrink:0;font-family:'DM Mono',monospace;font-weight:700}
+.ctx-meta-label{flex:1;font-size:11px;color:var(--t2)}
+.ctx-meta-type{font-size:9px;color:var(--t3);font-family:'DM Mono',monospace}
 .ctx-fields-system{display:flex;align-items:center;justify-content:space-between;padding:5px 4px;font-size:11px;color:var(--t2);cursor:pointer;border-radius:5px}
 .ctx-fields-system:hover{background:var(--b1)}
+.ctx-fields-system .ctx-expand-chevron{font-size:10px;display:inline-block;transition:transform .2s;transform:rotate(0deg)}
+.ctx-fields-system .ctx-expand-chevron.open{transform:rotate(90deg)}
 .ctx-fields-open{display:flex;align-items:center;gap:5px;padding:6px 4px;font-size:11px;color:var(--acc);cursor:pointer}
 .ctx-fields-open:hover{text-decoration:underline}
 
@@ -629,6 +729,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .ctx-settings-panel{animation:ctxSlideIn .18s ease}
 @keyframes ctxSlideIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
 @keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
 
 .ctx-back{display:flex;align-items:center;gap:6px;padding:10px 14px 8px;cursor:pointer;color:var(--t2);font-size:12px;
   border-bottom:1px solid var(--b1);transition:.12s;user-select:none}
@@ -667,8 +768,10 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
       <div class="pages-panel" id="pages-panel">
         <div class="pp-item active" onclick="selectPage(this,'Homepage')">📄 Home</div>
         <div class="pp-item" onclick="selectPage(this,'Items (List)')">📄 Items (List)</div>
+        <div class="pp-item" onclick="selectPage(this,'Repeater Usecases')">📄 Repeater Usecases</div>
+        <div class="pp-item" onclick="selectPage(this,'Multi-State Box')">◫ Multi-State Box</div>
         <div class="pp-group">Item Pages (Dynamic)</div>
-        <div class="pp-sub" onclick="selectPage(this,'Items (Item)')">📄 Items (Item)</div>
+        <div class="pp-sub" onclick="selectPage(this,'Product Item')">🛒 Product Item</div>
         <div class="pp-manage">Manage Pages</div>
       </div>
     </div>
@@ -684,13 +787,12 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
     <div class="tb-tool">↩</div>
     <div class="tb-tool">↪</div>
     <div class="sep"></div>
-    <div class="tb-tool">☐</div>
     <div class="tb-tool">▤</div>
     <div class="tb-tool">◫</div>
     <div class="sep"></div>
     <div class="tb-zoom">70%</div>
     <div class="sep"></div>
-    <div class="tb-url">
+    <div class="tb-url" style="margin-left:6px">
       <span>https://editorx.wixstudio.com/my-site-24</span>
       <span class="tb-url-link">Connect Domain</span>
     </div>
@@ -1199,15 +1301,262 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
       </div>
     </div>
 
-    <!-- ITEM DETAIL PAGE -->
-    <div class="item-detail-page" id="item-detail-page">
+    <!-- MULTI-STATE BOX PAGE -->
+    <div class="items-page" id="msb-page">
+      <div class="c-section" id="sec-msb" onclick="selEl(event,'sec-msb')" style="margin:16px;border-radius:10px">
+        <div class="ctx-pill" id="pill-sec-msb"></div>
+        <div style="padding:24px 24px 12px">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t1);margin-bottom:4px">Articles</div>
+          <div style="font-size:12px;color:var(--t3)">Multi-State Container driven by <b>itemsStatus</b> enum from CMS · Articles</div>
+        </div>
+        <div class="msb bound" id="msb-articles" onclick="selEl(event,'msb-articles')" style="margin:12px 24px 24px">
+          <div class="c-el-overlay" style="border-radius:12px"></div>
+          <div class="msb-header">
+            <span class="msb-icon">◫</span>
+            <span class="msb-label">Multi-State</span>
+            <span class="msb-binding">📚 Articles · itemsStatus</span>
+            <div class="msb-view-sel" id="msb-view-sel">
+              <button class="msb-view-btn" data-view="loading" onclick="switchMsbView(event,'loading')">Loading</button>
+              <button class="msb-view-btn" data-view="empty" onclick="switchMsbView(event,'empty')">Empty</button>
+              <button class="msb-view-btn active" data-view="hasItems" onclick="switchMsbView(event,'hasItems')">Has Items</button>
+            </div>
+          </div>
+          <div class="msb-body">
+            <!-- Unbound View (no Active State binding) -->
+            <div class="msb-view" id="msb-view-unbound">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;gap:10px">
+                <div style="font-size:36px;opacity:.3">◫</div>
+                <div style="font-size:14px;font-weight:600;color:var(--t2)">Which view should I show?</div>
+                <div style="font-size:12px;color:var(--t3);text-align:center;line-height:1.6;max-width:260px">Pick a data field that tells me what state we're in — and I'll show the right view automatically.</div>
+                <div style="margin-top:4px;padding:7px 16px;border:1px dashed var(--acc);border-radius:6px;font-size:12px;color:var(--acc);cursor:pointer" onclick="selEl(event,'msb-articles');S.tab='settings';renderRP()">Choose a field →</div>
+              </div>
+            </div>
+            <!-- Loading View -->
+            <div class="msb-view" id="msb-view-loading">
+              <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px 0;gap:12px">
+                <div style="width:32px;height:32px;border:3px solid var(--b2);border-top-color:var(--acc);border-radius:50%;animation:spin 1s linear infinite"></div>
+                <div class="c-el" id="el-msb-loading-text" onclick="selEl(event,'el-msb-loading-text')" style="cursor:pointer">
+                  <div class="c-el-overlay" style="border-radius:4px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                  <div style="font-size:14px;color:var(--t3)">Loading articles...</div>
+                </div>
+              </div>
+            </div>
+            <!-- Empty View -->
+            <div class="msb-view" id="msb-view-empty">
+              <div style="display:flex;flex-direction:column;align-items:center;gap:12px;padding:32px 0">
+                <div style="font-size:36px;opacity:.4">📭</div>
+                <div class="c-el" id="el-msb-empty-title" onclick="selEl(event,'el-msb-empty-title')" style="cursor:pointer">
+                  <div class="c-el-overlay" style="border-radius:4px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                  <div style="font-size:14px;color:var(--t3)">No articles yet</div>
+                </div>
+                <div class="c-el" id="el-msb-empty-btn" onclick="selEl(event,'el-msb-empty-btn')" style="cursor:pointer">
+                  <div class="c-el-overlay" style="border-radius:4px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Button</div><div class="el-bind-tag"></div></div>
+                  <div style="padding:8px 20px;background:var(--acc);color:#fff;border-radius:6px;font-size:12px;font-weight:500;display:inline-block">Create Article</div>
+                </div>
+              </div>
+            </div>
+            <!-- Has Items View -->
+            <div class="msb-view active" id="msb-view-hasItems">
+              <div class="c-repeater bound" id="repeater-msb-items" onclick="selEl(event,'repeater-msb-items')" style="border-radius:6px">
+                <div class="ctx-pill rep-pill" id="pill-repeater-msb-items"></div>
+                <div class="c-el-overlay"></div>
+                <div class="rep-header">
+                  <span class="rep-icon">↻</span>
+                  <span class="rep-label">Repeater</span>
+                  <span class="rep-count" id="rep-count-msb-items">📚 items · 3 items</span>
+                  <div class="rep-bind-btn" onclick="openDd(event,'repeater-msb-items','Items')" title="Connect to list">
+                    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
+                      <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+                    </svg>
+                  </div>
+                </div>
+                <div style="display:flex;flex-direction:column;gap:8px;padding:8px">
+                  <div class="rep-item" id="rep-msb-item-1" onclick="selEl(event,'rep-msb-item-1')" style="padding:10px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative;display:flex;gap:12px;align-items:flex-start">
+                    <div class="c-el-overlay"></div>
+                    <div class="c-el bound" id="el-msb-item-thumb-1" onclick="selEl(event,'el-msb-item-thumb-1')" style="cursor:pointer;flex-shrink:0">
+                      <div class="c-el-overlay" style="border-radius:6px"></div>
+                      <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag">📚 Articles · thumbnail</div></div>
+                      <div style="width:56px;height:56px;border-radius:6px;background:var(--b1);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--t3)">🖼</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:0">
+                      <div class="c-el bound" id="el-msb-item-title-1" onclick="selEl(event,'el-msb-item-title-1')" style="cursor:pointer">
+                        <div class="c-el-overlay" style="border-radius:4px"></div>
+                        <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · title</div></div>
+                        <div style="font-size:14px;font-weight:600;color:var(--t1)">Getting Started with AI Tools</div>
+                      </div>
+                      <div class="c-el bound" id="el-msb-item-author-1" onclick="selEl(event,'el-msb-item-author-1')" style="cursor:pointer">
+                        <div class="c-el-overlay" style="border-radius:4px"></div>
+                        <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · author</div></div>
+                        <div style="font-size:11px;color:var(--t3)">Jane Doe</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="rep-item" id="rep-msb-item-2" onclick="selEl(event,'rep-msb-item-2')" style="padding:10px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative;display:flex;gap:12px;align-items:flex-start">
+                    <div class="c-el-overlay"></div>
+                    <div class="c-el bound" id="el-msb-item-thumb-2" onclick="selEl(event,'el-msb-item-thumb-2')" style="cursor:pointer;flex-shrink:0">
+                      <div class="c-el-overlay" style="border-radius:6px"></div>
+                      <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag">📚 Articles · thumbnail</div></div>
+                      <div style="width:56px;height:56px;border-radius:6px;background:var(--b1);display:flex;align-items:center;justify-content:center;font-size:20px;color:var(--t3)">🖼</div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:3px;flex:1;min-width:0">
+                      <div class="c-el bound" id="el-msb-item-title-2" onclick="selEl(event,'el-msb-item-title-2')" style="cursor:pointer">
+                        <div class="c-el-overlay" style="border-radius:4px"></div>
+                        <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · title</div></div>
+                        <div style="font-size:14px;font-weight:600;color:var(--t1)">Design Systems at Scale</div>
+                      </div>
+                      <div class="c-el bound" id="el-msb-item-author-2" onclick="selEl(event,'el-msb-item-author-2')" style="cursor:pointer">
+                        <div class="c-el-overlay" style="border-radius:4px"></div>
+                        <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · author</div></div>
+                        <div style="font-size:11px;color:var(--t3)">John Smith</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- REPEATER USECASES PAGE -->
+    <div class="items-page" id="repeater-usecases-page">
+
+      <!-- Section 1: Articles List Repeater -->
+      <div class="c-section" id="sec-ruc-articles" onclick="selEl(event,'sec-ruc-articles')" style="margin:16px;border-radius:10px">
+        <div class="ctx-pill" id="pill-sec-ruc-articles"></div>
+        <div style="padding:24px 24px 8px">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t1);margin-bottom:4px">Latest Articles</div>
+          <div style="font-size:12px;color:var(--t3);margin-bottom:12px">Repeater iterates over the articles list</div>
+        </div>
+        <div class="c-repeater bound" id="repeater-ruc-articles" onclick="selEl(event,'repeater-ruc-articles')" style="margin:0 24px 24px;border-radius:6px">
+          <div class="ctx-pill rep-pill" id="pill-repeater-ruc-articles"></div>
+          <div class="c-el-overlay"></div>
+          <div class="rep-header">
+            <span class="rep-icon">↻</span>
+            <span class="rep-label">Repeater</span>
+            <span class="rep-count" id="rep-count-ruc-articles">3 items</span>
+            <div class="rep-bind-btn" onclick="openDd(event,'repeater-ruc-articles','Items')" title="Connect to list">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
+                <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:8px;padding:8px">
+            <div class="rep-item" id="rep-ruc-art-1" onclick="selEl(event,'rep-ruc-art-1')" style="padding:12px 16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative">
+              <div class="c-el-overlay"></div>
+              <div class="c-el bound" id="el-ruc-art-title-1" onclick="selEl(event,'el-ruc-art-title-1')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · title</div></div>
+                <div style="font-weight:600;font-size:14px;color:var(--t1)">Getting Started with AI Tools</div>
+              </div>
+              <div class="c-el bound" id="el-ruc-art-author-1" onclick="selEl(event,'el-ruc-art-author-1')" style="cursor:pointer;margin-top:4px">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · author</div></div>
+                <div style="font-size:12px;color:var(--t3)">Jane Doe</div>
+              </div>
+            </div>
+            <div class="rep-item" id="rep-ruc-art-2" onclick="selEl(event,'rep-ruc-art-2')" style="padding:12px 16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative">
+              <div class="c-el-overlay"></div>
+              <div class="c-el bound" id="el-ruc-art-title-2" onclick="selEl(event,'el-ruc-art-title-2')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · title</div></div>
+                <div style="font-weight:600;font-size:14px;color:var(--t1)">Design Systems at Scale</div>
+              </div>
+              <div class="c-el bound" id="el-ruc-art-author-2" onclick="selEl(event,'el-ruc-art-author-2')" style="cursor:pointer;margin-top:4px">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · author</div></div>
+                <div style="font-size:12px;color:var(--t3)">John Smith</div>
+              </div>
+            </div>
+            <div class="rep-item" id="rep-ruc-art-3" onclick="selEl(event,'rep-ruc-art-3')" style="padding:12px 16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative">
+              <div class="c-el-overlay"></div>
+              <div class="c-el bound" id="el-ruc-art-title-3" onclick="selEl(event,'el-ruc-art-title-3')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · title</div></div>
+                <div style="font-weight:600;font-size:14px;color:var(--t1)">UX Trends for 2025</div>
+              </div>
+              <div class="c-el bound" id="el-ruc-art-author-3" onclick="selEl(event,'el-ruc-art-author-3')" style="cursor:pointer;margin-top:4px">
+                <div class="c-el-overlay" style="border-radius:4px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · author</div></div>
+                <div style="font-size:12px;color:var(--t3)">Alex Rivera</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 2: Tags Repeater (nested array) -->
+      <div class="c-section" id="sec-ruc-tags" onclick="selEl(event,'sec-ruc-tags')" style="margin:16px;border-radius:10px">
+        <div class="ctx-pill" id="pill-sec-ruc-tags"></div>
+        <div style="padding:24px 24px 8px">
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t1);margin-bottom:4px">Article Tags</div>
+          <div style="font-size:12px;color:var(--t3);margin-bottom:12px">Repeater iterates over the <b>tags</b> nested array field</div>
+        </div>
+        <div class="c-repeater bound" id="repeater-ruc-tags" onclick="selEl(event,'repeater-ruc-tags')" style="margin:0 24px 24px;border-radius:6px">
+          <div class="ctx-pill rep-pill" id="pill-repeater-ruc-tags"></div>
+          <div class="c-el-overlay"></div>
+          <div class="rep-header">
+            <span class="rep-icon">↻</span>
+            <span class="rep-label">Repeater</span>
+            <span class="rep-count" id="rep-count-ruc-tags">4 items</span>
+            <div class="rep-bind-btn" onclick="openDd(event,'repeater-ruc-tags','Items')" title="Connect to list">
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
+                <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+              </svg>
+            </div>
+          </div>
+          <div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 16px">
+            <div class="rep-item" id="rep-ruc-tag-1" onclick="selEl(event,'rep-ruc-tag-1')" style="cursor:pointer;position:relative">
+              <div class="c-el-overlay" style="border-radius:20px"></div>
+              <div class="c-el bound" id="el-ruc-tag-val-1" onclick="selEl(event,'el-ruc-tag-val-1')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:20px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags · tag value</div></div>
+                <div style="padding:4px 14px;background:var(--acc-d);color:var(--acc);border-radius:20px;font-size:12px;font-weight:500">Tech</div>
+              </div>
+            </div>
+            <div class="rep-item" id="rep-ruc-tag-2" onclick="selEl(event,'rep-ruc-tag-2')" style="cursor:pointer;position:relative">
+              <div class="c-el-overlay" style="border-radius:20px"></div>
+              <div class="c-el bound" id="el-ruc-tag-val-2" onclick="selEl(event,'el-ruc-tag-val-2')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:20px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags · tag value</div></div>
+                <div style="padding:4px 14px;background:var(--acc-d);color:var(--acc);border-radius:20px;font-size:12px;font-weight:500">AI</div>
+              </div>
+            </div>
+            <div class="rep-item" id="rep-ruc-tag-3" onclick="selEl(event,'rep-ruc-tag-3')" style="cursor:pointer;position:relative">
+              <div class="c-el-overlay" style="border-radius:20px"></div>
+              <div class="c-el bound" id="el-ruc-tag-val-3" onclick="selEl(event,'el-ruc-tag-val-3')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:20px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags · tag value</div></div>
+                <div style="padding:4px 14px;background:var(--acc-d);color:var(--acc);border-radius:20px;font-size:12px;font-weight:500">Design</div>
+              </div>
+            </div>
+            <div class="rep-item" id="rep-ruc-tag-4" onclick="selEl(event,'rep-ruc-tag-4')" style="cursor:pointer;position:relative">
+              <div class="c-el-overlay" style="border-radius:20px"></div>
+              <div class="c-el bound" id="el-ruc-tag-val-4" onclick="selEl(event,'el-ruc-tag-val-4')" style="cursor:pointer">
+                <div class="c-el-overlay" style="border-radius:20px"></div>
+                <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags · tag value</div></div>
+                <div style="padding:4px 14px;background:var(--acc-d);color:var(--acc);border-radius:20px;font-size:12px;font-weight:500">UX</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ITEMS RELATIONSHIP CONCEPT PAGE -->
+    <div class="item-detail-page" id="item-relationship-page">
       <div class="item-ctrl">
         <span class="item-ctrl-site">Weather Merch</span>
         <span class="item-ctrl-nav">AB</span>
         <div class="item-ctrl-sep"></div>
         <span class="item-ctrl-drag">⋮⋮</span>
         <div class="item-ctrl-select">
-          <span class="item-ctrl-select-name" id="item-ctrl-name">Sunny Day Tee</span>
+          <span class="item-ctrl-select-name" id="item-rel-ctrl-name">Sunny Day Tee</span>
           <span class="item-ctrl-count">4 items ˅</span>
         </div>
         <span class="item-ctrl-edit">Edit item</span>
@@ -1217,30 +1566,29 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
         </div>
       </div>
 
-      <div class="c-page has-ctx" id="page-item-detail" onclick="selEl(event,'page-item-detail')">
-        <div class="ctx-pill" id="pill-page-item-detail"></div>
-        <div class="c-page-label">Page</div>
+      <div class="c-page has-ctx" id="page-rel-detail" onclick="selEl(event,'page-rel-detail')">
+        <div class="ctx-pill" id="pill-page-rel-detail"></div>
 
-        <div class="c-section has-ctx" id="sec-item-detail" onclick="selEl(event,'sec-item-detail')">
-          <div class="ctx-pill" id="pill-sec-item-detail"></div>
+        <div class="c-section has-ctx" id="sec-rel-product" onclick="selEl(event,'sec-rel-product')">
+          <div class="ctx-pill" id="pill-sec-rel-product"></div>
 
           <div class="item-detail-body">
-          <div class="c-el bound" id="el-detail-title" onclick="selEl(event,'el-detail-title')" style="cursor:pointer;display:inline-block">
+          <div class="c-el bound" id="el-rel-title" onclick="selEl(event,'el-rel-title')" style="cursor:pointer;display:inline-block">
             <div class="c-el-overlay" style="border-radius:4px"></div>
-            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">🛍 Stores · Products · name</div></div>
-            <div class="item-detail-title" id="v-el-detail-title">Sunny Day Tee</div>
+            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">🛍 Stores · Current Item · name</div></div>
+            <div class="item-detail-title" id="v-el-rel-title">Sunny Day Tee</div>
           </div>
-          <div class="c-el bound" id="el-detail-desc" onclick="selEl(event,'el-detail-desc')" style="cursor:pointer">
+          <div class="c-el bound" id="el-rel-desc" onclick="selEl(event,'el-rel-desc')" style="cursor:pointer">
             <div class="c-el-overlay" style="border-radius:4px"></div>
-            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">🛍 Stores · Products · description</div></div>
-              <div class="item-detail-desc" id="v-el-detail-desc">Classic cotton tee featuring our iconic sun logo. Perfect for warm weather days. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.</div>
+            <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">🛍 Stores · Current Item · description</div></div>
+              <div class="item-detail-desc" id="v-el-rel-desc">Classic cotton tee featuring our iconic sun logo. Perfect for warm weather days.</div>
             </div>
           </div>
 
-        <div class="c-el item-detail-hero bound" id="el-detail-img" onclick="selEl(event,'el-detail-img')">
+        <div class="c-el item-detail-hero bound" id="el-rel-img" onclick="selEl(event,'el-rel-img')">
           <div class="c-el-overlay"></div>
-          <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag">🛍 Stores · Products · image</div></div>
-            <svg id="detail-img-svg" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag">🛍 Stores · Current Item · image</div></div>
+            <svg viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
               <rect width="120" height="120" fill="#1a1a2e"/>
               <path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/>
               <circle cx="60" cy="62" r="10" fill="#FFD700" opacity=".8"/>
@@ -1249,56 +1597,56 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
           </div>
         </div>
 
-        <div class="c-section has-ctx" id="sec-related-items" onclick="selEl(event,'sec-related-items')">
-          <div class="ctx-pill" id="pill-sec-related-items"></div>
+        <div class="c-section has-ctx" id="sec-rel-locations" onclick="selEl(event,'sec-rel-locations')">
+          <div class="ctx-pill" id="pill-sec-rel-locations"></div>
           <div class="detail-related-section">
-            <div class="c-el" id="el-related-title" onclick="selEl(event,'el-related-title')" style="cursor:pointer;display:inline-block">
+            <div class="c-el" id="el-rel-loc-title" onclick="selEl(event,'el-rel-loc-title')" style="cursor:pointer;display:inline-block">
               <div class="c-el-overlay" style="border-radius:4px"></div>
               <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
-              <div class="detail-related-title" id="v-el-related-title">Related Articles</div>
+              <div class="detail-related-title" id="v-el-rel-loc-title">Available in these stores</div>
             </div>
-            <div class="c-repeater bound" id="repeater-related" onclick="selEl(event,'repeater-related')" style="border-radius:6px">
-              <div class="ctx-pill rep-pill" id="pill-repeater-related"></div>
+            <div class="c-repeater bound" id="repeater-rel-locations" onclick="selEl(event,'repeater-rel-locations')" style="border-radius:6px">
+              <div class="ctx-pill rep-pill" id="pill-repeater-rel-locations"></div>
               <div class="c-el-overlay"></div>
               <div class="rep-header">
                 <span class="rep-icon">↻</span>
                 <span class="rep-label">Repeater</span>
-                <span class="rep-count" id="rep-count-related">📚 articles · 3 items</span>
-                <div class="rep-bind-btn" onclick="openDd(event,'repeater-related','Items')" title="Connect to list">
+                <span class="rep-count" id="rep-count-rel-locations">📍 locations · 3 items</span>
+                <div class="rep-bind-btn" onclick="openDd(event,'repeater-rel-locations','Items')" title="Connect to list">
                   <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
                     <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
                   </svg>
                 </div>
               </div>
               <div class="detail-related-grid">
-                <div class="detail-related-card rep-item" id="rep-related-1" onclick="selEl(event,'rep-related-1')">
+                <div class="detail-related-card rep-item" id="rep-rel-loc-1" onclick="selEl(event,'rep-rel-loc-1')">
                   <div class="c-el-overlay"></div>
-                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#87CEEB,#4682B4)">
-                    <svg viewBox="0 0 120 120" fill="none"><circle cx="55" cy="50" r="18" fill="#FFD700" opacity=".9"/><path d="M30 75 Q45 60 60 75 Q75 60 90 75" stroke="#fff" stroke-width="3" fill="none" opacity=".6"/><circle cx="40" cy="40" r="12" fill="#fff" opacity=".5"/><circle cx="50" cy="35" r="14" fill="#fff" opacity=".6"/></svg>
+                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#10b981,#059669)">
+                    <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="45" r="16" stroke="#fff" stroke-width="3" fill="none"/><circle cx="60" cy="45" r="5" fill="#fff"/><path d="M60 61 L60 90" stroke="#fff" stroke-width="3"/><path d="M40 95 L80 95" stroke="#fff" stroke-width="2" opacity=".5"/></svg>
                   </div>
                   <div class="detail-related-info">
-                    <div class="detail-related-name">How to Prepare for a Heat Wave</div>
-                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Weather · 5 min read</div>
+                    <div class="detail-related-name">Dizengoff Center</div>
+                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Tel Aviv · In Stock</div>
                   </div>
                 </div>
-                <div class="detail-related-card rep-item" id="rep-related-2" onclick="selEl(event,'rep-related-2')">
+                <div class="detail-related-card rep-item" id="rep-rel-loc-2" onclick="selEl(event,'rep-rel-loc-2')">
                   <div class="c-el-overlay"></div>
-                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#2c3e50,#34495e)">
-                    <svg viewBox="0 0 120 120" fill="none"><path d="M30 45 L40 65 L35 65 L45 85 L40 85 L55 110 L50 85 L55 85 L45 65 L50 65 Z" fill="#FFD700" opacity=".9"/><circle cx="75" cy="40" r="16" fill="#555" opacity=".5"/><circle cx="65" cy="35" r="14" fill="#666" opacity=".4"/></svg>
+                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#6366f1,#4f46e5)">
+                    <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="45" r="16" stroke="#fff" stroke-width="3" fill="none"/><circle cx="60" cy="45" r="5" fill="#fff"/><path d="M60 61 L60 90" stroke="#fff" stroke-width="3"/><path d="M40 95 L80 95" stroke="#fff" stroke-width="2" opacity=".5"/></svg>
                   </div>
                   <div class="detail-related-info">
-                    <div class="detail-related-name">Understanding Thunderstorms</div>
-                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Science · 8 min read</div>
+                    <div class="detail-related-name">Azrieli Mall</div>
+                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Tel Aviv · In Stock</div>
                   </div>
                 </div>
-                <div class="detail-related-card rep-item" id="rep-related-3" onclick="selEl(event,'rep-related-3')">
+                <div class="detail-related-card rep-item" id="rep-rel-loc-3" onclick="selEl(event,'rep-rel-loc-3')">
                   <div class="c-el-overlay"></div>
-                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#b0c4de,#778899)">
-                    <svg viewBox="0 0 120 120" fill="none"><circle cx="40" cy="55" r="14" fill="#fff" opacity=".7"/><circle cx="55" cy="50" r="16" fill="#fff" opacity=".8"/><circle cx="65" cy="55" r="12" fill="#fff" opacity=".6"/><path d="M35 70 L35 90 M45 70 L45 85 M55 70 L55 92 M65 70 L65 88 M75 68 L75 82" stroke="#6495ED" stroke-width="2" opacity=".5"/></svg>
+                  <div class="detail-related-thumb" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+                    <svg viewBox="0 0 120 120" fill="none"><circle cx="60" cy="45" r="16" stroke="#fff" stroke-width="3" fill="none"/><circle cx="60" cy="45" r="5" fill="#fff"/><path d="M60 61 L60 90" stroke="#fff" stroke-width="3"/><path d="M40 95 L80 95" stroke="#fff" stroke-width="2" opacity=".5"/></svg>
                   </div>
                   <div class="detail-related-info">
-                    <div class="detail-related-name">Rainy Season Survival Guide</div>
-                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Tips · 4 min read</div>
+                    <div class="detail-related-name">Grand Canyon Haifa</div>
+                    <div class="detail-related-price" style="color:var(--t3);font-size:10px">Haifa · Low Stock</div>
                   </div>
                 </div>
               </div>
@@ -1307,6 +1655,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
         </div>
       </div>
     </div>
+
   </div>
 
   <!-- RIGHT PANEL -->
@@ -1322,7 +1671,6 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
     <span class="dd-x" onclick="closeDd()">✕</span>
   </div>
   <div id="dd-body"></div>
-</div>
 </div>
 
 <div class="modal-overlay" id="modal"  onclick="if(event.target===this)closeModalSafe()">
@@ -1350,7 +1698,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 <script>
 /* ── DATA ── */
 const CTX_DEFS = [
-  { id:'weather', name:'Weather App', icon:'☁️', type:'object', source:'Weather App',
+  { id:'weather', name:'Weather App', icon:'☁️', type:'object', source:'Weather App', group:'Apps',
     fields:[
       {name:'city',        type:'string',  sample:'"Tel Aviv"'},
       {name:'temperature', type:'number',  sample:'"24°C"'},
@@ -1361,14 +1709,34 @@ const CTX_DEFS = [
       {name:'isCold',              type:'boolean', sample:'false'},
       {name:'icon',        type:'image',   sample:'[img url]'},
     ],
+    contextActions:[
+      {name:'refresh',       label:'Refresh data',     icon:'⟳'},
+      {name:'switchUnits',   label:'Toggle °C / °F',   icon:'🌡'},
+    ],
+    metadata:[
+      {name:'lastUpdated',   label:'Last updated',     type:'dateTime', sample:'"2 min ago"'},
+      {name:'isStale',       label:'Is stale',         type:'boolean',  sample:'false'},
+      {name:'dataSource',    label:'Data source',       type:'string',   sample:'"OpenWeather API"'},
+    ],
     config:[
       {key:'location', label:'Location',  input:'select', options:['📍 Auto detect','✏️ Manual city']},
       {key:'units',    label:'Units',     input:'toggle', options:['°C','°F'], default:'°C'},
       {key:'refresh',  label:'Refresh',   input:'select', options:['On load only','Every 5 min','Every 15 min','Every 30 min']},
     ]},
-  { id:'cms-articles', name:'CMS · Articles', icon:'📚', type:'list', source:'CMS',
+  { id:'cms-articles', name:'CMS · Articles', icon:'📚', type:'list', source:'CMS', group:'CMS',
     fields:[
-      {name:'articles',    type:'array',   sample:'[{title, author, …}]'},
+      {name:'itemsStatus', type:'enum', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
+      {name:'items',       type:'array',   sample:'[{title, author, …}]', itemFields:[
+        {name:'title',       type:'string',  sample:'"Article Title"'},
+        {name:'author',      type:'string',  sample:'"Jane Doe"'},
+        {name:'publishedAt', type:'dateTime',sample:'"Jan 15, 2025"'},
+        {name:'category',    type:'string',  sample:'"Tech"'},
+        {name:'thumbnail',   type:'image',   sample:'[img url]'},
+        {name:'readTime',    type:'number',  sample:'"5 min"'},
+        {name:'tags',        type:'array',   sample:'["Tech","AI","Design"]', itemFields:[
+          {name:'tag value',  type:'string',  sample:'"Tech"'},
+        ]},
+      ]},
       {name:'title',       type:'string',  sample:'"Article Title"'},
       {name:'author',      type:'string',  sample:'"Jane Doe"'},
       {name:'publishedAt', type:'dateTime',sample:'"Jan 15, 2025"'},
@@ -1376,11 +1744,43 @@ const CTX_DEFS = [
       {name:'thumbnail',   type:'image',   sample:'[img url]'},
       {name:'readTime',    type:'number',  sample:'"5 min"'},
     ],
+    itemActions:[
+      {name:'navigateToItem', label:'Navigate to item page', icon:'→'},
+      {name:'openInEditor',   label:'Open in editor',        icon:'✎'},
+      {name:'shareItem',      label:'Share item',             icon:'↗'},
+    ],
+    contextActions:[
+      {name:'applyFilters',  label:'Apply filters',   icon:'▼'},
+      {name:'resetFilters',  label:'Reset filters',   icon:'↺'},
+      {name:'sort',          label:'Sort',             icon:'↕'},
+      {name:'loadMore',      label:'Load more',        icon:'⊕'},
+      {name:'refresh',       label:'Refresh data',     icon:'⟳'},
+    ],
+    metadata:[
+      {name:'totalCount',    label:'Total items',        type:'number',  sample:'42'},
+      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'12'},
+      {name:'currentPage',   label:'Current page',       type:'number',  sample:'1'},
+      {name:'hasNextPage',   label:'Has next page',      type:'boolean', sample:'true'},
+      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
+      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
+    ],
     config:[
       {key:'pageSize', label:'Page size', input:'select', options:['10','20','50']},
       {key:'randomSort', label:'Random sort', input:'toggle', options:['Off','On'], default:'Off'},
     ]},
-  { id:'stores', name:'Stores · Products', icon:'🛍', type:'list', source:'Wix Stores',
+  { id:'stores-current-item', name:'Stores · Current Item', icon:'🛍', type:'page', source:'Wix Stores', group:'Apps',
+    isDynamicPageCtx: true,
+    fields:[
+      {name:'name',        type:'string',  sample:'"Yoga Mat"'},
+      {name:'price',       type:'number',  sample:'"$49.99"'},
+      {name:'image',       type:'image',   sample:'[img url]'},
+      {name:'inStock',     type:'boolean', sample:'true'},
+      {name:'description', type:'string',  sample:'"Premium quality…"'},
+    ],
+    contextActions:[],
+    metadata:[],
+    config:[]},
+  { id:'stores', name:'Stores · Products', icon:'🛍', type:'list', source:'Wix Stores', group:'Apps',
     fields:[
       {name:'products',    type:'array',   sample:'[{name, price, …}]'},
       {name:'name',        type:'string',  sample:'"Yoga Mat"'},
@@ -1389,20 +1789,124 @@ const CTX_DEFS = [
       {name:'inStock',     type:'boolean', sample:'true'},
       {name:'description', type:'string',  sample:'"Premium quality…"'},
     ],
+    itemActions:[
+      {name:'navigateToItem', label:'Navigate to item page', icon:'→'},
+      {name:'openInEditor',   label:'Open in editor',        icon:'✎'},
+      {name:'shareItem',      label:'Share item',             icon:'↗'},
+    ],
+    contextActions:[
+      {name:'applyFilters',  label:'Apply filters',   icon:'▼'},
+      {name:'resetFilters',  label:'Reset filters',   icon:'↺'},
+      {name:'sort',          label:'Sort',             icon:'↕'},
+      {name:'loadMore',      label:'Load more',        icon:'⊕'},
+      {name:'refresh',       label:'Refresh data',     icon:'⟳'},
+    ],
+    metadata:[
+      {name:'totalCount',    label:'Total items',        type:'number',  sample:'42'},
+      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'12'},
+      {name:'currentPage',   label:'Current page',       type:'number',  sample:'1'},
+      {name:'hasNextPage',   label:'Has next page',      type:'boolean', sample:'true'},
+      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
+      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
+    ],
     config:[
       {key:'pageSize', label:'Page size', input:'select', options:['10','20','50','100']},
       {key:'currency', label:'Currency',  input:'select', options:['USD ($)','EUR (€)','GBP (£)','ILS (₪)']},
     ]},
-  { id:'system-identity', name:'Identity', icon:'👤', type:'object', source:'System',
+  { id:'stores-locations', name:'Stores · Locations', icon:'📍', type:'list', source:'Wix Stores', group:'Apps',
+    fields:[
+      {name:'locations',   type:'array',   sample:'[{storeName, address, …}]'},
+      {name:'storeName',   type:'string',  sample:'"Dizengoff Center"'},
+      {name:'address',     type:'string',  sample:'"50 Dizengoff St, Tel Aviv"'},
+      {name:'city',        type:'string',  sample:'"Tel Aviv"'},
+      {name:'phone',       type:'string',  sample:'"+972-3-555-1234"'},
+      {name:'openHours',   type:'string',  sample:'"9:00–21:00"'},
+      {name:'hasStock',    type:'boolean', sample:'true'},
+    ],
+    itemActions:[
+      {name:'navigateToItem', label:'Navigate to item page', icon:'→'},
+      {name:'openInEditor',   label:'Open in editor',        icon:'✎'},
+      {name:'shareItem',      label:'Share item',             icon:'↗'},
+    ],
+    contextActions:[
+      {name:'applyFilters',  label:'Apply filters',   icon:'▼'},
+      {name:'resetFilters',  label:'Reset filters',   icon:'↺'},
+      {name:'sort',          label:'Sort',             icon:'↕'},
+      {name:'loadMore',      label:'Load more',        icon:'⊕'},
+      {name:'refresh',       label:'Refresh data',     icon:'⟳'},
+    ],
+    metadata:[
+      {name:'totalCount',    label:'Total items',        type:'number',  sample:'42'},
+      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'12'},
+      {name:'currentPage',   label:'Current page',       type:'number',  sample:'1'},
+      {name:'hasNextPage',   label:'Has next page',      type:'boolean', sample:'true'},
+      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
+      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
+    ],
+    config:[
+      {key:'radius',   label:'Search radius', input:'select', options:['5 km','10 km','25 km','50 km']},
+      {key:'sortBy',   label:'Sort by',       input:'select', options:['Distance','Name','Availability']},
+    ]},
+  { id:'cms-categories', name:'CMS · Categories', icon:'🗂', type:'list', source:'CMS', group:'CMS',
+    fields:[
+      {name:'categories', type:'array', sample:'[{name, articles, …}]', itemFields:[
+        {name:'name',        type:'string', sample:'"Technology"'},
+        {name:'description', type:'string', sample:'"Latest tech news…"'},
+        {name:'icon',        type:'string', sample:'"💻"'},
+        {name:'articleCount',type:'number', sample:'"12"'},
+        {name:'articles',    type:'array',  sample:'[{title, author}]', itemFields:[
+          {name:'title',       type:'string',  sample:'"AI in 2026"'},
+          {name:'author',      type:'string',  sample:'"Sarah Chen"'},
+          {name:'readTime',    type:'number',  sample:'"5 min"'},
+          {name:'tags',        type:'array',   sample:'["Tech","AI"]', itemFields:[
+            {name:'tag value',  type:'string',  sample:'"Tech"'},
+          ]},
+        ]},
+      ]},
+      {name:'name',        type:'string', sample:'"Technology"'},
+      {name:'description', type:'string', sample:'"Latest tech news…"'},
+      {name:'icon',        type:'string', sample:'"💻"'},
+      {name:'articleCount',type:'number', sample:'"12"'},
+    ],
+    itemActions:[
+      {name:'navigateToItem', label:'Navigate to item page', icon:'→'},
+      {name:'openInEditor',   label:'Open in editor',        icon:'✎'},
+    ],
+    contextActions:[
+      {name:'applyFilters',  label:'Apply filters',   icon:'▼'},
+      {name:'resetFilters',  label:'Reset filters',   icon:'↺'},
+      {name:'sort',          label:'Sort',             icon:'↕'},
+      {name:'loadMore',      label:'Load more',        icon:'⊕'},
+      {name:'refresh',       label:'Refresh data',     icon:'⟳'},
+    ],
+    metadata:[
+      {name:'totalCount',    label:'Total items',        type:'number',  sample:'8'},
+      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'8'},
+      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
+      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'0'},
+    ],
+    config:[
+      {key:'sortBy', label:'Sort by', input:'select', options:['Name','Article count','Recent activity']},
+    ]},
+  { id:'system-identity', name:'Identity', icon:'👤', type:'object', source:'System', group:'System',
     fields:[
       {name:'memberName',  type:'string',  sample:'"John Smith"'},
       {name:'email',       type:'string',  sample:'"john@example.com"'},
       {name:'isLoggedIn',  type:'boolean', sample:'true'},
     ],
+    contextActions:[
+      {name:'login',     label:'Prompt login',   icon:'🔑'},
+      {name:'logout',    label:'Log out',         icon:'🚪'},
+      {name:'signup',    label:'Prompt signup',   icon:'✚'},
+    ],
+    metadata:[
+      {name:'loginStatus',  label:'Login status',    type:'string',  sample:'"authenticated"'},
+      {name:'role',          label:'Member role',     type:'string',  sample:'"admin"'},
+    ],
     config:[
       {key:'loginRedirect', label:'Login redirect', input:'select', options:['Stay on page','Go to dashboard','Go to home']},
     ]},
-  { id:'custom-countdown', name:'UpcomingClassCountdown', icon:'</>', type:'object', source:'Custom Code',
+  { id:'custom-countdown', name:'UpcomingClassCountdown', icon:'</>', type:'object', source:'Custom Code', group:'Custom',
     customCode: true,
     fields:[
       {name:'className',     type:'string',  sample:'"Morning Yoga"'},
@@ -1412,37 +1916,184 @@ const CTX_DEFS = [
       {name:'instructor',    type:'string',  sample:'"Dana L."'},
       {name:'spotsLeft',     type:'number',  sample:'"3"'},
     ],
+    contextActions:[
+      {name:'refresh',   label:'Refresh data',   icon:'⟳'},
+      {name:'bookClass', label:'Book this class', icon:'📅'},
+    ],
+    metadata:[
+      {name:'lastUpdated',    label:'Last updated',     type:'dateTime', sample:'"Just now"'},
+      {name:'isUrgent',       label:'Is urgent',        type:'boolean',  sample:'true'},
+      {name:'dataSource',     label:'Data source',      type:'string',   sample:'"Wix Bookings"'},
+    ],
     config:[
       {key:'classSource', label:'Class source', input:'select', options:['Wix Bookings','Manual schedule','External API']},
       {key:'urgencyThreshold', label:'Urgency at', input:'select', options:['30 min before','1 hour before','2 hours before']},
     ]},
 ];
 
-const FN_DEFS = [
-  { id:'fn-format-date', name:'formatDate()', icon:'</>', type:'function', source:'Custom',
-    fields:[
-      {name:'formatted', type:'string', sample:'"Feb 22, 2026"'},
+const FN_LIBS = [
+  { id:'lib-formatting', name:'Formatting', icon:'🔤', description:'Date, number & text formatting',
+    functions:[
+      {name:'formatDate()',   type:'string',  sample:'"Feb 22, 2026"',  description:'Formats a date value'},
+      {name:'formatCurrency()', type:'string', sample:'"$49.99"',       description:'Formats a number as currency'},
+      {name:'capitalize()',   type:'string',  sample:'"Hello World"',   description:'Capitalizes text'},
+      {name:'truncate()',     type:'string',  sample:'"Lorem ipsum…"',  description:'Truncates text to length'},
     ]},
-  { id:'fn-calc-discount', name:'calcDiscount()', icon:'</>', type:'function', source:'Custom',
-    fields:[
-      {name:'discountedPrice', type:'number', sample:'"$39.99"'},
-      {name:'savings',         type:'number', sample:'"$10.00"'},
-      {name:'percentage',      type:'string', sample:'"20%"'},
+  { id:'lib-commerce', name:'Commerce', icon:'🛒', description:'Pricing, stock & cart utilities',
+    functions:[
+      {name:'calcDiscount()', type:'number', sample:'"$39.99"',   description:'Calculates discounted price'},
+      {name:'getSavings()',   type:'number', sample:'"$10.00"',   description:'Returns amount saved'},
+      {name:'getStockStatus()', type:'string', sample:'"In Stock"', description:'Returns stock label'},
+      {name:'isInStock()',    type:'boolean', sample:'true',       description:'Checks stock availability'},
     ]},
-  { id:'fn-get-greeting', name:'getGreeting()', icon:'</>', type:'function', source:'Custom',
-    fields:[
-      {name:'message', type:'string', sample:'"Good morning!"'},
+  { id:'lib-utils', name:'Utils', icon:'⚙️', description:'General purpose helpers',
+    functions:[
+      {name:'getGreeting()',  type:'string',  sample:'"Good morning!"', description:'Time-based greeting'},
+      {name:'getTimeAgo()',   type:'string',  sample:'"2 hours ago"',   description:'Relative time string'},
+      {name:'generateId()',   type:'string',  sample:'"abc123"',        description:'Generates unique ID'},
     ]},
-  { id:'fn-stock-status', name:'getStockStatus()', icon:'</>', type:'function', source:'Custom',
-    fields:[
-      {name:'inStock',    type:'boolean', sample:'true'},
-      {name:'quantity',   type:'number',  sample:'"42"'},
-      {name:'label',      type:'string',  sample:'"In Stock"'},
+  { id:'lib-validation', name:'Validation', icon:'✅', description:'Input & data validation',
+    functions:[
+      {name:'isEmail()',      type:'boolean', sample:'true',            description:'Validates email format'},
+      {name:'isRequired()',   type:'boolean', sample:'false',           description:'Checks if value exists'},
+      {name:'minLength()',    type:'boolean', sample:'true',            description:'Checks minimum length'},
     ]},
 ];
 
+const FN_DEFS = FN_LIBS.flatMap(lib =>
+  lib.functions.map((fn, i) => ({
+    id: lib.id + '-' + i,
+    name: fn.name,
+    icon: '</>',
+    type: 'function',
+    source: lib.name,
+    libId: lib.id,
+    fields: [{ name: fn.name.replace('()',''), type: fn.type, sample: fn.sample }],
+  }))
+);
+
 function findSource(id) {
-  return CTX_DEFS.find(c => c.id === id) || S.ctxInstanceDefs.find(c => c.id === id) || FN_DEFS.find(f => f.id === id) || null;
+  return CTX_DEFS.find(c => c.id === id) || S.ctxInstanceDefs.find(c => c.id === id) || FN_DEFS.find(f => f.id === id) || findFnLib(id) || null;
+}
+
+function getScopedFields(ctxId, elId) {
+  const def = EL_DEFS[elId];
+  if (!def) return null;
+
+  const scopedRepId = def.scopedTo;
+  if (!scopedRepId) return null;
+
+  const repDef = EL_DEFS[scopedRepId];
+  if (!repDef || !repDef.isNestedRepeater) return null;
+
+  const binding = S.bindings[scopedRepId + '|Items'];
+  if (!binding) return null;
+
+  const ctx = findSource(binding.ctxId);
+  if (!ctx) return null;
+
+  const scopePath = binding.scope;
+  if (!scopePath) return null;
+
+  const parts = scopePath.split('.');
+  let currentFields = ctx.fields;
+  for (const part of parts) {
+    const arrayField = currentFields.find(f => f.name === part && f.type === 'array');
+    if (!arrayField || !arrayField.itemFields) return null;
+    currentFields = arrayField.itemFields;
+  }
+
+  const boundField = currentFields.find(f => f.name === binding.fieldName && f.type === 'array');
+  if (boundField && boundField.itemFields) {
+    return { fields: boundField.itemFields, scope: scopePath + '.' + binding.fieldName, ctxId: binding.ctxId };
+  }
+
+  return null;
+}
+
+function findArrayFieldDeep(fields, fieldName) {
+  const direct = fields.find(f => f.name === fieldName && f.type === 'array');
+  if (direct) return { field: direct, path: [fieldName] };
+  for (const f of fields) {
+    if (f.type === 'array' && f.itemFields) {
+      const nested = findArrayFieldDeep(f.itemFields, fieldName);
+      if (nested) return { field: nested.field, path: [f.name, ...nested.path] };
+    }
+  }
+  return null;
+}
+
+function getElementScope(elId) {
+  const def = EL_DEFS[elId];
+  if (!def) return null;
+
+  if (def.scopedTo) {
+    const scoped = getScopedFields(null, elId);
+    if (scoped) return scoped;
+  }
+
+  const repDef = def.isNestedRepeater ? def : null;
+  if (repDef && repDef.parentRepeater) {
+    const parentBinding = S.bindings[repDef.parentRepeater + '|Items'];
+    if (parentBinding && parentBinding.scope) {
+      const ctx = findSource(parentBinding.ctxId);
+      if (!ctx) return null;
+      const parts = parentBinding.scope.split('.');
+      let fields = ctx.fields;
+      for (const part of parts) {
+        const af = fields.find(f => f.name === part && f.type === 'array');
+        if (!af || !af.itemFields) return null;
+        fields = af.itemFields;
+      }
+      return { fields, scope: parentBinding.scope, ctxId: parentBinding.ctxId };
+    }
+  }
+
+  if (def.repTemplate) {
+    const sectionId = def.section;
+    const repeaterId = Object.keys(EL_DEFS).find(id => {
+      const d = EL_DEFS[id];
+      return d.isRepeater && d.section === sectionId;
+    });
+    if (repeaterId) {
+      const binding = S.bindings[repeaterId + '|Items'];
+      if (binding) {
+        const ctx = findSource(binding.ctxId);
+        if (ctx) {
+          const result = findArrayFieldDeep(ctx.fields, binding.fieldName);
+          if (result && result.field.itemFields) {
+            return {
+              fields: result.field.itemFields,
+              scope: result.path.join(' › '),
+              ctxId: binding.ctxId,
+              boundFieldName: binding.fieldName,
+              ctxName: ctx.name
+            };
+          }
+        }
+      }
+    }
+  }
+
+  return null;
+}
+
+function findFnLib(id) {
+  const lib = FN_LIBS.find(l => l.id === id);
+  if (!lib) return null;
+  return {
+    id: lib.id,
+    name: lib.name,
+    icon: lib.icon,
+    type: 'library',
+    source: 'Functions',
+    fields: lib.functions.map(fn => ({
+      name: fn.name,
+      type: fn.type,
+      sample: fn.sample,
+      description: fn.description
+    }))
+  };
 }
 
 const IMG_PLACEHOLDER = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCADhAOEDASIAAhEBAxEB/8QAHAABAAMAAwEBAAAAAAAAAAAAAAYHCAMEBQEC/8QAPRAAAQMCAwYACwYFBQAAAAAAAAECAwQFBhExBxIhQVFhCBMUIjJCYnGBkaEVUnKxwdEjQ4KS4TVTVZTw/8QAGAEBAQEBAQAAAAAAAAAAAAAAAAECAwT/xAAbEQEBAQEBAQEBAAAAAAAAAAAAARECEjFRQf/aAAwDAQACEQMRAD8AzuAD2vIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD4qoiKqqiImqqTrCeyfG+I4G1NPa0oaVyZtmr3LCjk6o3JXqnfdyUt3YdsoprLSQYixJStmu8qJJT00rc20beSqi6ydV9XROOalxGL1+NTlnGPwd78sKOfiS1tly4sbDIrc/wAXD8iM4l2M46skDqhlDBdYW8VW3yLI9E67iojl+CKa0BPVXzGCHNcx7mParXscrXNVMlaqcFRU5KfDWW2HZhb8Z0MlfQRxUl/ibnFOibrajL+XL17O1TumaGUqunnpKqakqoXwVEL1jljemTmORclRe6Kbl1mzHEACoAAAAAAAAAAAAAAAAAAAAAAAAAAAWJ4PeG4sQ7RaeSqjSSktjPLJGqmaOe1USNF/qVHf0ldl8+CJHH47E8v8xG0rU9yrMv6ITr4s+r/ABxdAAADNnhT4bjoMS0WJKaNGR3NixVCInDx0aJk73uYqf2GkyovCsjjds8oZHZb7LpHufGOVFNc/Wb8ZkAB1YAAAAAAAAAAAAAAAAAAAAAAAAAAALb8Fq9RW/HdVaZnI1t0pd2PNdZY1VyJ8WrJ8ipDnt1ZVW64U9woZnQVVNK2WGRurXNXNF+hLNI3iCI7LsdW7HNgbWQKyG4Qoja2k3uMT+qdWLyX4LxRSXHJ0AARQoPwtL1ErbLhyN6LKjnV0yIvopkrGZ+/OT5FxY1xPasI2Ce8XebdiYmUUTVTxk78uDGJzVfkmq5IhjbF1/r8T4jrL5cVTx9U/e3Grm2NqcGsb2RERO+vM3zP6z1XlAA6MAAAAAAAAAAAAAAAAAAAAAAAAAAAAADvWG8XOw3SK6Wetmo6yL0ZI11RdWqi8HNXmi5oXdhPwhEbC2DFVke6RMkWpt6pk7usb1TL4OX3IUGCWSkuNWs25bPHR7zq+vY7L0FoZM/miZfUjOJvCFtsUL48N2OpqZ9GzVypHGnfdaqud7s2+8zwCeYvqvZxfie94suv2lfa11TKiK2NiJuxwtX1WNTgifVckzVTxgDSAAAAAAAAAAAAAAAABy0lPPV1UVLSwyT1Ez0ZHFG1XOe5dERE1U5bTbq67XGG3Wylkqqud27HFGnFV/RE5qvBDTeyjZvQ4NpUrKtY6y9ysylnRM2QourI8+XV2q9k4EtxZNQzBGwxjqdlXi6slbI7JfIqR6Ju9nyZLmvZvzUmS7HNnqxbiWadHf7nl8+98t/L6E/Bz9VvIoHH2xGooaWSvwpVTVzWIrn0U+XjcvYciIjl9lUReiqvAptzXNe5j2ua5qq1zXJkqKnBUVOSm4ir9r+y2nxK2W9WJkVNekTOSPg1lX7+j+juei8lTU6/Wbz+M2A5aunqKSqlpauCSCohcrJIpGq1zHJqiouhxG2QAAAAAAAAAAAAAAAAAAAAAAAAAAD0sM2K6YjvENptFMs9TLx6Njamr3r6rU6/BM1VEO3gjCt2xfeW221RcEydPUPRfFwM+85fyTVfmqamwJhG04Ps6W+2R70j8lqKl6J4yd3VV5J0TRPmq5vWLJro7NMB2vBVt3Id2puUzU8qrHNyV/stT1WJ056qS4A5262AAigAAgW1jZxRYypFrKRY6S9xMyinVPNlRNGSZcujtU7pwMyXe219ouU9tudLJS1cDt2SJ6ZKnfui6oqcFNsES2lYDteNbZ4ufKmuMLV8lrGtzcz2XJ6zF6fFMlN89YzZrJIPTxPYbphu8S2q70zoKiPii6skbyex3rNXr8FyVFQ8w6MAAAAAAAAAAAAAAAAAAAAAASrZxge641uiwUiLT0MKp5VWObm2P2U+89U0T4rkh6GyvZ1cMZ1flMyvpLNE/Kapy86RU1ZHnqvVdE7rwNO2S1W+y2uG2WqljpaSBuUcbPqqrqqrqqrxUz11iya62FMPWrDFnitVopkhgZxc5eL5Xc3vXmq/4TJOB6oBzbAARQAAAAAAAEfx1hG0Yws60FzjVr25rT1DETxkDurV6dU0X5KmWsb4Uu+ELy63XWLzXZrT1DE/hzs+81evVq8U+SrsU8rFWH7ViazSWq70yTQP4tcnB8buT2Lycn+FzTga56xmzWMQS3aTgS64KuSR1GdTbpnL5LWNbk1/su+69OnPVOeUSOrAAAAB7eDsNVuJbl5PT5x08eS1E6pwjT9XLyQDq2KyXS+VXk9spHzuT03aMYnVzl4J+fQmtLsnuL4kWqvFLC/Li2OJ0iJ8VVPyLNstrorPbo6C3wpFDH83Lzc5ear1O6YvTWKTvmza/2+FZqVYblG30khzSRE67q6/BVXsQxyK1ytcitci5KipkqL0NPkLx7gWlvrX19vRlNc8s1XRk/Z3Rfa+efJOv1LFJg566kqaCrkpKyB8E8S5PY9MlRf8A3M4DaAAAAADbtDS01DRw0dFTx09NCxGRRRt3WsamiIhzAHB1AAAAAAAAAAAAAAAAdS8W2gvFsnttzpY6qknbuyRPTgvfqipqipxRdDMm1bZxXYNqlrKZZKuyyuyjnVM3QqujJMufR2i9l4GpjirKanrKSWkq4I6inmYrJYpGo5r2rwVFRdUNS4lmsQgs7a/sunww6W82RslRZFXORnFz6T3r6zPa5c+qwrCGHa3ElzSkpf4cTMnTzqmbY2/qq8k/TNTprnj7hDDddiS5eTU38OFmSzzqmbY2/qq8kL5sdqorNbY7fb4kjhj/ALnrzc5eaqfLFaaGy22O32+LxcLOKqvFz3c3OXmqneMW61JgACKAADwcY4Wt+JaPcqE8TVMblDUtTzmdl+83t8sij8RWS42C4LRXGHcdxWORvFkjerV5/mnM0cdC+2igvdvfQ3GBJYncWro5jvvNXkpZcSxm4EjxrhG4YaqN5+dRQvdlFUtbw/C7o76Ly6JHDoyAADcYAODqAAAAAAAAAAAAAAAAAAD49rXtVj2o5rkyVFTNFTopD6jCdBZaZ/2FRR01Kr3SSQxpoqrmqp27ck04aTEFRXgJJfbLv71TRN8/V8ac+6d+xGyoAAAAAAAA4qqngq6aSmqYWTQyN3XsembXJ3Qp7H+Ap7P4y42lJKi3ek+P0nwfu3vqnPqXMCy4ljL2adUBpD7Bsf8Aw1u/6zP2Br0mLUABydAAAAAAAAAAAAAAAAAAAAAAPGvlmbVZ1FMiNn1c3k/9lPZBUV69rmOVr2q1yLkqKmSofCYXq0x1zVljyZUInBeTuy/uRKaKSGV0UrFY9q5KilR+AAAAAAAAAABYYAMtAAAAAAAAAAAAAAAAAAAAAAAAB0bvbYrhFxyZM1PMfl9F7HeAEBqqealndDOxWvT690OInNyoYa+DxcqZOT0Hpq1SHV9HPRTrFM38Lk0cnY0y64AAAAAAALDABloAAAAAAAAAAAAAAAAAAAAAAAAAAA4a2lhrIFhnbm1dF5tXqhzACEXS3z0E27Im9GvoSInB3+ex0yf1MEVRC6KZiPY7VFIheLXLQSbyZvgcvmv6dl7lR54AKgAALDABloAAAAAAAAAAAAAAAAAAAAAAAAAAAAADpXz/AEip/AoBRCQAVkAAH//Z";
@@ -1506,18 +2157,63 @@ const EL_DEFS = {
   'el-item-btn-2':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
   'el-item-btn-3':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
   'el-item-btn-4':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
-  // Item Detail page
-  'page-item-detail':{name:'Page · Item Detail', type:'Page', isPage:true, page:'item-detail', props:[]},
-  'sec-item-detail':{name:'Section · Item Content', type:'Section', isContainer:true, page:'item-detail', parentPage:'page-item-detail', props:[]},
-  'el-detail-title':{name:'Item Title',  type:'Text',  section:'sec-item-detail', props:[{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}]},
-  'el-detail-desc': {name:'Item Description',type:'Text',section:'sec-item-detail', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'el-detail-img':  {name:'Item Image',  type:'Image', section:'sec-item-detail', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
-  'sec-related-items':{name:'Section · Related Articles', type:'Section', isContainer:true, page:'item-detail', parentPage:'page-item-detail', props:[]},
-  'el-related-title':{name:'Section Title', type:'Text', section:'sec-related-items', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-related':{name:'Repeater',    type:'Repeater',section:'sec-related-items', isRepeater:true, props:[{k:'Items',t:'list'}]},
-  'rep-related-1':  {name:'Article 1',    type:'RepItem', section:'sec-related-items', isRepItem:true, props:[]},
-  'rep-related-2':  {name:'Article 2',    type:'RepItem', section:'sec-related-items', isRepItem:true, props:[]},
-  'rep-related-3':  {name:'Article 3',    type:'RepItem', section:'sec-related-items', isRepItem:true, props:[]},
+  'page-rel-detail':{name:'Page · Product Item', type:'Page', isPage:true, page:'item-relationship', props:[]},
+  'sec-rel-product':{name:'Section · Product Info', type:'Section', isContainer:true, page:'item-relationship', parentPage:'page-rel-detail', props:[]},
+  'el-rel-title':   {name:'Item Title',       type:'Text',  section:'sec-rel-product', props:[{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}]},
+  'el-rel-desc':    {name:'Item Description', type:'Text',  section:'sec-rel-product', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-rel-img':     {name:'Item Image',       type:'Image', section:'sec-rel-product', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
+  'sec-rel-locations':{name:'Section · Store Locations', type:'Section', isContainer:true, page:'item-relationship', parentPage:'page-rel-detail', props:[]},
+  'el-rel-loc-title':{name:'Section Title',   type:'Text',  section:'sec-rel-locations', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'repeater-rel-locations':{name:'Repeater',   type:'Repeater', section:'sec-rel-locations', isRepeater:true, props:[{k:'Items',t:'list'}]},
+  'rep-rel-loc-1':  {name:'Location 1',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
+  'rep-rel-loc-2':  {name:'Location 2',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
+  'rep-rel-loc-3':  {name:'Location 3',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
+  // Multi-State Box page
+  'sec-msb':           {name:'Section · Articles', type:'Section', isContainer:true, page:'msb-demo', props:[]},
+  'msb-articles':      {name:'Multi-State Container', type:'MultiStateBox', section:'sec-msb', isMultiState:true,
+    stateBinding: {ctxId:'cms-articles', fieldName:'itemsStatus'},
+    views: [
+      {id:'loading',  name:'Loading',   enumValues:['loading']},
+      {id:'empty',    name:'Empty',     enumValues:['empty']},
+      {id:'hasItems', name:'Has Items', enumValues:['hasItems']},
+    ],
+    activeView:'hasItems',
+    props:[{k:'Active State',t:'enum'}]},
+  'el-msb-loading-text':  {name:'Loading Text',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'loading',  props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-empty-title':   {name:'Empty Title',     type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-empty-btn':     {name:'Browse Button',   type:'Button', section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'}]},
+  'repeater-msb-items':   {name:'Repeater',         type:'Repeater', section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', isRepeater:true, props:[{k:'Items',t:'list'}]},
+  'rep-msb-item-1':       {name:'Article 1',        type:'RepItem', section:'sec-msb', isRepItem:true, props:[]},
+  'rep-msb-item-2':       {name:'Article 2',        type:'RepItem', section:'sec-msb', isRepItem:true, props:[]},
+  'el-msb-item-title-1':  {name:'Article Title',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-item-title-2':  {name:'Article Title',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-item-author-1': {name:'Article Author',   type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-item-author-2': {name:'Article Author',   type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-msb-item-thumb-1':  {name:'Thumbnail',        type:'Image',  section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-thumb', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
+  'el-msb-item-thumb-2':  {name:'Thumbnail',        type:'Image',  section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-thumb', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
+  // Repeater Usecases page
+  'sec-ruc-articles':    {name:'Section · Articles List', type:'Section', isContainer:true, page:'repeater-usecases', props:[]},
+  'repeater-ruc-articles':{name:'Repeater',     type:'Repeater', section:'sec-ruc-articles', isRepeater:true, props:[{k:'Items',t:'list'}]},
+  'rep-ruc-art-1':  {name:'Article 1',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
+  'rep-ruc-art-2':  {name:'Article 2',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
+  'rep-ruc-art-3':  {name:'Article 3',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
+  'el-ruc-art-title-1':  {name:'Article Title', type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-art-title-2':  {name:'Article Title', type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-art-title-3':  {name:'Article Title', type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-art-author-1': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-art-author-2': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-art-author-3': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'sec-ruc-tags':        {name:'Section · Article Tags', type:'Section', isContainer:true, page:'repeater-usecases', props:[]},
+  'repeater-ruc-tags':   {name:'Repeater',      type:'Repeater', section:'sec-ruc-tags', isRepeater:true, props:[{k:'Items',t:'list'}]},
+  'rep-ruc-tag-1':  {name:'Tag 1',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
+  'rep-ruc-tag-2':  {name:'Tag 2',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
+  'rep-ruc-tag-3':  {name:'Tag 3',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
+  'rep-ruc-tag-4':  {name:'Tag 4',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
+  'el-ruc-tag-val-1':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-tag-val-2':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-tag-val-3':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-ruc-tag-val-4':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+
 };
 
 const S = {
@@ -1528,24 +2224,53 @@ const S = {
     'sec-weather':  ['weather'],
     'sec-articles': [],
     'sec-items':       [],
-    'page-item-detail': ['stores'],
-    'sec-item-detail': ['stores'],
-    'sec-related-items': ['cms-articles'],
+    'page-rel-detail': ['stores-current-item'],
+    'sec-rel-product': ['stores-current-item'],
+    'sec-rel-locations': ['stores-current-item', 'stores-locations'],
+    'sec-msb':          ['cms-articles'],
+    'sec-ruc-articles': ['cms-articles'],
+    'sec-ruc-tags':     ['cms-articles'],
   },
   primaryCtx: {
-    'page-item-detail': ['stores'],
+    'page-rel-detail': ['stores-current-item'],
+    'sec-rel-product': ['stores-current-item'],
+    'sec-rel-locations': ['stores-current-item'],
   },
   ctxAliases: {},  // {sectionId: {ctxId: aliasName}}
-  ctxInstanceDefs: [],  // runtime copies of CTX_DEFS for duplicated instances
-  ctxInstanceMeta: {},  // {instanceId: {originId, settingsModified}}
+  removedInherited: {},  // {sectionId: [ctxId, ...]} — tracks inherited contexts removed by user
+  ctxRelationships: {
+    'stores-locations': {linkedTo: 'stores-current-item', label: 'Filtered by current product', active: true},
+  },
+  ctxInstanceDefs: [],
+  ctxInstanceMeta: {},
   bindings: {
     'el-city|Value':      {ctxId:'weather',          fieldName:'city',        sample:'"Tel Aviv"'},
     'el-temp|Value':      {ctxId:'weather',          fieldName:'temperature', sample:'"24°C"'},
     'el-countdown|Value': {ctxId:'custom-countdown', fieldName:'timeLeft',    sample:'"20:45:11"'},
-    'el-detail-title|Value': {ctxId:'stores',        fieldName:'name',        sample:'"Sunny Day Tee"'},
-    'el-detail-desc|Value':  {ctxId:'stores',        fieldName:'description', sample:'"Classic cotton tee…"'},
-    'el-detail-img|Source':  {ctxId:'stores',        fieldName:'image',       sample:'[img url]'},
-    'repeater-related|Items':{ctxId:'cms-articles',   fieldName:'articles',    sample:'[{title, author, …}]'},
+    'el-rel-title|Value':    {ctxId:'stores-current-item', fieldName:'name',        sample:'"Sunny Day Tee"'},
+    'el-rel-desc|Value':     {ctxId:'stores-current-item', fieldName:'description', sample:'"Classic cotton tee…"'},
+    'el-rel-img|Source':     {ctxId:'stores-current-item', fieldName:'image',       sample:'[img url]'},
+    'repeater-rel-locations|Items':{ctxId:'stores-locations', fieldName:'locations', sample:'[{storeName, address, …}]'},
+    'msb-articles|Active State':    {ctxId:'cms-articles', fieldName:'itemsStatus', sample:'"hasItems"'},
+    'repeater-msb-items|Items':    {ctxId:'cms-articles', fieldName:'items', sample:'[{title, author, …}]'},
+    'el-msb-item-title-1|Value':   {ctxId:'cms-articles', fieldName:'title',     sample:'"Article Title"'},
+    'el-msb-item-title-2|Value':   {ctxId:'cms-articles', fieldName:'title',     sample:'"Article Title"'},
+    'el-msb-item-author-1|Value':  {ctxId:'cms-articles', fieldName:'author',    sample:'"Jane Doe"'},
+    'el-msb-item-author-2|Value':  {ctxId:'cms-articles', fieldName:'author',    sample:'"Jane Doe"'},
+    'el-msb-item-thumb-1|Source':  {ctxId:'cms-articles', fieldName:'thumbnail', sample:'[img url]'},
+    'el-msb-item-thumb-2|Source':  {ctxId:'cms-articles', fieldName:'thumbnail', sample:'[img url]'},
+    'repeater-ruc-articles|Items': {ctxId:'cms-articles',   fieldName:'items', sample:'[{title, author, …}]'},
+    'el-ruc-art-title-1|Value':    {ctxId:'cms-articles',   fieldName:'title',    sample:'"Article Title"'},
+    'el-ruc-art-title-2|Value':    {ctxId:'cms-articles',   fieldName:'title',    sample:'"Article Title"'},
+    'el-ruc-art-title-3|Value':    {ctxId:'cms-articles',   fieldName:'title',    sample:'"Article Title"'},
+    'el-ruc-art-author-1|Value':   {ctxId:'cms-articles',   fieldName:'author',   sample:'"Jane Doe"'},
+    'el-ruc-art-author-2|Value':   {ctxId:'cms-articles',   fieldName:'author',   sample:'"Jane Doe"'},
+    'el-ruc-art-author-3|Value':   {ctxId:'cms-articles',   fieldName:'author',   sample:'"Jane Doe"'},
+    'repeater-ruc-tags|Items':     {ctxId:'cms-articles',   fieldName:'tags',     sample:'["Tech","AI","Design"]'},
+    'el-ruc-tag-val-1|Value':      {ctxId:'cms-articles',   fieldName:'tag value', sample:'"Tech"'},
+    'el-ruc-tag-val-2|Value':      {ctxId:'cms-articles',   fieldName:'tag value', sample:'"Tech"'},
+    'el-ruc-tag-val-3|Value':      {ctxId:'cms-articles',   fieldName:'tag value', sample:'"Tech"'},
+    'el-ruc-tag-val-4|Value':      {ctxId:'cms-articles',   fieldName:'tag value', sample:'"Tech"'},
   },
   // static typed values per element+prop
   staticValues: {
@@ -1585,6 +2310,17 @@ function pillNavCtx(sectionId) {
   renderRP();
 }
 
+function navToPageCtx(pageId) {
+  S.sel = pageId;
+  S.ctxSettingsView = null;
+  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+  const n = document.getElementById(pageId);
+  if (n) n.classList.add('sel');
+  S.tab = 'context';
+  renderRP();
+  toast('Viewing page-level context');
+}
+
 function elPillNavDesign(elId) {
   event.stopPropagation();
   S.sel = elId;
@@ -1599,6 +2335,16 @@ function elPillNavDesign(elId) {
 function elPillNavCtx(elId) {
   event.stopPropagation();
   const def = EL_DEFS[elId];
+  if (def?.isRepeater) {
+    S.sel = elId;
+    S.ctxSettingsView = null;
+    document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+    const n = document.getElementById(elId);
+    if (n) n.classList.add('sel');
+    S.tab = 'settings';
+    renderRP();
+    return;
+  }
   const sectionId = def?.section || def?.parentPage || elId;
   S.sel = sectionId;
   S.ctxSettingsView = null;
@@ -1646,14 +2392,14 @@ function renderRP() {
   const def = EL_DEFS[S.sel];
   if (!def) return;
 
-  const tabs = def.isRepItem ? ['Settings'] : ['Design','Animations','Settings',...((def.isContainer || def.isPage) ? ['Context'] : [])];
+  const tabs = def.isRepItem ? ['Settings'] : def.isMultiState ? ['Design','Settings'] : ['Design','Animations','Settings',...((def.isContainer || def.isPage) ? ['Context'] : [])];
   // ensure S.tab is valid
   if (!tabs.map(t=>t.toLowerCase()).includes(S.tab)) S.tab = 'settings';
 
   rp.innerHTML = `
     <div class="rp-head">
       <div class="rp-el-name">${def.name}</div>
-      <div class="rp-el-type">${def.type}${def.repTemplate ? ' <span style="color:var(--acc);font-size:9px;font-family:\'DM Mono\',monospace;margin-left:4px">TEMPLATE</span>' : ''}</div>
+      <div class="rp-el-type">${def.type}${def.repTemplate ? ' <span style="color:var(--acc);font-size:9px;font-family:\'DM Mono\',monospace;margin-left:4px">TEMPLATE</span>' : ''}${def.msbView ? ` <span style="color:var(--acc);font-size:9px;font-family:'DM Mono',monospace;margin-left:4px">VIEW: ${def.msbView.toUpperCase()}</span>` : ''}</div>
     </div>
     <div class="rp-tabs">
       ${tabs.map(t=>`<div class="rp-tab ${S.tab===t.toLowerCase()?'active':''}" onclick="switchTab('${t.toLowerCase()}')">${t}</div>`).join('')}
@@ -1714,22 +2460,24 @@ function renderSettings() {
     const ctx = b ? findSource(b.ctxId) : null;
     const isActiveDd = S.dd.open && S.dd.elId === S.sel && S.dd.propKey === 'Items';
     return `<div class="ps"><div class="ps-lbl">Data Source</div>
-      <div class="prop-key" style="font-size:11px;color:var(--t2);margin-bottom:4px;padding:0 2px">Items</div>
-      <div class="prop-row ${b?'bound':''} ${isActiveDd?'active-bind':''}">
-        <div class="prop-main">
-          <div class="prop-val">
-            ${b && ctx
-              ? `<div style="display:flex;flex-direction:column;gap:3px;flex:1">
-                  <span style="font-size:10px;color:var(--t3);letter-spacing:.3px">${ctx.icon} ${ctx.name}</span>
-                  <span class="type-badge tb-list" style="font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;align-self:flex-start;width:fit-content">${b.fieldName}<span class="chip-x" onclick="unbind('${S.sel}','Items',event)" style="opacity:.6;cursor:pointer;font-size:10px">✕</span></span>
-                </div>`
-              : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to an array field →</span>`}
+      <div class="prop-wrap">
+        <div class="prop-key" style="font-size:11px;color:var(--t2);padding:0 2px">Items</div>
+        <div class="prop-row ${b?'bound':''} ${isActiveDd?'active-bind':''}">
+          <div class="prop-main">
+            <div class="prop-val">
+              ${b && ctx
+                ? `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
+                    <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+                    <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${S.sel}','Items',event)">✕</span></span>
+                  </div>`
+                : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to an array field →</span>`}
+            </div>
           </div>
-        </div>
-        <div class="bind-btn" onclick="openDd(event,'${S.sel}','Items')" title="Connect to array">
-          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-            <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
-          </svg>
+          <div class="bind-btn" onclick="openDd(event,'${S.sel}','Items')" title="Connect to array">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -1737,6 +2485,83 @@ function renderSettings() {
       <div class="tog-row"><span class="tog-lbl">Show dividers</span><div class="tog" onclick="this.classList.toggle('on')"></div></div>
       <div class="tog-row"><span class="tog-lbl">Alternate rows</span><div class="tog" onclick="this.classList.toggle('on')"></div></div>
     </div>`;
+  }
+  if (def.isMultiState) {
+    const bkey = S.sel + '|Active State';
+    const b = S.bindings[bkey];
+    const ctx = b ? findSource(b.ctxId) : null;
+    const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+    const enumVals = ctxField?.enumValues || [];
+    const views = def.views || [];
+    const activeView = def.activeView || views[0]?.id;
+    const isActiveDd = S.dd.open && S.dd.elId === S.sel && S.dd.propKey === 'Active State';
+    const advancedOn = def._advancedMapping;
+
+    const stateCards = views.map(v => {
+      const isActive = v.id === activeView;
+      const sharedCount = v.enumValues.length;
+      const disabled = sharedCount === 0;
+      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:.12s;${disabled ? 'opacity:.4;border:1px dashed var(--b2);background:none' : isActive ? 'background:var(--acc-d);border:1px solid var(--acc)' : 'background:var(--sur2);border:1px solid var(--b1)'}" onclick="switchMsbView(event,'${v.id}')">
+        <span style="font-size:10px;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t3)'}">◫</span>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:6px">
+            <span style="font-size:12px;font-weight:${isActive && !disabled ? '600' : '400'};color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t1)'}${disabled ? ';text-decoration:line-through' : ''}">${v.name}</span>
+            ${sharedCount > 1 ? '<span class="type-badge" style="font-size:8px;background:var(--yel);color:#000">joined</span>' : ''}
+            ${disabled ? '<span style="font-size:9px;color:var(--t3);font-family:\'DM Mono\',monospace">unused</span>' : ''}
+          </div>
+        </div>
+        ${isActive && !disabled ? '<span style="font-size:9px;color:var(--acc);font-family:\'DM Mono\',monospace">editing</span>' : ''}
+      </div>`;
+    }).join('');
+
+    const joinViewCards = advancedOn ? views.map(v => {
+      const disabled = v.enumValues.length === 0;
+      const availableToAdd = enumVals.filter(val => !v.enumValues.includes(val));
+      const chips = v.enumValues.map(val =>
+        `<span style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--acc-d);border:1px solid var(--acc);border-radius:10px;font-size:10px;color:var(--acc);font-family:'DM Mono',monospace">${val}${v.enumValues.length > 1 ? `<span style="cursor:pointer;opacity:.6;margin-left:2px" onclick="msbUnassign(event,'${v.id}','${val}')">✕</span>` : ''}</span>`
+      ).join('');
+      return `<div style="padding:6px 8px;border:1px ${disabled ? 'dashed var(--b2)' : 'solid var(--b1)'};border-radius:6px;background:${disabled ? 'none' : 'var(--sur2)'};${disabled ? 'opacity:.45' : ''}">
+        <div style="font-size:11px;font-weight:500;color:${disabled ? 'var(--t3)' : 'var(--t1)'};margin-bottom:4px;display:flex;align-items:center;gap:6px">◫ ${v.name} ${disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace">unused — design preserved</span>' : ''}</div>
+        <div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${chips}${availableToAdd.length && !disabled ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border:1px dashed var(--b2);border-radius:10px;font-size:10px;color:var(--t3);cursor:pointer;position:relative" onclick="msbShowAssign(event,'${v.id}')">+ add</span>` : ''}${disabled ? `<span style="display:inline-flex;align-items:center;gap:2px;padding:2px 8px;border:1px dashed var(--b2);border-radius:10px;font-size:10px;color:var(--t3);cursor:pointer" onclick="msbShowAssign(event,'${v.id}')">+ restore</span>` : ''}</div>
+      </div>`;
+    }).join('') : '';
+
+    return `<div class="ps"><div class="ps-lbl">Active State</div>
+      <div class="prop-wrap">
+        <div class="prop-key" style="font-size:11px;color:var(--t2);padding:0 2px">Active State</div>
+        <div class="prop-row ${b?'bound':''} ${isActiveDd?'active-bind':''}">
+          <div class="prop-main">
+            <div class="prop-val">
+              ${b && ctx
+                ? `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
+                    <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+                    <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${S.sel}','Active State',event)">✕</span></span>
+                  </div>`
+                : `<span style="font-size:11px;color:var(--t3);font-style:italic">Connect to an enum field →</span>`}
+            </div>
+          </div>
+          <div class="bind-btn" onclick="openDd(event,'${S.sel}','Active State')" title="Connect to context enum">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+              <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+    </div>
+    ${b && enumVals.length ? `<div class="ps"><div class="ps-lbl">States</div>
+      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:0 0 6px">Click to switch view on canvas.</div>
+      <div style="display:flex;flex-direction:column;gap:4px">
+        ${stateCards}
+      </div>
+    </div>
+    <div class="ps"><div class="ps-lbl" style="display:flex;align-items:center;justify-content:space-between">
+      Join States
+      <div class="tog ${advancedOn?'on':''}" onclick="toggleMsbAdvanced(event)"></div>
+    </div>
+      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 ${advancedOn ? '6' : '0'}px">Some states look the same? Group them into one view.</div>
+      ${advancedOn ? `<div style="display:flex;flex-direction:column;gap:6px">${joinViewCards}</div>
+      ${views.length < enumVals.length ? `<div style="text-align:center;padding:6px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer;text-decoration:underline" onclick="msbResetJoins(event)">Reset — undo all joins</span></div>` : ''}` : ''}
+    </div>` : ''}`;
   }
   if (def.isRepItem) {
     const idx = parseInt(S.sel.split('-').pop());
@@ -1801,22 +2626,24 @@ function renderPropRow(elId, prop) {
     return renderImgPropRow(elId, prop.k, isBound, isActiveDd, ctx, b);
   }
 
-  return `<div class="prop-row ${isBound?'bound':''} ${isActiveDd?'active-bind':''}" id="pr-${elId}-${prop.k.replace(/\s/g,'_')}">
-    <div class="prop-main">
-      <div class="prop-key">${prop.k}</div>
-      <div class="prop-val">
-        <input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
-               oninput="onStaticInput('${elId}','${prop.k}',this.value)">
-        ${isBound && ctx ? `<div style="display:flex;flex-direction:column;gap:3px;flex:1" class="prop-bound-chip">
-          <span style="font-size:10px;color:var(--t3);letter-spacing:.3px">${ctx.icon} ${ctx.name}</span>
-          <span class="type-badge tb-list" style="font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;align-self:flex-start;width:fit-content">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)" style="opacity:.6;cursor:pointer;font-size:10px">✕</span></span>
-        </div>` : `<span class="prop-bound-chip"><span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>`}
+  return `<div class="prop-wrap" id="pr-${elId}-${prop.k.replace(/\s/g,'_')}">
+    <div class="prop-key">${prop.k}</div>
+    <div class="prop-row ${isBound?'bound':''} ${isActiveDd?'active-bind':''}">
+      <div class="prop-main">
+        <div class="prop-val">
+          <input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
+                 oninput="onStaticInput('${elId}','${prop.k}',this.value)">
+          ${isBound && ctx ? `<div class="prop-bound-chip prop-bound-detail">
+            <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+            <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>
+          </div>` : `<span class="prop-bound-chip"><span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>`}
+        </div>
       </div>
-    </div>
-    <div class="bind-btn" onclick="openDd(event,'${elId}','${prop.k}')" title="Connect to context">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
-      </svg>
+      <div class="bind-btn" onclick="openDd(event,'${elId}','${prop.k}')" title="Connect to context">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+          <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+        </svg>
+      </div>
     </div>
   </div>`;
 }
@@ -1830,36 +2657,40 @@ function renderVisibleProp(elId, prop) {
   const isActiveDd = S.dd.open && S.dd.elId === elId && S.dd.propKey === 'Visible';
 
   if (b && ctx) {
-    return `<div class="prop-row bound ${isActiveDd?'active-bind':''}" style="background:var(--grn-d)">
-      <div class="prop-main">
-        <div class="prop-key">Render condition</div>
-        <div class="prop-val">
-          <div style="display:flex;flex-direction:column;gap:3px;flex:1" class="prop-bound-chip">
-            <span style="font-size:10px;color:var(--t3);letter-spacing:.3px">${ctx.icon} ${ctx.name}</span>
-            <span class="type-badge tb-list" style="font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;align-self:flex-start;width:fit-content">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','Visible',event)" style="opacity:.6;cursor:pointer;font-size:10px">✕</span></span>
+    return `<div class="prop-wrap">
+      <div class="prop-key">Render condition</div>
+      <div class="prop-row bound ${isActiveDd?'active-bind':''}" style="background:var(--grn-d)">
+        <div class="prop-main">
+          <div class="prop-val">
+            <div class="prop-bound-chip prop-bound-detail" style="display:flex">
+              <span class="prop-bound-ctx">${ctx.icon} ${ctx.name}</span>
+              <span class="prop-bound-field">${b.fieldName}<span class="chip-x" onclick="unbind('${elId}','Visible',event)">✕</span></span>
+            </div>
           </div>
         </div>
+        <div class="bind-btn" onclick="openDd(event,'${elId}','Visible')" title="Change binding">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+            <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+          </svg>
+        </div>
       </div>
-      <div class="bind-btn" onclick="openDd(event,'${elId}','Visible')" title="Change binding">
+    </div>`;
+  }
+  return `<div class="prop-wrap">
+    <div class="prop-key">Render condition</div>
+    <div class="prop-row ${isActiveDd?'active-bind':''}">
+      <div class="prop-main">
+        <div class="prop-val">
+          <span style="font-size:11px;color:var(--t3);font-family:'DM Mono',monospace;font-style:italic">
+            Connect to a boolean field →
+          </span>
+        </div>
+      </div>
+      <div class="bind-btn" onclick="openDd(event,'${elId}','Visible')" title="Connect boolean">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
           <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
         </svg>
       </div>
-    </div>`;
-  }
-  return `<div class="prop-row ${isActiveDd?'active-bind':''}">
-    <div class="prop-main">
-      <div class="prop-key">Render condition</div>
-      <div class="prop-val">
-        <span style="font-size:11px;color:var(--t3);font-family:'DM Mono',monospace;font-style:italic">
-          Connect to a boolean field →
-        </span>
-      </div>
-    </div>
-    <div class="bind-btn" onclick="openDd(event,'${elId}','Visible')" title="Connect boolean">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
-        <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
-      </svg>
     </div>
   </div>`;
 }
@@ -1909,6 +2740,8 @@ function unbind(elId, propKey, e) {
   applyBindingToCanvas(elId, propKey, null);
   toast('Binding removed');
   updatePropRowDOM(elId, propKey);
+  const def = EL_DEFS[elId];
+  if (def?.isMultiState) { refreshMsbState(); renderBody(); }
 }
 
 /* ── CONTEXT TAB ── */
@@ -2003,9 +2836,15 @@ function getCtxPillText(sectionId) {
   const def = EL_DEFS[sectionId];
   if (!def) return '';
   const label = def.isPage ? 'Page' : 'Section';
-  const first = findSource(ids[0]);
+  let displayIds = ids;
+  if (!def.isPage && def.parentPage) {
+    displayIds = ids.filter(id => !isPrimaryCtx(id, sectionId));
+  }
+  if (displayIds.length === 0) return '';
+  const first = findSource(displayIds[0]);
   if (!first) return '';
-  const ctxLabel = first.icon + ' ' + first.name + (ids.length > 1 ? ' +' + (ids.length - 1) : '');
+  const firstName = getCtxDisplayName(displayIds[0], sectionId);
+  const ctxLabel = first.icon + ' ' + firstName + (displayIds.length > 1 ? ' +' + (displayIds.length - 1) : '');
   return `<span class="ctx-pill-sec" onclick="event.stopPropagation();pillNavDesign('${sectionId}')">${label}</span><span class="ctx-pill-sep"></span><span class="ctx-pill-ctx" onclick="event.stopPropagation();pillNavCtx('${sectionId}')">${ctxLabel}</span>`;
 }
 
@@ -2014,10 +2853,10 @@ function refreshAllPills() {
     const sec = document.getElementById(secId);
     if (!sec) return;
     const pill = document.getElementById('pill-' + secId);
-    const ids = S.ctxMap[secId] || [];
-    if (ids.length > 0) {
+    const pillText = getCtxPillText(secId);
+    if (pillText) {
       sec.classList.add('has-ctx');
-      if (pill) pill.innerHTML = getCtxPillText(secId);
+      if (pill) pill.innerHTML = pillText;
     } else {
       sec.classList.remove('has-ctx');
       if (pill) pill.innerHTML = '';
@@ -2166,24 +3005,71 @@ function getFieldsInUseCount(ctxId, sectionId, fields) {
 }
 
 function renderCtxFields(c, sectionId) {
-  const systemFields = ['_id','_createdDate','_updatedDate','_owner'];
+  const systemFields = ['_id','_createdDate','_updatedDate','_owner','_slug'];
+
   const rows = c.fields.map(f => {
     const used = isFieldInUse(c.id, f.name, sectionId);
     const hoverAttr = used ? `onmouseenter="highlightFieldEls('${c.id}','${f.name}','${sectionId}')" onmouseleave="clearHighlightEls()"` : '';
     return `<div class="ctx-field-row" ${hoverAttr}>
       <div class="ctx-field-icon">${getFieldTypeIcon(f.type)}</div>
-      <div class="ctx-field-name">${f.name}</div>
+      <div class="ctx-field-name" ${used ? '' : `style="cursor:pointer" onclick="event.stopPropagation();addFieldElement('${c.id}','${f.name}')" title="Click to add ${f.name} element"`}>${f.name}</div>
       ${used
-        ? '<span class="ctx-field-badge in-use">In use</span>'
+        ? `<span class="ctx-field-badge in-use">In use</span><span class="ctx-field-remove" onclick="event.stopPropagation();removeFieldElement('${c.id}','${f.name}','${sectionId}')" title="Remove element">×</span>`
         : `<span class="ctx-field-add" onclick="event.stopPropagation();addFieldElement('${c.id}','${f.name}')">+ Add</span>`}
     </div>`;
   }).join('');
+
+  const isList = c.type === 'list';
+
+  const renderBindableRow = (name, icon, label, type, scope, ctxId, sectionId) => {
+    const used = isFieldInUse(ctxId, name, sectionId);
+    const hoverAttr = used ? `onmouseenter="highlightFieldEls('${ctxId}','${name}','${sectionId}')" onmouseleave="clearHighlightEls()"` : '';
+    return `<div class="ctx-field-row" ${hoverAttr}>
+      <div class="ctx-field-icon" ${type === 'action' ? 'style="background:var(--acc-d);color:var(--acc);font-size:12px"' : ''}>${icon}</div>
+      <div class="ctx-field-name" ${used ? '' : `style="cursor:pointer" onclick="event.stopPropagation();addFieldElement('${ctxId}','${name}')" title="Click to add element"`}>${label}</div>
+      ${scope ? `<span class="ctx-action-scope">${scope}</span>` : ''}
+      ${used
+        ? `<span class="ctx-field-badge in-use">In use</span><span class="ctx-field-remove" onclick="event.stopPropagation();removeFieldElement('${ctxId}','${name}','${sectionId}')" title="Remove element">×</span>`
+        : `<span class="ctx-field-add" onclick="event.stopPropagation();addFieldElement('${ctxId}','${name}')">+ Add</span>`}
+    </div>`;
+  };
+
+  const itemActionsHtml = (isList && c.itemActions) ? `<div class="ctx-fields-section">
+    <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
+      <span>Item actions</span><span class="ctx-expand-chevron">›</span>
+    </div>
+    <div class="ctx-fields-section-body">
+      ${c.itemActions.map(a => renderBindableRow(a.name, a.icon, a.label, 'action', 'per item', c.id, sectionId)).join('')}
+    </div>
+  </div>` : '';
+
+  const ctxActionsHtml = c.contextActions ? `<div class="ctx-fields-section">
+    <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
+      <span>${isList ? 'Context actions' : 'Actions'}</span><span class="ctx-expand-chevron">›</span>
+    </div>
+    <div class="ctx-fields-section-body">
+      ${c.contextActions.map(a => renderBindableRow(a.name, a.icon, a.label, 'action', isList ? 'collection' : '', c.id, sectionId)).join('')}
+    </div>
+  </div>` : '';
+
+  const metadataHtml = c.metadata ? `<div class="ctx-fields-section">
+    <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
+      <span>Metadata</span><span class="ctx-expand-chevron">›</span>
+    </div>
+    <div class="ctx-fields-section-body">
+      ${c.metadata.map(m => renderBindableRow(m.name, getFieldTypeIcon(m.type), m.label, m.type, '', c.id, sectionId)).join('')}
+    </div>
+  </div>` : '';
+
   return `${rows}
-    <div class="ctx-fields-footer">
-      <div class="ctx-fields-system" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
-        <span>System fields</span><span class="ctx-expand-chevron" style="font-size:8px;display:inline-block;transition:transform .15s">›</span>
+    ${itemActionsHtml}
+    ${ctxActionsHtml}
+    ${metadataHtml}
+    <div class="ctx-fields-section">
+      <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
+        <span>System fields</span><span class="ctx-expand-chevron">›</span>
       </div>
-      <div class="ctx-fields-list" style="margin-top:0;border-top:0;padding-top:0">
+      <div class="ctx-fields-section-body">
         ${systemFields.map(f => `<div class="ctx-field-row"><div class="ctx-field-icon" style="font-size:9px">sys</div><div class="ctx-field-name" style="color:var(--t3)">${f}</div></div>`).join('')}
       </div>
       <div class="ctx-fields-open" onclick="event.stopPropagation()">📂 Open collection</div>
@@ -2207,7 +3093,16 @@ function addFieldElement(ctxId, fieldName) {
 
   const ctx = findSource(ctxId);
   if (!ctx) return;
-  const field = ctx.fields.find(f => f.name === fieldName);
+  let field = ctx.fields.find(f => f.name === fieldName);
+  if (!field && ctx.metadata) field = ctx.metadata.find(f => f.name === fieldName);
+  if (!field && ctx.itemActions) {
+    const a = ctx.itemActions.find(a => a.name === fieldName);
+    if (a) field = {name: a.name, type: 'action', sample: a.label};
+  }
+  if (!field && ctx.contextActions) {
+    const a = ctx.contextActions.find(a => a.name === fieldName);
+    if (a) field = {name: a.name, type: 'action', sample: a.label};
+  }
   if (!field) return;
 
   if (isFieldInUse(ctxId, fieldName, sectionId)) {
@@ -2215,25 +3110,31 @@ function addFieldElement(ctxId, fieldName) {
     return;
   }
 
-  const isImg = field.type === 'image';
-  const elType = isImg ? 'Image' : 'Text';
-  const cssClass = isImg ? 'c-el c-el-img' : 'c-el c-el-text';
   _addElCounter++;
   const elId = `el-auto-${ctxId}-${fieldName}-${_addElCounter}`;
   const capitalName = fieldName.charAt(0).toUpperCase() + fieldName.slice(1);
-  const propKey = isImg ? 'Source' : 'Value';
-  const propDef = isImg
-    ? [{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]
-    : [{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}];
+
+  const componentMap = {
+    image:    { elType:'Image',   cssClass:'c-el c-el-img',  propKey:'Source',  props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}] },
+    boolean:  { elType:'Toggle',  cssClass:'c-el c-el-toggle', propKey:'Checked', props:[{k:'Checked',t:'boolean'},{k:'Label',t:'string'},{k:'Visible',t:'boolean'}] },
+    number:   { elType:'Text',    cssClass:'c-el c-el-text', propKey:'Value',  props:[{k:'Value',t:'string'},{k:'Format',t:'enum'},{k:'Visible',t:'boolean'}] },
+    dateTime: { elType:'Text',    cssClass:'c-el c-el-text', propKey:'Value',  props:[{k:'Value',t:'string'},{k:'Format',t:'enum'},{k:'Visible',t:'boolean'}] },
+    enum:     { elType:'Dropdown',cssClass:'c-el c-el-dropdown', propKey:'Value', props:[{k:'Value',t:'string'},{k:'Options',t:'array'},{k:'Visible',t:'boolean'}] },
+    url:      { elType:'Button',  cssClass:'c-el c-el-btn',  propKey:'Link',   props:[{k:'Link',t:'url'},{k:'Label',t:'string'},{k:'Visible',t:'boolean'}] },
+    action:   { elType:'Button',  cssClass:'c-el c-el-btn',  propKey:'Action', props:[{k:'Action',t:'action'},{k:'Label',t:'string'},{k:'Visible',t:'boolean'}] },
+    array:    { elType:'Repeater',cssClass:'c-el c-el-text', propKey:'Items',  props:[{k:'Items',t:'array'},{k:'Visible',t:'boolean'}] },
+    string:   { elType:'Text',    cssClass:'c-el c-el-text', propKey:'Value',  props:[{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}] }
+  };
+  const comp = componentMap[field.type] || componentMap.string;
 
   EL_DEFS[elId] = {
     name: capitalName,
-    type: elType,
+    type: comp.elType,
     section: sectionId,
-    props: propDef
+    props: comp.props
   };
 
-  S.bindings[`${elId}|${propKey}`] = {
+  S.bindings[`${elId}|${comp.propKey}`] = {
     ctxId: ctxId,
     fieldName: fieldName,
     sample: field.sample
@@ -2255,25 +3156,40 @@ function addFieldElement(ctxId, fieldName) {
 
   if (targetBody) {
     const newEl = document.createElement('div');
-    newEl.className = cssClass + ' bound';
+    newEl.className = comp.cssClass + ' bound';
     newEl.id = elId;
     newEl.setAttribute('onclick', `selEl(event,'${elId}')`);
 
     const sample = field.sample.replace(/^"|"$/g, '');
-    if (isImg) {
+    const baseTags = `<div class="c-el-overlay"></div>
+        <div class="el-tags"><div class="el-type-tag">${comp.elType}</div><div class="el-bind-tag"></div></div>
+        <div class="bound-dot"></div>
+        <span class="src-tag" id="src-${elId}"></span>`;
+
+    if (field.type === 'image') {
       newEl.style.cssText = 'padding:0;height:80px';
-      newEl.innerHTML = `
-        <div class="c-el-overlay"></div>
-        <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag"></div></div>
-        <div class="bound-dot"></div>
-        <span class="src-tag" id="src-${elId}"></span>
+      newEl.innerHTML = `${baseTags}
         <div style="width:100%;height:100%;background:linear-gradient(135deg,var(--b1),var(--b2));display:flex;align-items:center;justify-content:center;color:var(--t3);font-size:11px;font-family:'DM Mono',monospace">${fieldName}</div>`;
+    } else if (field.type === 'boolean') {
+      newEl.style.cssText = 'display:flex;align-items:center;gap:8px;padding:6px 10px';
+      const checked = sample === 'true';
+      newEl.innerHTML = `${baseTags}
+        <div class="toggle-track ${checked ? 'on' : ''}" style="width:34px;height:18px;border-radius:9px;background:${checked ? 'var(--acc)' : 'var(--b2)'};position:relative;flex-shrink:0;transition:.2s">
+          <div style="width:14px;height:14px;border-radius:50%;background:#fff;position:absolute;top:2px;${checked ? 'left:18px' : 'left:2px'};transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
+        </div>
+        <span class="val" id="v-${elId}" style="font-size:12px">${capitalName}</span>`;
+    } else if (field.type === 'enum') {
+      newEl.style.cssText = 'display:flex;align-items:center;gap:6px;padding:6px 10px;border:1px solid var(--b2);border-radius:6px';
+      newEl.innerHTML = `${baseTags}
+        <span class="val" id="v-${elId}" style="flex:1;font-size:12px">${sample}</span>
+        <span style="font-size:10px;color:var(--t3)">▾</span>`;
+    } else if (field.type === 'url') {
+      newEl.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:8px 16px;background:var(--acc);color:#fff;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer';
+      newEl.innerHTML = `${baseTags}
+        <span class="val" id="v-${elId}">${capitalName}</span>
+        <span style="font-size:10px">↗</span>`;
     } else {
-      newEl.innerHTML = `
-        <div class="c-el-overlay"></div>
-        <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
-        <div class="bound-dot"></div>
-        <span class="src-tag" id="src-${elId}"></span>
+      newEl.innerHTML = `${baseTags}
         <span class="val" id="v-${elId}">${sample}</span>`;
     }
 
@@ -2288,11 +3204,91 @@ function addFieldElement(ctxId, fieldName) {
   toast(`✓ Added "${capitalName}" → ${ctx.name} · ${fieldName}`, true);
 }
 
+function removeFieldElement(ctxId, fieldName, sectionId) {
+  const boundKeys = Object.keys(S.bindings).filter(bkey => {
+    const b = S.bindings[bkey];
+    if (b.ctxId !== ctxId || b.fieldName !== fieldName) return false;
+    const [elId] = bkey.split('|');
+    const elDef = EL_DEFS[elId];
+    return elDef && elDef.section === sectionId;
+  });
+  if (boundKeys.length === 0) { toast('No bound element found'); return; }
+
+  const elIds = [...new Set(boundKeys.map(k => k.split('|')[0]))];
+  const names = elIds.map(id => EL_DEFS[id]?.name || id).join(', ');
+
+  showConfirm('Remove element', `Remove "${names}" from the canvas?\nThe binding to ${fieldName} will be cleared.`, 'Remove', function() {
+    elIds.forEach(elId => {
+      Object.keys(S.bindings).forEach(bkey => {
+        if (bkey.startsWith(elId + '|')) delete S.bindings[bkey];
+      });
+      const domEl = document.getElementById(elId);
+      if (domEl) {
+        domEl.style.animation = 'fadeIn .2s ease reverse';
+        setTimeout(() => domEl.remove(), 200);
+      }
+      delete EL_DEFS[elId];
+    });
+    setTimeout(() => { refreshAllPills(); renderRP(); }, 220);
+    toast(`✓ Removed ${names}`, true);
+  }, true);
+}
+
+function getCtxDisplayName(ctxId, sectionId) {
+  const alias = (S.ctxAliases[sectionId] || {})[ctxId];
+  if (alias) return alias;
+  const ctx = findSource(ctxId);
+  if (!ctx) return ctxId;
+  const pageSections = getPageSectionsForSection(sectionId);
+  let instanceIndex = 0;
+  let totalOnPage = 0;
+  for (const secId of pageSections) {
+    const ids = S.ctxMap[secId] || [];
+    if (ids.includes(ctxId)) {
+      totalOnPage++;
+      if (secId === sectionId) instanceIndex = totalOnPage;
+    }
+  }
+  if (totalOnPage > 1 && instanceIndex > 1) return ctx.name + ' ' + instanceIndex;
+  return ctx.name;
+}
+
+function getPageSectionsForSection(sectionId) {
+  const def = EL_DEFS[sectionId];
+  if (!def) return [sectionId];
+  const page = def.page;
+  if (!page) return Object.keys(EL_DEFS).filter(id => {
+    const d = EL_DEFS[id];
+    return d.isContainer && !d.page;
+  });
+  return Object.keys(EL_DEFS).filter(id => {
+    const d = EL_DEFS[id];
+    return (d.isContainer || d.isPage) && d.page === page;
+  });
+}
+
 function renderCtxList() {
-  const ctxIds = S.ctxMap[S.sel] || [];
+  const selDef = EL_DEFS[S.sel];
+  const ctxTarget = (selDef && selDef.isMultiState) ? selDef.section : S.sel;
+  const ctxIds = S.ctxMap[ctxTarget] || [];
   const attached = ctxIds.map(id => findSource(id)).filter(Boolean);
-  return `<div class="ps" style="padding:0"><div class="ps-lbl" style="padding:11px 14px 0">Attached Contexts</div>
-    ${attached.map(c => {
+  const isPage = selDef && selDef.isPage;
+  const parentPageId = selDef?.parentPage;
+
+  const inheritedCtxs = [];
+  const ownCtxs = [];
+  attached.forEach(c => {
+    const primary = isPrimaryCtx(c.id, S.sel);
+    if (primary && !isPage && parentPageId) {
+      inheritedCtxs.push(c);
+    } else {
+      ownCtxs.push(c);
+    }
+  });
+
+  const showSplit = inheritedCtxs.length > 0;
+
+  const renderCtxCard = (c) => {
       const hasConfig = c.config && c.config.length > 0;
       const configCount = hasConfig ? c.config.length : 0;
       const primary = isPrimaryCtx(c.id, S.sel);
@@ -2301,12 +3297,17 @@ function renderCtxList() {
       const usedFields = getFieldsInUseCount(c.id, S.sel, c.fields);
       const hasUsed = usedFields > 0;
       const fieldsHtml = renderCtxFields(c, S.sel);
+      const rel = S.ctxRelationships[c.id];
+      const hasRel = rel && ctxIds.includes(rel.linkedTo);
+      const filterToggleHtml = hasRel ? `<div class="ctx-filter-row${rel.active ? '' : ' off'}" id="ctx-filter-${c.id}"><div class="ctx-filter-label"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> ${rel.label}</div><label class="ctx-filter-toggle" onclick="event.stopPropagation()"><input type="checkbox" ${rel.active ? 'checked' : ''} onchange="onFilterToggle(event,'${c.id}')"><span class="ctx-filter-slider"></span></label><div class="ctx-filter-confirm" id="filter-confirm-${c.id}"><div class="ctx-filter-confirm-msg">${findSource(c.id)?.name||c.id} will no longer be filtered by the current product. All locations will be shown instead.</div><div class="ctx-filter-confirm-actions"><button class="btn-keep" onclick="cancelFilterToggle(event,'${c.id}')">Keep filter</button><button class="btn-off" onclick="confirmFilterOff(event,'${c.id}')">Turn off</button></div></div></div>` : '';
       return `
       <div class="ctx-group">
         <div class="ctx-card${primary ? ' primary' : ''}${isUnconfigured ? ' unconfigured' : ''}">
-          <div class="ctx-card-name">${c.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px;font-weight:700;color:var(--yel)">&lt;/&gt;</span>' : c.icon} ${(S.ctxAliases[S.sel]||{})[c.id] || c.name} ${(S.ctxAliases[S.sel]||{})[c.id] ? '<span style="font-size:9px;color:var(--t3);font-family:\'DM Mono\',monospace">alias</span>' : ''} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}</span>${c.customCode ? '<span class="type-badge" style="background:var(--yel);color:#fff;opacity:.8">Custom</span>' : ''}${primary ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
-          ${primary ? '<div class="ctx-card-lock"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Comes with this page</div>' : ''}
+          <div class="ctx-card-name">${c.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px;font-weight:700;color:var(--yel)">&lt;/&gt;</span>' : c.icon} ${getCtxDisplayName(c.id, S.sel)} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}</span>${c.customCode ? '<span class="type-badge" style="background:var(--yel);color:#fff;opacity:.8">Custom</span>' : ''}${primary && isPage ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
+          <div class="ctx-card-src">from ${c.source}</div>
+          ${primary && isPage ? '<div class="ctx-card-lock"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Comes with this page</div>' : ''}
           ${isUnconfigured ? '<div class="ctx-card-lock" style="color:var(--yel);font-style:normal"><svg viewBox="0 0 24 24" style="stroke:var(--yel)"><path d="M12 9v4"/><circle cx="12" cy="16" r="0.5"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg> Configure settings to use as binding source</div>' : ''}
+          ${filterToggleHtml}
           <div class="ctx-fields-toggle" onclick="toggleCtxFields(event,'${c.id}')" ${hasUsed ? `onmouseenter="highlightBoundEls('${c.id}','${S.sel}')" onmouseleave="clearHighlightEls()"` : ''}>
             <span class="ctx-expand-chevron">›</span>
             <span class="ctx-fields-count ${hasUsed ? 'active' : 'idle'}"><span class="count-num">${usedFields}/${totalFields}</span> fields connected</span>
@@ -2324,18 +3325,33 @@ function renderCtxList() {
               <div class="ctx-dd-item" onclick="startRenameCtx(event,'${c.id}','${S.sel}')">✏️ Rename</div>
               <div class="ctx-dd-item" onclick="duplicateCtx(event,'${c.id}','${S.sel}')">📋 Duplicate context</div>
               <div class="ctx-dd-sep"></div>
-              ${primary
+              ${(primary && isPage)
                 ? `<div class="ctx-dd-item danger disabled" style="cursor:not-allowed;pointer-events:auto" onclick="event.stopPropagation()"><span style="opacity:.35">🗑 Remove context</span><div class="ctx-dd-tooltip">This context is part of the dynamic page content and cannot be removed.</div></div>`
                 : `<div class="ctx-dd-item danger" onclick="confirmRemoveCtx(event,'${c.id}','${S.sel}')">🗑 Remove context</div>`}
             </div>
           </div>
         </div>
       </div>`;
-    }).join('')}
+  };
+
+  let parentNote = '';
+  if (parentPageId && !isPage && inheritedCtxs.length > 0) {
+    parentNote = `<div class="ctx-parent-note-wrap">
+      <div class="ctx-parent-note-label">Also available from parent containers</div>
+      ${inheritedCtxs.map(c =>
+        `<div class="ctx-parent-note-item" onclick="navToPageCtx('${parentPageId}')">
+          <span>${c.icon} ${c.name}</span><span class="ctx-parent-note-arrow">→</span>
+        </div>`
+      ).join('')}
+    </div>`;
+  }
+
+  return `<div class="ps" style="padding:0">
+    <div class="ps-lbl" style="padding:11px 14px 0">Attached Contexts</div>
+    ${ownCtxs.map(renderCtxCard).join('')}
     <div class="add-ctx-btn" onclick="openModal('${S.sel}')" style="margin:10px 14px 12px"><span style="font-size:15px">＋</span> Add Context</div>
-  </div>
-  <div class="ps"><div class="ps-lbl">Page Hierarchy</div>
-    <button class="ctx-tree-btn" onclick="toggleTree()">🌳 View context tree</button>
+    ${parentNote}
+    <div class="ctx-tree-cta" onclick="toggleTree()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M6 9v6"/><path d="M18 9v6"/><circle cx="12" cy="3" r="1.5"/><circle cx="6" cy="9" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/><circle cx="12" cy="12" r="1.5"/><path d="M6 9L12 3L18 9"/></svg> Show context tree</div>
   </div>`;
 }
 
@@ -2443,24 +3459,33 @@ const ITEM_DATA = [
 function selectPage(el, name) {
   document.querySelectorAll('.pp-item, .pp-sub').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
-  document.querySelector('.page-sel').innerHTML = `📄 ${name} <span class="page-sel-chevron">▾</span>`;
+  const pageIcon = name === 'Product Item' ? '🛒' : name === 'Repeater Usecases' ? '↻' : name === 'Multi-State Box' ? '◫' : '📄';
+  document.querySelector('.page-sel').innerHTML = `${pageIcon} ${name} <span class="page-sel-chevron">▾</span>`;
   document.getElementById('pages-panel').classList.remove('open');
 
   const homePage = document.querySelector('.canvas-inner');
   const itemsPage = document.getElementById('items-page');
-  const itemDetailPage = document.getElementById('item-detail-page');
+  const itemRelPage = document.getElementById('item-relationship-page');
+  const rucPage = document.getElementById('repeater-usecases-page');
+  const msbPage = document.getElementById('msb-page');
   S.currentPage = name;
 
   homePage.classList.add('hidden-page');
   itemsPage.classList.remove('active-page');
-  itemDetailPage.classList.remove('active-page');
+  itemRelPage.classList.remove('active-page');
+  rucPage.classList.remove('active-page');
+  msbPage.classList.remove('active-page');
 
   if (name === 'Items (List)') {
     itemsPage.classList.add('active-page');
-  } else if (name === 'Items (Item)') {
-    itemDetailPage.classList.add('active-page');
+  } else if (name === 'Product Item') {
+    itemRelPage.classList.add('active-page');
     S.currentItemIdx = S.currentItemIdx || 0;
     renderItemDetail();
+  } else if (name === 'Repeater Usecases') {
+    rucPage.classList.add('active-page');
+  } else if (name === 'Multi-State Box') {
+    msbPage.classList.add('active-page');
   } else {
     homePage.classList.remove('hidden-page');
   }
@@ -2479,12 +3504,12 @@ function navItem(dir) {
 function renderItemDetail() {
   const idx = S.currentItemIdx || 0;
   const item = ITEM_DATA[idx];
-  document.getElementById('v-el-detail-title').textContent = item.name;
-  document.getElementById('v-el-detail-desc').textContent = item.desc;
-  document.getElementById('item-ctrl-name').textContent = item.name;
-  const hero = document.getElementById('el-detail-img');
-  hero.style.background = item.bg;
-  document.getElementById('detail-img-svg').innerHTML = `<rect width="120" height="120" fill="${item.bg}"/>${item.svg}`;
+  const relTitle = document.getElementById('v-el-rel-title');
+  if (relTitle) relTitle.textContent = item.name;
+  const relDesc = document.getElementById('v-el-rel-desc');
+  if (relDesc) relDesc.textContent = item.desc;
+  const relCtrl = document.getElementById('item-rel-ctrl-name');
+  if (relCtrl) relCtrl.textContent = item.name;
 }
 
 function toggleTheme() {
@@ -2558,7 +3583,7 @@ function renderDd() {
 
   const hasOutOfScope = available.length > 0 && available[0]._outOfScope;
   const selectedCtx = srcId ? findSource(srcId) : null;
-  const isSelectedFn = selectedCtx && FN_DEFS.some(f => f.id === srcId);
+  const isSelectedFn = selectedCtx && FN_LIBS.some(l => l.id === srcId);
 
   // Context source items
   const ctxItems = available.length === 0
@@ -2568,44 +3593,64 @@ function renderDd() {
           <span style="font-size:13px">${ctx.icon}</span>
           <div style="flex:1;min-width:0">
             <div>${ctx.name}</div>
-            <div class="dd-sel-item-sub">${ctx._scope||ctx.source} · ${ctx.type}</div>
+            <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
           </div>
         </div>`).join('');
 
-  // Function source items
-  const fnItems = FN_DEFS.map(fn => `
-        <div class="dd-sel-item ${srcId===fn.id?'sel':''}" onclick="ddSelSource(event,'${fn.id}')">
-          <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--yel);font-weight:700">${fn.icon}</span>
+  // Function library items
+  const fnLibItems = FN_LIBS.map(lib => `
+        <div class="dd-sel-item ${srcId===lib.id?'sel':''}" onclick="ddSelSource(event,'${lib.id}')">
+          <span style="font-size:13px">${lib.icon}</span>
           <div style="flex:1;min-width:0">
-            <div style="font-family:'DM Mono',monospace;font-size:11px">${fn.name}</div>
-            <div class="dd-sel-item-sub">${fn.source} · function</div>
+            <div>${lib.name}</div>
+            <div class="dd-sel-item-sub">${lib.functions.length} functions · ${lib.description}</div>
           </div>
         </div>`).join('');
 
-  const srcItems = `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;padding-top:4px">Contexts</div>`
+  const srcItems = `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;padding-top:4px">CONTEXTS</div>`
     + ctxItems
-    + `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;border-top:1px solid var(--b1);margin-top:4px;padding-top:8px">Functions</div>`
-    + fnItems;
+    + `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;border-top:1px solid var(--b1);margin-top:4px;padding-top:8px">FUNCTION LIBRARIES</div>`
+    + fnLibItems;
 
-  // Field items — if prop is Visible, only show boolean fields
+  // Field items — check for scoped context (nested repeater)
   const isVisibleProp = propKey === 'Visible';
-  const filteredFields = !selectedCtx ? [] : selectedCtx.fields.filter(f => {
+  const elScope = getElementScope(elId);
+  const scopedCtx = elScope && selectedCtx && selectedCtx.id === elScope.ctxId ? elScope : null;
+
+  let fieldsToShow = !selectedCtx ? [] : selectedCtx.fields;
+  let scopeBreadcrumb = '';
+  if (scopedCtx) {
+    fieldsToShow = scopedCtx.fields;
+    scopeBreadcrumb = scopedCtx.scope.split('.').join(' › ');
+  }
+  const filteredFields = fieldsToShow.filter(f => {
     if (isVisibleProp) return f.type === 'boolean';
     if (prop?.t) return isCompat(f.type, prop.t);
     return true;
   });
+
+  let scopeHeader = '';
+  if (scopedCtx) {
+    const listName = scopedCtx.boundFieldName || scopeBreadcrumb;
+    const ctxDisplayName = scopedCtx.ctxName || selectedCtx.name;
+    scopeHeader = `<div style="padding:6px 10px;font-size:9px;color:var(--acc);font-family:'DM Mono',monospace;background:var(--acc-d);border-bottom:1px solid color-mix(in srgb, var(--acc) 20%, transparent)">
+      <div style="text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:4px"><span style="font-size:11px">↻</span> SCOPE: ${scopeBreadcrumb}</div>
+      <div style="font-family:'DM Sans',sans-serif;font-size:10px;color:var(--t3);margin-top:3px;text-transform:none;letter-spacing:0;line-height:1.5">The repeater is connected to <b style="color:var(--t1)">${ctxDisplayName} › ${listName}</b>. Only fields from each <b style="color:var(--t1)">${listName}</b> item are available here.</div>
+    </div>`;
+  }
+
   const fieldItems = !selectedCtx
     ? `<div class="dd-sel-item" style="opacity:.4;pointer-events:none;padding:8px 10px;font-size:11px;color:var(--t3)">Select a source first</div>`
     : filteredFields.length === 0
     ? `<div style="padding:12px 14px;text-align:center">
         <div style="font-size:22px;margin-bottom:6px">🔍</div>
         <div style="font-size:11px;font-weight:600;color:var(--t2);margin-bottom:4px">No compatible fields</div>
-        <div style="font-size:10px;color:var(--t3);line-height:1.5">This context has no <span style="font-family:'DM Mono',monospace;color:var(--acc)">url</span> fields.<br>Add a URL field to your context to connect.</div>
+        <div style="font-size:10px;color:var(--t3);line-height:1.5">No fields match the expected type in this scope.</div>
       </div>`
-    : filteredFields.map(f => `<div class="dd-sel-item ${fieldName===f.name?'sel':''}" onclick="ddSelField(event,'${f.name}')">
+    : scopeHeader + filteredFields.map(f => `<div class="dd-sel-item ${fieldName===f.name?'sel':''}" onclick="ddSelField(event,'${f.name}')">
           <div style="flex:1;min-width:0">
-            <div>${f.name}</div>
-            <div class="dd-sel-item-sub">${f.sample}</div>
+            <div ${isSelectedFn ? 'style="font-family:\'DM Mono\',monospace;font-size:11px"' : ''}>${f.name}</div>
+            <div class="dd-sel-item-sub">${f.description || f.sample}</div>
           </div>
           <span class="dd-sel-tag">${f.type}</span>
         </div>`).join('');
@@ -2619,7 +3664,7 @@ function renderDd() {
           <div class="dd-sel-trigger ${srcId?'has-val':''}" onclick="toggleSrcBox(event)">
             ${srcId && selectedCtx
               ? (isSelectedFn
-                ? `<span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--yel)">${selectedCtx.icon}</span><span style="font-family:'DM Mono',monospace;font-size:11px">${selectedCtx.name}</span>`
+                ? `<span style="font-size:13px">${selectedCtx.icon}</span><span>${selectedCtx.name}</span>`
                 : `<span>${selectedCtx.icon}</span><span>${selectedCtx.name}</span>`)
               : `<span style="color:var(--t3)">Select…</span>`}
             <span class="dd-sel-chevron">▾</span>
@@ -2628,10 +3673,10 @@ function renderDd() {
         </div>
       </div>
       <div class="dd-sel-group">
-        <div class="dd-sel-label">Select Field</div>
+        <div class="dd-sel-label">${isSelectedFn ? 'Select Function' : scopedCtx ? 'Select Field <span style="font-size:9px;color:var(--acc);font-family:\'DM Mono\',monospace;font-weight:400">(scoped)</span>' : 'Select Field'}</div>
         <div class="dd-sel-box ${fieldName?'filled':''} ${fieldOpen?'open':''} ${!srcId?'style="opacity:.5;pointer-events:none"':''}" id="dd-field-box">
           <div class="dd-sel-trigger ${fieldName?'has-val green':''}" onclick="toggleFieldBox(event)">
-            ${fieldName ? `<span>${fieldName}</span>` : `<span style="color:var(--t3)">${srcId?'Select…':'Pick source first'}</span>`}
+            ${fieldName ? `<span>${isSelectedFn ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px">' + fieldName + '</span>' : fieldName}</span>` : `<span style="color:var(--t3)">${srcId ? (isSelectedFn ? 'Select function…' : 'Select…') :'Pick source first'}</span>`}
             <span class="dd-sel-chevron">▾</span>
           </div>
           <div class="dd-sel-dropdown">${fieldItems}</div>
@@ -2689,6 +3734,7 @@ function confirmBind(e) {
   closeDd();
   toast(`✓ ${propKey} → ${ctx.name} · ${fieldName} (all items)`, true);
   updatePropRowDOM(elId, propKey);
+  if (def?.isMultiState) { refreshMsbState(); renderBody(); }
 }
 
 function applyBindingToCanvas(elId, propKey, field, ctxId) {
@@ -2810,8 +3856,9 @@ function isCompat(fieldType, propType) {
   if (!propType || propType==='string') return ['string','number','enum','dateTime','boolean'].includes(fieldType);
   if (propType==='image')   return fieldType==='image';
   if (propType==='boolean') return fieldType==='boolean';
-  if (propType==='url')     return fieldType==='url'; // strict — only url fields
+  if (propType==='url')     return fieldType==='url';
   if (propType==='action')  return fieldType==='action';
+  if (propType==='enum')    return fieldType==='enum';
   return true;
 }
 
@@ -2856,7 +3903,40 @@ function renderModalList() {
   const {target, pending} = S.modal;
   const current = S.ctxMap[target] || [];
   const primaries = S.primaryCtx[target] || [];
-  document.getElementById('modal-list').innerHTML = CTX_DEFS.map(ctx => {
+  const removedInherited = S.removedInherited[target] || [];
+  const selDef = EL_DEFS[target];
+  const isPage = selDef && selDef.isPage;
+  const parentPageId = selDef?.parentPage;
+  const pageCtxIds = parentPageId ? (S.ctxMap[parentPageId] || []) : [];
+
+  let restoreHtml = '';
+  if (!isPage && removedInherited.length > 0) {
+    restoreHtml = removedInherited.map(ctxId => {
+      const ctx = findSource(ctxId);
+      if (!ctx) return '';
+      const alreadyPending = pending.includes(ctxId);
+      return `<div class="modal-item${alreadyPending ? ' attached' : ''}" style="border:1px dashed var(--acc);border-radius:8px;margin-bottom:8px;background:var(--acc-d)" onclick="restoreInheritedCtx('${ctxId}')">
+        <span class="modal-item-icon">↩</span>
+        <div style="flex:1;min-width:0">
+          <div class="modal-item-name" style="display:flex;align-items:center;gap:4px">${ctx.icon} ${ctx.name}<span style="font-size:9px;color:var(--acc);margin-left:4px">Restore page context</span></div>
+          <div class="modal-item-sub">Inherited from page · ${ctx.type}</div>
+        </div>
+        <div class="modal-check">${alreadyPending ? '✓' : ''}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const groupOrder = ['Apps', 'CMS', 'System', 'Custom'];
+  const grouped = {};
+  CTX_DEFS.forEach(ctx => {
+    if (removedInherited.includes(ctx.id)) return;
+    if (ctx.isDynamicPageCtx && !primaries.includes(ctx.id)) return;
+    const g = ctx.group || 'Other';
+    if (!grouped[g]) grouped[g] = [];
+    grouped[g].push(ctx);
+  });
+
+  const renderItem = ctx => {
     const isAttached = current.includes(ctx.id);
     const isPending  = pending.includes(ctx.id);
     const isPrimary  = primaries.includes(ctx.id);
@@ -2866,7 +3946,6 @@ function renderModalList() {
     const cls        = (keeping || willAdd) ? 'attached' : '';
     const checkIcon  = (keeping || willAdd) ? '✓' : '';
     const badge      = isPrimary  ? `<span style="font-size:9px;color:var(--t3);margin-left:4px">🔒 Page context</span>`
-                     : willAdd    ? `<span style="font-size:9px;color:var(--grn);margin-left:4px">+ Add</span>`
                      : willRemove ? `<span style="font-size:9px;color:var(--red);margin-left:4px">✕ Remove</span>`
                      : '';
     return `<div class="modal-item ${cls}${isPrimary ? ' locked' : ''}" id="mi-${ctx.id}" onclick="${isPrimary ? '' : `toggleModalCtx('${ctx.id}')`}" style="${isPrimary ? 'opacity:.7;cursor:default' : ''}">
@@ -2877,7 +3956,23 @@ function renderModalList() {
       </div>
       <div class="modal-check">${isPrimary ? '🔒' : checkIcon}</div>
     </div>`;
-  }).join('');
+  };
+
+  let groupedHtml = '';
+  groupOrder.forEach(g => {
+    const items = grouped[g];
+    if (!items || items.length === 0) return;
+    groupedHtml += `<div class="modal-group-label">${g}</div>`;
+    groupedHtml += items.map(renderItem).join('');
+    if (g === 'CMS') {
+      groupedHtml += `<div class="modal-create-btn" onclick="toast('Create new CMS collection…')">+ New collection</div>`;
+    }
+    if (g === 'Custom') {
+      groupedHtml += `<div class="modal-create-btn" onclick="toast('Create new custom context…')">+ New custom context</div>`;
+    }
+  });
+
+  document.getElementById('modal-list').innerHTML = restoreHtml + groupedHtml;
 }
 
 function toggleModalCtx(id) {
@@ -2886,6 +3981,19 @@ function toggleModalCtx(id) {
   const idx = S.modal.pending.indexOf(id);
   if (idx >= 0) S.modal.pending.splice(idx, 1);
   else S.modal.pending.push(id);
+  renderModalList();
+  checkModalReady();
+}
+
+function restoreInheritedCtx(ctxId) {
+  const target = S.modal.target;
+  if (!S.modal.pending.includes(ctxId)) {
+    S.modal.pending.push(ctxId);
+  }
+  const ri = S.removedInherited[target] || [];
+  S.removedInherited[target] = ri.filter(id => id !== ctxId);
+  if (!S.primaryCtx[target]) S.primaryCtx[target] = [];
+  if (!S.primaryCtx[target].includes(ctxId)) S.primaryCtx[target].push(ctxId);
   renderModalList();
   checkModalReady();
 }
@@ -3015,12 +4123,7 @@ function finishRename(ctxId, sectionId, newName) {
   toast('✓ Renamed to "' + trimmed + '" (local)', true);
 }
 
-function confirmRemoveCtx(e, ctxId, sectionId) {
-  e.stopPropagation();
-  document.querySelectorAll('.ctx-card-dropdown.open').forEach(d => d.classList.remove('open'));
-  if (isPrimaryCtx(ctxId, sectionId)) { toast('This context comes with the page and cannot be removed'); return; }
-  const ctx = findSource(ctxId);
-  // collect unique bindings — deduplicate repeater siblings by template key
+function countBoundElsForCtx(ctxId, sectionId) {
   const seen = {};
   const boundEls = [];
   Object.keys(S.bindings).forEach(bkey => {
@@ -3029,6 +4132,7 @@ function confirmRemoveCtx(e, ctxId, sectionId) {
     const [elId] = bkey.split('|');
     const def = EL_DEFS[elId];
     if (!def) return;
+    if (sectionId && def.section !== sectionId && def.parentPage !== sectionId) return;
     const key = def.repTemplate || elId;
     if (seen[key]) return;
     seen[key] = true;
@@ -3037,14 +4141,94 @@ function confirmRemoveCtx(e, ctxId, sectionId) {
       : def.name;
     boundEls.push(label);
   });
+  return boundEls;
+}
+
+function onFilterToggle(e, ctxId) {
+  e.stopPropagation();
+  const checkbox = e.target;
+  const rel = S.ctxRelationships[ctxId];
+  if (!rel) return;
+  if (!checkbox.checked) {
+    checkbox.checked = true;
+    const confirm = document.getElementById('filter-confirm-' + ctxId);
+    if (confirm) confirm.classList.add('open');
+  } else {
+    rel.active = true;
+    renderBody();
+    updateRepeaterForFilter(ctxId, true);
+    showLinkToast('Filter restored — showing filtered locations');
+  }
+}
+function cancelFilterToggle(e, ctxId) {
+  e.stopPropagation();
+  const confirm = document.getElementById('filter-confirm-' + ctxId);
+  if (confirm) confirm.classList.remove('open');
+}
+function confirmFilterOff(e, ctxId) {
+  e.stopPropagation();
+  const rel = S.ctxRelationships[ctxId];
+  if (rel) rel.active = false;
+  renderBody();
+  updateRepeaterForFilter(ctxId, false);
+  showLinkToast('Filter removed — showing all locations');
+}
+function updateRepeaterForFilter(ctxId, isFiltered) {
+  const repCountEl = document.getElementById('rep-count-rel-locations');
+  if (!repCountEl) return;
+  if (isFiltered) {
+    repCountEl.textContent = '📍 locations · 3 items';
+  } else {
+    repCountEl.textContent = '📍 locations · 12 items (all)';
+  }
+}
+function showLinkToast(msg) {
+  let toast = document.getElementById('link-toast');
+  if (!toast) {
+    toast = document.createElement('div');
+    toast.id = 'link-toast';
+    toast.className = 'ctx-link-toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent = msg;
+  toast.classList.add('show');
+  setTimeout(() => toast.classList.remove('show'), 2500);
+}
+
+function confirmRemoveCtx(e, ctxId, sectionId) {
+  e.stopPropagation();
+  document.querySelectorAll('.ctx-card-dropdown.open').forEach(d => d.classList.remove('open'));
+  const selDef = EL_DEFS[sectionId];
+  const isPage = selDef && selDef.isPage;
+  if (isPrimaryCtx(ctxId, sectionId) && isPage) { toast('This context comes with the page and cannot be removed'); return; }
+  const ctx = findSource(ctxId);
   const ctxName = ctx ? ctx.name : ctxId;
-  const lines = ['Remove "' + ctxName + '" from this section?'];
-  if (boundEls.length > 0) {
-    lines.push(boundEls.length + ' binding' + (boundEls.length > 1 ? 's' : '') + ' will be removed:');
-    boundEls.forEach(name => lines.push('  · ' + name));
+  const isInherited = isPrimaryCtx(ctxId, sectionId) && !isPage;
+  const boundEls = countBoundElsForCtx(ctxId, sectionId);
+
+  let lines;
+  if (isInherited) {
+    lines = ['This context is inherited from the page.'];
+    if (boundEls.length > 0) {
+      lines.push('Removing it will disconnect ' + boundEls.length + ' element' + (boundEls.length > 1 ? 's' : '') + ' that use its fields:');
+      boundEls.forEach(name => lines.push('  · ' + name));
+    }
+    lines.push('\nContinue?');
+  } else {
+    lines = ['Remove "' + ctxName + '" from this section?'];
+    if (boundEls.length > 0) {
+      lines.push(boundEls.length + ' binding' + (boundEls.length > 1 ? 's' : '') + ' will be removed:');
+      boundEls.forEach(name => lines.push('  · ' + name));
+    }
   }
   const msg = lines.join('\n');
-  showConfirm('Remove context', msg, 'Remove', function() { doRemoveCtx(ctxId, sectionId); }, boundEls.length > 0);
+  showConfirm(isInherited ? 'Remove inherited context' : 'Remove context', msg, 'Remove', function() {
+    if (isInherited) {
+      if (!S.removedInherited[sectionId]) S.removedInherited[sectionId] = [];
+      S.removedInherited[sectionId].push(ctxId);
+    }
+    doRemoveCtx(ctxId, sectionId);
+  }, boundEls.length > 0);
 }
 
 function doRemoveCtx(ctxId, sectionId) {
@@ -3152,39 +4336,231 @@ function toggleTree() {
 
 function renderTree() {
   const isItemsList = S.currentPage === 'Items (List)';
-  const isItemDetail = S.currentPage === 'Items (Item)';
-  const sections = isItemsList ? ['sec-items'] : isItemDetail ? ['sec-item-detail','sec-related-items'] : ['sec-hero','sec-weather','sec-articles'];
-  const pageLabel = isItemsList ? 'Items (List)' : isItemDetail ? 'Items (Item)' : 'Home Page';
-  let h = `<div class="tp-row"><div class="tp-item" style="color:var(--t3)"><span>📄</span> ${pageLabel}</div></div>`;
-  if (isItemDetail) {
-    const pageIds = S.ctxMap['page-item-detail']||[];
+  const isConcept = S.currentPage === 'Product Item';
+  const isRuc = S.currentPage === 'Repeater Usecases';
+  const isMsb = S.currentPage === 'Multi-State Box';
+  const sections = isItemsList ? ['sec-items'] : isConcept ? ['sec-rel-product','sec-rel-locations'] : isRuc ? ['sec-ruc-articles','sec-ruc-tags'] : isMsb ? ['sec-msb'] : ['sec-hero','sec-weather','sec-articles'];
+  const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isMsb ? 'Multi-State Box' : 'Home Page';
+  const pageIcon = isConcept ? '🛒' : '📄';
+
+  const hasDynamicPage = isConcept;
+  const pageId = isConcept ? 'page-rel-detail' : null;
+  const pageCtxIds = pageId ? (S.ctxMap[pageId]||[]) : [];
+
+  let h = `<div class="tp-row"><div class="tp-item" style="color:var(--t3)"><span>${pageIcon}</span> ${pageLabel}</div></div>`;
+
+  if (hasDynamicPage) {
     h += `<div class="tp-row"><div class="tp-indent"></div>
-      <div class="tp-item ${pageIds.length?'ctx':''}" onclick="selEl({stopPropagation:()=>{}},'page-item-detail');document.getElementById('tree-panel').classList.remove('open')">
-        <span>📑</span> Page · Item Detail ${pageIds.length?'<span class="tp-dot"></span>':''}
+      <div class="tp-item ${pageCtxIds.length?'ctx':''}" onclick="selEl({stopPropagation:()=>{}},'${pageId}');document.getElementById('tree-panel').classList.remove('open')">
+        <span>📑</span> ${EL_DEFS[pageId].name} ${pageCtxIds.length?'<span class="tp-dot"></span>':''}
       </div></div>`;
-    pageIds.forEach(id => {
+    pageCtxIds.forEach(id => {
       const c = findSource(id);
       if (!c) return;
       h += `<div class="tp-row" style="margin-left:14px"><div class="tp-indent"></div>
-        <div class="tp-item ctx" style="font-family:'DM Mono',monospace;font-size:10px">${c.icon} ${c.name}</div></div>`;
+        <div class="tp-item ctx" style="font-family:'DM Mono',monospace;font-size:10px">${c.icon} ${c.name} <span style="font-size:8px;opacity:.5;margin-left:auto">all sections</span></div></div>`;
     });
   }
+
   sections.forEach(sid => {
     const def = EL_DEFS[sid];
-    const ids = S.ctxMap[sid]||[];
+    const allIds = S.ctxMap[sid]||[];
+    const ownIds = allIds.filter(id => !isPrimaryCtx(id, sid) || !hasDynamicPage);
+    const hasOwn = ownIds.length > 0;
     h += `<div class="tp-row"><div class="tp-indent"></div>
-      <div class="tp-item ${ids.length?'ctx':''}" onclick="selEl({stopPropagation:()=>{}},
+      <div class="tp-item ${hasOwn?'ctx':''}" onclick="selEl({stopPropagation:()=>{}},
       '${sid}');document.getElementById('tree-panel').classList.remove('open')">
-        <span>▭</span> ${def.name} ${ids.length?'<span class="tp-dot"></span>':''}
+        <span>▭</span> ${def.name} ${hasOwn?'<span class="tp-dot"></span>':''}
       </div></div>`;
-    ids.forEach(id => {
+    ownIds.forEach(id => {
       const c = findSource(id);
       if (!c) return;
+      const displayName = getCtxDisplayName(id, sid);
       h += `<div class="tp-row" style="margin-left:14px"><div class="tp-indent"></div>
-        <div class="tp-item ctx" style="font-family:'DM Mono',monospace;font-size:10px">${c.icon} ${c.name}</div></div>`;
+        <div class="tp-item ctx" style="font-family:'DM Mono',monospace;font-size:10px">${c.icon} ${displayName}</div></div>`;
+    });
+    const msbChildren = Object.entries(EL_DEFS).filter(([,d]) => d.section === sid && d.isMultiState);
+    msbChildren.forEach(([msbId, msbDef]) => {
+      const activeView = msbDef.activeView;
+      h += `<div class="tp-row" style="margin-left:14px"><div class="tp-indent"></div>
+        <div class="tp-item" onclick="selEl({stopPropagation:()=>{}},'${msbId}');document.getElementById('tree-panel').classList.remove('open')" style="cursor:pointer">
+          <span>◫</span> ${msbDef.name}
+        </div></div>`;
+      (msbDef.views||[]).forEach(v => {
+        const isActive = v.id === activeView;
+        const disabled = v.enumValues.length === 0;
+        h += `<div class="tp-row" style="margin-left:28px"><div class="tp-indent"></div>
+          <div class="tp-item" style="font-size:10px;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t3)'};cursor:pointer;${disabled ? 'opacity:.4;text-decoration:line-through' : ''}" onclick="switchMsbView(event,'${v.id}')">
+            ${disabled ? '○' : isActive ? '◉' : '○'} ${v.name}
+          </div></div>`;
+      });
     });
   });
   document.getElementById('tp-body').innerHTML = h;
+}
+
+/* ── MULTI-STATE BOX ── */
+function switchMsbView(e, viewId) {
+  e.stopPropagation();
+  const msbId = 'msb-articles';
+  const def = EL_DEFS[msbId];
+  if (!def) return;
+  def.activeView = viewId;
+  document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
+  const viewEl = document.getElementById('msb-view-' + viewId);
+  if (viewEl) viewEl.classList.add('active');
+  document.querySelectorAll('#msb-view-sel .msb-view-btn').forEach(b => {
+    const btnVal = b.getAttribute('data-view') || b.textContent.trim().toLowerCase().replace(/\s+/g,'');
+    b.classList.toggle('active', btnVal === viewId);
+  });
+  if (S.sel === msbId) renderBody();
+  renderTree();
+}
+
+function msbUnassign(e, viewId, val) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  const view = def.views.find(v => v.id === viewId);
+  if (!view || view.enumValues.length <= 1) return;
+  view.enumValues = view.enumValues.filter(v => v !== val);
+  const originalView = def.views.find(v => v.id === val && v.enumValues.length === 0);
+  if (originalView) {
+    originalView.enumValues.push(val);
+  } else {
+    const emptyView = def.views.find(v => v.enumValues.length === 0);
+    if (emptyView) { emptyView.enumValues.push(val); }
+    else { def.views.push({id: val, name: val === 'hasItems' ? 'Has Items' : val.charAt(0).toUpperCase() + val.slice(1), enumValues: [val]}); }
+  }
+  refreshMsbCanvasButtons();
+  renderBody();
+  renderTree();
+}
+
+function msbShowAssign(e, viewId) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  const bkey = 'msb-articles|Active State';
+  const b = S.bindings[bkey];
+  const ctx = b ? findSource(b.ctxId) : null;
+  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+  const enumVals = ctxField?.enumValues || [];
+  const view = def.views.find(v => v.id === viewId);
+  if (!view) return;
+  const available = enumVals.filter(val => !view.enumValues.includes(val));
+  if (available.length === 0) { toast('All states are already assigned'); return; }
+
+  const rect = e.target.getBoundingClientRect();
+  let existing = document.getElementById('msb-assign-popup');
+  if (existing) existing.remove();
+  const popup = document.createElement('div');
+  popup.id = 'msb-assign-popup';
+  popup.style.cssText = `position:fixed;z-index:700;left:${rect.left}px;top:${rect.bottom+4}px;background:var(--sur2);border:1px solid var(--b2);border-radius:8px;box-shadow:0 8px 24px #00000040;padding:4px;min-width:120px`;
+  popup.innerHTML = available.map(val => {
+    const currentOwner = def.views.find(v => v.enumValues.includes(val));
+    return `<div style="padding:5px 10px;font-size:11px;cursor:pointer;border-radius:4px;display:flex;align-items:center;gap:6px;color:var(--t1)" onmouseover="this.style.background='var(--sur)'" onmouseout="this.style.background=''" onclick="msbAssign(event,'${viewId}','${val}')">
+      <span style="font-family:'DM Mono',monospace">${val}</span>
+      ${currentOwner ? `<span style="font-size:9px;color:var(--t3)">from ${currentOwner.name}</span>` : ''}
+    </div>`;
+  }).join('');
+  document.body.appendChild(popup);
+  setTimeout(() => {
+    const close = (ev) => { if (!popup.contains(ev.target)) { popup.remove(); document.removeEventListener('click', close); } };
+    document.addEventListener('click', close);
+  }, 10);
+}
+
+function msbAssign(e, viewId, val) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  def.views.forEach(v => { v.enumValues = v.enumValues.filter(ev => ev !== val); });
+  const view = def.views.find(v => v.id === viewId);
+  if (view) view.enumValues.push(val);
+  const popup = document.getElementById('msb-assign-popup');
+  if (popup) popup.remove();
+  refreshMsbCanvasButtons();
+  renderBody();
+  renderTree();
+  toast(`✓ "${val}" → ${view.name}`, true);
+}
+
+function msbResetJoins(e) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  const bkey = 'msb-articles|Active State';
+  const b = S.bindings[bkey];
+  const ctx = b ? findSource(b.ctxId) : null;
+  const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+  const enumVals = ctxField?.enumValues || [];
+  def.views = enumVals.map(val => ({
+    id: val,
+    name: val === 'hasItems' ? 'Has Items' : val.charAt(0).toUpperCase() + val.slice(1),
+    enumValues: [val]
+  }));
+  if (!def.views.find(v => v.id === def.activeView)) {
+    def.activeView = def.views[0]?.id;
+  }
+  refreshMsbCanvasButtons();
+  renderBody();
+  renderTree();
+  toast('✓ States reset to 1:1', true);
+}
+
+function toggleMsbAdvanced(e) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  def._advancedMapping = !def._advancedMapping;
+  renderBody();
+}
+
+function refreshMsbCanvasButtons() {
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  const viewSel = document.getElementById('msb-view-sel');
+  if (!viewSel) return;
+  const views = def.views || [];
+  const activeView = def.activeView;
+  viewSel.innerHTML = views.map(v => {
+    const disabled = v.enumValues.length === 0;
+    const active = v.id === activeView;
+    return `<button class="msb-view-btn ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}" data-view="${v.id}" onclick="switchMsbView(event,'${v.id}')"${disabled ? ' title="No state mapped — won\'t show at runtime"' : ''}>${v.name}</button>`;
+  }).join('');
+}
+
+function refreshMsbState() {
+  const msbId = 'msb-articles';
+  const def = EL_DEFS[msbId];
+  if (!def) return;
+  const bkey = msbId + '|Active State';
+  const isBound = !!S.bindings[bkey];
+  const msbEl = document.getElementById(msbId);
+  if (!msbEl) return;
+  const viewSel = document.getElementById('msb-view-sel');
+  const bindingLabel = msbEl.querySelector('.msb-binding');
+
+  if (isBound) {
+    msbEl.classList.add('bound');
+    if (viewSel) viewSel.style.display = '';
+    if (bindingLabel) {
+      const b = S.bindings[bkey];
+      const ctx = findSource(b.ctxId);
+      bindingLabel.textContent = (ctx ? ctx.icon + ' ' + ctx.name.split(' · ').pop() : '') + ' · ' + b.fieldName;
+    }
+    document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
+    const activeEl = document.getElementById('msb-view-' + def.activeView);
+    if (activeEl) activeEl.classList.add('active');
+  } else {
+    msbEl.classList.remove('bound');
+    if (viewSel) viewSel.style.display = 'none';
+    if (bindingLabel) bindingLabel.textContent = '— not connected';
+    document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
+    const unboundEl = document.getElementById('msb-view-unbound');
+    if (unboundEl) unboundEl.classList.add('active');
+  }
 }
 
 /* ── TOAST ── */
@@ -3201,12 +4577,16 @@ document.addEventListener('click', e => {
   const dd = document.getElementById('dd');
   if (!dd.contains(e.target) && !e.target.closest('.bind-btn')) closeDd();
   const tp = document.getElementById('tree-panel');
-  if (!tp.contains(e.target) && !e.target.closest('.ctx-tree-btn')) tp.classList.remove('open');
+  if (!tp.contains(e.target) && !e.target.closest('.ctx-tree-btn') && !e.target.closest('.ctx-tree-cta')) tp.classList.remove('open');
   const pp = document.getElementById('pages-panel');
   if (pp && !pp.contains(e.target) && !e.target.closest('.page-sel')) pp.classList.remove('open');
   // close ctx card dropdowns
   if (!e.target.closest('.ctx-card-menu')) {
     document.querySelectorAll('.ctx-card-dropdown.open').forEach(d => d.classList.remove('open'));
+  }
+  // close filter confirm popovers
+  if (!e.target.closest('.ctx-filter-row')) {
+    document.querySelectorAll('.ctx-filter-confirm.open').forEach(p => p.classList.remove('open'));
   }
 });
 
@@ -3283,7 +4663,7 @@ function renderDdRepeaterItems(body, elId, srcId) {
   const srcOpen   = S.dd.openPanel === 'src';
   const fieldOpen = S.dd.openPanel === 'field';
   const selectedCtx = srcId ? findSource(srcId) : null;
-  const isSelectedFn = selectedCtx && FN_DEFS.some(f => f.id === srcId);
+  const isSelectedFn = selectedCtx && FN_LIBS.some(l => l.id === srcId);
 
   // auto-open field panel if source just selected
   if (srcId && !fieldName && !fieldOpen && !srcOpen) {
@@ -3306,19 +4686,19 @@ function renderDdRepeaterItems(body, elId, srcId) {
           </div>
         </div>`).join('');
 
-  const fnSrcItems = FN_DEFS.map(fn => `
-        <div class="dd-sel-item ${srcId===fn.id?'sel':''}" onclick="ddRepSelSource(event,'${fn.id}')">
-          <span style="font-size:11px;font-family:'DM Mono',monospace;color:var(--yel);font-weight:700">${fn.icon}</span>
+  const fnLibSrcItems = FN_LIBS.map(lib => `
+        <div class="dd-sel-item ${srcId===lib.id?'sel':''}" onclick="ddRepSelSource(event,'${lib.id}')">
+          <span style="font-size:13px">${lib.icon}</span>
           <div style="flex:1;min-width:0">
-            <div style="font-family:'DM Mono',monospace;font-size:11px">${fn.name}</div>
-            <div class="dd-sel-item-sub">${fn.source} · function</div>
+            <div>${lib.name}</div>
+            <div class="dd-sel-item-sub">${lib.functions.length} functions · ${lib.description}</div>
           </div>
         </div>`).join('');
 
-  const srcItems = `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;padding-top:4px">Contexts</div>`
+  const srcItems = `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;padding-top:4px">CONTEXTS</div>`
     + ctxSrcItems
-    + `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;border-top:1px solid var(--b1);margin-top:4px;padding-top:8px">Functions</div>`
-    + fnSrcItems;
+    + `<div style="padding:4px 10px 2px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;border-top:1px solid var(--b1);margin-top:4px;padding-top:8px">FUNCTION LIBRARIES</div>`
+    + fnLibSrcItems;
 
   const fieldItems = !selectedCtx
     ? `<div class="dd-sel-item" style="opacity:.4;pointer-events:none;padding:8px 10px;font-size:11px;color:var(--t3)">Select a source first</div>`
@@ -3331,10 +4711,10 @@ function renderDdRepeaterItems(body, elId, srcId) {
     : arrayFields.map(f => `
         <div class="dd-sel-item ${fieldName===f.name?'sel':''}" onclick="ddRepSelField(event,'${f.name}')">
           <div style="flex:1;min-width:0">
-            <div>${f.name}</div>
-            <div class="dd-sel-item-sub">${f.sample}</div>
+            <div ${isSelectedFn ? 'style="font-family:\'DM Mono\',monospace;font-size:11px"' : ''}>${f.name}</div>
+            <div class="dd-sel-item-sub">${f.description || f.sample}</div>
           </div>
-          <span class="dd-sel-tag">array</span>
+          <span class="dd-sel-tag">${f.type}</span>
         </div>`).join('');
 
   body.innerHTML = `
@@ -3345,7 +4725,7 @@ function renderDdRepeaterItems(body, elId, srcId) {
           <div class="dd-sel-trigger ${srcId?'has-val':''}" onclick="ddRepToggleSrc(event)">
             ${srcId && selectedCtx
               ? (isSelectedFn
-                ? `<span style="font-family:'DM Mono',monospace;font-size:11px;font-weight:700;color:var(--yel)">${selectedCtx.icon}</span><span style="font-family:'DM Mono',monospace;font-size:11px">${selectedCtx.name}</span>`
+                ? `<span style="font-size:13px">${selectedCtx.icon}</span><span>${selectedCtx.name}</span>`
                 : `<span>${selectedCtx.icon}</span><span>${selectedCtx.name}</span>`)
               : `<span style="color:var(--t3)">Select…</span>`}
             <span class="dd-sel-chevron">▾</span>
@@ -3354,10 +4734,10 @@ function renderDdRepeaterItems(body, elId, srcId) {
         </div>
       </div>
       <div class="dd-sel-group">
-        <div class="dd-sel-label">Select Field</div>
+        <div class="dd-sel-label">${isSelectedFn ? 'Select Function' : 'Select Field'}</div>
         <div class="dd-sel-box ${fieldName?'filled':''} ${fieldOpen?'open':''} ${!srcId?'style="opacity:.5;pointer-events:none"':''}" id="dd-field-box">
           <div class="dd-sel-trigger ${fieldName?'has-val green':''}" onclick="ddRepToggleField(event)">
-            ${fieldName ? `<span>${fieldName}</span>` : `<span style="color:var(--t3)">${srcId?'Select…':'Pick source first'}</span>`}
+            ${fieldName ? `<span>${isSelectedFn ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px">' + fieldName + '</span>' : fieldName}</span>` : `<span style="color:var(--t3)">${srcId ? (isSelectedFn ? 'Select function…' : 'Select…') : 'Pick source first'}</span>`}
             <span class="dd-sel-chevron">▾</span>
           </div>
           <div class="dd-sel-dropdown">${fieldItems}</div>
@@ -3437,16 +4817,17 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
     : '';
 
   var actionsHtml = isBound
-    ? '<span class="img-ctrl-field" style="font-size:10px;color:var(--t3);letter-spacing:.3px">' + ctxIcon + ' ' + ctxName + '</span>'
-    + '<span class="type-badge tb-list" style="font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;width:fit-content">' + fieldName + '<span class="chip-x" onclick="unbind(\'' + elId + '\',\'' + propK + '\',event)" style="opacity:.6;cursor:pointer;font-size:10px">&#x2715;</span></span>'
+    ? '<span class="prop-bound-ctx">' + ctxIcon + ' ' + ctxName + '</span>'
+    + '<span class="prop-bound-field">' + fieldName + '<span class="chip-x" onclick="unbind(\'' + elId + '\',\'' + propK + '\',event)">&#x2715;</span></span>'
     : '<span class="img-ctrl-hint">Static image</span>';
 
   var svg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">'
     + '<circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>'
     + '</svg>';
 
-  return '<div class="prop-row img-prop-row' + (isBound?' bound':'') + (isActiveDd?' active-bind':'') + '" id="' + rowId + '">'
-    + '<div class="prop-key" style="margin-bottom:6px">' + propK + '</div>'
+  return '<div class="prop-wrap" id="' + rowId + '">'
+    + '<div class="prop-key">' + propK + '</div>'
+    + '<div class="prop-row img-prop-row' + (isBound?' bound':'') + (isActiveDd?' active-bind':'') + '">'
     + '<div class="img-ctrl' + (isBound?' bound':'') + '">'
       + '<div class="img-ctrl-thumb">'
         + '<img src="' + thumbSrc + '" style="width:100%;height:100%;object-fit:cover;border-radius:5px;display:block;' + blur + '">'
@@ -3457,8 +4838,17 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
         + '<div class="bind-btn" onclick="openDd(event,\'' + elId + '\',\'' + propK + '\')" title="Connect to context" style="margin-top:auto">' + svg + '</div>'
       + '</div>'
     + '</div>'
+  + '</div>'
   + '</div>';
 }
+// Initialize bound classes from S.bindings
+Object.keys(S.bindings).forEach(bkey => {
+  const [elId] = bkey.split('|');
+  const domEl = document.getElementById(elId);
+  if (!domEl) return;
+  if (domEl.classList.contains('c-el')) domEl.classList.add('bound');
+  if (domEl.classList.contains('c-repeater') && bkey.endsWith('|Items')) domEl.classList.add('bound');
+});
 refreshAllPills();
 
 /* ── SORT / FILTER DIALOGS ── */
@@ -3605,6 +4995,7 @@ function sfAddRule() {
       <button class="modal-btn" id="confirm-ok-btn" onclick="doConfirmOk()" style="background:var(--red);color:#fff">Remove</button>
     </div>
   </div>
+</div>
 
 </body>
 </html>

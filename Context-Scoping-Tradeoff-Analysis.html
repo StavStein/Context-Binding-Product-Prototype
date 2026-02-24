@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Context Scoping: Page-Level vs Container-Level</title>
+<style>
+  body { font-family: 'Google Sans', Arial, sans-serif; max-width: 780px; margin: 40px auto; padding: 0 24px; color: #202124; line-height: 1.7; }
+  h1 { font-size: 26px; font-weight: 600; border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-bottom: 24px; }
+  h2 { font-size: 18px; font-weight: 600; color: #1a73e8; margin-top: 36px; margin-bottom: 12px; }
+  h3 { font-size: 15px; font-weight: 600; color: #333; margin-top: 24px; margin-bottom: 8px; }
+  p, li { font-size: 14px; }
+  ul, ol { padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 600; }
+  em { color: #5f6368; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13px; }
+  th { background: #e8f0fe; color: #1a73e8; text-align: left; padding: 10px 14px; font-weight: 600; border: 1px solid #d2e3fc; }
+  td { padding: 9px 14px; border: 1px solid #e0e0e0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+  .label { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 4px; }
+  .ok-tag { background: #e6f4ea; color: #137333; }
+  .fail-tag { background: #fce8e6; color: #c5221f; }
+  code { background: #f1f3f4; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Roboto Mono', monospace; }
+  .callout { background: #f1f3f4; border-left: 4px solid #1a73e8; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .divider { border: none; border-top: 1px solid #e0e0e0; margin: 32px 0; }
+  .example { color: #5f6368; font-style: italic; }
+</style>
+</head>
+<body>
+
+<h1>Context Scoping: Page-Level vs Container-Level</h1>
+
+<p>We explored an alternative approach where all context providers would be pre-installed at the page level, removing the step where users manually attach a context to a section. This would simplify the initial experience &mdash; fewer steps, less to learn upfront.</p>
+
+<p>Before committing to either direction, we mapped out which use cases each approach can and cannot support. This document captures that analysis.</p>
+
+<hr class="divider">
+
+<h2>What Page-Level Context Can Do</h2>
+
+<p>For many common scenarios, page-level context works well. These use cases involve a single, flat data source with no parent-child relationships:</p>
+
+<table>
+  <tr><th>Use Case</th><th>Real-Life Example</th><th>Status</th></tr>
+  <tr>
+    <td><strong>Flat product or content list</strong></td>
+    <td>A Wix Stores page showing all products in a grid. Each card shows the product&rsquo;s image, title, and price from a single Products collection.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+  <tr>
+    <td><strong>Blog feed</strong></td>
+    <td>A blog homepage listing recent posts. A repeater iterates over a Posts collection and shows the title, excerpt, and date for each.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+  <tr>
+    <td><strong>Testimonials / reviews</strong></td>
+    <td>A section on a landing page showing customer reviews pulled from a Reviews collection. Each card shows name, quote, and star rating.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+  <tr>
+    <td><strong>Single-item display</strong></td>
+    <td>A &ldquo;Current User Profile&rdquo; card at the top of a dashboard showing the logged-in user&rsquo;s name, avatar, and role.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+  <tr>
+    <td><strong>Multiple independent repeaters</strong></td>
+    <td>A homepage with a &ldquo;Latest Products&rdquo; repeater and a separate &ldquo;Blog Highlights&rdquo; repeater. Each pulls from its own collection with no relationship between them.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+  <tr>
+    <td><strong>Simple form</strong></td>
+    <td>A &ldquo;Contact Us&rdquo; form that submits entries to a Form Submissions collection. No relational data involved.</td>
+    <td><span class="label ok-tag">Works</span></td>
+  </tr>
+</table>
+
+<hr class="divider">
+
+<h2>Where Page-Level Context Falls Short</h2>
+
+<p>The following use cases require knowing which item we&rsquo;re &ldquo;currently inside of&rdquo; &mdash; what&rsquo;s called <strong>scoping</strong>. When a repeater iterates, each iteration needs to create a scope so child elements can reference the current item. Page-level context provides a single flat data pool with no concept of &ldquo;current item,&rdquo; so these patterns cannot be expressed:</p>
+
+<table>
+  <tr><th>Use Case</th><th>Real-Life Example</th><th>Status</th></tr>
+  <tr>
+    <td><strong>Nested repeater with relational data</strong></td>
+    <td>A restaurant site showing menu sections (Appetizers, Mains, Desserts) where each section lists only its own dishes. The inner repeater needs to filter dishes by the current section &mdash; but page-level context has no &ldquo;current section&rdquo; to filter against.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Categories with filtered items</strong></td>
+    <td>A Wix Stores page organized by category: Shoes shows shoe products, Shirts shows shirt products. Without scoping, every category card would display the same full product list.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Course platform with lessons</strong></td>
+    <td>An online school page listing courses, each showing its lesson list below it. &ldquo;Photography 101&rdquo; should show its 8 lessons, &ldquo;Cooking Basics&rdquo; its 5 lessons. Without scoping, every course card shows all 13 lessons.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Team page grouped by department</strong></td>
+    <td>A company page showing Engineering, Design, and Sales departments, each with its team members listed underneath. Without scoping, every department section shows the entire company roster.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Event schedule by day</strong></td>
+    <td>A conference page with Day 1, Day 2, Day 3 tabs, each showing only that day&rsquo;s sessions. Without scoping, every tab shows all sessions from all days.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>FAQ grouped by topic</strong></td>
+    <td>A support page where questions are organized under topics (Billing, Account, Shipping). Each topic section should only show its own questions.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Product with its reviews</strong></td>
+    <td>A product detail page showing the product info and a repeater of reviews for <em>that specific product</em>. Without scoping, the review repeater has no way to know which product it belongs to.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Portfolio grouped by category</strong></td>
+    <td>A designer&rsquo;s portfolio site with sections for Branding, Web, and Print &mdash; each showing only projects in that category.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Master-detail layout</strong></td>
+    <td>An admin dashboard where a left sidebar lists orders, and clicking one shows its line items in the right panel. The detail panel needs to know which order is selected.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Scoped actions per item</strong></td>
+    <td>An &ldquo;Add to Cart&rdquo; button inside each product card that needs to know <em>which</em> product it belongs to in order to add the right one.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Conditional visibility per item</strong></td>
+    <td>A &ldquo;SALE&rdquo; badge that only appears on products where <code>onSale</code> is true. The badge needs the current item&rsquo;s data to decide whether to show or hide.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+  <tr>
+    <td><strong>Cascading dropdowns</strong></td>
+    <td>A booking form where selecting a Country populates a second dropdown with only that country&rsquo;s cities. The second dropdown needs to filter by the selected value.</td>
+    <td><span class="label fail-tag">Blocked</span></td>
+  </tr>
+</table>
+
+<hr class="divider">
+
+<h2>Conclusion</h2>
+
+<div class="callout">
+<p>The UX concern with container-level context is valid &mdash; asking users to attach a context to a section before connecting data is an extra step, and extra steps add friction. That friction is worth taking seriously.</p>
+
+<p>At the same time, removing that step by moving to page-level context means giving up the ability to support relational data, nested lists, and &ldquo;current item&rdquo; awareness. These aren&rsquo;t edge cases &mdash; they cover common patterns like category-grouped products, course-lesson structures, department-team layouts, and scoped actions like &ldquo;Add to Cart.&rdquo;</p>
+
+<p>The question isn&rsquo;t which approach is <em>better</em> in the abstract. It&rsquo;s whether we can find ways to <strong>reduce the friction of container-level context</strong> (through smarter defaults, auto-binding, progressive disclosure) rather than removing the architectural layer that makes these use cases possible.</p>
+</div>
+
+</body>
+</html>

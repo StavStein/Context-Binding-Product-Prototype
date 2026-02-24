@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PRD: Repeater Data Connection Experience</title>
+<style>
+  body { font-family: 'Google Sans', Arial, sans-serif; max-width: 780px; margin: 40px auto; padding: 0 24px; color: #202124; line-height: 1.7; }
+  h1 { font-size: 26px; font-weight: 600; border-bottom: 2px solid #1a73e8; padding-bottom: 10px; margin-bottom: 24px; }
+  h2 { font-size: 18px; font-weight: 600; color: #1a73e8; margin-top: 36px; margin-bottom: 12px; }
+  h3 { font-size: 15px; font-weight: 600; color: #333; margin-top: 24px; margin-bottom: 8px; }
+  p, li { font-size: 14px; }
+  ul { padding-left: 24px; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 600; }
+  em { color: #5f6368; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 24px; font-size: 13px; }
+  th { background: #e8f0fe; color: #1a73e8; text-align: left; padding: 10px 14px; font-weight: 600; border: 1px solid #d2e3fc; }
+  td { padding: 9px 14px; border: 1px solid #e0e0e0; vertical-align: top; }
+  tr:nth-child(even) td { background: #f8f9fa; }
+  .label { display: inline-block; padding: 2px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; margin-right: 4px; }
+  .state-tag { background: #e8f0fe; color: #1a73e8; }
+  .warn-tag { background: #fef7e0; color: #e37400; }
+  .ok-tag { background: #e6f4ea; color: #137333; }
+  code { background: #f1f3f4; padding: 2px 6px; border-radius: 4px; font-size: 13px; font-family: 'Roboto Mono', monospace; }
+  .flow-step { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 10px; }
+  .flow-num { width: 24px; height: 24px; border-radius: 50%; background: #1a73e8; color: #fff; font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 2px; }
+  .flow-text { font-size: 14px; }
+  .callout { background: #f1f3f4; border-left: 4px solid #1a73e8; padding: 14px 18px; border-radius: 0 8px 8px 0; margin: 16px 0; font-size: 13px; }
+  .divider { border: none; border-top: 1px solid #e0e0e0; margin: 32px 0; }
+</style>
+</head>
+<body>
+
+<h1>PRD: Repeater Data Connection Experience</h1>
+
+<h2>Problem Statement</h2>
+<p>Repeaters are components that display lists of data-driven items (e.g., product cards, article lists). In the current editor, a repeater displays its template content &mdash; placeholder text, images &mdash; even when it is <strong>not connected to any data source</strong>. This creates a misleading experience: users see what looks like real content, but it&rsquo;s entirely static and non-functional.</p>
+
+<p>This leads to:</p>
+<ul>
+  <li><strong>User confusion</strong> &mdash; &ldquo;Why isn&rsquo;t my content changing when I update the database?&rdquo;</li>
+  <li><strong>Silent failures</strong> &mdash; Users publish pages with unbound repeaters, showing placeholder content to visitors</li>
+  <li><strong>No clear call-to-action</strong> &mdash; Users aren&rsquo;t guided toward the required binding step</li>
+</ul>
+
+<h2>Goal</h2>
+<p>Provide a clear, progressive visual experience that communicates the repeater&rsquo;s binding state and guides users to connect it to data, while preserving the template layout as a preview of what the final result will look like.</p>
+
+<h2>Solution Overview</h2>
+<p>A <strong>skeleton overlay system</strong> that reflects the repeater&rsquo;s actual data-binding status, with contextual CTAs that adapt based on what step the user needs to take next.</p>
+
+<hr class="divider">
+
+<h2>States &amp; Behavior</h2>
+
+<h3><span class="label state-tag">State 1</span> No Context on Parent Section</h3>
+
+<p><strong>Condition:</strong> The repeater&rsquo;s parent section has no context attached.</p>
+
+<p><strong>Visual treatment:</strong></p>
+<ul>
+  <li>The repeater&rsquo;s content (grid, cards) is <strong>blurred, desaturated, and reduced to 25% opacity</strong></li>
+  <li>The repeater header is dimmed and non-interactive</li>
+  <li>A centered overlay appears with:
+    <ul>
+      <li>Icon: &#x1F4CE;</li>
+      <li>Title: <strong>&ldquo;No data connected&rdquo;</strong></li>
+      <li>Description: &ldquo;Add a context to this section to populate this repeater&rdquo;</li>
+      <li>CTA button: <strong>&ldquo;+ Add Context&rdquo;</strong> &mdash; opens the context picker modal for the parent section</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="callout">
+  <strong>Rationale:</strong> The user hasn&rsquo;t started the data connection process at all. The blurred template underneath hints at what the repeater will look like once connected, while the overlay makes it unmistakably clear that action is required.
+</div>
+
+<h3><span class="label state-tag">State 2a</span> Context Exists &mdash; List Field Available</h3>
+
+<p><strong>Condition:</strong> The parent section has a list-type context attached with an available array field, but the repeater&rsquo;s <code>Items</code> property is not yet bound.</p>
+
+<p><strong>Visual treatment:</strong></p>
+<ul>
+  <li>Same blur/desaturation/opacity on content</li>
+  <li>Overlay with:
+    <ul>
+      <li>Icon: &#x1F517;</li>
+      <li>Title: <strong>&ldquo;Almost there!&rdquo;</strong></li>
+      <li>Description: &ldquo;Connect this repeater to {Context Icon} {Context Name}&rdquo;</li>
+      <li>CTA button: <strong>&ldquo;Connect to {fieldName}&rdquo;</strong> &mdash; auto-binds the repeater to the first available array field</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="callout">
+  <strong>Rationale:</strong> The user has done the hard part (adding a context). The system identifies the correct field and offers a <strong>one-click binding</strong>. This eliminates the need to manually navigate to the repeater&rsquo;s settings panel.
+</div>
+
+<h3><span class="label warn-tag">State 2b</span> Context Exists &mdash; No List Fields</h3>
+
+<p><strong>Condition:</strong> The parent section has a context attached, but it has no list/array fields.</p>
+
+<p><strong>Visual treatment:</strong></p>
+<ul>
+  <li>Same blur/desaturation overlay</li>
+  <li>Overlay with:
+    <ul>
+      <li>Icon: &#x26A0;&#xFE0F;</li>
+      <li>Title: <strong>&ldquo;No list data available&rdquo;</strong></li>
+      <li>Description: &ldquo;The attached context has no list fields. Add a list-type context instead.&rdquo;</li>
+      <li>CTA button: <strong>&ldquo;Change Context&rdquo;</strong> &mdash; opens the context picker modal</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="callout">
+  <strong>Rationale:</strong> Edge case where the user attached a single-item context (e.g., &ldquo;Weather App&rdquo; which returns a single object, not a list). The system explains <em>why</em> the repeater can&rsquo;t connect and offers a path to fix it.
+</div>
+
+<h3><span class="label ok-tag">State 3</span> Repeater is Bound</h3>
+
+<p><strong>Condition:</strong> The repeater&rsquo;s <code>Items</code> property has an active binding.</p>
+
+<p><strong>Visual treatment:</strong></p>
+<ul>
+  <li>No overlay &mdash; content renders normally</li>
+  <li>Skeleton class removed, all blur/opacity effects cleared</li>
+  <li>Repeater pill shows the connected context and field name</li>
+</ul>
+
+<hr class="divider">
+
+<h2>Auto-Bind on Context Addition</h2>
+
+<p>When a user adds a new <strong>list-type context</strong> to a section that contains an unbound repeater, the system automatically binds the repeater to the first array field of that context.</p>
+
+<div class="flow-step"><div class="flow-num">1</div><div class="flow-text">User opens context picker on a section containing a repeater</div></div>
+<div class="flow-step"><div class="flow-num">2</div><div class="flow-text">User selects a list-type context (e.g., &ldquo;Stores &middot; Products&rdquo;)</div></div>
+<div class="flow-step"><div class="flow-num">3</div><div class="flow-text">System attaches context to section</div></div>
+<div class="flow-step"><div class="flow-num">4</div><div class="flow-text">System detects an unbound repeater in that section</div></div>
+<div class="flow-step"><div class="flow-num">5</div><div class="flow-text">System finds the first <code>array</code>-type field in the context</div></div>
+<div class="flow-step"><div class="flow-num">6</div><div class="flow-text">System auto-creates the binding: <code>repeater|Items &rarr; context.arrayField</code></div></div>
+<div class="flow-step"><div class="flow-num">7</div><div class="flow-text">Skeleton overlay is removed, repeater renders with live data</div></div>
+<div class="flow-step"><div class="flow-num">8</div><div class="flow-text">Toast confirmation: &ldquo;&#x2713; Repeater connected to {Context} &middot; {Field}&rdquo;</div></div>
+
+<hr class="divider">
+
+<h2>Visual Design Specifications</h2>
+
+<table>
+  <tr><th>Property</th><th>Value</th></tr>
+  <tr><td>Overlay background (light)</td><td><code>rgba(255, 255, 255, 0.55)</code> with <code>backdrop-filter: blur(1px)</code></td></tr>
+  <tr><td>Overlay background (dark)</td><td><code>rgba(20, 20, 30, 0.65)</code></td></tr>
+  <tr><td>Content behind overlay</td><td><code>filter: blur(2px) grayscale(0.8); opacity: 0.25</code></td></tr>
+  <tr><td>CTA button</td><td>Accent color background, white text, 8px border-radius, subtle box-shadow</td></tr>
+  <tr><td>CTA hover</td><td>Darker accent, stronger shadow</td></tr>
+  <tr><td>Icon size</td><td>28px, 70% opacity</td></tr>
+  <tr><td>Title</td><td>13px, weight 600</td></tr>
+  <tr><td>Description</td><td>11px, muted color, centered, 1.5 line-height</td></tr>
+  <tr><td>Entry animation</td><td><code>fadeIn</code> &mdash; opacity 0&rarr;1, translateY 6px&rarr;0</td></tr>
+</table>
+
+<h2>Refresh Triggers</h2>
+
+<p>The skeleton state is recalculated whenever:</p>
+<ul>
+  <li>Section/page pills are refreshed (part of <code>refreshAllPills()</code>)</li>
+  <li>A context is added or removed from a section</li>
+  <li>A binding is created or deleted</li>
+  <li>A page is switched (with 50ms delay for DOM readiness)</li>
+</ul>
+
+<h2>Edge Cases</h2>
+
+<table>
+  <tr><th>Scenario</th><th>Behavior</th></tr>
+  <tr><td>Multiple repeaters in one section</td><td>Each evaluates independently; auto-bind applies to the first unbound repeater found</td></tr>
+  <tr><td>Repeater in a page (not section)</td><td>Uses <code>parentPage</code> as the section context source</td></tr>
+  <tr><td>Context removed after binding</td><td>Binding is cleared &rarr; repeater reverts to State 1 or State 2</td></tr>
+  <tr><td>Duplicated context (unmodified)</td><td>Excluded from auto-bind; overlay shows based on other available contexts</td></tr>
+</table>
+
+<h2>Success Metrics</h2>
+
+<ul>
+  <li>Reduction in repeaters published without data bindings</li>
+  <li>Increase in successful context-to-repeater connections within the first session</li>
+  <li>Decrease in support tickets related to &ldquo;repeater not showing data&rdquo;</li>
+</ul>
+
+</body>
+</html>
