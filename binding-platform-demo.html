@@ -110,6 +110,32 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .et-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round}
 .et-spacer{height:16px;flex-shrink:0}
 .et-bottom{margin-top:auto;display:flex;flex-direction:column;align-items:center;gap:2px}
+
+.add-el-panel{display:none;width:240px;background:var(--sur);border-right:1px solid var(--b1);flex-shrink:0;overflow-y:auto;flex-direction:column}
+.add-el-panel.open{display:flex}
+.add-el-header{padding:14px 16px 10px;display:flex;align-items:center;justify-content:space-between}
+.add-el-title{font-size:13px;font-weight:600;color:var(--t1)}
+.add-el-close{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--t3);border:none;background:none;font-size:14px;transition:.12s}
+.add-el-close:hover{background:var(--sur2);color:var(--t1)}
+.add-el-search{margin:0 12px 10px;padding:7px 10px;border-radius:6px;border:1px solid var(--b1);background:var(--sur2);font-size:11px;color:var(--t1);font-family:'DM Sans',sans-serif;outline:none}
+.add-el-search::placeholder{color:var(--t3)}
+.add-el-search:focus{border-color:var(--acc)}
+.add-el-group{padding:6px 16px 4px;font-size:10px;font-weight:600;color:var(--t3);letter-spacing:.4px;text-transform:uppercase}
+.add-el-item{display:flex;align-items:center;gap:10px;padding:8px 16px;cursor:grab;transition:.12s;user-select:none}
+.add-el-item:hover{background:var(--sur2)}
+.add-el-item:active{cursor:grabbing;opacity:.7}
+.add-el-item-icon{width:36px;height:36px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.add-el-item-info{display:flex;flex-direction:column;gap:1px;min-width:0}
+.add-el-item-name{font-size:12px;font-weight:500;color:var(--t1)}
+.add-el-item-desc{font-size:10px;color:var(--t3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.add-el-drag-ghost{position:fixed;pointer-events:none;z-index:9999;padding:8px 14px;background:var(--acc);color:#fff;border-radius:8px;font-size:12px;font-weight:500;font-family:'DM Sans',sans-serif;box-shadow:0 4px 16px #0003;opacity:.9;white-space:nowrap}
+.canvas-drop-indicator{position:absolute;left:0;right:0;height:3px;background:var(--acc);border-radius:2px;z-index:100;pointer-events:none;display:none}
+.ctx-menu{display:none;position:fixed;z-index:9999;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 8px 30px #0003;padding:4px 0;min-width:140px;font-family:'DM Sans',sans-serif}
+.ctx-menu.open{display:block}
+.ctx-menu-item{padding:7px 14px;font-size:12px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:8px;transition:.1s}
+.ctx-menu-item:hover{background:var(--sur2);color:var(--t1)}
+.ctx-menu-item.danger{color:#e84393}
+.ctx-menu-item.danger:hover{background:#fce4ec;color:#e84393}
 .tb-ai-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--acc-b);background:var(--acc-d);color:var(--acc);cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s;display:flex;align-items:center;gap:4px}
 .tb-ai-btn:hover{background:var(--acc-b)}
 .tb-ai-btn.active{background:var(--acc);color:#fff;border-color:var(--acc)}
@@ -199,7 +225,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .item-ctrl-arrow{width:22px;height:22px;border-radius:4px;border:1px solid #e0e0e0;background:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:11px;color:#555;transition:.1s}
 .item-ctrl-arrow:hover{background:#f0f0f0;color:#111}
 .item-detail-hero{background:#111;width:100%;aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;overflow:hidden}
-.item-detail-hero svg{width:60%;height:60%;opacity:.9}
+.item-detail-hero>svg{width:60%;height:60%;opacity:.9}
 .item-detail-body{padding:32px 36px}
 .item-detail-title{font-family:'Syne',sans-serif;font-style:italic;font-weight:700;font-size:28px;color:#1a1aff;margin-bottom:14px}
 .item-detail-desc{font-size:13px;color:#555;line-height:1.8;max-width:520px}
@@ -279,6 +305,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .el-bind-sep{width:1px;height:10px;background:var(--grn);opacity:.3;flex-shrink:0}
 .el-bind-sec:hover{opacity:1;background:rgba(16,185,129,.1)}
 .el-bind-ctx:hover{background:rgba(16,185,129,.1)}
+.el-bind-icon{vertical-align:-1px;margin-right:2px;opacity:.7;flex-shrink:0}
 
 /* Text element */
 .c-el-text{background:var(--sur2);padding:7px 10px 9px;min-height:44px;display:flex;flex-direction:column;gap:2px;align-items:flex-start;position:relative;border-radius:8px}
@@ -847,7 +874,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 
   <!-- EDITOR TOOLBAR -->
   <div class="editor-toolbar">
-    <button class="et-btn" title="Add Elements">
+    <button class="et-btn" id="add-el-toggle" title="Add Elements" onclick="toggleAddElementsPanel()">
       <svg viewBox="0 0 20 20"><line x1="10" y1="4" x2="10" y2="16"/><line x1="4" y1="10" x2="16" y2="10"/></svg>
     </button>
     <button class="et-btn" title="Edit">
@@ -886,6 +913,30 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
       <button class="et-btn" title="Help">
         <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="7"/><path d="M8 7.5a2.5 2.5 0 0 1 4 2c0 1.5-2 2-2 3"/><circle cx="10" cy="14.5" r=".5" fill="currentColor" stroke="none"/></svg>
       </button>
+    </div>
+  </div>
+
+  <!-- ADD ELEMENTS PANEL -->
+  <div class="add-el-panel" id="add-el-panel">
+    <div class="add-el-header">
+      <span class="add-el-title">Add Elements</span>
+      <button class="add-el-close" onclick="toggleAddElementsPanel()" title="Close">×</button>
+    </div>
+    <input class="add-el-search" type="text" placeholder="Search components…" oninput="filterAddElements(this.value)">
+    <div class="add-el-group">Components</div>
+    <div class="add-el-item" draggable="true" data-component="repeater" onclick="addComponentToCanvas('repeater')" ondragstart="onDragStartComponent(event,'repeater')">
+      <div class="add-el-item-icon">↻</div>
+      <div class="add-el-item-info">
+        <div class="add-el-item-name">Repeater</div>
+        <div class="add-el-item-desc">Repeats content for each item in a list</div>
+      </div>
+    </div>
+    <div class="add-el-item" draggable="true" data-component="multistatebox" onclick="addComponentToCanvas('multistatebox')" ondragstart="onDragStartComponent(event,'multistatebox')">
+      <div class="add-el-item-icon">◫</div>
+      <div class="add-el-item-info">
+        <div class="add-el-item-name">Multi-State Box</div>
+        <div class="add-el-item-desc">Shows different views based on a state field</div>
+      </div>
     </div>
   </div>
 
@@ -2363,7 +2414,8 @@ function elPillNavCtx(elId) {
 function buildBindTagHTML(elId, ctxLabel) {
   const def = EL_DEFS[elId];
   const typeName = def ? def.type : 'Element';
-  return `<span class="el-bind-sec" onclick="elPillNavDesign('${elId}')">${typeName}</span><span class="el-bind-sep"></span><span class="el-bind-ctx" onclick="elPillNavCtx('${elId}')">${ctxLabel}</span>`;
+  const bindIcon = `<svg class="el-bind-icon" width="8" height="8" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 6l-1.2 1.2a2.5 2.5 0 0 1-3.6-3.4L6.4 2.6a2.5 2.5 0 0 1 3.5 0l.1.1"/><path d="M6 10l1.2-1.2a2.5 2.5 0 0 1 3.6 3.4l-1.2 1.2a2.5 2.5 0 0 1-3.5 0l-.1-.1"/></svg>`;
+  return `<span class="el-bind-sec" onclick="elPillNavDesign('${elId}')">${typeName}</span><span class="el-bind-sep"></span><span class="el-bind-ctx" onclick="elPillNavCtx('${elId}')">${bindIcon} ${ctxLabel}</span>`;
 }
 
 function selEl(e, id) {
@@ -2876,7 +2928,7 @@ function refreshAllPills() {
     const binding = S.bindings[id + '|Items'];
     if (binding) {
       const ctx = findSource(binding.ctxId);
-      const ctxLabel = ctx ? `${ctx.icon} ${ctx.name} · ${binding.fieldName}` : binding.fieldName;
+      const ctxLabel = ctx ? `Connected · ${binding.fieldName}` : binding.fieldName;
       pill.innerHTML = buildBindTagHTML(id, ctxLabel);
     } else {
       pill.innerHTML = '';
@@ -2896,7 +2948,7 @@ function refreshElementBindTags() {
     if (bindKeys.length === 0) return;
     const b = S.bindings[bindKeys[0]];
     const ctx = b.ctxId ? findSource(b.ctxId) : null;
-    const ctxLabel = (ctx ? ctx.icon + ' ' + ctx.name : '?') + ' · ' + b.fieldName;
+    const ctxLabel = (ctx ? 'Connected' : '?') + ' · ' + b.fieldName;
     bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
   });
 }
@@ -2968,7 +3020,7 @@ function autoBindRepeater(repeaterId, ctxId, fieldName) {
   if (repEl) {
     repEl.classList.add('bound');
     const countEl = document.getElementById('rep-count-' + repeaterId.replace('repeater-', ''));
-    if (countEl) countEl.textContent = `${ctx.icon} ${fieldName} · 3 items`;
+    if (countEl) countEl.textContent = `Connected · ${fieldName} · 3 items`;
   }
   refreshAllPills();
   if (S.sel) renderRP();
@@ -3532,6 +3584,241 @@ function toggleAiPanel() {
   btn.classList.toggle('active');
 }
 
+/* ── ADD ELEMENTS PANEL ── */
+function toggleAddElementsPanel() {
+  const panel = document.getElementById('add-el-panel');
+  const btn = document.getElementById('add-el-toggle');
+  panel.classList.toggle('open');
+  btn.classList.toggle('active');
+}
+
+function filterAddElements(query) {
+  const q = query.toLowerCase();
+  document.querySelectorAll('.add-el-item').forEach(item => {
+    const name = item.querySelector('.add-el-item-name').textContent.toLowerCase();
+    const desc = item.querySelector('.add-el-item-desc').textContent.toLowerCase();
+    item.style.display = (name.includes(q) || desc.includes(q)) ? '' : 'none';
+  });
+}
+
+let _dragGhost = null;
+let _dragType = null;
+
+function startDragComponent(e, type) {
+  _dragType = type;
+}
+
+function onDragStartComponent(e, type) {
+  _dragType = type;
+  const label = type === 'repeater' ? '↻ Repeater' : '◫ Multi-State Box';
+  e.dataTransfer.setData('text/plain', type);
+  e.dataTransfer.effectAllowed = 'copy';
+
+  _dragGhost = document.createElement('div');
+  _dragGhost.className = 'add-el-drag-ghost';
+  _dragGhost.textContent = label;
+  document.body.appendChild(_dragGhost);
+  e.dataTransfer.setDragImage(_dragGhost, 0, 0);
+
+  const canvas = document.getElementById('canvas');
+  canvas.addEventListener('dragover', onCanvasDragOver);
+  canvas.addEventListener('drop', onCanvasDrop);
+  canvas.addEventListener('dragleave', onCanvasDragLeave);
+}
+
+function onCanvasDragOver(e) {
+  e.preventDefault();
+  e.dataTransfer.dropEffect = 'copy';
+  const canvasInner = getActiveCanvasInner();
+  if (!canvasInner) return;
+  const sections = [...canvasInner.querySelectorAll('.c-section')];
+  let closest = null, closestDist = Infinity;
+  const y = e.clientY;
+  sections.forEach(sec => {
+    const r = sec.getBoundingClientRect();
+    const mid = r.top + r.height / 2;
+    const dist = Math.abs(y - (r.bottom + 7));
+    if (dist < closestDist) { closestDist = dist; closest = sec; }
+  });
+  document.querySelectorAll('.canvas-drop-indicator').forEach(el => el.remove());
+  if (closest) {
+    const ind = document.createElement('div');
+    ind.className = 'canvas-drop-indicator';
+    ind.style.display = 'block';
+    closest.parentNode.insertBefore(ind, closest.nextSibling);
+  }
+}
+
+function onCanvasDragLeave(e) {
+  document.querySelectorAll('.canvas-drop-indicator').forEach(el => el.remove());
+}
+
+function onCanvasDrop(e) {
+  e.preventDefault();
+  const type = e.dataTransfer.getData('text/plain');
+  document.querySelectorAll('.canvas-drop-indicator').forEach(el => el.remove());
+  cleanUpDrag();
+
+  const canvasInner = getActiveCanvasInner();
+  if (!canvasInner) return;
+
+  const sections = [...canvasInner.querySelectorAll('.c-section')];
+  let insertAfter = sections[sections.length - 1];
+  const y = e.clientY;
+  for (const sec of sections) {
+    const r = sec.getBoundingClientRect();
+    if (y < r.bottom + 7) { insertAfter = sec; break; }
+  }
+
+  const newSection = createDroppedComponent(type);
+  if (newSection && insertAfter) {
+    insertAfter.insertAdjacentElement('afterend', newSection);
+    toast(`Added ${type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
+  }
+}
+
+function cleanUpDrag() {
+  if (_dragGhost) { _dragGhost.remove(); _dragGhost = null; }
+  _dragType = null;
+  const canvas = document.getElementById('canvas');
+  canvas.removeEventListener('dragover', onCanvasDragOver);
+  canvas.removeEventListener('drop', onCanvasDrop);
+  canvas.removeEventListener('dragleave', onCanvasDragLeave);
+}
+
+document.addEventListener('dragend', cleanUpDrag);
+
+function addComponentToCanvas(type) {
+  const canvasInner = getActiveCanvasInner();
+  if (!canvasInner) return;
+  const newSection = createDroppedComponent(type);
+  if (newSection) {
+    canvasInner.appendChild(newSection);
+    newSection.scrollIntoView({behavior:'smooth', block:'center'});
+    toast(`Added ${type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
+  }
+}
+
+function getActiveCanvasInner() {
+  const active = document.querySelector('.canvas-inner.active-page') || document.querySelector('.canvas-inner:not(.hidden-page)');
+  return active;
+}
+
+function createDroppedComponent(type) {
+  const ts = Date.now();
+  const secId = 'sec-new-' + ts;
+  const compId = type + '-' + ts;
+  const sec = document.createElement('div');
+  sec.className = 'c-section';
+  sec.id = secId;
+  sec.setAttribute('onclick', `selEl(event,'${secId}')`);
+
+  if (type === 'repeater') {
+    sec.innerHTML = `
+      <div class="s-body" style="gap:8px;padding:20px">
+        <div class="c-repeater has-skeleton" id="${compId}" onclick="selEl(event,'${compId}')">
+          <div class="c-el-overlay"></div>
+          <div class="rep-grid">
+            <div class="rep-item" style="padding:16px">
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:48px;height:48px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1)"></div>
+                <div style="flex:1">
+                  <div style="height:10px;width:60%;background:var(--b1);border-radius:4px;margin-bottom:6px"></div>
+                  <div style="height:8px;width:40%;background:var(--b1);border-radius:4px"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rep-item" style="padding:16px">
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:48px;height:48px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1)"></div>
+                <div style="flex:1">
+                  <div style="height:10px;width:55%;background:var(--b1);border-radius:4px;margin-bottom:6px"></div>
+                  <div style="height:8px;width:35%;background:var(--b1);border-radius:4px"></div>
+                </div>
+              </div>
+            </div>
+            <div class="rep-item" style="padding:16px">
+              <div style="display:flex;gap:12px;align-items:center">
+                <div style="width:48px;height:48px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1)"></div>
+                <div style="flex:1">
+                  <div style="height:10px;width:50%;background:var(--b1);border-radius:4px;margin-bottom:6px"></div>
+                  <div style="height:8px;width:30%;background:var(--b1);border-radius:4px"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rep-skeleton-overlay">
+            <span class="rep-skel-icon">📎</span>
+            <div class="rep-skel-title">No data connected</div>
+            <div class="rep-skel-desc">Add a context to this section<br>to populate this repeater</div>
+            <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${secId}')">＋ Add Context</button>
+          </div>
+        </div>
+      </div>`;
+  } else {
+    sec.innerHTML = `
+      <div class="s-body" style="gap:8px;padding:20px">
+        <div class="msb" id="${compId}" onclick="selEl(event,'${compId}')" style="position:relative">
+          <div class="c-el-overlay" style="border-radius:12px"></div>
+          <div class="msb-header">
+            <span class="msb-icon">◫</span>
+            <span class="msb-label" style="color:var(--t3)">Multi-State</span>
+          </div>
+          <div class="msb-body" style="min-height:160px;position:relative">
+            <div style="display:flex;flex-direction:column;gap:10px;filter:blur(2px) grayscale(.8);opacity:.2;pointer-events:none">
+              <div style="height:10px;width:60%;background:var(--b1);border-radius:4px"></div>
+              <div style="height:10px;width:45%;background:var(--b1);border-radius:4px"></div>
+              <div style="height:10px;width:55%;background:var(--b1);border-radius:4px"></div>
+            </div>
+            <div class="rep-skeleton-overlay">
+              <span class="rep-skel-icon">◫</span>
+              <div class="rep-skel-title">No data connected</div>
+              <div class="rep-skel-desc">Add a context with an enum field<br>to control which view is shown</div>
+              <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${secId}')">＋ Add Context</button>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  S.ctxMap[secId] = S.ctxMap[secId] || [];
+
+  return sec;
+}
+
+/* ── RIGHT-CLICK CONTEXT MENU ── */
+let _ctxMenuTarget = null;
+
+document.addEventListener('contextmenu', function(e) {
+  const dropped = e.target.closest('[id^="sec-new-"]');
+  const menu = document.getElementById('canvas-ctx-menu');
+  if (dropped) {
+    e.preventDefault();
+    _ctxMenuTarget = dropped;
+    menu.style.left = e.clientX + 'px';
+    menu.style.top = e.clientY + 'px';
+    menu.classList.add('open');
+  } else {
+    menu.classList.remove('open');
+  }
+});
+
+document.addEventListener('click', function() {
+  document.getElementById('canvas-ctx-menu').classList.remove('open');
+});
+
+function removeContextMenuTarget() {
+  if (_ctxMenuTarget) {
+    const hasRepeater = _ctxMenuTarget.querySelector('[id^="repeater-"]');
+    const name = hasRepeater ? 'Repeater' : 'Multi-State Box';
+    delete S.ctxMap[_ctxMenuTarget.id];
+    _ctxMenuTarget.remove();
+    _ctxMenuTarget = null;
+    toast(name + ' removed');
+  }
+  document.getElementById('canvas-ctx-menu').classList.remove('open');
+}
+
 /* ── DROPDOWN ── */
 function openDd(e, elId, propKey) {
   e.stopPropagation();
@@ -3755,7 +4042,7 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
     // Repeater items binding — update the count pill and header
     if (propKey === 'Items') {
       const countEl = document.getElementById('rep-count-' + elId.replace('repeater-',''));
-      if (countEl) countEl.textContent = `${ctx?.icon||''} ${field.name} · 3 items`;
+      if (countEl) countEl.textContent = `Connected · ${field.name} · 3 items`;
       return;
     }
 
@@ -3766,14 +4053,14 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
       if (svgEl) svgEl.style.opacity = '0.35';
       // show a condition label
       const bindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = (ctx ? ctx.icon + ' ' + ctx.name : '') + ' · ' + field.name;
+      const ctxLabel = (ctx ? 'Connected' : '') + ' · ' + field.name;
       if (bindTag) bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
       return;
     }
 
     if (valEl && domEl.classList.contains('c-el-text')) {
       const bindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = `${ctx ? ctx.icon+' '+ctx.name : '?'} · ${field.name}`;
+      const ctxLabel = `${ctx ? 'Connected' : '?'} · ${field.name}`;
       if (bindTag) bindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
       valEl.textContent = field.sample.replace(/^"|"$/g, '');
       valEl.style.color = '';
@@ -3786,7 +4073,7 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
       const cimgEl = document.getElementById('cimg-' + elId);
       if (cimgEl) cimgEl.src = IMG_SKY;
       const imgBindTag = domEl.querySelector('.el-bind-tag');
-      const ctxLabel = (ctx ? ctx.icon + ' ' + ctx.name : '') + ' · ' + field.name;
+      const ctxLabel = (ctx ? 'Connected' : '') + ' · ' + field.name;
       if (imgBindTag) imgBindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
     }
 
@@ -4067,7 +4354,7 @@ function confirmCtx() {
             if (repEl) {
               repEl.classList.add('bound');
               const countEl = document.getElementById('rep-count-' + repeaterInSection.replace('repeater-', ''));
-              if (countEl) countEl.textContent = `${ctx.icon} ${arrayField.name} · 3 items`;
+              if (countEl) countEl.textContent = `Connected · ${arrayField.name} · 3 items`;
             }
             break;
           }
@@ -4553,7 +4840,7 @@ function refreshMsbState() {
     if (bindingLabel) {
       const b = S.bindings[bkey];
       const ctx = findSource(b.ctxId);
-      bindingLabel.textContent = (ctx ? ctx.icon + ' ' + ctx.name.split(' · ').pop() : '') + ' · ' + b.fieldName;
+      bindingLabel.textContent = (ctx ? 'Connected' : '') + ' · ' + b.fieldName;
     }
     document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
     const activeEl = document.getElementById('msb-view-' + def.activeView);
@@ -4635,9 +4922,9 @@ function applyRepBindingToAll(templateKey, propKey, field, ctxId) {
     S.bindings[elId + '|' + propKey] = {ctxId, fieldName: field.name, sample: '"' + realVal + '"'};
     domEl.classList.add('bound');
     const srcTag = document.getElementById('src-' + elId);
-    if (srcTag) srcTag.textContent = ctx ? ctx.icon + ' ' + ctx.name + ' · ' + field.name : '';
+    if (srcTag) srcTag.textContent = ctx ? 'Connected · ' + field.name : '';
     const bindTag = domEl.querySelector('.el-bind-tag');
-    if (bindTag) bindTag.textContent = ctx ? ctx.icon + ' ' + ctx.name + ' · ' + field.name : '';
+    if (bindTag) bindTag.textContent = ctx ? 'Connected · ' + field.name : '';
     // update value: text elements use v-{id}, image elements use cimg-{id}
     if (domEl.classList.contains('c-el-img') || domEl.classList.contains('c-el-badge') && false) {
       const cimg = document.getElementById('cimg-' + elId);
@@ -4799,7 +5086,7 @@ function ddBindRepeater(e, ctxId, fieldName) {
   if (domEl) {
     domEl.classList.add('bound');
     const countEl = document.getElementById('rep-count-' + elId.replace('repeater-',''));
-    if (countEl) countEl.textContent = `${ctx.icon} ${ctx.name} · ${fieldName} · 3 items`;
+    if (countEl) countEl.textContent = `Connected · ${fieldName} · 3 items`;
   }
   closeDd();
   toast(`✓ Repeater → ${ctx.name} · ${fieldName}`, true);
@@ -4861,6 +5148,10 @@ var sfDialogType = null;
 var sfTempRules = [];
 
 function getAvailableFields() {
+  if (S.ctxSettingsView) {
+    const ctx = findSource(S.ctxSettingsView);
+    if (ctx) return ctx.fields.filter(f => f.type !== 'array');
+  }
   const bkey = S.sel + '|Items';
   const b = S.bindings[bkey];
   if (!b) return [];
@@ -5000,6 +5291,10 @@ function sfAddRule() {
       <button class="modal-btn" id="confirm-ok-btn" onclick="doConfirmOk()" style="background:var(--red);color:#fff">Remove</button>
     </div>
   </div>
+</div>
+
+<div class="ctx-menu" id="canvas-ctx-menu">
+  <div class="ctx-menu-item danger" onclick="removeContextMenuTarget()">🗑 Remove</div>
 </div>
 
 </body>
