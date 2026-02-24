@@ -35,9 +35,10 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .tb-icon svg{width:18px;height:18px}
 .sep{width:1px;height:18px;background:var(--b2);margin:0 10px}
 .page-sel-wrap{position:relative}
-.page-sel{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--t1);font-weight:500;transition:.12s}
+.page-sel{display:flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px;color:var(--t1);font-weight:500;transition:.12s;max-width:120px;min-width:0}
+.page-sel-name{overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:block;flex:1;min-width:0}
 .page-sel:hover{background:var(--sur2)}
-.page-sel-chevron{font-size:8px;color:var(--t3);margin-left:2px}
+.page-sel-chevron{font-size:8px;color:var(--t3);margin-left:2px;flex-shrink:0}
 
 .pages-panel{display:none;position:absolute;top:calc(100% + 6px);left:0;width:240px;overflow-y:auto;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 8px 30px #0002;z-index:500;padding:4px 0;font-family:'DM Sans',sans-serif}
 .pages-panel.open{display:block}
@@ -54,7 +55,8 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .tb-tab:hover{color:var(--t2)}
 .tb-tab.active{color:var(--t1);border-bottom-color:var(--acc);font-weight:500}
 
-.tb-center{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:100%}
+.tb-center{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;height:100%;overflow:hidden;min-width:0}
+@media(max-width:900px){.tb-center{display:none}}
 .tb-tool{width:26px;height:26px;border-radius:5px;display:flex;align-items:center;justify-content:center;color:var(--t3);cursor:pointer;font-size:13px;transition:.12s}
 .tb-tool:hover{background:var(--sur2);color:var(--t1)}
 .tb-zoom{font-size:11px;color:var(--t3);font-family:'DM Mono',monospace;padding:2px 6px;border-radius:4px;cursor:pointer}
@@ -62,7 +64,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .tb-url{display:flex;align-items:center;gap:6px;background:var(--sur2);border:1px solid var(--b1);border-radius:12px;padding:3px 10px;font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;max-width:240px;overflow:hidden;white-space:nowrap}
 .tb-url-link{color:var(--acc);font-size:9px;cursor:pointer;white-space:nowrap}
 
-.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto}
+.tb-right{display:flex;align-items:center;gap:10px;margin-left:auto;flex-shrink:0}
 .btn-ghost{padding:4px 12px;border-radius:6px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;font-size:12px;font-family:'DM Sans',sans-serif;transition:.15s}
 .btn-ghost:hover{color:var(--t1);border-color:var(--b3)}
 .btn-upgrade{padding:6px 16px;border-radius:6px;border:1px solid #7c3aed;background:transparent;color:#7c3aed;cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s}
@@ -764,7 +766,7 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
     </div>
     <div class="sep"></div>
     <div class="page-sel-wrap">
-      <div class="page-sel" onclick="togglePagesPanel(event)">📄 Homepage <span class="page-sel-chevron">▾</span></div>
+      <div class="page-sel" onclick="togglePagesPanel(event)"><span class="page-sel-name">📄 Homepage</span> <span class="page-sel-chevron">▾</span></div>
       <div class="pages-panel" id="pages-panel">
         <div class="pp-item active" onclick="selectPage(this,'Homepage')">📄 Home</div>
         <div class="pp-item" onclick="selectPage(this,'Items (List)')">📄 Items (List)</div>
@@ -3460,7 +3462,7 @@ function selectPage(el, name) {
   document.querySelectorAll('.pp-item, .pp-sub').forEach(i => i.classList.remove('active'));
   el.classList.add('active');
   const pageIcon = name === 'Product Item' ? '🛒' : name === 'Repeater Usecases' ? '↻' : name === 'Multi-State Box' ? '◫' : '📄';
-  document.querySelector('.page-sel').innerHTML = `${pageIcon} ${name} <span class="page-sel-chevron">▾</span>`;
+  document.querySelector('.page-sel').innerHTML = `<span class="page-sel-name">${pageIcon} ${name}</span> <span class="page-sel-chevron">▾</span>`;
   document.getElementById('pages-panel').classList.remove('open');
 
   const homePage = document.querySelector('.canvas-inner');
