@@ -7887,6 +7887,7 @@ Object.keys(S.bindings).forEach(bkey => {
   if (b && b.fnHasParams && b.fnTemplate) updateFnCanvasPreview(elId, bkey.split('|')[1]);
 });
 refreshAllPills();
+document.getElementById('cimg-el-weather-img').src = IMG_PLACEHOLDER;
 updateInspectorToggle();
 initElementDrag();
 
