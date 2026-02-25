@@ -3795,7 +3795,7 @@ function renderSettings() {
     }).join('');
 
     const joinViewCards = views.map(v => {
-      const mapped = v.enumValues || [];
+      const mapped = isBound ? (v.enumValues || []) : [];
       const disabled = isBound && mapped.length === 0;
       const isActive = v.id === activeView;
       const chips = mapped.map(val =>
@@ -4108,7 +4108,12 @@ function unbind(elId, propKey, e) {
   toast('Binding removed');
   updatePropRowDOM(elId, propKey);
   const def = EL_DEFS[elId];
-  if (def?.isMultiState) { refreshMsbState(); renderBody(); }
+  if (def?.isMultiState) {
+    if (def.views) {
+      def.views.forEach((v, i) => { v.name = 'State ' + (i + 1); v.enumValues = []; });
+    }
+    refreshMsbState(); refreshMsbCanvasButtons(); renderBody();
+  }
 }
 
 function unbindParam(elId, propKey, paramName, e) {
