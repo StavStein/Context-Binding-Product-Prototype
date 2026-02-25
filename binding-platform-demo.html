@@ -6716,6 +6716,7 @@ function renderTree() {
 /* ── MULTI-STATE BOX ── */
 function switchMsbView(e, viewId) {
   e.stopPropagation();
+  if (_msbDragging) return;
   const msbId = 'msb-articles';
   const def = EL_DEFS[msbId];
   if (!def) return;
@@ -6800,7 +6801,10 @@ function msbAssign(e, viewId, val) {
   toast(`✓ "${val}" → ${view.name}`, true);
 }
 
+var _msbDragging = false;
 function msbDragStart(e, val) {
+  _msbDragging = true;
+  e.stopPropagation();
   e.dataTransfer.setData('text/plain', val);
   e.dataTransfer.effectAllowed = 'move';
   e.target.style.opacity = '.4';
@@ -6809,6 +6813,8 @@ function msbDragStart(e, val) {
       z.style.borderColor = 'color-mix(in srgb, var(--acc) 40%, var(--b1))';
     });
   }, 0);
+  const endDrag = () => { setTimeout(() => { _msbDragging = false; }, 100); document.removeEventListener('dragend', endDrag); };
+  document.addEventListener('dragend', endDrag);
 }
 
 function msbDragOver(e) {
@@ -6829,6 +6835,8 @@ function msbDragLeave(e) {
 
 function msbDrop(e, targetViewId) {
   e.preventDefault();
+  e.stopPropagation();
+  _msbDragging = false;
   const val = e.dataTransfer.getData('text/plain');
   if (!val) return;
   const def = EL_DEFS['msb-articles'];
@@ -6836,6 +6844,11 @@ function msbDrop(e, targetViewId) {
   def.views.forEach(v => { v.enumValues = (v.enumValues || []).filter(ev => ev !== val); });
   const target = def.views.find(v => v.id === targetViewId);
   if (target) target.enumValues.push(val);
+  def.views.forEach((v, i) => {
+    v.name = v.enumValues.length > 0
+      ? v.enumValues[0].charAt(0).toUpperCase() + v.enumValues[0].slice(1)
+      : 'State ' + (i + 1);
+  });
   document.querySelectorAll('.msb-drop-zone').forEach(z => { z.style.borderColor = ''; z.style.background = ''; z.style.opacity = ''; });
   def.activeView = targetViewId;
   document.querySelectorAll('#msb-articles .msb-view').forEach(v => v.classList.remove('active'));
