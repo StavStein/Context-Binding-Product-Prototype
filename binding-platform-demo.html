@@ -1091,6 +1091,13 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
     </div>
     <input class="add-el-search" type="text" placeholder="Search components…" oninput="filterAddElements(this.value)">
     <div class="add-el-group">Components</div>
+    <div class="add-el-item" draggable="true" data-component="text" onclick="addComponentToCanvas('text')" ondragstart="onDragStartComponent(event,'text')">
+      <div class="add-el-item-icon">T</div>
+      <div class="add-el-item-info">
+        <div class="add-el-item-name">Text</div>
+        <div class="add-el-item-desc">Displays a text value, bindable to any field</div>
+      </div>
+    </div>
     <div class="add-el-item" draggable="true" data-component="repeater" onclick="addComponentToCanvas('repeater')" ondragstart="onDragStartComponent(event,'repeater')">
       <div class="add-el-item-icon">↻</div>
       <div class="add-el-item-info">
@@ -1793,7 +1800,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
         <span class="item-ctrl-drag">⋮⋮</span>
         <div class="item-ctrl-select">
           <span class="item-ctrl-select-name" id="item-rel-ctrl-name">Sunny Day Tee</span>
-          <span class="item-ctrl-count">4 items ˅</span>
+          <span class="item-ctrl-count">3 items ˅</span>
         </div>
         <span class="item-ctrl-edit">Edit item</span>
         <div class="item-ctrl-arrows">
@@ -2858,17 +2865,18 @@ function renderSettings() {
       </div>`;
     }).join('');
 
-    const joinViewCards = advancedOn ? views.map(v => {
+    const joinViewCards = views.map(v => {
       const mapped = v.enumValues || [];
-      const disabled = mapped.length === 0;
+      const disabled = isBound && mapped.length === 0;
+      const isActive = v.id === activeView;
       const chips = mapped.map(val =>
-        `<span draggable="true" ondragstart="msbDragStart(event,'${val}')" style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:var(--acc-d);border:1px solid var(--acc);border-radius:10px;font-size:10px;color:var(--acc);font-family:'DM Mono',monospace;cursor:grab">${val}${mapped.length > 1 ? `<span style="cursor:pointer;opacity:.6;margin-left:2px" onclick="msbUnassign(event,'${v.id}','${val}')">✕</span>` : ''}</span>`
+        `<span draggable="true" ondragstart="msbDragStart(event,'${val}')" style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:${isActive ? 'var(--acc)' : 'var(--acc-d)'};border:1px solid var(--acc);border-radius:10px;font-size:10px;color:${isActive ? '#fff' : 'var(--acc)'};font-family:'DM Mono',monospace;cursor:grab"><svg width="6" height="10" viewBox="0 0 6 10" style="opacity:.5;flex-shrink:0"><circle cx="1.5" cy="1.5" r="1" fill="currentColor"/><circle cx="4.5" cy="1.5" r="1" fill="currentColor"/><circle cx="1.5" cy="5" r="1" fill="currentColor"/><circle cx="4.5" cy="5" r="1" fill="currentColor"/><circle cx="1.5" cy="8.5" r="1" fill="currentColor"/><circle cx="4.5" cy="8.5" r="1" fill="currentColor"/></svg>${val}${mapped.length > 1 ? `<span style="cursor:pointer;opacity:.6;margin-left:2px" onclick="msbUnassign(event,'${v.id}','${val}')">✕</span>` : ''}</span>`
       ).join('');
-      return `<div class="msb-drop-zone" data-view-id="${v.id}" ondragover="msbDragOver(event)" ondragleave="msbDragLeave(event)" ondrop="msbDrop(event,'${v.id}')" style="padding:8px 10px;border:2px ${disabled ? 'dashed color-mix(in srgb, var(--acc) 25%, var(--b2))' : 'solid var(--b1)'};border-radius:8px;background:${disabled ? 'color-mix(in srgb, var(--acc) 3%, var(--sur))' : 'var(--sur2)'};transition:border-color .15s,background .15s,opacity .15s">
-        <div style="font-size:11px;font-weight:500;color:${disabled ? 'var(--t3)' : 'var(--t1)'};margin-bottom:${disabled ? '0' : '4'}px;display:flex;align-items:center;gap:6px">◫ ${v.name} ${disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:color-mix(in srgb, var(--acc) 50%, var(--t3))">drag a state here</span>' : ''}</div>
+      return `<div class="msb-drop-zone" data-view-id="${v.id}" onclick="switchMsbView(event,'${v.id}')" ondragover="msbDragOver(event)" ondragleave="msbDragLeave(event)" ondrop="msbDrop(event,'${v.id}')" style="padding:8px 10px;border:2px ${disabled ? 'dashed color-mix(in srgb, var(--acc) 25%, var(--b2))' : isActive ? 'solid var(--acc)' : 'solid var(--b1)'};border-radius:8px;background:${disabled ? 'color-mix(in srgb, var(--acc) 3%, var(--sur))' : isActive ? 'var(--acc-d)' : 'var(--sur2)'};cursor:pointer;transition:border-color .15s,background .15s,opacity .15s">
+        <div style="font-size:11px;font-weight:500;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t1)'};margin-bottom:${disabled ? '0' : '4'}px;display:flex;align-items:center;gap:6px">◫ ${v.name} ${isActive && !disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:var(--acc)">editing</span>' : ''}${disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:color-mix(in srgb, var(--acc) 50%, var(--t3))">drag a state here</span>' : ''}</div>
         ${chips ? `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${chips}</div>` : ''}
       </div>`;
-    }).join('') : '';
+    }).join('');
 
     let disconnectedBanner = '';
     if (!isBound && hasViews) {
@@ -2904,19 +2912,10 @@ function renderSettings() {
         </div>
       </div>
     </div>
-    ${hasViews ? `<div class="ps"><div class="ps-lbl">Views</div>
-      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:0 0 6px">${isBound ? 'Click to switch view on canvas. Each view is mapped to a data state.' : 'Your designs are preserved. Click to preview each view.'}</div>
-      <div style="display:flex;flex-direction:column;gap:4px">
-        ${stateCards}
-      </div>
-    </div>` : ''}
-    ${isBound && enumVals.length ? `<div class="ps"><div class="ps-lbl" style="display:flex;align-items:center;justify-content:space-between">
-      Join States
-      <div class="tog ${advancedOn?'on':''}" onclick="toggleMsbAdvanced(event)"></div>
-    </div>
-      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 ${advancedOn ? '6' : '0'}px">Some states look the same? Group them into one view.</div>
-      ${advancedOn ? `<div style="display:flex;flex-direction:column;gap:6px">${joinViewCards}</div>
-      ${views.length < enumVals.length ? `<div style="text-align:center;padding:6px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer;text-decoration:underline" onclick="msbResetJoins(event)">Reset — undo all joins</span></div>` : ''}` : ''}
+    ${hasViews ? `<div class="ps"><div class="ps-lbl">States</div>
+      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 6px">${isBound ? 'Click to switch view on canvas. Drag states between views to group them.' : 'Your designs are preserved. Click to preview each view.'}</div>
+      <div style="display:flex;flex-direction:column;gap:6px">${joinViewCards}</div>
+      ${isBound && views.length < enumVals.length ? `<div style="text-align:center;padding:6px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer;text-decoration:underline" onclick="msbResetJoins(event)">Reset — undo all joins</span></div>` : ''}
     </div>` : ''}`;
   }
   if (def.isRepItem) {
@@ -4044,7 +4043,6 @@ const ITEM_DATA = [
   { name:'Sunny Day Tee',      desc:'Classic cotton tee featuring our iconic sun logo. Perfect for warm weather days. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#1a1a2e', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><circle cx="60" cy="62" r="10" fill="#FFD700" opacity=".8"/><path d="M55 55 Q60 48 65 55" stroke="#87CEEB" stroke-width="1.5" fill="none"/>' },
   { name:'Cloud Nine Hoodie',  desc:'Cozy pullover hoodie with cloud pattern. Stay warm when the forecast turns cold. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#d4c4a8', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#fff" stroke="#eee" stroke-width="1"/><ellipse cx="60" cy="60" rx="12" ry="6" fill="#ccc" opacity=".6"/><ellipse cx="55" cy="58" rx="8" ry="5" fill="#ddd" opacity=".7"/>' },
   { name:'Storm Chaser Vest',  desc:'Lightweight weatherproof vest with lightning bolt emblem. Built for adventure. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#333', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#444" stroke="#555" stroke-width="1"/><path d="M58 55 L55 65 L62 62 L59 72" stroke="#FFD700" stroke-width="2" stroke-linecap="round"/><ellipse cx="60" cy="52" rx="10" ry="4" fill="#666" opacity=".5"/>' },
-  { name:'Rainy Day Polo',     desc:'Water-resistant polo with rain droplet print. Stylish in any weather condition. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#888', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#999" stroke="#aaa" stroke-width="1"/><circle cx="55" cy="60" r="4" fill="#87CEEB" opacity=".6"/><circle cx="65" cy="58" r="3" fill="#87CEEB" opacity=".5"/><circle cx="60" cy="65" r="3.5" fill="#87CEEB" opacity=".55"/>' },
 ];
 
 function selectPage(el, name) {
@@ -4101,6 +4099,11 @@ function renderItemDetail() {
   if (relDesc) relDesc.textContent = item.desc;
   const relCtrl = document.getElementById('item-rel-ctrl-name');
   if (relCtrl) relCtrl.textContent = item.name;
+  const heroEl = document.getElementById('el-rel-img');
+  if (heroEl) {
+    const svg = heroEl.querySelector('svg');
+    if (svg) svg.innerHTML = `<rect width="120" height="120" fill="${item.bg}"/>${item.svg}`;
+  }
 }
 
 function toggleTheme() {
@@ -4256,7 +4259,7 @@ function onCanvasDrop(e) {
   const newSection = createDroppedComponent(type);
   if (newSection && insertAfter) {
     insertAfter.insertAdjacentElement('afterend', newSection);
-    toast(`Added ${type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
+    toast(`Added ${type === 'text' ? 'Text' : type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
   }
 }
 
@@ -4280,7 +4283,7 @@ function addComponentToCanvas(type) {
   if (newSection) {
     canvasInner.appendChild(newSection);
     newSection.scrollIntoView({behavior:'smooth', block:'center'});
-    toast(`Added ${type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
+    toast(`Added ${type === 'text' ? 'Text' : type === 'repeater' ? 'Repeater' : 'Multi-State Box'} to canvas`);
   }
 }
 
@@ -4301,7 +4304,18 @@ function createDroppedComponent(type) {
   sec.style.borderRadius = '10px';
   sec.setAttribute('onclick', `selEl(event,'${secId}')`);
 
-  if (type === 'repeater') {
+  if (type === 'text') {
+    sec.innerHTML = `
+      <div class="s-body" style="gap:8px;padding:20px">
+        <div class="c-el c-el-text" id="${compId}" onclick="selEl(event,'${compId}')">
+          <div class="c-el-overlay"></div>
+          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+          <div class="bound-dot"></div>
+          <span class="src-tag" id="src-${compId}"></span>
+          <span class="val static" id="v-${compId}">Add your text here</span>
+        </div>
+      </div>`;
+  } else if (type === 'repeater') {
     sec.innerHTML = `
       <div class="s-body" style="gap:8px;padding:20px">
         <div class="c-repeater has-skeleton" id="${compId}" onclick="selEl(event,'${compId}')">
@@ -4371,7 +4385,9 @@ function createDroppedComponent(type) {
 
   EL_DEFS[secId] = {name:'Section', type:'Section', isContainer:true, props:[]};
 
-  if (type === 'repeater') {
+  if (type === 'text') {
+    EL_DEFS[compId] = {name:'Text', type:'Text', section:secId, props:[{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}]};
+  } else if (type === 'repeater') {
     EL_DEFS[compId] = {name:'Repeater', type:'Repeater', section:secId, isRepeater:true, props:[{k:'Items',t:'list'}]};
   } else if (type === 'multistatebox') {
     EL_DEFS[compId] = {name:'Multi-State Box', type:'MultiStateBox', section:secId, isMultiState:true, props:[{k:'Active State',t:'states'}]};
@@ -4389,7 +4405,27 @@ function insertComponentIntoSection(type, sectionId) {
   const target = sec.querySelector('.s-body') || sec;
   const ctxIds = S.ctxMap[sectionId] || [];
 
-  if (type === 'repeater') {
+  if (type === 'text') {
+    const el = document.createElement('div');
+    el.className = 'c-el c-el-text';
+    el.id = compId;
+    el.setAttribute('onclick', `selEl(event,'${compId}')`);
+    el.innerHTML = `
+      <div class="c-el-overlay"></div>
+      <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+      <div class="bound-dot"></div>
+      <span class="src-tag" id="src-${compId}"></span>
+      <span class="val static" id="v-${compId}">Add your text here</span>`;
+    target.appendChild(el);
+
+    EL_DEFS[compId] = {
+      name: 'Text', type: 'Text', section: sectionId,
+      props: [{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}]
+    };
+
+    toast('Text element added to section');
+
+  } else if (type === 'repeater') {
     let listCtx = null, arrayField = null;
     for (const ctxId of ctxIds) {
       const ctx = findSource(ctxId);
