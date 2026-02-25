@@ -2485,7 +2485,8 @@ const CTX_DEFS = [
     ]},
   { id:'cms-articles', name:'Articles', icon:'', type:'list', source:'CMS', group:'CMS',
     fields:[
-      {name:'itemsStatus', type:'enum', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
+      {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
+      {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
       {name:'items',       type:'array',   sample:'[{title, author, …}]', itemFields:[
         {name:'title',       type:'string',  sample:'"Article Title"'},
         {name:'author',      type:'string',  sample:'"Jane Doe"'},
