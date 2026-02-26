@@ -270,21 +270,24 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 .msb.bound.sel .msb-pill .el-bind-sec{opacity:.8}
 .msb.bound.sel .msb-pill .el-bind-sec:hover{opacity:1;background:rgba(255,255,255,.15)}
 .msb.bound.sel .msb-pill .el-bind-ctx:hover{background:rgba(255,255,255,.15)}
-.msb-view-sel{position:absolute;top:0;right:10px;transform:translateY(-50%);display:none;align-items:center;gap:0;background:var(--sur);border-radius:20px;overflow:hidden;z-index:10;pointer-events:auto;font-size:8px;border:1px solid var(--acc)}
-.msb.bound .msb-view-sel,.msb.msb-disconnected .msb-view-sel{display:flex;opacity:0;transition:opacity .15s}
-.msb.bound:hover .msb-view-sel,.msb.msb-disconnected:hover .msb-view-sel{opacity:1}
-.msb.bound.sel .msb-view-sel,.msb.msb-disconnected.sel .msb-view-sel{opacity:1}
+.msb-view-sel{position:absolute;top:0;right:10px;transform:translateY(-50%);display:none;z-index:10;pointer-events:auto;font-size:9px}
+.msb.bound .msb-view-sel,.msb.msb-disconnected .msb-view-sel{display:block;opacity:0;transition:opacity .15s;pointer-events:none}
+.msb.bound:hover .msb-view-sel,.msb.msb-disconnected:hover .msb-view-sel{opacity:1;pointer-events:auto}
+.msb.bound.sel .msb-view-sel,.msb.msb-disconnected.sel .msb-view-sel{opacity:1;pointer-events:auto}
 .msb.msb-disconnected{border-color:var(--b2);border-style:dashed}
 .msb.msb-disconnected.sel{border-color:var(--t3);box-shadow:0 0 0 3px var(--b2)}
-.msb.bound.sel .msb-view-sel{background:var(--acc);border-color:var(--acc)}
-.msb-view-btn{padding:2px 8px;font-size:8px;font-family:'DM Mono',monospace;cursor:pointer;color:var(--acc);transition:.12s;border:none;background:none;opacity:.65}
-.msb-view-btn:hover{opacity:1;background:rgba(108,92,231,.1)}
-.msb-view-btn.active{background:var(--acc);color:#fff;font-weight:600;opacity:1}
-.msb.bound.sel .msb-view-btn{color:rgba(255,255,255,.7)}
-.msb.bound.sel .msb-view-btn:hover{color:#fff;background:rgba(255,255,255,.15)}
-.msb.bound.sel .msb-view-btn.active{background:#fff;color:var(--acc)}
-.msb-view-btn.disabled{opacity:.35;text-decoration:line-through;pointer-events:auto}
-.msb-view-btn.disabled.active{background:var(--t3);opacity:.5;text-decoration:line-through}
+.msb-dd-trigger{display:flex;align-items:center;gap:4px;padding:3px 8px 3px 10px;background:var(--acc);color:#fff;border:none;border-radius:14px;cursor:pointer;font-size:9px;font-family:'DM Mono',monospace;font-weight:500;white-space:nowrap;box-shadow:0 1px 4px #0002}
+.msb-dd-trigger:hover{filter:brightness(1.1)}
+.msb-dd-trigger svg{width:10px;height:10px;flex-shrink:0;transition:transform .15s}
+.msb-dd-trigger.open svg{transform:rotate(180deg)}
+.msb-dd-menu{display:none;position:absolute;top:calc(100% + 4px);right:0;min-width:180px;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 6px 20px #00000025;overflow:hidden;z-index:11}
+.msb-dd-menu.open{display:block}
+.msb-dd-item{display:flex;align-items:center;gap:8px;padding:7px 10px;cursor:pointer;transition:background .1s;border-bottom:1px solid var(--b1)}
+.msb-dd-item:last-child{border-bottom:none}
+.msb-dd-item:hover{background:var(--acc-d)}
+.msb-dd-item.active{background:var(--acc-d)}
+.msb-dd-item.disabled{opacity:.45}
+.msb-dd-item.disabled:hover{background:none;cursor:default}
 .msb-body{min-height:400px;padding:28px;padding-top:36px;position:relative}
 .msb-view{display:none}
 .msb-view.active{display:block}
@@ -1806,9 +1809,6 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
           <div class="c-el-overlay" style="border-radius:12px"></div>
           <div class="msb-pill" id="pill-msb-articles"></div>
           <div class="msb-view-sel" id="msb-view-sel">
-            <button class="msb-view-btn" data-view="loading" onclick="switchMsbView(event,'loading')">Loading</button>
-            <button class="msb-view-btn" data-view="empty" onclick="switchMsbView(event,'empty')">Empty</button>
-            <button class="msb-view-btn active" data-view="hasItems" onclick="switchMsbView(event,'hasItems')">Has Items</button>
           </div>
           <div class="msb-header">
             <span class="msb-icon">◫</span>
@@ -2489,6 +2489,7 @@ const CTX_DEFS = [
     fields:[
       {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
       {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
+      {name:'displayState', type:'states', sample:'"hasItems"', enumValues:['loading','noItems','noResults','hasItems']},
       {name:'items',       type:'array',   sample:'[{title, author, …}]', itemFields:[
         {name:'title',       type:'string',  sample:'"Article Title"'},
         {name:'author',      type:'string',  sample:'"Jane Doe"'},
@@ -3766,7 +3767,7 @@ function renderSettings() {
     const bkey = S.sel + '|Active State';
     const b = S.bindings[bkey];
     const ctx = b ? findSource(b.ctxId) : null;
-    const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && f.type === 'enum') : null;
+    const ctxField = ctx ? ctx.fields.find(f => f.name === b.fieldName && (f.type === 'enum' || f.type === 'states')) : null;
     const enumVals = ctxField?.enumValues || [];
     const views = def.views || [];
     const activeView = def.activeView || views[0]?.id;
@@ -3776,38 +3777,38 @@ function renderSettings() {
     const hasViews = views.length > 0;
     const isBound = !!b;
 
-    const stateCards = views.map((v, idx) => {
-      const isActive = v.id === activeView;
-      const mappedStates = v.enumValues || [];
-      const disabled = isBound && mappedStates.length === 0;
-      const sharedCount = mappedStates.length;
-      const displayName = isBound && sharedCount > 0 ? mappedStates[0].charAt(0).toUpperCase() + mappedStates[0].slice(1) : v.name;
-      const canDelete = disabled || !isBound;
-      return `<div style="display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:.12s;${disabled ? 'opacity:.5;border:1px dashed var(--b2);background:none' : isActive ? 'background:var(--acc-d);border:1px solid var(--acc)' : 'background:var(--sur2);border:1px solid var(--b1)'}" onclick="switchMsbView(event,'${v.id}')">
-        <span style="font-size:10px;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t3)'}">◫</span>
-        <div style="flex:1;min-width:0">
-          <div style="display:flex;align-items:center;gap:6px">
-            <span style="font-size:12px;font-weight:${isActive && !disabled ? '600' : '400'};color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t1)'}${disabled ? ';text-decoration:line-through' : ''}">${displayName}</span>
-            ${isBound && sharedCount > 1 ? '<span class="type-badge" style="font-size:8px;background:var(--yel);color:#000">joined</span>' : ''}
-            ${disabled ? '<span style="font-size:9px;color:var(--t3);font-family:\'DM Mono\',monospace">unmapped</span>' : ''}
-          </div>
-        </div>
-        ${isActive && !disabled ? '<span style="font-size:9px;color:var(--acc);font-family:\'DM Mono\',monospace">editing</span>' : ''}
-        ${canDelete && views.length > 1 ? `<span style="font-size:10px;color:var(--t3);cursor:pointer;padding:2px 4px;border-radius:4px;transition:.12s" onmouseover="this.style.color='var(--err,#e84393)';this.style.background='var(--err-d,#fce4ec)'" onmouseout="this.style.color='var(--t3)';this.style.background=''" onclick="deleteMsbView(event,'${v.id}')">✕</span>` : ''}
-      </div>`;
-    }).join('');
+    const logicalCount = isBound ? enumVals.length : 0;
+    const canDeleteBound = isBound && views.length > logicalCount;
+    const isFallback = (vid) => def._fallbackView === vid;
 
     const joinViewCards = views.map((v, idx) => {
       const mapped = isBound ? (v.enumValues || []) : [];
       const disabled = isBound && mapped.length === 0;
       const isActive = v.id === activeView;
       const serialName = 'State ' + (idx + 1);
+      const fb = isFallback(v.id);
+      const canDel = !isBound ? views.length > 1 : canDeleteBound;
       const chips = mapped.map(val =>
-        `<span draggable="true" ondragstart="msbDragStart(event,'${val}')" style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:${isActive ? 'var(--acc)' : 'var(--acc-d)'};border:1px solid var(--acc);border-radius:10px;font-size:10px;color:${isActive ? '#fff' : 'var(--acc)'};font-family:'DM Mono',monospace;cursor:grab">${val}${mapped.length > 1 ? `<span style="cursor:pointer;opacity:.6;margin-left:2px" onclick="msbUnassign(event,'${v.id}','${val}')">✕</span>` : ''}</span>`
+        `<span class="msb-chip" data-val="${val}" data-from="${v.id}" onmousedown="msbChipGrab(event,'${val}','${v.id}')" style="display:inline-flex;align-items:center;gap:3px;padding:2px 8px;background:${isActive ? 'var(--acc)' : 'var(--acc-d)'};border:1px solid var(--acc);border-radius:10px;font-size:10px;color:${isActive ? '#fff' : 'var(--acc)'};font-family:'DM Mono',monospace;cursor:grab;user-select:none">${val}${mapped.length > 1 ? `<span style="cursor:pointer;opacity:.6;margin-left:2px" onmousedown="event.stopPropagation()" onclick="msbUnassign(event,'${v.id}','${val}')">✕</span>` : ''}</span>`
       ).join('');
-      return `<div class="msb-drop-zone" data-view-id="${v.id}" ondragover="msbDragOver(event)" ondragleave="msbDragLeave(event)" ondrop="msbDrop(event,'${v.id}')" style="padding:8px 10px;border:2px ${disabled ? 'dashed color-mix(in srgb, var(--acc) 25%, var(--b2))' : isActive ? 'solid var(--acc)' : 'solid var(--b1)'};border-radius:8px;background:${disabled ? 'color-mix(in srgb, var(--acc) 3%, var(--sur))' : isActive ? 'var(--acc-d)' : 'var(--sur2)'};cursor:pointer;transition:border-color .15s,background .15s,opacity .15s" onclick="switchMsbView(event,'${v.id}')">
-        <div style="font-size:11px;font-weight:500;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t1)'};margin-bottom:${chips ? '4' : '0'}px;display:flex;align-items:center;gap:6px">◫ ${serialName} ${isActive && !disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:var(--acc)">editing</span>' : ''}${disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:color-mix(in srgb, var(--acc) 50%, var(--t3))">won\'t be triggered · drag a state here</span>' : ''}</div>
-        ${chips ? `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center">${chips}</div>` : ''}
+
+      const actionBtns = `<div style="display:flex;align-items:center;gap:2px;margin-left:auto;flex-shrink:0" onclick="event.stopPropagation()">
+        ${fb ? `<span style="font-size:8px;padding:1px 5px;background:var(--yel);color:#000;border-radius:3px;font-family:'DM Mono',monospace;font-weight:500;cursor:pointer" onclick="setMsbFallback(event,'${v.id}')" title="Remove as default">default</span>`
+             : `<span style="font-size:8px;padding:1px 5px;border:1px solid var(--b1);color:var(--t3);border-radius:3px;font-family:'DM Mono',monospace;cursor:pointer;transition:.12s;opacity:.5" onmouseover="this.style.opacity='1';this.style.borderColor='var(--yel)';this.style.color='var(--t1)'" onmouseout="this.style.opacity='.5';this.style.borderColor='var(--b1)';this.style.color='var(--t3)'" onclick="setMsbFallback(event,'${v.id}')" title="Set as default fallback">default</span>`}
+        ${idx > 0 ? `<span style="font-size:10px;color:var(--t3);cursor:pointer;padding:1px 3px;border-radius:3px;transition:.12s;line-height:1" onmouseover="this.style.color='var(--acc)';this.style.background='var(--acc-d)'" onmouseout="this.style.color='var(--t3)';this.style.background=''" onclick="reorderMsbView(event,'${v.id}',-1)" title="Move up">↑</span>` : ''}
+        ${idx < views.length - 1 ? `<span style="font-size:10px;color:var(--t3);cursor:pointer;padding:1px 3px;border-radius:3px;transition:.12s;line-height:1" onmouseover="this.style.color='var(--acc)';this.style.background='var(--acc-d)'" onmouseout="this.style.color='var(--t3)';this.style.background=''" onclick="reorderMsbView(event,'${v.id}',1)" title="Move down">↓</span>` : ''}
+        ${!isBound ? `<span style="font-size:10px;color:var(--t3);cursor:pointer;padding:1px 3px;border-radius:3px;transition:.12s;line-height:1" onmouseover="this.style.color='var(--acc)';this.style.background='var(--acc-d)'" onmouseout="this.style.color='var(--t3)';this.style.background=''" onclick="duplicateMsbView(event,'${v.id}')" title="Duplicate view">⧉</span>` : ''}
+        ${canDel ? `<span style="font-size:10px;color:var(--t3);cursor:pointer;padding:1px 3px;border-radius:3px;transition:.12s;line-height:1" onmouseover="this.style.color='var(--err,#e84393)';this.style.background='var(--err-d,#fce4ec)'" onmouseout="this.style.color='var(--t3)';this.style.background=''" onclick="deleteMsbView(event,'${v.id}')" title="Delete view">✕</span>` : ''}
+      </div>`;
+
+      return `<div class="msb-drop-zone" data-view-id="${v.id}" style="padding:8px 10px;border:2px ${disabled ? 'dashed color-mix(in srgb, var(--acc) 25%, var(--b2))' : isActive ? 'solid var(--acc)' : 'solid var(--b1)'};border-radius:8px;background:${disabled ? 'color-mix(in srgb, var(--acc) 3%, var(--sur))' : isActive ? 'var(--acc-d)' : 'var(--sur2)'};cursor:pointer;transition:border-color .15s,background .15s,opacity .15s" onclick="switchMsbView(event,'${v.id}')">
+        <div style="font-size:11px;font-weight:500;color:${disabled ? 'var(--t3)' : isActive ? 'var(--acc)' : 'var(--t1)'};display:flex;align-items:center;gap:6px">
+          <span>◫ ${serialName}</span>
+          ${isActive && !disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:var(--acc)">editing</span>' : ''}
+          ${disabled ? '<span style="font-size:9px;font-weight:400;font-family:\'DM Mono\',monospace;color:color-mix(in srgb, var(--acc) 50%, var(--t3))">won\'t be triggered</span>' : ''}
+          ${actionBtns}
+        </div>
+        ${chips ? `<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:4px">${chips}</div>` : ''}
       </div>`;
     }).join('');
 
@@ -3846,9 +3847,12 @@ function renderSettings() {
       </div>
     </div>
     ${hasViews ? `<div class="ps"><div class="ps-lbl">States</div>
-      <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 6px">${isBound ? 'Click to switch view on canvas. Drag states between views to group them.' : 'Your designs are preserved. Click to preview each view.'}</div>
+      ${isBound ? `<div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 6px">
+        <span style="font-family:'DM Mono',monospace;color:var(--acc);font-weight:500">${enumVals.length}</span> data states from <span style="font-family:'DM Mono',monospace">${b.fieldName}</span> · Click to switch, drag to remap.
+      </div>` : `<div style="font-size:10px;color:var(--t3);line-height:1.4;padding:2px 0 6px">Your designs are preserved. Click to preview each view.</div>`}
       <div style="display:flex;flex-direction:column;gap:6px">${joinViewCards}</div>
       ${isBound && views.length < enumVals.length ? `<div style="text-align:center;padding:6px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer;text-decoration:underline" onclick="msbResetJoins(event)">Reset — undo all joins</span></div>` : ''}
+      ${!isBound ? `<div style="padding:6px 0 0"><button onclick="addMsbView(event)" style="width:100%;padding:6px 0;border:2px dashed var(--b1);border-radius:8px;background:none;cursor:pointer;font-size:11px;color:var(--t3);font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s" onmouseover="this.style.borderColor='var(--acc)';this.style.color='var(--acc)'" onmouseout="this.style.borderColor='var(--b1)';this.style.color='var(--t3)'">+ Add state</button></div>` : ''}
     </div>` : ''}`;
   }
   if (def.isRepItem) {
@@ -6713,7 +6717,7 @@ function renderTree() {
 /* ── MULTI-STATE BOX ── */
 function switchMsbView(e, viewId) {
   e.stopPropagation();
-  if (_msbDragging) return;
+  if (_msbDrag) return;
   const msbId = 'msb-articles';
   const def = EL_DEFS[msbId];
   if (!def) return;
@@ -6721,10 +6725,7 @@ function switchMsbView(e, viewId) {
   document.querySelectorAll('#' + msbId + ' .msb-view').forEach(v => v.classList.remove('active'));
   const viewEl = document.getElementById('msb-view-' + viewId);
   if (viewEl) viewEl.classList.add('active');
-  document.querySelectorAll('#msb-view-sel .msb-view-btn').forEach(b => {
-    const btnVal = b.getAttribute('data-view') || b.textContent.trim().toLowerCase().replace(/\s+/g,'');
-    b.classList.toggle('active', btnVal === viewId);
-  });
+  refreshMsbCanvasButtons();
   if (S.sel === msbId) renderBody();
   renderTree();
 }
@@ -6798,50 +6799,78 @@ function msbAssign(e, viewId, val) {
   toast(`✓ "${val}" → ${view.name}`, true);
 }
 
-var _msbDragging = false;
-function msbDragStart(e, val) {
-  _msbDragging = true;
+var _msbDrag = null;
+function msbChipGrab(e, val, fromViewId) {
   e.stopPropagation();
-  e.dataTransfer.setData('text/plain', val);
-  e.dataTransfer.effectAllowed = 'move';
-  e.target.style.opacity = '.4';
-  setTimeout(() => {
+  e.preventDefault();
+  const chip = e.currentTarget;
+  const startX = e.clientX, startY = e.clientY;
+  let ghost = null, started = false;
+
+  function onMove(ev) {
+    if (!started && (Math.abs(ev.clientX - startX) > 4 || Math.abs(ev.clientY - startY) > 4)) {
+      started = true;
+      _msbDrag = { val, fromViewId };
+      chip.style.opacity = '.4';
+      ghost = document.createElement('div');
+      ghost.style.cssText = 'position:fixed;z-index:9999;padding:3px 10px;background:var(--acc);color:#fff;border-radius:10px;font-size:10px;font-family:"DM Mono",monospace;pointer-events:none;white-space:nowrap;box-shadow:0 2px 8px #0003';
+      ghost.textContent = val;
+      document.body.appendChild(ghost);
+      document.querySelectorAll('.msb-drop-zone').forEach(z => {
+        z.style.borderColor = 'color-mix(in srgb, var(--acc) 40%, var(--b1))';
+      });
+    }
+    if (ghost) {
+      ghost.style.left = (ev.clientX + 10) + 'px';
+      ghost.style.top = (ev.clientY - 14) + 'px';
+    }
+    if (started) {
+      document.querySelectorAll('.msb-drop-zone').forEach(z => {
+        const r = z.getBoundingClientRect();
+        if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) {
+          z.style.borderColor = 'var(--acc)'; z.style.borderStyle = 'solid';
+          z.style.background = 'color-mix(in srgb, var(--acc) 10%, var(--sur))';
+        } else {
+          z.style.borderColor = ''; z.style.borderStyle = ''; z.style.background = '';
+        }
+      });
+    }
+  }
+
+  function onUp(ev) {
+    document.removeEventListener('mousemove', onMove);
+    document.removeEventListener('mouseup', onUp);
+    if (ghost) { ghost.remove(); ghost = null; }
+    if (!started) { _msbDrag = null; return; }
     document.querySelectorAll('.msb-drop-zone').forEach(z => {
-      z.style.borderColor = 'color-mix(in srgb, var(--acc) 40%, var(--b1))';
+      z.style.borderColor = ''; z.style.borderStyle = ''; z.style.background = '';
     });
-  }, 0);
-  const endDrag = () => { setTimeout(() => { _msbDragging = false; }, 100); document.removeEventListener('dragend', endDrag); };
-  document.addEventListener('dragend', endDrag);
+    let targetViewId = null;
+    document.querySelectorAll('.msb-drop-zone').forEach(z => {
+      const r = z.getBoundingClientRect();
+      if (ev.clientX >= r.left && ev.clientX <= r.right && ev.clientY >= r.top && ev.clientY <= r.bottom) {
+        targetViewId = z.getAttribute('data-view-id');
+      }
+    });
+    if (targetViewId && targetViewId !== fromViewId) {
+      msbDoMove(val, targetViewId);
+    } else {
+      chip.style.opacity = '';
+      renderBody();
+    }
+    _msbDrag = null;
+  }
+
+  document.addEventListener('mousemove', onMove);
+  document.addEventListener('mouseup', onUp);
 }
 
-function msbDragOver(e) {
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.style.borderColor = 'var(--acc)';
-  e.currentTarget.style.borderStyle = 'solid';
-  e.currentTarget.style.background = 'color-mix(in srgb, var(--acc) 10%, var(--sur))';
-  e.currentTarget.style.opacity = '1';
-}
-
-function msbDragLeave(e) {
-  e.currentTarget.style.borderColor = '';
-  e.currentTarget.style.borderStyle = '';
-  e.currentTarget.style.background = '';
-  e.currentTarget.style.opacity = '';
-}
-
-function msbDrop(e, targetViewId) {
-  e.preventDefault();
-  e.stopPropagation();
-  _msbDragging = false;
-  const val = e.dataTransfer.getData('text/plain');
-  if (!val) return;
+function msbDoMove(val, targetViewId) {
   const def = EL_DEFS['msb-articles'];
   if (!def) return;
   def.views.forEach(v => { v.enumValues = (v.enumValues || []).filter(ev => ev !== val); });
   const target = def.views.find(v => v.id === targetViewId);
   if (target) target.enumValues.push(val);
-  document.querySelectorAll('.msb-drop-zone').forEach(z => { z.style.borderColor = ''; z.style.background = ''; z.style.opacity = ''; });
   def.activeView = targetViewId;
   document.querySelectorAll('#msb-articles .msb-view').forEach(v => v.classList.remove('active'));
   const viewEl = document.getElementById('msb-view-' + targetViewId);
@@ -6853,10 +6882,114 @@ function msbDrop(e, targetViewId) {
   toast(`✓ "${val}" → State ${targetIdx}`, true);
 }
 
+function reorderMsbView(e, viewId, direction) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def || !def.views) return;
+  const idx = def.views.findIndex(v => v.id === viewId);
+  if (idx < 0) return;
+  const newIdx = idx + direction;
+  if (newIdx < 0 || newIdx >= def.views.length) return;
+  const tmp = def.views[idx];
+  def.views[idx] = def.views[newIdx];
+  def.views[newIdx] = tmp;
+  def.views.forEach((v, i) => { v.name = 'State ' + (i + 1); });
+  const msbBody = document.querySelector('#msb-articles .msb-body');
+  if (msbBody) {
+    const children = Array.from(msbBody.children);
+    if (children[idx] && children[newIdx]) {
+      if (direction === -1) msbBody.insertBefore(children[idx], children[newIdx]);
+      else msbBody.insertBefore(children[newIdx], children[idx]);
+    }
+  }
+  refreshMsbCanvasButtons();
+  renderBody();
+}
+
+function duplicateMsbView(e, viewId) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def || !def.views) return;
+  const srcView = def.views.find(v => v.id === viewId);
+  if (!srcView) return;
+  const srcIdx = def.views.indexOf(srcView);
+  const newId = 'view-dup-' + Date.now();
+  const newView = { id: newId, name: 'State ' + (def.views.length + 1), enumValues: [] };
+  def.views.splice(srcIdx + 1, 0, newView);
+  def.views.forEach((v, i) => { v.name = 'State ' + (i + 1); });
+  const msbBody = document.querySelector('#msb-articles .msb-body');
+  const srcDom = document.getElementById('msb-view-' + viewId);
+  if (msbBody && srcDom) {
+    const newDiv = document.createElement('div');
+    newDiv.className = 'msb-view';
+    newDiv.id = 'msb-view-' + newId;
+    newDiv.innerHTML = srcDom.innerHTML;
+    srcDom.after(newDiv);
+  }
+  def.activeView = newId;
+  document.querySelectorAll('#msb-articles .msb-view').forEach(v => v.classList.remove('active'));
+  const newEl = document.getElementById('msb-view-' + newId);
+  if (newEl) newEl.classList.add('active');
+  refreshMsbCanvasButtons();
+  renderBody();
+  renderTree();
+  toast('✓ Duplicated → State ' + (srcIdx + 2), true);
+}
+
+function setMsbFallback(e, viewId) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  if (def._fallbackView === viewId) {
+    delete def._fallbackView;
+    toast('Default view removed');
+  } else {
+    def._fallbackView = viewId;
+    const idx = (def.views || []).findIndex(v => v.id === viewId);
+    toast('✓ State ' + (idx + 1) + ' set as default', true);
+  }
+  renderBody();
+}
+
+function addMsbView(e) {
+  e.stopPropagation();
+  const def = EL_DEFS['msb-articles'];
+  if (!def) return;
+  if (!def.views) def.views = [];
+  const idx = def.views.length;
+  const newId = 'view-' + (idx + 1) + '-' + Date.now();
+  def.views.push({ id: newId, name: 'State ' + (idx + 1), enumValues: [] });
+  const msbBody = document.querySelector('#msb-articles .msb-body');
+  if (msbBody) {
+    const newDiv = document.createElement('div');
+    newDiv.className = 'msb-view';
+    newDiv.id = 'msb-view-' + newId;
+    newDiv.innerHTML = '<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;gap:10px;min-height:200px"><div style="font-size:28px;opacity:.25">◫</div><div style="font-size:12px;color:var(--t3)">Empty view — design it in the canvas</div></div>';
+    msbBody.appendChild(newDiv);
+  }
+  def.activeView = newId;
+  document.querySelectorAll('#msb-articles .msb-view').forEach(v => v.classList.remove('active'));
+  const newViewEl = document.getElementById('msb-view-' + newId);
+  if (newViewEl) newViewEl.classList.add('active');
+  refreshMsbCanvasButtons();
+  renderBody();
+  renderTree();
+  toast('✓ Added State ' + (idx + 1), true);
+}
+
 function deleteMsbView(e, viewId) {
   e.stopPropagation();
   const def = EL_DEFS['msb-articles'];
   if (!def || !def.views || def.views.length <= 1) return;
+  const bkey = 'msb-articles|Active State';
+  const isBound = !!S.bindings[bkey];
+  if (isBound) {
+    const b = S.bindings[bkey];
+    const ctx = findSource(b.ctxId);
+    const field = ctx ? ctx.fields.find(f => f.name === b.fieldName && (f.type === 'states' || f.type === 'enum')) : null;
+    const logicalCount = field?.enumValues?.length || 0;
+    if (def.views.length <= logicalCount) { toast('Can\'t delete — need at least ' + logicalCount + ' views for ' + logicalCount + ' data states'); return; }
+  }
   const view = def.views.find(v => v.id === viewId);
   if (!view) return;
   const viewName = view.name;
@@ -6927,13 +7060,65 @@ function refreshMsbCanvasButtons() {
   const views = def.views || [];
   const activeView = def.activeView;
   const isBound = !!S.bindings['msb-articles|Active State'];
-  viewSel.innerHTML = views.map((v, idx) => {
+  const activeIdx = views.findIndex(v => v.id === activeView);
+  const activeV = views[activeIdx];
+  const activeMapped = activeV ? (activeV.enumValues || []) : [];
+  const triggerLabel = isBound && activeMapped.length > 0
+    ? activeMapped[0].charAt(0).toUpperCase() + activeMapped[0].slice(1)
+    : 'State ' + (activeIdx + 1);
+
+  const items = views.map((v, idx) => {
     const mapped = v.enumValues || [];
     const disabled = isBound && mapped.length === 0;
     const active = v.id === activeView;
-    const label = isBound && mapped.length > 0 ? mapped[0].charAt(0).toUpperCase() + mapped[0].slice(1) : 'State ' + (idx + 1);
-    return `<button class="msb-view-btn ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}" data-view="${v.id}" onclick="switchMsbView(event,'${v.id}')"${disabled ? ' title="Won\'t be triggered — no state mapped"' : ''}>${label}</button>`;
+    const serial = 'State ' + (idx + 1);
+    const logical = isBound && mapped.length > 0
+      ? mapped.map(m => m.charAt(0).toUpperCase() + m.slice(1)).join(', ')
+      : '';
+    return `<div class="msb-dd-item ${active ? 'active' : ''} ${disabled ? 'disabled' : ''}" onclick="${disabled ? 'event.stopPropagation()' : `msbDdSelect(event,'${v.id}')`}">
+      <span style="width:6px;height:6px;border-radius:50%;background:${active ? 'var(--acc)' : disabled ? 'var(--b2)' : 'var(--b1)'};flex-shrink:0"></span>
+      <div style="flex:1;min-width:0">
+        <div style="font-size:10px;font-weight:${active ? '600' : '400'};color:${disabled ? 'var(--t3)' : 'var(--t1)'};font-family:'DM Sans',sans-serif">${serial}</div>
+        ${logical ? `<div style="font-size:9px;color:var(--acc);font-family:'DM Mono',monospace;margin-top:1px">${logical}</div>` : ''}
+        ${disabled ? `<div style="font-size:8px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:1px">unmapped</div>` : ''}
+      </div>
+      ${active ? '<span style="font-size:8px;color:var(--acc);font-family:\'DM Mono\',monospace">editing</span>' : ''}
+    </div>`;
   }).join('');
+
+  viewSel.innerHTML = `<button class="msb-dd-trigger" onclick="toggleMsbDd(event)">
+      ${triggerLabel}
+      <svg viewBox="0 0 10 6" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M1 1l4 4 4-4"/></svg>
+    </button>
+    <div class="msb-dd-menu" id="msb-dd-menu">${items}</div>`;
+}
+
+function toggleMsbDd(e) {
+  e.stopPropagation();
+  const menu = document.getElementById('msb-dd-menu');
+  const trigger = e.currentTarget;
+  if (!menu) return;
+  const isOpen = menu.classList.toggle('open');
+  trigger.classList.toggle('open', isOpen);
+  if (isOpen) {
+    const close = (ev) => {
+      if (!menu.contains(ev.target) && ev.target !== trigger) {
+        menu.classList.remove('open');
+        trigger.classList.remove('open');
+        document.removeEventListener('click', close);
+      }
+    };
+    setTimeout(() => document.addEventListener('click', close), 0);
+  }
+}
+
+function msbDdSelect(e, viewId) {
+  e.stopPropagation();
+  const menu = document.getElementById('msb-dd-menu');
+  if (menu) menu.classList.remove('open');
+  const trigger = document.querySelector('.msb-dd-trigger');
+  if (trigger) trigger.classList.remove('open');
+  switchMsbView(e, viewId);
 }
 
 function refreshMsbState() {
@@ -7966,6 +8151,7 @@ Object.keys(S.bindings).forEach(bkey => {
   if (b && b.fnHasParams && b.fnTemplate) updateFnCanvasPreview(elId, bkey.split('|')[1]);
 });
 refreshAllPills();
+refreshMsbCanvasButtons();
 document.getElementById('cimg-el-weather-img').src = 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';
 document.getElementById('cimg-el-d262-weather-img').src = 'https://developers.elementor.com/docs/assets/img/elementor-placeholder-image.png';
 updateInspectorToggle();
