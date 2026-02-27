@@ -231,6 +231,10 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 .canvas-grid{position:absolute;inset:0;
   background-image:linear-gradient(var(--b1) 1px,transparent 1px),linear-gradient(90deg,var(--b1) 1px,transparent 1px);
   background-size:24px 24px;opacity:.55;pointer-events:none;z-index:0}
+.page-sel-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:6px;padding:6px 14px;font-size:11px;color:var(--t3);cursor:pointer;transition:background .15s,color .15s;background:color-mix(in srgb, var(--sur) 85%, transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--b1)}
+.page-sel-bar:hover{background:color-mix(in srgb, var(--acc) 8%, var(--sur));color:var(--t1)}
+.page-sel-bar.sel{background:color-mix(in srgb, var(--acc) 12%, var(--sur));color:var(--acc);border-bottom-color:var(--acc)}
+.page-sel-bar svg{width:14px;height:14px;flex-shrink:0}
 .canvas-inner{position:relative;z-index:1;display:flex;flex-direction:column;gap:0;width:100%;max-width:100%}
 .canvas-inner.hidden-page{display:none}
 
@@ -1380,6 +1384,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
   <div class="canvas" id="canvas" onclick="canvasClick(event)">
     <div class="canvas-grid"></div>
     <div class="canvas-inner hidden-page">
+      <div class="page-sel-bar" id="psb-home" onclick="selectPageEl(event,'page-home')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Home</div>
 
       <!-- Section: Hero -->
       <div class="c-section has-ctx" id="sec-hero" onclick="selEl(event,'sec-hero')">
@@ -1636,6 +1641,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- ITEMS LIST PAGE -->
     <div class="items-page" id="items-page">
+      <div class="page-sel-bar" id="psb-items" onclick="selectPageEl(event,'page-items')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Items (List)</div>
       <div class="c-section" id="sec-items" onclick="selEl(event,'sec-items')">
         <div class="ctx-pill" id="pill-sec-items"></div>
         <div class="items-page-header">
@@ -1799,6 +1805,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- MULTI-STATE BOX PAGE -->
     <div class="items-page" id="msb-page">
+      <div class="page-sel-bar" id="psb-msb" onclick="selectPageEl(event,'page-msb')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Multi-State Box</div>
       <div class="c-section" id="sec-msb" onclick="selEl(event,'sec-msb')" style="margin:16px">
         <div class="ctx-pill" id="pill-sec-msb"></div>
         <div style="padding:24px 24px 12px">
@@ -1918,6 +1925,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- REPEATER USECASES PAGE -->
     <div class="items-page" id="repeater-usecases-page">
+      <div class="page-sel-bar" id="psb-ruc" onclick="selectPageEl(event,'page-ruc')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Repeater Usecases</div>
 
       <!-- Section 1: Articles List Repeater -->
       <div class="c-section" id="sec-ruc-articles" onclick="selEl(event,'sec-ruc-articles')" style="margin:16px">
@@ -2044,6 +2052,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- ITEMS RELATIONSHIP CONCEPT PAGE -->
     <div class="item-detail-page" id="item-relationship-page">
+      <div class="page-sel-bar" id="psb-rel" onclick="selectPageEl(event,'page-rel-detail')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Product Item</div>
       <div class="item-ctrl">
         <span class="item-ctrl-site">Weather Merch</span>
         <span class="item-ctrl-nav">AB</span>
@@ -2152,6 +2161,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- DEMO PAGE -->
     <div class="canvas-inner hidden-page" id="demo-page">
+      <div class="page-sel-bar" id="psb-demo" onclick="selectPageEl(event,'page-demo')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Demo</div>
 
       <!-- Section: Team (connected to My Team CMS) -->
       <div class="c-section has-ctx" id="sec-demo-team" onclick="selEl(event,'sec-demo-team')">
@@ -2261,6 +2271,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- DEMO 26.2 PAGE -->
     <div class="canvas-inner" id="demo262-page">
+      <div class="page-sel-bar" id="psb-demo262" onclick="selectPageEl(event,'page-demo262')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Demo 26.2</div>
 
       <!-- Section: Weather (connected to Weather App) -->
       <div class="c-section has-ctx" id="sec-d262-weather" onclick="selEl(event,'sec-d262-weather')">
@@ -2704,6 +2715,41 @@ const CTX_DEFS = [
     config:[
       {key:'loginRedirect', label:'Login redirect', input:'select', options:['Stay on page','Go to dashboard','Go to home']},
     ]},
+  { id:'system-page-list', name:'Page list', icon:'', type:'list', source:'System', group:'System',
+    fields:[
+      {name:'pages', type:'array', sample:'[{title, url, …}]', itemFields:[
+        {name:'title',   type:'string', sample:'"Home"'},
+        {name:'url',     type:'string', sample:'"/home"'},
+        {name:'isCurrent', type:'boolean', sample:'false'},
+      ]},
+    ],
+    metadata:[
+      {name:'totalPages',   label:'Total pages',   type:'number', sample:'8'},
+      {name:'currentPageTitle', label:'Current page title', type:'string', sample:'"Home"'},
+    ]},
+  { id:'system-business-info', name:'Business info', icon:'', type:'object', source:'System', group:'System',
+    fields:[
+      {name:'businessName', type:'string',  sample:'"My Business"'},
+      {name:'phone',        type:'string',  sample:'"+1 555-0100"'},
+      {name:'email',        type:'string',  sample:'"info@mybusiness.com"'},
+      {name:'address',      type:'string',  sample:'"123 Main St, New York"'},
+      {name:'logo',         type:'image',   sample:'[img url]'},
+      {name:'description',  type:'string',  sample:'"A modern creative studio"'},
+    ]},
+  { id:'system-locations', name:'Locations', icon:'', type:'list', source:'System', group:'System',
+    fields:[
+      {name:'locations', type:'array', sample:'[{name, address, …}]', itemFields:[
+        {name:'name',      type:'string',  sample:'"Main Office"'},
+        {name:'address',   type:'string',  sample:'"123 Main St"'},
+        {name:'city',      type:'string',  sample:'"New York"'},
+        {name:'phone',     type:'string',  sample:'"+1 555-0100"'},
+        {name:'latitude',  type:'number',  sample:'40.7128'},
+        {name:'longitude', type:'number',  sample:'-74.0060'},
+      ]},
+    ],
+    metadata:[
+      {name:'totalLocations', label:'Total locations', type:'number', sample:'3'},
+    ]},
   { id:'custom-countdown', name:'UpcomingClassCountdown', icon:'', type:'object', source:'Custom Code', group:'Custom',
     customCode: true,
     fields:[
@@ -2943,12 +2989,18 @@ const EL_DEFS = {
   'el-art-time-1': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-art-time-2': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-art-time-3': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'sec-hero':     {name:'Section · Hero',     type:'Section',  isContainer:true, props:[]},
-  'sec-weather':  {name:'Section · Weather',  type:'Section',  isContainer:true, props:[]},
-  'sec-articles': {name:'Section · Articles', type:'Section',  isContainer:true, props:[]},
-  'sec-empty':    {name:'Section · Empty',    type:'Section',  isContainer:true, props:[]},
+  'page-home':    {name:'Page · Home', type:'Page', isPage:true, page:'home', props:[]},
+  'page-demo262': {name:'Page · Demo 26.2', type:'Page', isPage:true, page:'demo262', props:[]},
+  'page-items':   {name:'Page · Items (List)', type:'Page', isPage:true, page:'items-list', props:[]},
+  'page-ruc':     {name:'Page · Repeater Usecases', type:'Page', isPage:true, page:'repeater-usecases', props:[]},
+  'page-msb':     {name:'Page · Multi-State Box', type:'Page', isPage:true, page:'msb', props:[]},
+  'page-demo':    {name:'Page · Demo', type:'Page', isPage:true, page:'demo', props:[]},
+  'sec-hero':     {name:'Section · Hero',     type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
+  'sec-weather':  {name:'Section · Weather',  type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
+  'sec-articles': {name:'Section · Articles', type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
+  'sec-empty':    {name:'Section · Empty',    type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
   // Items List page
-  'sec-items':    {name:'Section · Items',    type:'Section',  isContainer:true, page:'items-list', props:[]},
+  'sec-items':    {name:'Section · Items',    type:'Section',  isContainer:true, page:'items-list', parentPage:'page-items', props:[]},
   'el-items-title':{name:'Page Title',  type:'Text',    section:'sec-items', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'repeater-items':{name:'Repeater',    type:'Repeater',section:'sec-items', isRepeater:true, props:[{k:'Items',t:'list'}]},
   'rep-item-s1':  {name:'Item 1',       type:'RepItem', section:'sec-items', isRepItem:true, props:[]},
@@ -2983,7 +3035,7 @@ const EL_DEFS = {
   'rep-rel-loc-2':  {name:'Location 2',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
   'rep-rel-loc-3':  {name:'Location 3',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
   // Multi-State Box page
-  'sec-msb':           {name:'Section · Articles', type:'Section', isContainer:true, page:'msb-demo', props:[]},
+  'sec-msb':           {name:'Section · Articles', type:'Section', isContainer:true, page:'msb-demo', parentPage:'page-msb', props:[]},
   'msb-articles':      {name:'Multi-State Container', type:'MultiStateBox', section:'sec-msb', isMultiState:true,
     stateBinding: {ctxId:'cms-articles', fieldName:'itemsStatus'},
     views: [
@@ -3006,7 +3058,7 @@ const EL_DEFS = {
   'el-msb-item-thumb-1':  {name:'Thumbnail',        type:'Image',  section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-thumb', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
   'el-msb-item-thumb-2':  {name:'Thumbnail',        type:'Image',  section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-thumb', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
   // Repeater Usecases page
-  'sec-ruc-articles':    {name:'Section · Articles List', type:'Section', isContainer:true, page:'repeater-usecases', props:[]},
+  'sec-ruc-articles':    {name:'Section · Articles List', type:'Section', isContainer:true, page:'repeater-usecases', parentPage:'page-ruc', props:[]},
   'repeater-ruc-articles':{name:'Repeater',     type:'Repeater', section:'sec-ruc-articles', isRepeater:true, props:[{k:'Items',t:'list'}]},
   'rep-ruc-art-1':  {name:'Article 1',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
   'rep-ruc-art-2':  {name:'Article 2',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
@@ -3017,7 +3069,7 @@ const EL_DEFS = {
   'el-ruc-art-author-1': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ruc-art-author-2': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ruc-art-author-3': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'sec-ruc-tags':        {name:'Section · Article Tags', type:'Section', isContainer:true, page:'repeater-usecases', props:[]},
+  'sec-ruc-tags':        {name:'Section · Article Tags', type:'Section', isContainer:true, page:'repeater-usecases', parentPage:'page-ruc', props:[]},
   'repeater-ruc-tags':   {name:'Repeater',      type:'Repeater', section:'sec-ruc-tags', isRepeater:true, props:[{k:'Items',t:'list'}]},
   'rep-ruc-tag-1':  {name:'Tag 1',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
   'rep-ruc-tag-2':  {name:'Tag 2',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
@@ -3028,8 +3080,8 @@ const EL_DEFS = {
   'el-ruc-tag-val-3':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ruc-tag-val-4':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   // Demo page
-  'sec-demo-empty':      {name:'Section · Empty',  type:'Section', isContainer:true, page:'demo', props:[]},
-  'sec-demo-team':       {name:'Section · Team',   type:'Section', isContainer:true, page:'demo', props:[]},
+  'sec-demo-empty':      {name:'Section · Empty',  type:'Section', isContainer:true, page:'demo', parentPage:'page-demo', props:[]},
+  'sec-demo-team':       {name:'Section · Team',   type:'Section', isContainer:true, page:'demo', parentPage:'page-demo', props:[]},
   'el-demo-team-title':  {name:'Team Title',       type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-demo-team-subtitle':{name:'Team Subtitle',   type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-demo-member-img-1': {name:'Member Image',    type:'Image',   section:'sec-demo-team', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -3044,9 +3096,9 @@ const EL_DEFS = {
   'el-demo-member-tag-1': {name:'Member Tagline',  type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-demo-member-tag-2': {name:'Member Tagline',  type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-demo-member-tag-3': {name:'Member Tagline',  type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'sec-d262-weather':    {name:'Section · Weather', type:'Section', isContainer:true, page:'demo262', props:[]},
-  'sec-d262-empty1':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', props:[]},
-  'sec-d262-empty2':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', props:[]},
+  'sec-d262-weather':    {name:'Section · Weather', type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
+  'sec-d262-empty1':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
+  'sec-d262-empty2':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
   'el-d262-weather-img': {name:'Weather Image',     type:'Image',   section:'sec-d262-weather', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
   'el-d262-city':        {name:'City',              type:'Text',    section:'sec-d262-weather', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-d262-temp':        {name:'Temperature',       type:'Text',    section:'sec-d262-weather', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -3058,14 +3110,20 @@ const S = {
   sel: null,
   inspectorOpen: false,
   tab: 'settings',
-  openCats: {context:true, properties:true, visibility:true},
+  openCats: {context:true, properties:true, visibility:true, systemCtx:false},
   ctxMap: {
+    'page-home':       ['system-identity','system-page-list','system-business-info','system-locations'],
+    'page-demo262':    ['system-identity','system-page-list','system-business-info','system-locations'],
+    'page-items':      ['system-identity','system-page-list','system-business-info','system-locations'],
+    'page-rel-detail': ['stores-current-item','system-identity','system-page-list','system-business-info','system-locations'],
+    'page-ruc':        ['system-identity','system-page-list','system-business-info','system-locations'],
+    'page-msb':        ['system-identity','system-page-list','system-business-info','system-locations'],
+    'page-demo':       ['system-identity','system-page-list','system-business-info','system-locations'],
     'sec-hero':     ['custom-countdown'],
     'sec-weather':  ['weather'],
     'sec-articles': [],
     'sec-empty':    [],
     'sec-items':       [],
-    'page-rel-detail': ['stores-current-item'],
     'sec-rel-product': ['stores-current-item'],
     'sec-rel-locations': ['stores-current-item', 'stores-locations'],
     'sec-msb':          ['cms-articles'],
@@ -3500,6 +3558,7 @@ function selEl(e, id) {
   S.sel = id;
   S.ctxSettingsView = null;
   document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
   const n = document.getElementById(id);
   if (n) n.classList.add('sel');
   const def = EL_DEFS[id];
@@ -3558,10 +3617,39 @@ function canvasClick(e) {
     closeEtPanel();
     S.sel = null;
     document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+    document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
     renderRP();
     renderActionBar();
   }
   closeDd();
+}
+
+function getCurrentPageId() {
+  const map = {'Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Multi-State Box':'page-msb','Demo':'page-demo'};
+  return map[S.currentPage] || 'page-home';
+}
+
+function selectPageEl(e, pageId) {
+  e.stopPropagation();
+  S.sel = pageId;
+  S.ctxSettingsView = null;
+  S.tab = 'design';
+  S.inspectorOpen = true;
+  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
+  const bar = e.currentTarget;
+  if (bar) bar.classList.add('sel');
+  renderRP();
+  renderActionBar();
+}
+
+function refreshPageBars() {
+  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
+  const def = EL_DEFS[S.sel];
+  if (def && def.isPage) {
+    const bar = document.querySelector('.page-sel-bar[onclick*="' + S.sel + '"]');
+    if (bar) bar.classList.add('sel');
+  }
 }
 
 /* ── RIGHT PANEL ── */
@@ -3591,7 +3679,7 @@ function renderRP() {
   const def = EL_DEFS[S.sel];
   if (!def) return;
 
-  const tabs = def.isRepItem ? ['Settings'] : def.isMultiState ? ['Design','Settings'] : ['Design','Animations','Settings'];
+  const tabs = def.isRepItem ? ['Settings'] : def.isPage ? ['Design','Settings'] : def.isMultiState ? ['Design','Settings'] : ['Design','Animations','Settings'];
   if (!tabs.map(t=>t.toLowerCase()).includes(S.tab)) S.tab = 'settings';
 
   rp.innerHTML = `
@@ -3626,8 +3714,30 @@ function renderBody() {
 /* ── DESIGN TAB ── */
 function renderDesign() {
   const def = EL_DEFS[S.sel];
+  if (def && def.isPage) return renderDesignPage();
   if (def && def.type === 'Image') return renderDesignImage();
   return renderDesignDefault();
+}
+
+function renderDesignPage() {
+  return `
+  <div class="ps"><div class="ps-lbl">Background</div>
+    <div class="d-row"><span class="d-lbl">Color</span><div style="display:flex;gap:5px;align-items:center"><div class="swatch" style="background:#fff;border:1px solid var(--b2)"></div><div style="display:flex;align-items:center;gap:6px;flex:1"><div style="flex:1;height:4px;background:linear-gradient(to right,var(--b1),var(--acc));border-radius:2px;position:relative"><div style="position:absolute;right:0;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--acc);border:2px solid #fff;box-shadow:0 1px 3px #0002"></div></div><span style="font-size:11px;color:var(--t2);font-family:'DM Mono',monospace;min-width:36px;text-align:right">100 %</span></div></div></div>
+    <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:4px 2px 8px">To view the page background, make sure the opacity of section backgrounds isn't set to 100%.</div>
+    <div style="font-size:11px;color:var(--acc);cursor:pointer;padding:2px 0 4px">Apply to More Pages</div>
+  </div>
+  <div class="ps"><div class="ps-lbl">Layout</div>
+    <div class="d-row"><span class="d-lbl">Max width</span><div style="display:flex;align-items:center;gap:8px"><div style="width:48px;height:32px;border:2px dashed var(--b2);border-radius:4px;display:flex;align-items:center;justify-content:center"><div style="width:20px;height:2px;background:var(--t3);border-radius:1px"></div></div></div></div>
+    <div style="font-size:10px;color:var(--t3);line-height:1.4;padding:4px 2px 8px">Max width (1600px) is applied to new sections. You can exclude this page's existing sections.</div>
+    <div style="font-size:11px;color:var(--acc);cursor:pointer;padding:2px 0 8px">Exclude existing sections</div>
+    <div class="d-row"><span class="d-lbl">Padding</span><div style="display:flex;gap:6px;align-items:center"><span style="font-size:10px;color:var(--t3)">↔</span><input class="d-inp" value="0" style="width:40px"><span style="font-size:9px;color:var(--t3)">px*</span><span style="font-size:10px;color:var(--t3)">↕</span><input class="d-inp" value="0" style="width:40px"><span style="font-size:9px;color:var(--t3)">px*</span></div></div>
+  </div>
+  <div class="ps"><div class="ps-lbl">Overflow content</div>
+    <div class="d-row"><select class="d-inp" style="width:100%"><option>Hide</option><option>Visible</option><option>Scroll</option></select></div>
+  </div>
+  <div class="ps"><div class="ps-lbl">Cursor</div>
+    <div class="d-row"><span class="d-lbl" style="flex:1">Default</span><span style="font-size:12px;color:var(--t3)">▸</span></div>
+  </div>`;
 }
 
 function renderDesignDefault() {
@@ -3869,7 +3979,6 @@ function renderSettings() {
   if (def.isPage) {
     return renderSettingsWithCategories(def, `
       <div style="font-size:11px;color:var(--t3);line-height:1.8;padding:4px 0">
-        This is a dynamic item page.<br>
         Context attached at the page level is inherited by all sections within.
       </div>`, '');
   }
@@ -4740,6 +4849,16 @@ function renderCtxList() {
     }
   });
 
+  if (!isPage && parentPageId) {
+    const pageCtxIds = S.ctxMap[parentPageId] || [];
+    pageCtxIds.forEach(id => {
+      if (!ctxIds.includes(id)) {
+        const c = findSource(id);
+        if (c) inheritedCtxs.push(c);
+      }
+    });
+  }
+
   // Keep insertion order — new contexts appear below existing ones
 
   const showSplit = inheritedCtxs.length > 0;
@@ -4780,8 +4899,8 @@ function renderCtxList() {
               ${(hasConfig || c.customCode) ? `<div class="ctx-dd-sep"></div>` : ''}
               <div class="ctx-dd-item" onclick="startRenameCtx(event,'${c.id}','${S.sel}')">✏️ Rename</div>
               <div class="ctx-dd-sep"></div>
-              ${(primary && isPage)
-                ? `<div class="ctx-dd-item danger disabled" style="cursor:not-allowed;pointer-events:auto" onclick="event.stopPropagation()"><span style="opacity:.35">🗑 Remove context</span><div class="ctx-dd-tooltip">This context is part of the dynamic page content and cannot be removed.</div></div>`
+              ${(primary && isPage) || c.group === 'System'
+                ? `<div class="ctx-dd-item danger disabled" style="cursor:not-allowed;pointer-events:auto" onclick="event.stopPropagation()"><span style="opacity:.35">🗑 Remove context</span><div class="ctx-dd-tooltip">${c.group === 'System' ? 'System contexts are always available and cannot be removed.' : 'This context is part of the dynamic page content and cannot be removed.'}</div></div>`
                 : `<div class="ctx-dd-item danger" onclick="confirmRemoveCtx(event,'${c.id}','${S.sel}')">🗑 Remove context</div>`}
             </div>
           </div>
@@ -4789,11 +4908,14 @@ function renderCtxList() {
       </div>`;
   };
 
+  const inheritedUserCtxs = inheritedCtxs.filter(c => c.group !== 'System');
+  const inheritedSystemCtxs = inheritedCtxs.filter(c => c.group === 'System');
+
   let parentNote = '';
-  if (parentPageId && !isPage && inheritedCtxs.length > 0) {
+  if (parentPageId && !isPage && inheritedUserCtxs.length > 0) {
     parentNote = `<div class="ctx-parent-note-wrap">
       <div class="ctx-parent-note-label">Also available from parent containers</div>
-      ${inheritedCtxs.map(c =>
+      ${inheritedUserCtxs.map(c =>
         `<div class="ctx-parent-note-item" onclick="navToPageCtx('${parentPageId}')">
           <span>${c.icon} ${c.name}</span><span class="ctx-parent-note-arrow">→</span>
         </div>`
@@ -4801,9 +4923,25 @@ function renderCtxList() {
     </div>`;
   }
 
+  const allSystemCtxs = [...ownCtxs.filter(c => c.group === 'System'), ...inheritedSystemCtxs];
+  const userCtxs = ownCtxs.filter(c => c.group !== 'System');
+  const systemCtxs = allSystemCtxs;
+  const sysOpen = S.openCats.systemCtx !== false;
+
+  const systemSection = systemCtxs.length > 0 ? `
+    <div style="border-bottom:1px solid var(--b1)">
+      <div style="display:flex;align-items:center;gap:6px;padding:11px 14px 0;cursor:pointer" onclick="S.openCats.systemCtx=!S.openCats.systemCtx;renderBody()">
+        <span style="font-size:10px;color:var(--t3);transition:transform .15s;display:inline-block;transform:rotate(${sysOpen?'90':'0'}deg)">›</span>
+        <span class="ps-lbl" style="padding:0;flex:1;font-size:11px">System Contexts</span>
+        <span style="cursor:help;font-size:12px;color:var(--t3);position:relative" class="sys-ctx-info" onmouseenter="this.querySelector('.sys-ctx-tip').style.display='block'" onmouseleave="this.querySelector('.sys-ctx-tip').style.display='none'">ⓘ<div class="sys-ctx-tip" style="display:none;position:absolute;right:0;top:18px;width:200px;padding:8px 10px;background:var(--t1);color:var(--sur);font-size:10px;line-height:1.4;border-radius:6px;z-index:10;font-weight:400;pointer-events:none;box-shadow:0 4px 12px #0003">System contexts are always available on every page. They provide global data like user identity, business info, and site navigation.</div></span>
+      </div>
+      ${sysOpen ? `<div style="padding:0 0 8px">${systemCtxs.map(renderCtxCard).join('')}</div>` : ''}
+    </div>` : '';
+
   return `<div class="ps" style="padding:0">
-    <div class="ps-lbl" style="padding:11px 14px 0">Attached Contexts</div>
-    ${ownCtxs.map(renderCtxCard).join('')}
+    ${systemSection}
+    <div class="ps-lbl" style="padding:11px 14px 0">${isPage ? 'Page Contexts' : 'Attached Contexts'}</div>
+    ${userCtxs.map(renderCtxCard).join('')}
     <div class="add-ctx-btn" onclick="openModal('${S.sel}')" style="margin:10px 14px 12px"><span style="font-size:15px">＋</span> Add Context</div>
     ${parentNote}
     <div class="ctx-tree-cta" onclick="toggleTree()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M6 9v6"/><path d="M18 9v6"/><circle cx="12" cy="3" r="1.5"/><circle cx="6" cy="9" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/><circle cx="12" cy="12" r="1.5"/><path d="M6 9L12 3L18 9"/></svg> Show context tree</div>
@@ -5650,16 +5788,35 @@ function renderDd() {
   const selectedCtx = srcId ? findSource(srcId) : null;
   const isSelectedFn = selectedCtx && FN_LIBS.some(l => l.id === srcId);
 
-  // Context source items
-  const ctxItems = available.length === 0
+  // Split user vs system contexts
+  const userAvailable = available.filter(ctx => ctx.group !== 'System');
+  const sysAvailable = available.filter(ctx => ctx.group === 'System');
+  const ddSysOpen = S.dd._sysOpen || false;
+
+  const ctxItems = userAvailable.length === 0
     ? `<div class="dd-notice" style="padding:8px 12px;line-height:1.6">⚠ No context on parent section.<br>Select the section → Settings → Context → Add Context.</div>`
-    : available.map(ctx => `
+    : userAvailable.map(ctx => `
         <div class="dd-sel-item ${srcId===ctx.id?'sel':''}" onclick="ddSelSource(event,'${ctx.id}')">
           <div style="flex:1;min-width:0">
             <div class="dd-sel-item-name">${ctx.name}</div>
             <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
           </div>
         </div>`).join('');
+
+  const sysCtxItems = sysAvailable.length > 0 ? `
+    <div style="border-top:1px solid color-mix(in srgb, var(--b2) 50%, transparent);margin-top:2px">
+      <div style="display:flex;align-items:center;gap:5px;padding:6px 12px 4px;cursor:pointer;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);font-weight:600" onclick="event.stopPropagation();S.dd._sysOpen=!S.dd._sysOpen;renderDd()">
+        <span style="font-size:8px;display:inline-block;transition:transform .15s;transform:rotate(${ddSysOpen?'90':'0'}deg)">›</span>
+        System <span style="font-weight:400;opacity:.6">${sysAvailable.length}</span>
+      </div>
+      ${ddSysOpen ? sysAvailable.map(ctx => `
+        <div class="dd-sel-item ${srcId===ctx.id?'sel':''}" onclick="ddSelSource(event,'${ctx.id}')" style="opacity:.7">
+          <div style="flex:1;min-width:0">
+            <div class="dd-sel-item-name">${ctx.name}</div>
+            <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
+          </div>
+        </div>`).join('') : ''}
+    </div>` : '';
 
   // Function library items
   const fnLibItems = FN_LIBS.map(lib => `
@@ -5671,8 +5828,9 @@ function renderDd() {
         </div>`).join('');
 
   const srcItems = `<div class="dd-src-section">
-      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${available.length}</span></div>
+      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${userAvailable.length}</span></div>
       ${ctxItems}
+      ${sysCtxItems}
     </div>
     <div class="dd-src-divider"></div>
     <div class="dd-src-section">
@@ -6065,9 +6223,10 @@ function renderModalList() {
     }).join('');
   }
 
-  const groupOrder = ['CMS', 'Custom', 'Apps', 'System'];
+  const groupOrder = ['CMS', 'Custom', 'Apps'];
   const grouped = {};
   CTX_DEFS.forEach(ctx => {
+    if (ctx.group === 'System') return;
     if (removedInherited.includes(ctx.id)) return;
     if (ctx.isDynamicPageCtx && !primaries.includes(ctx.id)) return;
     const g = ctx.group || 'Other';
@@ -6690,23 +6849,19 @@ function renderTree() {
   const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isMsb ? 'Multi-State Box' : isDemo ? 'Demo' : isDemo262 ? 'Demo 26.2' : 'Home Page';
   const pageIcon = isConcept ? '🛒' : '📄';
 
-  const hasDynamicPage = isConcept;
-  const pageId = isConcept ? 'page-rel-detail' : null;
+  const pageIdMap = {'Home Page':'page-home','Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Multi-State Box':'page-msb','Demo':'page-demo'};
+  const pageId = pageIdMap[pageLabel] || null;
   const pageCtxIds = pageId ? (S.ctxMap[pageId]||[]) : [];
+  const hasDynamicPage = isConcept;
+  const pageSel = S.sel === pageId ? 'font-weight:600;color:var(--acc)' : 'color:var(--t3)';
 
-  let h = `<div class="tp-row"><div class="tp-item" style="color:var(--t3)"><span>${pageIcon}</span> ${pageLabel}</div></div>`;
+  let h = `<div class="tp-row"><div class="tp-item" style="${pageSel};cursor:pointer" onclick="selEl({stopPropagation:()=>{}},'${pageId}');document.getElementById('tree-panel').classList.remove('open')"><span>${pageIcon}</span> ${pageLabel} ${pageCtxIds.length ? '<span class="tp-dot"></span>' : ''}</div></div>`;
 
   if (hasDynamicPage) {
     h += `<div class="tp-row"><div class="tp-indent"></div>
-      <div class="tp-item ${pageCtxIds.length?'ctx':''}" onclick="selEl({stopPropagation:()=>{}},'${pageId}');document.getElementById('tree-panel').classList.remove('open')">
-        <span>📑</span> ${EL_DEFS[pageId].name} ${pageCtxIds.length?'<span class="tp-dot"></span>':''}
+      <div class="tp-item ctx" onclick="selEl({stopPropagation:()=>{}},'${pageId}');document.getElementById('tree-panel').classList.remove('open')">
+        <span>📑</span> Dynamic Page ${pageCtxIds.length?'<span class="tp-dot"></span>':''}
       </div></div>`;
-    pageCtxIds.forEach(id => {
-      const c = findSource(id);
-      if (!c) return;
-      h += `<div class="tp-row" style="margin-left:14px"><div class="tp-indent"></div>
-        <div class="tp-item ctx" style="font-family:'DM Mono',monospace;font-size:10px">${c.icon} ${c.name} <span style="font-size:8px;opacity:.5;margin-left:auto">all sections</span></div></div>`;
-    });
   }
 
   sections.forEach(sid => {
@@ -7885,9 +8040,13 @@ function renderDdParam(body, elId, propKey, paramName) {
     S.dd.openPanel = 'field';
   }
 
-  const ctxItems = available.length === 0
+  const pUserAvail = available.filter(ctx => ctx.group !== 'System');
+  const pSysAvail = available.filter(ctx => ctx.group === 'System');
+  const pSysOpen = S.dd._sysOpen || false;
+
+  const ctxItems = pUserAvail.length === 0
     ? `<div class="dd-notice" style="padding:8px 12px;line-height:1.6">No contexts available.</div>`
-    : available.map(ctx => `
+    : pUserAvail.map(ctx => `
         <div class="dd-sel-item ${S.dd.srcId===ctx.id?'sel':''}" onclick="ddParamSelSource(event,'${ctx.id}')">
           <div style="flex:1;min-width:0">
             <div class="dd-sel-item-name">${ctx.name}</div>
@@ -7895,9 +8054,25 @@ function renderDdParam(body, elId, propKey, paramName) {
           </div>
         </div>`).join('');
 
+  const pSysCtxItems = pSysAvail.length > 0 ? `
+    <div style="border-top:1px solid color-mix(in srgb, var(--b2) 50%, transparent);margin-top:2px">
+      <div style="display:flex;align-items:center;gap:5px;padding:6px 12px 4px;cursor:pointer;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);font-weight:600" onclick="event.stopPropagation();S.dd._sysOpen=!S.dd._sysOpen;renderDdParam(document.getElementById('dd-body'),'${elId}','${propKey}','${paramName}')">
+        <span style="font-size:8px;display:inline-block;transition:transform .15s;transform:rotate(${pSysOpen?'90':'0'}deg)">›</span>
+        System <span style="font-weight:400;opacity:.6">${pSysAvail.length}</span>
+      </div>
+      ${pSysOpen ? pSysAvail.map(ctx => `
+        <div class="dd-sel-item ${S.dd.srcId===ctx.id?'sel':''}" onclick="ddParamSelSource(event,'${ctx.id}')" style="opacity:.7">
+          <div style="flex:1;min-width:0">
+            <div class="dd-sel-item-name">${ctx.name}</div>
+            <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
+          </div>
+        </div>`).join('') : ''}
+    </div>` : '';
+
   const srcItems = `<div class="dd-src-section">
-      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${available.length}</span></div>
+      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${pUserAvail.length}</span></div>
       ${ctxItems}
+      ${pSysCtxItems}
     </div>`;
 
   const filteredFields = !selectedCtx ? [] : selectedCtx.fields.filter(f => isCompat(f.type, param.type));
@@ -7997,15 +8172,34 @@ function renderDdRepeaterItems(body, elId, srcId) {
     ? selectedCtx.fields.filter(f => f.type === 'array')
     : [];
 
-  const ctxSrcItems = allContexts.length === 0
+  const rUserCtxs = allContexts.filter(c => c.group !== 'System');
+  const rSysCtxs = allContexts.filter(c => c.group === 'System');
+  const rSysOpen = S.dd._sysOpen || false;
+
+  const ctxSrcItems = rUserCtxs.length === 0
     ? `<div class="dd-notice" style="padding:8px 12px;line-height:1.6">⚠ No context on parent section.<br>Add a context with an array field first.</div>`
-    : allContexts.map(ctx => `
+    : rUserCtxs.map(ctx => `
         <div class="dd-sel-item ${srcId===ctx.id?'sel':''}" onclick="ddRepSelSource(event,'${ctx.id}')">
           <div style="flex:1;min-width:0">
             <div class="dd-sel-item-name">${ctx.name}</div>
             <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
           </div>
         </div>`).join('');
+
+  const rSysCtxItems = rSysCtxs.length > 0 ? `
+    <div style="border-top:1px solid color-mix(in srgb, var(--b2) 50%, transparent);margin-top:2px">
+      <div style="display:flex;align-items:center;gap:5px;padding:6px 12px 4px;cursor:pointer;font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);font-weight:600" onclick="event.stopPropagation();S.dd._sysOpen=!S.dd._sysOpen;renderDdRepeaterItems(document.getElementById('dd-body'),'${elId}',S.dd.srcId)">
+        <span style="font-size:8px;display:inline-block;transition:transform .15s;transform:rotate(${rSysOpen?'90':'0'}deg)">›</span>
+        System <span style="font-weight:400;opacity:.6">${rSysCtxs.length}</span>
+      </div>
+      ${rSysOpen ? rSysCtxs.map(ctx => `
+        <div class="dd-sel-item ${srcId===ctx.id?'sel':''}" onclick="ddRepSelSource(event,'${ctx.id}')" style="opacity:.7">
+          <div style="flex:1;min-width:0">
+            <div class="dd-sel-item-name">${ctx.name}</div>
+            <div class="dd-sel-item-sub">${ctx.source} · ${ctx.type}</div>
+          </div>
+        </div>`).join('') : ''}
+    </div>` : '';
 
   const fnLibSrcItems = FN_LIBS.map(lib => `
         <div class="dd-sel-item ${srcId===lib.id?'sel':''}" onclick="ddRepSelSource(event,'${lib.id}')">
@@ -8016,8 +8210,9 @@ function renderDdRepeaterItems(body, elId, srcId) {
         </div>`).join('');
 
   const srcItems = `<div class="dd-src-section">
-      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${allContexts.length}</span></div>
+      <div class="dd-src-header"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16"/><path d="M4 12h16"/><path d="M4 17h10"/></svg> Data Sources <span class="dd-src-count">${rUserCtxs.length}</span></div>
       ${ctxSrcItems}
+      ${rSysCtxItems}
     </div>
     <div class="dd-src-divider"></div>
     <div class="dd-src-section">
