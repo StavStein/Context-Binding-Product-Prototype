@@ -790,37 +790,51 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 /* Sort/Filter dialog */
 .sf-dialog-overlay{position:fixed;inset:0;background:#00000050;z-index:1300;display:none;align-items:center;justify-content:center}
 .sf-dialog-overlay.open{display:flex}
-.sf-dialog{background:#fff;border-radius:12px;width:480px;box-shadow:0 20px 60px #00000025;animation:pop .18s ease;overflow:hidden}
-.sf-dialog-head{padding:20px 24px 16px;display:flex;align-items:center;justify-content:space-between}
-.sf-dialog-title{font-family:'DM Sans',sans-serif;font-weight:700;font-size:18px;color:#1a1a2e}
+.sf-dialog{background:#fff;border-radius:12px;width:380px;box-shadow:0 20px 60px #00000025;animation:pop .18s ease;overflow:hidden}
+.sf-dialog-head{padding:16px 20px 0;display:flex;align-items:center;justify-content:space-between}
+.sf-dialog-title{font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;color:#1a1a2e;display:flex;align-items:center;gap:6px}
+.sf-dialog-title .sf-count{color:#999;font-weight:400}
 .sf-dialog-head-actions{display:flex;align-items:center;gap:8px}
-.sf-dialog-help{width:28px;height:28px;border-radius:50%;border:1px solid #e0e0e0;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999;cursor:pointer;background:#fff}
-.sf-dialog-close{width:28px;height:28px;border-radius:50%;background:#f0f0f0;display:flex;align-items:center;justify-content:center;font-size:14px;color:#666;cursor:pointer;border:none}
-.sf-dialog-close:hover{background:#e0e0e0}
-.sf-dialog-desc{padding:0 24px 20px;font-size:13px;color:#666;line-height:1.6}
-.sf-dialog-body{padding:0 24px 16px}
-.sf-row{display:flex;align-items:center;gap:8px;margin-bottom:10px}
-.sf-select{flex:1;height:36px;padding:0 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;color:#1a1a2e;background:#f8f8fa;font-family:'DM Sans',sans-serif;appearance:none;cursor:pointer;
+.sf-dialog-help{display:none}
+.sf-dialog-close{width:24px;height:24px;border-radius:50%;background:transparent;display:flex;align-items:center;justify-content:center;font-size:13px;color:#999;cursor:pointer;border:none}
+.sf-dialog-close:hover{background:#f0f0f0;color:#666}
+.sf-dialog-desc{display:none}
+.sf-dialog-body{padding:8px 0 0}
+.sf-rule-card{display:flex;align-items:center;gap:10px;padding:12px 20px;border-bottom:1px solid #f0f0f4;cursor:default;transition:background .1s}
+.sf-rule-card:hover{background:#f8f8fc}
+.sf-rule-drag{color:#bbb;font-size:16px;cursor:grab;letter-spacing:1px;user-select:none;flex-shrink:0}
+.sf-rule-info{flex:1;min-width:0}
+.sf-rule-field{font-size:14px;font-weight:600;color:#1a1a2e;font-family:'DM Sans',sans-serif}
+.sf-rule-desc{font-size:12px;color:#888;margin-top:2px;font-family:'DM Sans',sans-serif}
+.sf-rule-menu-wrap{position:relative;flex-shrink:0}
+.sf-rule-dots{width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%;cursor:pointer;font-size:16px;color:#999;background:transparent;border:none;transition:.12s}
+.sf-rule-dots:hover{background:#eee;color:#666}
+.sf-rule-popup{position:absolute;top:100%;right:0;background:#fff;border-radius:10px;box-shadow:0 4px 20px #00000018;min-width:130px;z-index:10;padding:6px 0;display:none}
+.sf-rule-popup.open{display:block}
+.sf-rule-popup-item{padding:8px 16px;font-size:13px;color:#1a1a2e;cursor:pointer;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.sf-rule-popup-item:hover{background:#f4f4f8}
+.sf-rule-popup-item.danger{color:#e53935}
+.sf-rule-popup-item.danger:hover{background:#fef0f0}
+.sf-add{padding:12px 20px;font-size:13px;color:#4353ff;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:4px;font-family:'DM Sans',sans-serif}
+.sf-add:hover{color:#3342dd}
+.sf-dialog-foot{padding:12px 20px 16px;display:flex;justify-content:flex-end;gap:10px;border-top:1px solid #f0f0f4}
+.sf-btn-cancel{padding:7px 20px;border-radius:20px;border:1px solid #e0e0e0;background:#fff;font-size:13px;font-weight:500;color:#1a1a2e;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sf-btn-cancel:hover{background:#f4f4f8}
+.sf-btn-apply{padding:7px 24px;border-radius:20px;border:none;background:#4353ff;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif}
+.sf-btn-apply:hover{background:#3342dd}
+.sf-edit-overlay{position:fixed;inset:0;background:#00000050;z-index:1400;display:none;align-items:center;justify-content:center}
+.sf-edit-overlay.open{display:flex}
+.sf-edit-dialog{background:#fff;border-radius:12px;width:380px;box-shadow:0 20px 60px #00000025;padding:20px 24px;animation:pop .18s ease}
+.sf-edit-title{font-family:'DM Sans',sans-serif;font-weight:600;font-size:15px;color:#1a1a2e;margin-bottom:16px}
+.sf-edit-row{margin-bottom:12px}
+.sf-edit-label{font-size:11px;font-weight:500;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.sf-select{width:100%;height:36px;padding:0 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;color:#1a1a2e;background:#f8f8fa;font-family:'DM Sans',sans-serif;appearance:none;cursor:pointer;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23999' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 10px center}
 .sf-select:focus{outline:none;border-color:#4353ff}
-.sf-input{flex:1;height:36px;padding:0 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;color:#1a1a2e;background:#f8f8fa;font-family:'DM Sans',sans-serif}
+.sf-input{width:100%;height:36px;padding:0 12px;border:1px solid #e0e0e0;border-radius:8px;font-size:13px;color:#1a1a2e;background:#f8f8fa;font-family:'DM Sans',sans-serif;box-sizing:border-box}
 .sf-input:focus{outline:none;border-color:#4353ff}
-.sf-sort-btns{display:flex;border:1px solid #e0e0e0;border-radius:8px;overflow:hidden}
-.sf-sort-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:13px;font-weight:700;color:#666;background:#fff;border:none;border-right:1px solid #e0e0e0;font-family:'DM Sans',sans-serif}
-.sf-sort-btn:last-child{border-right:none}
-.sf-sort-btn.active{background:#eef0ff;color:#4353ff}
-.sf-sort-btn:hover{background:#f4f4f8}
-.sf-delete-btn{width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid #e0e0e0;border-radius:8px;background:#fff;font-size:15px;color:#666}
-.sf-delete-btn:hover{background:#fef0f0;color:#e53935;border-color:#fcc}
-.sf-add{padding:10px 0;font-size:13px;color:#4353ff;cursor:pointer;font-weight:500;display:flex;align-items:center;gap:4px}
-.sf-add:hover{text-decoration:underline}
-.sf-dialog-foot{padding:12px 24px 20px;display:flex;justify-content:flex-end;gap:10px}
-.sf-btn-cancel{padding:8px 24px;border-radius:20px;border:1px solid #e0e0e0;background:#fff;font-size:13px;font-weight:500;color:#1a1a2e;cursor:pointer;font-family:'DM Sans',sans-serif}
-.sf-btn-cancel:hover{background:#f4f4f8}
-.sf-btn-apply{padding:8px 28px;border-radius:20px;border:none;background:#4353ff;font-size:13px;font-weight:600;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif}
-.sf-btn-apply:hover{background:#3342dd}
-.sf-field-label{font-size:11px;font-weight:500;color:#999;margin-bottom:4px;text-transform:uppercase;letter-spacing:.5px}
+.sf-edit-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:16px}
 
 /* Change Image modal */
 .ci-overlay{position:fixed;inset:0;background:#00000050;z-index:1300;display:none;align-items:center;justify-content:center}
@@ -1072,14 +1086,42 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 .ctx-settings-section:last-child{border-bottom:none}
 .ctx-settings-section-lbl{font-size:10px;letter-spacing:.7px;text-transform:uppercase;color:var(--t3);font-family:'DM Mono',monospace;margin-bottom:10px}
 
-.ctx-cfg-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ctx-cfg-row{margin-bottom:6px}
 .ctx-cfg-row:last-child{margin-bottom:0}
-.ctx-cfg-lbl{font-size:12px;color:var(--t2)}
-.ctx-cfg-select{background:var(--sur3);border:1px solid var(--b2);border-radius:5px;color:var(--t1);padding:5px 8px;
-  font-size:12px;font-family:'DM Sans',sans-serif;outline:none;cursor:pointer;min-width:120px;max-width:150px}
-.ctx-cfg-select:focus{border-color:var(--acc)}
-.ctx-cfg-toggle{display:flex;gap:2px}
-.ctx-cfg-toggle .seg-b{padding:4px 10px}
+.ctx-cfg-lbl{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-bottom:3px}
+.ctx-cfg-right{display:flex;align-items:center;gap:6px}
+.cfg-prop-row{display:flex;align-items:stretch;border:1px solid var(--b2);border-radius:7px;overflow:hidden;transition:border-color .15s;background:var(--sur2);flex:1;min-width:0}
+.cfg-prop-row:hover{border-color:var(--b3)}
+.cfg-prop-row.bound{border-color:var(--grn-b);background:var(--grn-d)}
+.cfg-prop-row .cfg-main{flex:1;min-width:0;padding:5px 10px 6px}
+.cfg-prop-row .cfg-val{display:flex;align-items:center;gap:5px;min-height:18px}
+.cfg-prop-row .cfg-static{border:none;outline:none;background:transparent;font-size:12px;color:var(--t1);width:100%;font-family:'DM Sans',sans-serif}
+.cfg-prop-row .cfg-bound-detail{display:none;flex-direction:column;align-items:flex-start;gap:3px;flex:1}
+.cfg-prop-row .cfg-bound-ctx{font-size:10px;color:var(--t3);letter-spacing:.3px;font-family:'DM Sans',sans-serif}
+.cfg-prop-row .cfg-bound-field{font-size:11px;padding:2px 7px;display:inline-flex;align-items:center;gap:4px;width:fit-content;background:#fce4ec;color:#e84393;border-radius:10px;font-weight:600}
+.cfg-prop-row.bound .cfg-bound-detail{display:flex}
+.cfg-prop-row.bound .cfg-static,.cfg-prop-row.bound .cfg-select,.cfg-prop-row.bound .cfg-toggle-wrap,.cfg-prop-row.bound .sf-inline-entry{display:none}
+.cfg-select{background:transparent;border:none;outline:none;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;cursor:pointer;width:100%}
+.cfg-toggle-wrap{display:flex;gap:2px}
+.cfg-toggle-wrap .seg-b{padding:4px 10px}
+.cfg-info{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--b2);color:var(--t3);font-size:9px;font-weight:600;cursor:default;position:relative;flex-shrink:0;font-family:'DM Sans',sans-serif;line-height:1}
+.cfg-info:hover{border-color:var(--acc);color:var(--acc)}
+.cfg-info:hover .cfg-info-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.cfg-info-tip{position:absolute;bottom:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(4px);background:#1a1a1a;color:#ddd;border-radius:8px;padding:8px 12px;width:200px;font-size:11px;line-height:1.5;font-weight:400;z-index:100;pointer-events:none;box-shadow:0 6px 20px #00000050;opacity:0;visibility:hidden;transition:all .15s}
+.cfg-info-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#1a1a1a}
+.cfg-reset{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;border-radius:50%;color:var(--t3);font-size:10px;cursor:pointer;opacity:0;transition:opacity .15s;flex-shrink:0}
+.ctx-cfg-row:hover .cfg-reset.visible{opacity:.6}
+.cfg-reset.visible:hover{opacity:1;color:var(--acc)}
+.cfg-empty-state{text-align:center;padding:16px 12px;color:var(--t3);font-size:12px;line-height:1.6}
+.cfg-empty-icon{font-size:24px;margin-bottom:6px;opacity:.5}
+.cfg-empty-msg{font-size:11px;color:var(--t3)}
+.sf-inline-entry{display:flex;align-items:center;justify-content:space-between;cursor:pointer;flex:1;min-width:0;font-size:12px;color:var(--t1);font-family:'DM Sans',sans-serif;transition:color .12s}
+.sf-inline-entry:hover{color:var(--acc)}
+.sf-inline-entry.disabled{cursor:default;opacity:.45;pointer-events:none}
+.sf-inline-desc{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.sf-inline-arrow{color:var(--t3);font-size:11px;flex-shrink:0;margin-left:4px}
+.cfg-prop-row.disabled{opacity:.4;pointer-events:none}
+.cfg-disabled-wrap{opacity:.4;pointer-events:none}
 
 /* Add Field modal */
 .af-overlay{position:fixed;inset:0;background:#00000060;z-index:800;display:none;align-items:center;justify-content:center}
@@ -2492,9 +2534,9 @@ const CTX_DEFS = [
       {name:'dataSource',    label:'Data source',       type:'string',   sample:'"OpenWeather API"'},
     ],
     config:[
-      {key:'location', label:'Location',  input:'select', options:['📍 Auto detect','✏️ Manual city']},
-      {key:'units',    label:'Units',     input:'toggle', options:['°C','°F'], default:'°C'},
-      {key:'refresh',  label:'Refresh',   input:'select', options:['On load only','Every 5 min','Every 15 min','Every 30 min']},
+      {key:'location', label:'Location',  input:'select', options:['📍 Auto detect','✏️ Manual city'], default:'📍 Auto detect', description:'How the user location is determined for weather data'},
+      {key:'units',    label:'Units',     input:'toggle', options:['°C','°F'], default:'°C', description:'Temperature display unit across all weather elements'},
+      {key:'refresh',  label:'Refresh',   input:'select', options:['On load only','Every 5 min','Every 15 min','Every 30 min'], default:'On load only', description:'How often weather data is re-fetched from the source'},
     ]},
   { id:'cms-articles', name:'Articles', icon:'', type:'list', source:'CMS', group:'CMS',
     fields:[
@@ -2543,8 +2585,6 @@ const CTX_DEFS = [
       {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
     ],
     config:[
-      {key:'pageSize', label:'Page size', input:'select', options:['10','20','50']},
-      {key:'randomSort', label:'Random sort', input:'toggle', options:['Off','On'], default:'Off'},
     ]},
   { id:'cms-my-team', name:'My Team', icon:'', type:'list', source:'CMS', group:'CMS',
     fields:[
@@ -2574,8 +2614,6 @@ const CTX_DEFS = [
       {name:'activeFilters', label:'Active filter count', type:'number',  sample:'0'},
     ],
     config:[
-      {key:'pageSize', label:'Page size', input:'select', options:['5','10','20']},
-      {key:'sort', label:'Sort by', input:'select', options:['Name (A-Z)','Name (Z-A)','Newest first','Manual']},
     ]},
   { id:'stores-current-item', name:'Current Item', icon:'', type:'page', source:'Wix Stores', group:'Apps',
     isDynamicPageCtx: true,
@@ -2619,8 +2657,7 @@ const CTX_DEFS = [
       {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
     ],
     config:[
-      {key:'pageSize', label:'Page size', input:'select', options:['10','20','50','100']},
-      {key:'currency', label:'Currency',  input:'select', options:['USD ($)','EUR (€)','GBP (£)','ILS (₪)']},
+      {key:'currency', label:'Currency',  input:'select', options:['USD ($)','EUR (€)','GBP (£)','ILS (₪)'], default:'USD ($)', description:'Currency used for product prices'},
     ]},
   { id:'stores-locations', name:'Locations', icon:'', type:'list', source:'Wix Stores', group:'Apps',
     fields:[
@@ -2653,8 +2690,7 @@ const CTX_DEFS = [
       {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
     ],
     config:[
-      {key:'radius',   label:'Search radius', input:'select', options:['5 km','10 km','25 km','50 km']},
-      {key:'sortBy',   label:'Sort by',       input:'select', options:['Distance','Name','Availability']},
+      {key:'radius',   label:'Search radius', input:'select', options:['5 km','10 km','25 km','50 km'], default:'10 km', description:'Max distance to show store locations from user'},
     ]},
   { id:'cms-categories', name:'Categories', icon:'', type:'list', source:'CMS', group:'CMS',
     fields:[
@@ -2694,9 +2730,7 @@ const CTX_DEFS = [
       {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
       {name:'activeFilters', label:'Active filter count', type:'number',  sample:'0'},
     ],
-    config:[
-      {key:'sortBy', label:'Sort by', input:'select', options:['Name','Article count','Recent activity']},
-    ]},
+    config:[]},
   { id:'system-identity', name:'Identity', icon:'', type:'object', source:'System', group:'System',
     fields:[
       {name:'memberName',  type:'string',  sample:'"John Smith"'},
@@ -2713,7 +2747,7 @@ const CTX_DEFS = [
       {name:'role',          label:'Member role',     type:'string',  sample:'"admin"'},
     ],
     config:[
-      {key:'loginRedirect', label:'Login redirect', input:'select', options:['Stay on page','Go to dashboard','Go to home']},
+      {key:'loginRedirect', label:'Login redirect', input:'select', options:['Stay on page','Go to dashboard','Go to home'], default:'Stay on page', description:'Where the user goes after logging in'},
     ]},
   { id:'system-page-list', name:'Page list', icon:'', type:'list', source:'System', group:'System',
     fields:[
@@ -2770,8 +2804,8 @@ const CTX_DEFS = [
       {name:'dataSource',     label:'Data source',      type:'string',   sample:'"Wix Bookings"'},
     ],
     config:[
-      {key:'classSource', label:'Class source', input:'select', options:['Wix Bookings','Manual schedule','External API']},
-      {key:'urgencyThreshold', label:'Urgency at', input:'select', options:['30 min before','1 hour before','2 hours before']},
+      {key:'classSource', label:'Class source', input:'select', options:['Wix Bookings','Manual schedule','External API'], default:'Wix Bookings', description:'Where class data is pulled from'},
+      {key:'urgencyThreshold', label:'Urgency at', input:'select', options:['30 min before','1 hour before','2 hours before'], default:'1 hour before', description:'When to start showing urgency indicators for upcoming classes'},
     ]},
 ];
 
@@ -3196,6 +3230,7 @@ const S = {
     'el-demo-member-tag-3|Value':  {ctxId:'cms-my-team', fieldName:'tagline', sample:'"Ruling the social realm"'},
     'el-d262-city|Value':          {ctxId:'weather', fieldName:'city',        sample:'"Tel Aviv"'},
     'el-d262-temp|Value':          {ctxId:'weather', fieldName:'temperature', sample:'"24°C"'},
+    'cfg:weather|location':        {ctxId:'system-business-info', fieldName:'address', sample:'"123 Main St, New York"'},
   },
   // static typed values per element+prop
   staticValues: {
@@ -3214,8 +3249,8 @@ const S = {
   preSpecPage: null,
   currentPage: 'Demo 26.2',
   currentItemIdx: 0,
-  sortRules: [],
-  filterRules: [],
+  sortRules: [{field:'title', dir:'asc'}, {field:'readTime', dir:'desc'}],
+  filterRules: [{field:'title', condition:'contains', value:'N'}, {field:'category', condition:'equals', value:'Tech'}],
 };
 
 /* ── ELEMENT SELECTION ── */
@@ -4635,7 +4670,7 @@ function renderCtxFields(c, sectionId) {
       <div class="ctx-fields-section-body">
         ${systemFields.map(f => `<div class="ctx-field-row"><div class="ctx-field-icon" style="font-size:9px">sys</div><div class="ctx-field-name" style="color:var(--t3)">${f}</div></div>`).join('')}
       </div>
-      <div class="ctx-fields-open" onclick="event.stopPropagation()">📂 Open source</div>
+      <div class="ctx-fields-open" onclick="event.stopPropagation()">📂 ${c.source === 'CMS' ? 'Open Collection' : c.group === 'Apps' || c.source === 'Wix Stores' || c.source === 'Wix Bookings' ? 'Open in Dashboard' : 'Open Source'}</div>
     </div>`;
 }
 
@@ -4864,7 +4899,7 @@ function renderCtxList() {
   const showSplit = inheritedCtxs.length > 0;
 
   const renderCtxCard = (c) => {
-      const hasConfig = c.config && c.config.length > 0;
+      const hasConfig = (c.config && c.config.length > 0) || c.type === 'list';
       const configCount = hasConfig ? c.config.length : 0;
       const primary = isPrimaryCtx(c.id, S.sel);
       const isUnconfigured = isUnmodifiedInstance(c.id);
@@ -5054,47 +5089,165 @@ function renderCtxSettings(ctxId) {
         </div>
         <span class="ctx-settings-badge ${badgeClass}">${ctx.type}</span>
       </div>
-      ${ctx.type === 'list' ? `<div class="ctx-settings-section">
-        <div class="ctx-settings-section-lbl">Filter & Sort</div>
-        <div class="sf-entry" onclick="openSfDialog('filter')">
-          <div class="sf-entry-icon">🔍</div>
-          <div class="sf-entry-info">
-            <div class="sf-entry-label">Filter</div>
-            <div class="sf-entry-desc">${S.filterRules.length > 0 ? S.filterRules.length + ' filter' + (S.filterRules.length > 1 ? 's' : '') + ' applied' : 'No filters applied'}</div>
-          </div>
-          <span class="sf-entry-arrow">›</span>
-        </div>
-        <div class="sf-entry" onclick="openSfDialog('sort')">
-          <div class="sf-entry-icon">↕</div>
-          <div class="sf-entry-info">
-            <div class="sf-entry-label">Sort</div>
-            <div class="sf-entry-desc">${S.sortRules.length > 0 ? S.sortRules.length + ' sort' + (S.sortRules.length > 1 ? 's' : '') + ' applied' : 'No sorting applied'}</div>
-          </div>
-          <span class="sf-entry-arrow">›</span>
-        </div>
-      </div>` : ''}
-      <div class="ctx-settings-section">
+      ${ctx.type === 'list' ? renderListSettings(ctxId, ctx, configs) : (configs.length > 0 ? `<div class="ctx-settings-section">
         <div class="ctx-settings-section-lbl">General Settings</div>
         ${configs.map(cfg => renderCfgRow(cfg, ctxId)).join('')}
+      </div>` : `<div class="ctx-settings-section">
+        <div class="cfg-empty-state">
+          <div class="cfg-empty-icon">⚙️</div>
+          <div class="cfg-empty-msg">This context has no configurable properties.<br>All settings are managed by the app.</div>
+        </div>
+      </div>`)}
+      <div class="ctx-settings-section" style="border-top:1px solid var(--b1);padding-top:10px;margin-top:4px">
+        <div class="ctx-fields-open" onclick="event.stopPropagation()" style="margin:0">📂 ${ctx.source === 'CMS' ? 'Open Collection' : ctx.group === 'Apps' || ctx.source === 'Wix Stores' || ctx.source === 'Wix Bookings' ? 'Open in Dashboard' : 'Open Source'}</div>
       </div>
     </div>`;
 }
 
-function renderCfgRow(cfg, ctxId) {
-  if (cfg.input === 'toggle') {
-    const current = S.cfgValues?.[ctxId]?.[cfg.key] || cfg.default;
-    return `<div class="ctx-cfg-row">
-      <span class="ctx-cfg-lbl">${cfg.label}</span>
-      <div class="ctx-cfg-toggle">
-        ${cfg.options.map(o => `<div class="seg-b ${o===current?'on':''}" onclick="toggleCfgOption(this,'${ctxId}','${cfg.key}','${o}');markInstanceModified('${ctxId}')">${o}</div>`).join('')}
+function renderListSettings(ctxId, ctx, configs) {
+  const randomVal = S.cfgValues?.[ctxId]?.hasOwnProperty?.('randomSort') ? S.cfgValues[ctxId]['randomSort'] : 'Off';
+  const isRandomOn = randomVal === 'On';
+
+  const filterBound = S.bindings[`cfg:${ctxId}|_filter`];
+  const sortBound = S.bindings[`cfg:${ctxId}|_sort`];
+  const fSrc = filterBound ? findSource(filterBound.ctxId) : null;
+  const sSrc = sortBound ? findSource(sortBound.ctxId) : null;
+
+  const bindSvg = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+  </svg>`;
+
+  const filterRow = `<div class="ctx-cfg-row">
+    <div class="ctx-cfg-lbl">Filter <span class="cfg-info">?<span class="cfg-info-tip">Rules that determine which items from the collection are displayed</span></span></div>
+    <div class="ctx-cfg-right">
+      <div class="cfg-prop-row ${filterBound?'bound':''}">
+        <div class="cfg-main">
+          <div class="cfg-val">
+            <div class="sf-inline-entry" onclick="openSfDialog('filter')">
+              <span class="sf-inline-desc">${S.filterRules.length > 0 ? S.filterRules.length + ' filter' + (S.filterRules.length > 1 ? 's' : '') : 'No filters'}</span>
+              <span class="sf-inline-arrow">›</span>
+            </div>
+            ${filterBound && fSrc ? `<div class="cfg-bound-detail">
+              <span class="cfg-bound-ctx">${fSrc.icon||''} ${fSrc.name}</span>
+              <span class="cfg-bound-field">${filterBound.fieldName}<span class="chip-x" onclick="unbindCfg(event,'${ctxId}','_filter')">✕</span></span>
+            </div>` : ''}
+          </div>
+        </div>
       </div>
+      <div class="bind-btn ${filterBound?'bound':''}" onclick="openCfgBind(event,'${ctxId}','_filter')" title="Connect filter to data">${bindSvg}</div>
+    </div>
+  </div>`;
+
+  const sortDesc = isRandomOn ? 'Random' : (S.sortRules.length > 0 ? S.sortRules.length + ' sort rule' + (S.sortRules.length > 1 ? 's' : '') : 'No sorting');
+
+  const sortRow = `<div class="ctx-cfg-row">
+    <div class="ctx-cfg-lbl">Sort <span class="cfg-info">?<span class="cfg-info-tip">Controls the order items appear in the list</span></span></div>
+    <div class="ctx-cfg-right">
+      <div class="cfg-prop-row ${sortBound?'bound':''}">
+        <div class="cfg-main">
+          <div class="cfg-val">
+            <div class="sf-inline-entry" onclick="openSfDialog('sort')" ${isRandomOn ? 'style="pointer-events:none"' : ''}>
+              <span class="sf-inline-desc">${sortDesc}</span>
+              ${!isRandomOn ? '<span class="sf-inline-arrow">›</span>' : ''}
+            </div>
+            ${sortBound && sSrc ? `<div class="cfg-bound-detail">
+              <span class="cfg-bound-ctx">${sSrc.icon||''} ${sSrc.name}</span>
+              <span class="cfg-bound-field">${sortBound.fieldName}<span class="chip-x" onclick="unbindCfg(event,'${ctxId}','_sort')">✕</span></span>
+            </div>` : ''}
+          </div>
+        </div>
+      </div>
+      <div class="bind-btn ${sortBound?'bound':''}" onclick="openCfgBind(event,'${ctxId}','_sort')" title="Connect sort to data">${bindSvg}</div>
+    </div>
+  </div>`;
+
+  const randomToggleVal = S.cfgValues?.[ctxId]?.hasOwnProperty?.('randomSort') ? S.cfgValues[ctxId]['randomSort'] : 'Off';
+  const randomNote = isRandomOn ? `<div style="margin:6px 0 2px 8px;padding:10px 14px;background:#e8f0fe;border-radius:8px;font-size:12px;color:#1a3c7a;line-height:1.55;font-family:'DM Sans',sans-serif">Your items will be displayed in a random order. The order will stay the same until the site cache resets. <a href="#" onclick="event.preventDefault()" style="color:#1a73e8;text-decoration:none;font-weight:500">Learn how site caching affects random sort</a></div>` : '';
+
+  const randomRow = `<div class="ctx-cfg-row ${sortBound ? 'cfg-disabled-wrap' : ''}" style="padding-left:8px">
+    <div class="ctx-cfg-lbl">Random order <span class="cfg-info">?<span class="cfg-info-tip">Shuffle the order of items on each page load</span></span></div>
+    <div class="ctx-cfg-right">
+      <div class="cfg-prop-row">
+        <div class="cfg-main">
+          <div class="cfg-val">
+            <div class="cfg-toggle-wrap">
+              <div class="seg-b ${randomToggleVal==='Off'?'on':''}" onclick="toggleCfgOption(this,'${ctxId}','randomSort','Off');markInstanceModified('${ctxId}')">Off</div>
+              <div class="seg-b ${randomToggleVal==='On'?'on':''}" onclick="toggleCfgOption(this,'${ctxId}','randomSort','On');markInstanceModified('${ctxId}')">On</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>${randomNote}`;
+
+  const pageSizeCfg = {key:'pageSize', label:'Page size', input:'number', default:'10', description:'Max items loaded per page in the repeater'};
+  const pageSizeRow = renderCfgRow(pageSizeCfg, ctxId);
+
+  const hasOtherCfgs = configs.length > 0;
+
+  return `<div class="ctx-settings-section">
+    <div class="ctx-settings-section-lbl">List Configuration</div>
+    ${filterRow}
+    ${sortRow}
+    ${randomRow}
+    ${pageSizeRow}
+  </div>
+  ${hasOtherCfgs ? `<div class="ctx-settings-section">
+    <div class="ctx-settings-section-lbl">General Settings</div>
+    ${configs.map(cfg => renderCfgRow(cfg, ctxId)).join('')}
+  </div>` : ''}`;
+}
+
+function renderCfgRow(cfg, ctxId) {
+  const bKey = `cfg:${ctxId}|${cfg.key}`;
+  const b = S.bindings[bKey];
+  const isBound = !!b;
+  const srcCtx = isBound ? findSource(b.ctxId) : null;
+
+  const bindBtn = `<div class="bind-btn ${isBound?'bound':''}" onclick="openCfgBind(event,'${ctxId}','${cfg.key}')" title="Connect to data">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+      <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+    </svg>
+  </div>`;
+
+  const boundChip = isBound && srcCtx ? `<div class="cfg-bound-detail">
+    <span class="cfg-bound-ctx">${srcCtx.icon || ''} ${srcCtx.name}</span>
+    <span class="cfg-bound-field">${b.fieldName}<span class="chip-x" onclick="unbindCfg(event,'${ctxId}','${cfg.key}')">✕</span></span>
+  </div>` : '';
+
+  const infoIcon = cfg.description ? `<span class="cfg-info">?<span class="cfg-info-tip">${cfg.description}</span></span>` : '';
+
+  const currentVal = S.cfgValues?.[ctxId]?.[cfg.key] || cfg.default || (cfg.options ? cfg.options[0] : '');
+  const isDefault = !cfg.default || currentVal === cfg.default;
+  const resetBtn = `<span class="cfg-reset ${!isBound && !isDefault ? 'visible' : ''}" onclick="resetCfgOption(event,'${ctxId}','${cfg.key}','${(cfg.default||'').replace(/'/g,"\\'")}')" title="Reset to default">↺</span>`;
+
+  let inputHtml;
+  if (cfg.input === 'toggle') {
+    inputHtml = `<div class="cfg-toggle-wrap">
+      ${cfg.options.map(o => `<div class="seg-b ${o===currentVal?'on':''}" onclick="toggleCfgOption(this,'${ctxId}','${cfg.key}','${o}');markInstanceModified('${ctxId}')">${o}</div>`).join('')}
     </div>`;
+  } else if (cfg.input === 'number') {
+    inputHtml = `<input class="cfg-static" type="number" min="1" value="${currentVal}" oninput="onCfgSelect(this,'${ctxId}','${cfg.key}');markInstanceModified('${ctxId}')" style="width:100%">`;
+  } else {
+    inputHtml = `<select class="cfg-select" onchange="onCfgSelect(this,'${ctxId}','${cfg.key}');markInstanceModified('${ctxId}')">
+      ${cfg.options.map(o => `<option ${o===currentVal?'selected':''}>${o}</option>`).join('')}
+    </select>`;
   }
+
   return `<div class="ctx-cfg-row">
-    <span class="ctx-cfg-lbl">${cfg.label}</span>
-    <select class="ctx-cfg-select" onchange="markInstanceModified('${ctxId}')">
-      ${cfg.options.map(o => `<option>${o}</option>`).join('')}
-    </select>
+    <div class="ctx-cfg-lbl">${cfg.label} ${infoIcon}</div>
+    <div class="ctx-cfg-right">
+      ${resetBtn}
+      <div class="cfg-prop-row ${isBound?'bound':''}">
+        <div class="cfg-main">
+          <div class="cfg-val">
+            ${inputHtml}
+            ${boundChip}
+          </div>
+        </div>
+      </div>
+      ${bindBtn}
+    </div>
   </div>`;
 }
 
@@ -5106,6 +5259,25 @@ function toggleCfgOption(el, ctxId, key, value) {
   if (!S.cfgValues[ctxId]) S.cfgValues[ctxId] = {};
   S.cfgValues[ctxId][key] = value;
   applyCtxConfig(ctxId, key, value);
+  renderBody();
+}
+
+function onCfgSelect(el, ctxId, key) {
+  if (!S.cfgValues) S.cfgValues = {};
+  if (!S.cfgValues[ctxId]) S.cfgValues[ctxId] = {};
+  S.cfgValues[ctxId][key] = el.value;
+  applyCtxConfig(ctxId, key, el.value);
+  renderBody();
+}
+
+function resetCfgOption(e, ctxId, key, defaultVal) {
+  e.stopPropagation();
+  if (!defaultVal) return;
+  if (!S.cfgValues) S.cfgValues = {};
+  if (!S.cfgValues[ctxId]) S.cfgValues[ctxId] = {};
+  S.cfgValues[ctxId][key] = defaultVal;
+  applyCtxConfig(ctxId, key, defaultVal);
+  renderBody();
 }
 
 function applyCtxConfig(ctxId, key, value) {
@@ -5137,6 +5309,52 @@ function applyCtxConfig(ctxId, key, value) {
     });
     updateFnCanvasPreview('el-cond', 'Value');
   }
+}
+
+function cfgExpectedType(cfg, cfgKey) {
+  if (cfgKey === '_filter' || cfgKey === '_sort') return null;
+  if (!cfg) return null;
+  if (cfg.input === 'number') return 'number';
+  if (cfg.input === 'toggle') return 'string';
+  if (cfg.input === 'select') return 'string';
+  return null;
+}
+
+function openCfgBind(e, ctxId, cfgKey) {
+  e.stopPropagation();
+  const ctx = findSource(ctxId);
+  const cfg = (ctx?.config || []).find(c => c.key === cfgKey);
+  const bKey = 'cfg:' + ctxId + '|' + cfgKey;
+  const existingBinding = S.bindings[bKey];
+  const preSrc = existingBinding ? existingBinding.ctxId : null;
+  const preField = existingBinding ? existingBinding.fieldName : null;
+  const expectedType = cfgExpectedType(cfg, cfgKey);
+  S.dd = {open:true, elId: S.sel, propKey: cfgKey, paramName:null, step:'source', srcId:preSrc, fieldName:preField, openPanel: preSrc && preField ? null : (preSrc ? 'field' : null), cfgBind: {ctxId, cfgKey, expectedType}};
+  const rect = e.currentTarget.getBoundingClientRect();
+  const dd = document.getElementById('dd');
+  const panelLeft = window.innerWidth - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--panel'));
+  dd.style.left = Math.max(8, panelLeft - 260) + 'px';
+  dd.style.visibility = 'hidden';
+  dd.classList.add('open');
+  requestAnimationFrame(() => {
+    const ddH = dd.offsetHeight;
+    const vpH = window.innerHeight;
+    let top = rect.bottom + 5;
+    if (top + ddH > vpH - 8) top = Math.max(8, rect.top - ddH - 5);
+    if (top + ddH > vpH - 8) top = Math.max(8, vpH - ddH - 8);
+    dd.style.top = top + 'px';
+    dd.style.visibility = '';
+  });
+  const cfgLabel = cfg?.label || (cfgKey === '_filter' ? 'Filter' : cfgKey === '_sort' ? 'Sort' : cfgKey);
+  document.getElementById('dd-title').textContent = 'Connect · ' + cfgLabel;
+  renderDd();
+}
+
+function unbindCfg(e, ctxId, cfgKey) {
+  e.stopPropagation();
+  const bKey = 'cfg:' + ctxId + '|' + cfgKey;
+  delete S.bindings[bKey];
+  renderBody();
 }
 
 function togglePagesPanel(e) {
@@ -5849,8 +6067,10 @@ function renderDd() {
     fieldsToShow = scopedCtx.fields;
     scopeBreadcrumb = scopedCtx.scope.split('.').join(' › ');
   }
+  const cfgExpType = S.dd.cfgBind?.expectedType || null;
   const filteredFields = fieldsToShow.filter(f => {
     if (isVisibleProp) return f.type === 'boolean';
+    if (cfgExpType) return isCompat(f.type, cfgExpType);
     if (prop?.t) return isCompat(f.type, prop.t);
     return true;
   });
@@ -5952,6 +6172,19 @@ function confirmBind(e) {
   if (e) e.stopPropagation();
   const {elId, propKey, srcId, fieldName} = S.dd;
   if (!srcId || !fieldName) return;
+
+  if (S.dd.cfgBind) {
+    const {ctxId, cfgKey} = S.dd.cfgBind;
+    const bKey = 'cfg:' + ctxId + '|' + cfgKey;
+    const srcCtx = findSource(srcId);
+    const field = srcCtx?.fields.find(f => f.name === fieldName);
+    S.bindings[bKey] = {ctxId: srcId, fieldName, sample: field?.sample || ''};
+    closeDd();
+    toast('✓ ' + cfgKey + ' → ' + (srcCtx?.name||srcId) + ' · ' + fieldName, true);
+    renderBody();
+    return;
+  }
+
   const ctx = findSource(srcId);
   const field = ctx.fields.find(f=>f.name===fieldName);
   const bkey = `${elId}|${propKey}`;
@@ -6132,8 +6365,10 @@ const CTX_GROUP_ORDER = {CMS:0, Custom:1, Apps:2, System:3};
 
 function getAvailableCtx(elId, includeUnmodified) {
   const def = EL_DEFS[elId];
-  if (!def || !def.section) return [];
-  const parentId = def.section;
+  if (!def) return [];
+  const isContainerOrPage = def.isContainer || def.isPage;
+  const parentId = isContainerOrPage ? elId : def.section;
+  if (!parentId) return [];
   const ids = [...(S.ctxMap[parentId] || [])];
   const parentDef = EL_DEFS[parentId];
   if (parentDef?.parentPage) {
@@ -6151,6 +6386,7 @@ function getAvailableCtx(elId, includeUnmodified) {
 
 function isCompat(fieldType, propType) {
   if (!propType || propType==='string') return ['string','number','enum','dateTime','boolean'].includes(fieldType);
+  if (propType==='number')  return fieldType==='number';
   if (propType==='image')   return fieldType==='image';
   if (propType==='boolean') return fieldType==='boolean';
   if (propType==='url')     return fieldType==='url';
@@ -8429,19 +8665,19 @@ function getAvailableFields() {
 function openSfDialog(type) {
   sfDialogType = type;
   sfTempRules = JSON.parse(JSON.stringify(type === 'sort' ? S.sortRules : S.filterRules));
-  if (sfTempRules.length === 0) {
-    sfTempRules.push(type === 'sort' ? {field:'', dir:'asc'} : {field:'', condition:'contains', value:''});
+  const titleEl = document.getElementById('sf-dialog-title');
+  if (type === 'sort') {
+    titleEl.innerHTML = 'Sort <span class="sf-count">▾</span>';
+  } else {
+    titleEl.innerHTML = 'Filter <span class="sf-count">(' + sfTempRules.length + ')</span> <span class="sf-count">▾</span>';
   }
-  document.getElementById('sf-dialog-title').textContent = type === 'sort' ? 'Sort' : 'Filter';
-  document.getElementById('sf-dialog-desc').textContent = type === 'sort'
-    ? 'Choose which order items are shown in this repeater by adding sorts.'
-    : 'Choose which items to show in this repeater. Only items that match the filter conditions will appear.';
   renderSfBody();
   document.getElementById('sf-dialog-overlay').classList.add('open');
 }
 
 function closeSfDialog() {
   document.getElementById('sf-dialog-overlay').classList.remove('open');
+  document.querySelectorAll('.sf-rule-popup').forEach(p => p.classList.remove('open'));
   sfDialogType = null;
   sfTempRules = [];
 }
@@ -8458,50 +8694,139 @@ function applySfDialog() {
   renderBody();
 }
 
+function sfDirLabel(dir, field) {
+  const f = getAvailableFields().find(x => x.name === field);
+  const t = f ? f.type : 'string';
+  if (t === 'number') return dir === 'asc' ? 'Low → High' : 'High → Low';
+  if (t === 'dateTime') return dir === 'asc' ? 'Oldest → Newest' : 'Newest → Oldest';
+  return dir === 'asc' ? 'A → Z' : 'Z → A';
+}
+
+function sfConditionLabel(cond) {
+  const map = {contains:'contains',equals:'is',not_equals:'is not',starts_with:'starts with',ends_with:'ends with',greater_than:'greater than',less_than:'less than',is_true:'is True',is_false:'is False'};
+  return map[cond] || cond;
+}
+
 function renderSfBody() {
   const body = document.getElementById('sf-dialog-body');
-  const fields = getAvailableFields();
-  const fieldOptions = fields.map(f => '<option value="' + f.name + '">' + f.name + '</option>').join('');
 
   if (sfDialogType === 'sort') {
+    if (sfTempRules.length === 0) {
+      body.innerHTML = '<div style="padding:20px;text-align:center;color:#999;font-size:13px">No sorting applied</div>'
+        + '<div class="sf-add" onclick="sfAddRule()">+ Add new sort</div>';
+      return;
+    }
     body.innerHTML = sfTempRules.map(function(rule, i) {
-      return '<div class="sf-row">'
-        + '<select class="sf-select" onchange="sfUpdateRule(' + i + ',\'field\',this.value)">'
-        + '<option value="">Choose a field</option>' + fieldOptions.replace('value="' + rule.field + '"', 'value="' + rule.field + '" selected') + '</select>'
-        + '<div class="sf-sort-btns">'
-        + '<button class="sf-sort-btn ' + (rule.dir === 'asc' ? 'active' : '') + '" onclick="sfUpdateRule(' + i + ',\'dir\',\'asc\')" title="A to Z">A↓</button>'
-        + '<button class="sf-sort-btn ' + (rule.dir === 'desc' ? 'active' : '') + '" onclick="sfUpdateRule(' + i + ',\'dir\',\'desc\')" title="Z to A">Z↓</button>'
+      const fieldName = rule.field || 'Choose field';
+      const dirText = rule.field ? sfDirLabel(rule.dir, rule.field) : '';
+      return '<div class="sf-rule-card">'
+        + '<span class="sf-rule-drag" title="Drag to reorder">::</span>'
+        + '<div class="sf-rule-info">'
+        + '<div class="sf-rule-field">' + fieldName + '</div>'
+        + (dirText ? '<div class="sf-rule-desc">' + dirText + '</div>' : '')
         + '</div>'
-        + '<button class="sf-delete-btn" onclick="sfDeleteRule(' + i + ')" title="Remove">🗑</button>'
-        + '</div>';
+        + '<div class="sf-rule-menu-wrap">'
+        + '<button class="sf-rule-dots" onclick="sfToggleMenu(event,' + i + ')">⋯</button>'
+        + '<div class="sf-rule-popup" id="sf-popup-' + i + '">'
+        + '<div class="sf-rule-popup-item" onclick="sfEditRule(' + i + ')"><span>✏️</span> Edit</div>'
+        + '<div class="sf-rule-popup-item danger" onclick="sfDeleteRule(' + i + ')"><span>🗑</span> Delete</div>'
+        + '</div></div></div>';
     }).join('')
-    + '<div class="sf-add" onclick="sfAddRule()">+ Add another sort</div>';
+    + '<div class="sf-add" onclick="sfAddRule()">+ Add new sort</div>';
   } else {
-    body.innerHTML = '<div class="sf-row" style="gap:12px;margin-bottom:2px">'
-      + '<div style="flex:1"><div class="sf-field-label">Field</div></div>'
-      + '<div style="flex:1"><div class="sf-field-label">Condition</div></div>'
-      + '<div style="flex:1"><div class="sf-field-label">Value</div></div>'
-      + '<div style="width:36px"></div>'
-      + '</div>'
-      + sfTempRules.map(function(rule, i) {
-        return '<div class="sf-row">'
-          + '<select class="sf-select" onchange="sfUpdateRule(' + i + ',\'field\',this.value)">'
-          + '<option value="">Choose…</option>' + fieldOptions.replace('value="' + rule.field + '"', 'value="' + rule.field + '" selected') + '</select>'
-          + '<select class="sf-select" onchange="sfUpdateRule(' + i + ',\'condition\',this.value)">'
-          + '<option value="contains"' + (rule.condition === 'contains' ? ' selected' : '') + '>contains</option>'
-          + '<option value="equals"' + (rule.condition === 'equals' ? ' selected' : '') + '>equals</option>'
-          + '<option value="not_equals"' + (rule.condition === 'not_equals' ? ' selected' : '') + '>not equals</option>'
-          + '<option value="starts_with"' + (rule.condition === 'starts_with' ? ' selected' : '') + '>starts with</option>'
-          + '<option value="ends_with"' + (rule.condition === 'ends_with' ? ' selected' : '') + '>ends with</option>'
-          + '<option value="greater_than"' + (rule.condition === 'greater_than' ? ' selected' : '') + '>greater than</option>'
-          + '<option value="less_than"' + (rule.condition === 'less_than' ? ' selected' : '') + '>less than</option>'
-          + '</select>'
-          + '<input class="sf-input" placeholder="Value" value="' + (rule.value || '') + '" oninput="sfUpdateRule(' + i + ',\'value\',this.value)">'
-          + '<button class="sf-delete-btn" onclick="sfDeleteRule(' + i + ')" title="Remove">🗑</button>'
-          + '</div>';
-      }).join('')
-      + '<div class="sf-add" onclick="sfAddRule()">+ Add another filter</div>';
+    const titleEl = document.getElementById('sf-dialog-title');
+    titleEl.innerHTML = 'Filter <span class="sf-count">(' + sfTempRules.length + ')</span> <span class="sf-count">▾</span>';
+    if (sfTempRules.length === 0) {
+      body.innerHTML = '<div style="padding:20px;text-align:center;color:#999;font-size:13px">No filters applied</div>'
+        + '<div class="sf-add" onclick="sfAddRule()">+ Add new filter</div>';
+      return;
+    }
+    body.innerHTML = sfTempRules.map(function(rule, i) {
+      const fieldName = rule.field || 'Choose field';
+      const desc = rule.field ? sfConditionLabel(rule.condition) + (rule.value ? ' ' + rule.value : '') : '';
+      return '<div class="sf-rule-card">'
+        + '<div class="sf-rule-info">'
+        + '<div class="sf-rule-field">' + fieldName + '</div>'
+        + (desc ? '<div class="sf-rule-desc">' + desc + '</div>' : '')
+        + '</div>'
+        + '<div class="sf-rule-menu-wrap">'
+        + '<button class="sf-rule-dots" onclick="sfToggleMenu(event,' + i + ')">⋯</button>'
+        + '<div class="sf-rule-popup" id="sf-popup-' + i + '">'
+        + '<div class="sf-rule-popup-item" onclick="sfEditRule(' + i + ')"><span>✏️</span> Edit</div>'
+        + '<div class="sf-rule-popup-item danger" onclick="sfDeleteRule(' + i + ')"><span>🗑</span> Delete</div>'
+        + '</div></div></div>';
+    }).join('')
+    + '<div class="sf-add" onclick="sfAddRule()">+ Add new filter</div>';
   }
+}
+
+function sfToggleMenu(e, idx) {
+  e.stopPropagation();
+  document.querySelectorAll('.sf-rule-popup').forEach(p => p.classList.remove('open'));
+  const popup = document.getElementById('sf-popup-' + idx);
+  if (popup) popup.classList.toggle('open');
+}
+
+function sfEditRule(idx) {
+  document.querySelectorAll('.sf-rule-popup').forEach(p => p.classList.remove('open'));
+  const rule = sfTempRules[idx];
+  const fields = getAvailableFields();
+  const fieldOptions = fields.map(f => '<option value="' + f.name + '"' + (f.name === rule.field ? ' selected' : '') + '>' + f.name + '</option>').join('');
+
+  let editHtml;
+  if (sfDialogType === 'sort') {
+    editHtml = '<div class="sf-edit-title">Edit sort</div>'
+      + '<div class="sf-edit-row"><div class="sf-edit-label">Field</div><select class="sf-select" id="sf-edit-field">'
+      + '<option value="">Choose a field</option>' + fieldOptions + '</select></div>'
+      + '<div class="sf-edit-row"><div class="sf-edit-label">Direction</div><select class="sf-select" id="sf-edit-dir">'
+      + '<option value="asc"' + (rule.dir === 'asc' ? ' selected' : '') + '>Ascending (A → Z)</option>'
+      + '<option value="desc"' + (rule.dir === 'desc' ? ' selected' : '') + '>Descending (Z → A)</option>'
+      + '</select></div>'
+      + '<div class="sf-edit-foot">'
+      + '<button class="sf-btn-cancel" onclick="closeSfEdit()">Cancel</button>'
+      + '<button class="sf-btn-apply" onclick="sfSaveEdit(' + idx + ')">Save</button></div>';
+  } else {
+    editHtml = '<div class="sf-edit-title">Edit filter</div>'
+      + '<div class="sf-edit-row"><div class="sf-edit-label">Field</div><select class="sf-select" id="sf-edit-field">'
+      + '<option value="">Choose a field</option>' + fieldOptions + '</select></div>'
+      + '<div class="sf-edit-row"><div class="sf-edit-label">Condition</div><select class="sf-select" id="sf-edit-condition">'
+      + '<option value="contains"' + (rule.condition === 'contains' ? ' selected' : '') + '>contains</option>'
+      + '<option value="equals"' + (rule.condition === 'equals' ? ' selected' : '') + '>equals</option>'
+      + '<option value="not_equals"' + (rule.condition === 'not_equals' ? ' selected' : '') + '>not equals</option>'
+      + '<option value="starts_with"' + (rule.condition === 'starts_with' ? ' selected' : '') + '>starts with</option>'
+      + '<option value="ends_with"' + (rule.condition === 'ends_with' ? ' selected' : '') + '>ends with</option>'
+      + '<option value="greater_than"' + (rule.condition === 'greater_than' ? ' selected' : '') + '>greater than</option>'
+      + '<option value="less_than"' + (rule.condition === 'less_than' ? ' selected' : '') + '>less than</option>'
+      + '<option value="is_true"' + (rule.condition === 'is_true' ? ' selected' : '') + '>is True</option>'
+      + '<option value="is_false"' + (rule.condition === 'is_false' ? ' selected' : '') + '>is False</option>'
+      + '</select></div>'
+      + '<div class="sf-edit-row"><div class="sf-edit-label">Value</div><input class="sf-input" id="sf-edit-value" value="' + (rule.value || '').replace(/"/g,'&quot;') + '" placeholder="Enter value"></div>'
+      + '<div class="sf-edit-foot">'
+      + '<button class="sf-btn-cancel" onclick="closeSfEdit()">Cancel</button>'
+      + '<button class="sf-btn-apply" onclick="sfSaveEdit(' + idx + ')">Save</button></div>';
+  }
+
+  const overlay = document.getElementById('sf-edit-overlay');
+  overlay.querySelector('.sf-edit-dialog').innerHTML = editHtml;
+  overlay.classList.add('open');
+}
+
+function closeSfEdit() {
+  document.getElementById('sf-edit-overlay').classList.remove('open');
+}
+
+function sfSaveEdit(idx) {
+  const rule = sfTempRules[idx];
+  rule.field = document.getElementById('sf-edit-field').value;
+  if (sfDialogType === 'sort') {
+    rule.dir = document.getElementById('sf-edit-dir').value;
+  } else {
+    rule.condition = document.getElementById('sf-edit-condition').value;
+    const valEl = document.getElementById('sf-edit-value');
+    if (valEl) rule.value = valEl.value;
+  }
+  closeSfEdit();
+  renderSfBody();
 }
 
 function sfUpdateRule(idx, key, val) {
@@ -8510,16 +8835,15 @@ function sfUpdateRule(idx, key, val) {
 }
 
 function sfDeleteRule(idx) {
+  document.querySelectorAll('.sf-rule-popup').forEach(p => p.classList.remove('open'));
   sfTempRules.splice(idx, 1);
-  if (sfTempRules.length === 0) {
-    sfTempRules.push(sfDialogType === 'sort' ? {field:'', dir:'asc'} : {field:'', condition:'contains', value:''});
-  }
   renderSfBody();
 }
 
 function sfAddRule() {
   sfTempRules.push(sfDialogType === 'sort' ? {field:'', dir:'asc'} : {field:'', condition:'contains', value:''});
   renderSfBody();
+  sfEditRule(sfTempRules.length - 1);
 }
 
 /* ── CANVAS PANNING ── */
@@ -8586,11 +8910,10 @@ function sfAddRule() {
 
 <!-- SORT/FILTER DIALOG -->
 <div class="sf-dialog-overlay" id="sf-dialog-overlay" onclick="if(event.target===this)closeSfDialog()">
-  <div class="sf-dialog" id="sf-dialog">
+  <div class="sf-dialog" id="sf-dialog" onclick="if(!event.target.closest('.sf-rule-menu-wrap'))document.querySelectorAll('.sf-rule-popup').forEach(p=>p.classList.remove('open'))">
     <div class="sf-dialog-head">
       <div class="sf-dialog-title" id="sf-dialog-title">Sort</div>
       <div class="sf-dialog-head-actions">
-        <div class="sf-dialog-help">?</div>
         <button class="sf-dialog-close" onclick="closeSfDialog()">✕</button>
       </div>
     </div>
@@ -8601,6 +8924,11 @@ function sfAddRule() {
       <button class="sf-btn-apply" onclick="applySfDialog()">Apply</button>
     </div>
   </div>
+</div>
+
+<!-- SORT/FILTER EDIT DIALOG -->
+<div class="sf-edit-overlay" id="sf-edit-overlay" onclick="if(event.target===this)closeSfEdit()">
+  <div class="sf-edit-dialog"></div>
 </div>
 
 <!-- CHANGE IMAGE MODAL -->
