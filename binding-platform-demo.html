@@ -5668,11 +5668,13 @@ function renderCtxList() {
       </div>`;
   };
 
-  CTX_DEFS.forEach(c => {
-    if (c.group === 'System' && !inheritedCtxs.find(x => x.id === c.id) && !ownCtxs.find(x => x.id === c.id)) {
-      inheritedCtxs.push(c);
-    }
-  });
+  if (isPage) {
+    CTX_DEFS.forEach(c => {
+      if (c.group === 'System' && !inheritedCtxs.find(x => x.id === c.id) && !ownCtxs.find(x => x.id === c.id)) {
+        inheritedCtxs.push(c);
+      }
+    });
+  }
 
   const inheritedUserCtxs = inheritedCtxs.filter(c => c.group !== 'System');
   const inheritedSystemCtxs = inheritedCtxs.filter(c => c.group === 'System');
@@ -8231,6 +8233,7 @@ function doRemoveCtx(ctxId, sectionId) {
       if (repEl) {
         repEl.classList.remove('bound');
         repItemsMakeIdentical(repEl, id);
+        if (S._savedRepItems) delete S._savedRepItems[id];
         const countEl = document.getElementById('rep-count-' + id.replace('repeater-',''));
         if (countEl) countEl.textContent = '— not connected';
       }
