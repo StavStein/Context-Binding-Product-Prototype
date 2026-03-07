@@ -647,7 +647,7 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 .fn-param-input.has-value{color:var(--t1)}
 
 /* ── DROPDOWN */
-.dd{position:fixed;z-index:1100;background:var(--sur2);border:1px solid var(--b2);border-radius:10px;width:260px;box-shadow:0 12px 40px #00000070;display:none;overflow:hidden}
+.dd{position:fixed;z-index:1100;background:var(--sur2);border:1px solid var(--b2);border-radius:10px;width:260px;box-shadow:0 12px 40px #00000070;display:none;overflow-x:hidden;overflow-y:auto;max-height:calc(100vh - 16px)}
 .dd.open{display:block;animation:pop .14s ease}
 @keyframes pop{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}
 
@@ -1020,7 +1020,7 @@ body.product-mode .c-el:hover,body.product-mode .c-section:hover{outline:2px das
 .ctx-fields-toggle.open .ctx-expand-chevron{transform:rotate(90deg)}
 .ctx-fields-count{flex:1}
 .ctx-fields-count .count-num{font-weight:600}
-.ctx-fields-count.active{color:var(--grn)}
+.ctx-fields-count.active{color:#e84393}
 .ctx-fields-count.idle{color:var(--t3)}
 .ctx-fields-list{display:none;margin-top:6px;border-top:1px solid var(--b1);padding-top:6px}
 .ctx-fields-list.open{display:block}
@@ -3355,7 +3355,7 @@ const CTX_DEFS = [
       {key:'units',    label:'Units',     input:'toggle', options:['°C','°F'], default:'°C', description:'Temperature display unit across all weather elements'},
       {key:'refresh',  label:'Refresh',   input:'select', options:['On load only','Every 5 min','Every 15 min','Every 30 min'], default:'On load only', description:'How often weather data is re-fetched from the source'},
     ]},
-  { id:'cms-articles', name:'Articles', icon:'', type:'list', source:'CMS', group:'CMS',
+  { id:'cms-articles', name:'Articles', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:24,
     fields:[
       {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
       {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
@@ -3404,7 +3404,7 @@ const CTX_DEFS = [
     ],
     config:[
     ]},
-  { id:'cms-my-team', name:'My Team', icon:'👥', type:'list', source:'CMS', group:'CMS',
+  { id:'cms-my-team', name:'My Team', icon:'👥', type:'list', source:'CMS', group:'CMS', itemCount:8,
     fields:[
       {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
       {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
@@ -3437,7 +3437,7 @@ const CTX_DEFS = [
     ],
     config:[
     ]},
-  { id:'stores-current-item', name:'Current Item', icon:'', type:'page', source:'Wix Stores', group:'Apps',
+  { id:'stores-current-item', name:'Current Item', icon:'', type:'object', source:'Wix Stores', group:'Apps',
     isDynamicPageCtx: true,
     fields:[
       {name:'name',        type:'string',  sample:'"Yoga Mat"'},
@@ -3449,7 +3449,7 @@ const CTX_DEFS = [
     contextActions:[],
     metadata:[],
     config:[]},
-  { id:'stores', name:'Products', icon:'', type:'list', source:'Wix Stores', group:'Apps',
+  { id:'stores', name:'Products', icon:'', type:'list', source:'Wix Stores', group:'Apps', itemCount:156,
     fields:[
       {name:'products', type:'array', sample:'[{name, price, …}]', itemFields:[
         {name:'name',        type:'string',  sample:'"Yoga Mat"'},
@@ -3485,7 +3485,7 @@ const CTX_DEFS = [
     config:[
       {key:'currency', label:'Currency',  input:'select', options:['USD ($)','EUR (€)','GBP (£)','ILS (₪)'], default:'USD ($)', description:'Currency used for product prices'},
     ]},
-  { id:'stores-locations', name:'Locations', icon:'', type:'list', source:'Wix Stores', group:'Apps',
+  { id:'stores-locations', name:'Locations', icon:'', type:'list', source:'Wix Stores', group:'Apps', itemCount:3,
     fields:[
       {name:'locations', type:'array', sample:'[{storeName, address, …}]', itemFields:[
         {name:'storeName',   type:'string',  sample:'"Dizengoff Center"'},
@@ -3520,7 +3520,7 @@ const CTX_DEFS = [
     config:[
       {key:'radius',   label:'Search radius', input:'select', options:['5 km','10 km','25 km','50 km'], default:'10 km', description:'Max distance to show store locations from user'},
     ]},
-  { id:'cms-categories', name:'Categories', icon:'', type:'list', source:'CMS', group:'CMS',
+  { id:'cms-categories', name:'Categories', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:6,
     fields:[
       {name:'categories', type:'array', sample:'[{name, articles, …}]', itemFields:[
         {name:'name',        type:'string', sample:'"Technology"'},
@@ -3577,7 +3577,7 @@ const CTX_DEFS = [
     config:[
       {key:'loginRedirect', label:'Login redirect', input:'select', options:['Stay on page','Go to dashboard','Go to home'], default:'Stay on page', description:'Where the user goes after logging in'},
     ]},
-  { id:'system-page-list', name:'Page list', icon:'', type:'list', source:'System', group:'System',
+  { id:'system-page-list', name:'Page list', icon:'', type:'list', source:'System', group:'System', itemCount:12,
     fields:[
       {name:'pages', type:'array', sample:'[{title, url, …}]', itemFields:[
         {name:'title',   type:'string', sample:'"Home"'},
@@ -3598,7 +3598,7 @@ const CTX_DEFS = [
       {name:'logo',         type:'image',   sample:'[img url]'},
       {name:'description',  type:'string',  sample:'"A modern creative studio"'},
     ]},
-  { id:'system-locations', name:'Locations', icon:'', type:'list', source:'System', group:'System',
+  { id:'system-locations', name:'Locations', icon:'', type:'list', source:'System', group:'System', itemCount:3,
     fields:[
       {name:'locations', type:'array', sample:'[{name, address, …}]', itemFields:[
         {name:'name',      type:'string',  sample:'"Main Office"'},
@@ -3676,6 +3676,27 @@ const FN_LIBS = [
       {name:'isRequired()',   type:'boolean', sample:'false',           description:'Checks if value exists'},
       {name:'minLength()',    type:'boolean', sample:'true',            description:'Checks minimum length'},
     ]},
+  { id:'lib-state-handlers', name:'State Handlers', icon:'🔄', description:'Multi-State Box transitions & controls',
+    functions:[
+      {name:'autoRotate()',       type:'function', sample:'(event) => {}', description:'Cycles through states on a timer interval',
+        params:[
+          {name:'interval', type:'number', description:'Time between transitions (ms)', default:'5000'},
+          {name:'loop', type:'boolean', description:'Loop back to first state', default:'true'},
+        ]},
+      {name:'goToNextState()',    type:'function', sample:'(event) => {}', description:'Advances to the next state'},
+      {name:'goToPrevState()',    type:'function', sample:'(event) => {}', description:'Goes back to the previous state'},
+      {name:'goToState()',        type:'function', sample:'(event) => {}', description:'Jumps to a specific state by name',
+        params:[
+          {name:'stateName', type:'string', description:'Target state name', default:'State 1'},
+        ]},
+      {name:'validateAndNext()',  type:'function', sample:'(event) => {}', description:'Validates form fields, advances only if valid'},
+      {name:'onDownloadStart()',  type:'function', sample:'(event) => {}', description:'Starts async download, switches to loading state'},
+      {name:'onDownloadDone()',   type:'function', sample:'(event) => {}', description:'Switches to success state after download completes'},
+      {name:'resetAfterDelay()',  type:'function', sample:'(event) => {}', description:'Returns to default state after a delay',
+        params:[
+          {name:'delay', type:'number', description:'Delay before reset (ms)', default:'3000'},
+        ]},
+    ]},
 ];
 
 const FN_DEFS = FN_LIBS.flatMap(lib =>
@@ -3697,6 +3718,10 @@ function findSource(id) {
 
 function findCtxOwner(ctxId, sectionId) {
   if ((S.ctxMap[sectionId] || []).includes(ctxId)) return sectionId;
+  for (const id in EL_DEFS) {
+    const d = EL_DEFS[id];
+    if (d.isRepeater && d.section === sectionId && (S.ctxMap[id] || []).includes(ctxId)) return id;
+  }
   const parentDef = EL_DEFS[sectionId];
   if (parentDef?.parentPage && (S.ctxMap[parentDef.parentPage] || []).includes(ctxId)) return parentDef.parentPage;
   return sectionId;
@@ -3860,12 +3885,12 @@ const EL_DEFS = {
   'el-art-time-1': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-art-time-2': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-art-time-3': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'page-home':    {name:'Page · Home', type:'Page', isPage:true, page:'home', props:[]},
-  'page-demo262': {name:'Page · Demo 26.2', type:'Page', isPage:true, page:'demo262', props:[]},
-  'page-items':   {name:'Page · Items (List)', type:'Page', isPage:true, page:'items-list', props:[]},
-  'page-ruc':     {name:'Page · Repeater Usecases', type:'Page', isPage:true, page:'repeater-usecases', props:[]},
-  'page-msb':     {name:'Page · Multi-State Box', type:'Page', isPage:true, page:'msb', props:[]},
-  'page-demo':    {name:'Page · Demo', type:'Page', isPage:true, page:'demo', props:[]},
+  'page-home':    {name:'Page · Home', type:'Page', isPage:true, page:'home', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-demo262': {name:'Page · Demo 26.2', type:'Page', isPage:true, page:'demo262', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-items':   {name:'Page · Items (List)', type:'Page', isPage:true, page:'items-list', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-ruc':     {name:'Page · Repeater Usecases', type:'Page', isPage:true, page:'repeater-usecases', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-msb':     {name:'Page · Multi-State Box', type:'Page', isPage:true, page:'msb', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-demo':    {name:'Page · Demo', type:'Page', isPage:true, page:'demo', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-hero':     {name:'Section · Hero',     type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
   'sec-weather':  {name:'Section · Weather',  type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
   'sec-articles': {name:'Section · Articles', type:'Section',  isContainer:true, page:'home', parentPage:'page-home', props:[]},
@@ -3894,7 +3919,7 @@ const EL_DEFS = {
   'el-item-btn-2':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
   'el-item-btn-3':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
   'el-item-btn-4':{name:'CTA Button',   type:'Button',  section:'sec-items', repTemplate:'el-item-btn', props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'},{k:'Visible',t:'boolean'}]},
-  'page-rel-detail':{name:'Page · Product Item', type:'Page', isPage:true, page:'item-relationship', props:[]},
+  'page-rel-detail':{name:'Page · Product Item', type:'Page', isPage:true, page:'item-relationship', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-rel-product':{name:'Section · Product Info', type:'Section', isContainer:true, page:'item-relationship', parentPage:'page-rel-detail', props:[]},
   'el-rel-title':   {name:'Item Title',       type:'Text',  section:'sec-rel-product', props:[{k:'Value',t:'string'},{k:'Link',t:'url'},{k:'Visible',t:'boolean'}]},
   'el-rel-desc':    {name:'Item Description', type:'Text',  section:'sec-rel-product', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -3915,7 +3940,7 @@ const EL_DEFS = {
       {id:'hasItems', name:'State 3', enumValues:['hasItems']},
     ],
     activeView:'hasItems',
-    props:[{k:'Active State',t:'states'}]},
+    props:[{k:'Active State',t:'states'},{k:'onChange',t:'function'},{k:'onViewEnter',t:'function'},{k:'onViewLeave',t:'function'},{k:'onTimeout',t:'function'},{k:'onClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'}]},
   'el-msb-loading-text':  {name:'Loading Text',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'loading',  props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-title':   {name:'Empty Title',     type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-btn':     {name:'Browse Button',   type:'Button', section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'}]},
@@ -3951,7 +3976,7 @@ const EL_DEFS = {
   'el-ruc-tag-val-3':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ruc-tag-val-4':    {name:'Tag Value',     type:'Text', section:'sec-ruc-tags', repTemplate:'el-ruc-tag-val', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   // Repeater Concept page
-  'page-rep':         {name:'Page · Repeater', type:'Page', isPage:true, page:'repeater-concept', props:[]},
+  'page-rep':         {name:'Page · Repeater', type:'Page', isPage:true, page:'repeater-concept', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-rep-connected':   {name:'Section 1', type:'Section', isContainer:true, page:'repeater-concept', parentPage:'page-rep', props:[]},
   'repeater-rep-products':{name:'Repeater',     type:'Repeater', section:'sec-rep-connected', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-rp-1':  {name:'Item 1', type:'RepItem', section:'sec-rep-connected', isRepItem:true, props:[]},
@@ -4023,7 +4048,7 @@ const EL_DEFS = {
   'el-d262-temp':        {name:'Temperature',       type:'Text',    section:'sec-d262-weather', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-d262-cond':        {name:'Condition',          type:'Text',    section:'sec-d262-weather', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   // Option A: Context on Repeater
-  'page-opta':           {name:'Ⓐ Context on Repeater', type:'Page', isPage:true, page:'option-a', props:[]},
+  'page-opta':           {name:'Ⓐ Context on Repeater', type:'Page', isPage:true, page:'option-a', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-opta-prebound':   {name:'Section · Pre-bound', type:'Section', isContainer:true, page:'option-a', parentPage:'page-opta', props:[]},
   'repeater-opta-prebound':{name:'Repeater', type:'Repeater', section:'sec-opta-prebound', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-opta-pb-1':       {name:'Article 1', type:'RepItem', section:'sec-opta-prebound', isRepItem:true, props:[]},
@@ -4066,7 +4091,7 @@ const EL_DEFS = {
   'el-opta-uou-author-2':{name:'Author', type:'Text', section:'sec-opta-uou', repTemplate:'el-opta-uou-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-opta-uou-author-3':{name:'Author', type:'Text', section:'sec-opta-uou', repTemplate:'el-opta-uou-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   // Option B: Context on Parent
-  'page-optb':           {name:'Ⓑ Context on Parent', type:'Page', isPage:true, page:'option-b', props:[]},
+  'page-optb':           {name:'Ⓑ Context on Parent', type:'Page', isPage:true, page:'option-b', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-optb-prebound':   {name:'Section · Pre-bound', type:'Section', isContainer:true, page:'option-b', parentPage:'page-optb', props:[]},
   'repeater-optb-prebound':{name:'Repeater', type:'Repeater', section:'sec-optb-prebound', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-optb-pb-1':       {name:'Article 1', type:'RepItem', section:'sec-optb-prebound', isRepItem:true, props:[]},
@@ -4116,7 +4141,7 @@ const S = {
   sel: null,
   inspectorOpen: false,
   tab: 'settings',
-  openCats: {context:true, properties:true, visibility:false, events:false, repconfig:false, systemCtx:false},
+  openCats: {context:true, properties:true, visibility:false, events:false, repconfig:false, systemCtx:false, pageCtx:true, attachedCtx:true},
   ctxMap: {
     'page-home':       [],
     'page-demo262':    [],
@@ -4315,6 +4340,14 @@ function navToSectionCtx(elId, e) {
     const binding = S.bindings[elId + '|Items'];
     if (binding) {
       const ownerId = findCtxOwner(binding.ctxId, sectionId);
+      pillNavCtx(ownerId);
+      return;
+    }
+  }
+  if (def?.repTemplate || def?.isRepItem) {
+    const bkey = Object.keys(S.bindings).find(k => k.startsWith(elId + '|'));
+    if (bkey) {
+      const ownerId = findCtxOwner(S.bindings[bkey].ctxId, sectionId);
       pillNavCtx(ownerId);
       return;
     }
@@ -4986,7 +5019,8 @@ function renderSettingsRepeaterOnRepeater(def) {
   const isPromoted = repCtxIds.some(id => (S.ctxMap[sectionId] || []).includes(id));
 
   const ctxCount = repCtxIds.length;
-  const ctxContent = S.ctxSettingsView ? renderCtxSettings(S.ctxSettingsView) : renderCtxList();
+  if (S.ctxSettingsView) return renderCtxSettings(S.ctxSettingsView);
+  const ctxContent = renderCtxList();
 
   const ctxSummaryHtml = b && ctx
     ? `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
@@ -5447,6 +5481,7 @@ function renderSettings() {
     return renderSettingsRepeaterOnRepeater(def);
   }
   if (def.isRepeater) {
+    if (S.ctxSettingsView) return renderCtxSettings(S.ctxSettingsView);
     const bkey = S.sel + '|Items';
     const b = S.bindings[bkey];
     const ctx = b ? findSource(b.ctxId) : null;
@@ -5564,13 +5599,24 @@ function renderSettings() {
       </div>`;
     }).join('');
 
+    const eventProps = def.props.filter(p => p.t === 'function');
+    const hasEventHandlerBound = eventProps.some(p => S.bindings[S.sel + '|' + p.k]);
+
     let disconnectedBanner = '';
-    if (!isBound && hasViews) {
+    if (!isBound && hasViews && !hasEventHandlerBound) {
       disconnectedBanner = `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:color-mix(in srgb, var(--yel) 12%, var(--sur));border:1px solid color-mix(in srgb, var(--yel) 30%, var(--b1));border-radius:8px;margin-bottom:8px">
         <span style="font-size:14px">⚠️</span>
         <div style="flex:1">
           <div style="font-size:11px;font-weight:500;color:var(--t1)">Not connected to data</div>
-          <div style="font-size:10px;color:var(--t3);line-height:1.4">Views won't switch automatically. Connect a states field to activate.</div>
+          <div style="font-size:10px;color:var(--t3);line-height:1.4">Views won't switch automatically. Connect a states field or an event handler to activate.</div>
+        </div>
+      </div>`;
+    } else if (!isBound && hasViews && hasEventHandlerBound) {
+      disconnectedBanner = `<div style="display:flex;align-items:center;gap:8px;padding:8px 10px;background:color-mix(in srgb, #10b981 10%, var(--sur));border:1px solid color-mix(in srgb, #10b981 25%, var(--b1));border-radius:8px;margin-bottom:8px">
+        <span style="font-size:14px">⚡</span>
+        <div style="flex:1">
+          <div style="font-size:11px;font-weight:500;color:var(--t1)">Controlled by event handlers</div>
+          <div style="font-size:10px;color:var(--t3);line-height:1.4">Views will switch via connected functions. Default state: <b>${(views.find(v => v.id === def._fallbackView) || views[0])?.name || 'State 1'}</b>.</div>
         </div>
       </div>`;
     }
@@ -5605,7 +5651,8 @@ function renderSettings() {
       <div style="display:flex;flex-direction:column;gap:6px">${joinViewCards}</div>
       ${isBound && views.length < enumVals.length ? `<div style="text-align:center;padding:6px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer;text-decoration:underline" onclick="msbResetJoins(event)">Reset — undo all joins</span></div>` : ''}
       ${!isBound ? `<div style="padding:6px 0 0"><button onclick="addMsbView(event)" style="width:100%;padding:6px 0;border:2px dashed var(--b1);border-radius:8px;background:none;cursor:pointer;font-size:11px;color:var(--t3);font-family:'DM Sans',sans-serif;transition:border-color .15s,color .15s" onmouseover="this.style.borderColor='var(--acc)';this.style.color='var(--acc)'" onmouseout="this.style.borderColor='var(--b1)';this.style.color='var(--t3)'">+ Add state</button></div>` : ''}
-    </div>` : ''}`;
+    </div>` : ''}
+    ${renderEventHandlers(S.sel, def)}`;
   }
   if (def.isRepItem) {
     const idx = parseInt(S.sel.split('-').pop());
@@ -5650,12 +5697,17 @@ function renderSettings() {
 
 function renderSettingsWithCategories(def, propsHtml, visHtml) {
   const showCtx = def.isContainer || def.isPage;
+
+  if (showCtx && S.ctxSettingsView) {
+    return renderCtxSettings(S.ctxSettingsView);
+  }
+
   let html = '';
 
   if (showCtx) {
     const ctxTarget = (def.isMultiState) ? def.section : S.sel;
     const ctxCount = (S.ctxMap[ctxTarget] || []).length;
-    const ctxContent = S.ctxSettingsView ? renderCtxSettings(S.ctxSettingsView) : renderCtxList();
+    const ctxContent = renderCtxList();
     html += `<div class="rp-cat ${S.openCats.context ? 'open' : ''}" id="rp-cat-context">
       <div class="rp-cat-head" onclick="toggleCat('context')">
         <span class="rp-cat-chevron">›</span>
@@ -6105,13 +6157,14 @@ function getCtxBoundElIds(ctxId, sectionId) {
     });
     return ids;
   }
+  const effectiveSection = (def && def.isRepeater) ? def.section : sectionId;
   const ids = [];
   Object.keys(S.bindings).forEach(bkey => {
     const b = S.bindings[bkey];
     if (b.ctxId !== ctxId) return;
     const [elId] = bkey.split('|');
     const elDef = EL_DEFS[elId];
-    if (!elDef || elDef.section !== sectionId) return;
+    if (!elDef || elDef.section !== effectiveSection) return;
     ids.push(elId);
   });
   return ids;
@@ -6127,9 +6180,10 @@ function highlightBoundEls(ctxId, sectionId) {
 
 function highlightFieldEls(ctxId, fieldName, sectionId) {
   const def = EL_DEFS[sectionId];
+  const effectiveId = (def && def.isRepeater) ? def.section : sectionId;
   const sections = (def && def.isPage)
     ? Object.keys(EL_DEFS).filter(id => EL_DEFS[id].parentPage === sectionId).concat(sectionId)
-    : [sectionId];
+    : [effectiveId];
   Object.keys(S.bindings).forEach(bkey => {
     const b = S.bindings[bkey];
     if (b.ctxId !== ctxId || b.fieldName !== fieldName) return;
@@ -6460,13 +6514,14 @@ function isFieldInUse(ctxId, fieldName, sectionId) {
       return elDef && allSections.includes(elDef.section || elDef.parentPage);
     });
   }
+  const effectiveSection = (def && def.isRepeater) ? def.section : sectionId;
   return Object.keys(S.bindings).some(bkey => {
     const b = S.bindings[bkey];
     if (b.ctxId !== ctxId || b.fieldName !== fieldName) return false;
     const [elId] = bkey.split('|');
     if (elId === sectionId) return true;
     const elDef = EL_DEFS[elId];
-    return elDef && elDef.section === sectionId;
+    return elDef && elDef.section === effectiveSection;
   });
 }
 
@@ -6504,27 +6559,23 @@ function renderCtxFields(c, sectionId) {
     </div>`;
   };
 
-  const itemActionsHtml = (isList && c.itemActions) ? `<div class="ctx-fields-section">
+  const allActions = [
+    ...((isList && c.itemActions) ? c.itemActions.map(a => ({...a, scope: 'per item'})) : []),
+    ...((c.contextActions) ? c.contextActions.map(a => ({...a, scope: isList ? 'collection' : ''})) : []),
+  ];
+  const actionsHtml = allActions.length > 0 ? `<div class="ctx-fields-section">
     <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
-      <span>Item actions</span><span class="ctx-expand-chevron">›</span>
+      <span>Actions (${allActions.length})</span><span class="ctx-expand-chevron">›</span>
     </div>
     <div class="ctx-fields-section-body">
-      ${c.itemActions.map(a => renderBindableRow(a.name, a.icon, a.label, 'action', 'per item', c.id, sectionId)).join('')}
+      ${allActions.map(a => renderBindableRow(a.name, a.icon, a.label, 'action', a.scope, c.id, sectionId)).join('')}
     </div>
   </div>` : '';
 
-  const ctxActionsHtml = (c.contextActions && c.contextActions.length) ? `<div class="ctx-fields-section">
+  const metaCount = c.metadata ? c.metadata.length : 0;
+  const metadataHtml = metaCount > 0 ? `<div class="ctx-fields-section">
     <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
-      <span>${isList ? 'Context actions' : 'Actions'}</span><span class="ctx-expand-chevron">›</span>
-    </div>
-    <div class="ctx-fields-section-body">
-      ${c.contextActions.map(a => renderBindableRow(a.name, a.icon, a.label, 'action', isList ? 'collection' : '', c.id, sectionId)).join('')}
-    </div>
-  </div>` : '';
-
-  const metadataHtml = (c.metadata && c.metadata.length) ? `<div class="ctx-fields-section">
-    <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
-      <span>Metadata</span><span class="ctx-expand-chevron">›</span>
+      <span>Metadata (${metaCount})</span><span class="ctx-expand-chevron">›</span>
     </div>
     <div class="ctx-fields-section-body">
       ${c.metadata.map(m => renderBindableRow(m.name, getFieldTypeIcon(m.type), m.label, m.type, '', c.id, sectionId)).join('')}
@@ -6536,14 +6587,22 @@ function renderCtxFields(c, sectionId) {
     ? `<div class="ctx-add-field-btn" onclick="event.stopPropagation();openAddFieldModal('${c.id}')"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Add field</div>`
     : '';
 
-  return `${rows}
-    ${addFieldBtn}
-    ${itemActionsHtml}
-    ${ctxActionsHtml}
+  const dataFieldCount = c.fields.length;
+
+  return `<div class="ctx-fields-section" style="border:none;margin:0">
+    <div class="ctx-fields-section-head open-default" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')" style="border:none">
+      <span>Data fields (${dataFieldCount})</span><span class="ctx-expand-chevron open">›</span>
+    </div>
+    <div class="ctx-fields-section-body open">
+      ${rows}
+      ${addFieldBtn}
+    </div>
+  </div>
+    ${actionsHtml}
     ${metadataHtml}
     <div class="ctx-fields-section">
       <div class="ctx-fields-section-head" onclick="this.nextElementSibling.classList.toggle('open');this.querySelector('.ctx-expand-chevron').classList.toggle('open')">
-        <span>System fields</span><span class="ctx-expand-chevron">›</span>
+        <span>System fields (${systemFields.length})</span><span class="ctx-expand-chevron">›</span>
       </div>
       <div class="ctx-fields-section-body">
         ${systemFields.map(f => `<div class="ctx-field-row"><div class="ctx-field-icon" style="font-size:9px">sys</div><div class="ctx-field-name" style="color:var(--t3)">${f}</div></div>`).join('')}
@@ -6791,16 +6850,19 @@ function renderCtxList() {
       return `
       <div class="ctx-group">
         <div class="ctx-card${primary ? ' primary' : ''}${isUnconfigured ? ' unconfigured' : ''}">
-          <div class="ctx-card-name">${c.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px;font-weight:700;color:var(--yel)">&lt;/&gt;</span> ' : c.icon ? c.icon + ' ' : ''}${getCtxDisplayName(c.id, S.sel)} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}</span>${primary && isPage ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
+          <div class="ctx-card-name">${c.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px;font-weight:700;color:var(--yel)">&lt;/&gt;</span> ' : c.icon ? c.icon + ' ' : ''}${getCtxDisplayName(c.id, S.sel)} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}${c.itemCount ? ' · ' + c.itemCount + ' items' : ''}</span>${primary && isPage ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
           <div class="ctx-card-src">from ${c.source}</div>
           ${primary && isPage ? '<div class="ctx-card-lock"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Comes with this page</div>' : ''}
           ${isUnconfigured ? '<div class="ctx-card-lock" style="color:var(--yel);font-style:normal"><svg viewBox="0 0 24 24" style="stroke:var(--yel)"><path d="M12 9v4"/><circle cx="12" cy="16" r="0.5"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg> Configure settings to use as binding source</div>' : ''}
           ${filterToggleHtml}
           <div class="ctx-fields-toggle" onclick="toggleCtxFields(event,'${c.id}')" ${hasUsed ? `onmouseenter="highlightBoundEls('${c.id}','${S.sel}')" onmouseleave="clearHighlightEls()"` : ''}>
             <span class="ctx-expand-chevron">›</span>
-            <span class="ctx-fields-count ${hasUsed ? 'active' : 'idle'}"><span class="count-num">${usedFields}/${totalFields}</span> fields connected</span>
+            ${hasUsed
+              ? `<span class="ctx-fields-count active" style="color:#e84393;font-weight:600">In use</span>`
+              : `<span class="ctx-fields-count idle" style="color:var(--t3)">Not connected</span>`}
           </div>
           <div class="ctx-fields-list" id="ctx-fields-${c.id}">
+            <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;padding:0 4px 6px;font-family:'DM Mono',monospace">What this context exposes</div>
             ${fieldsHtml}
           </div>
           <div class="ctx-card-menu" id="cmenu-${c.id}" style="display:flex;align-items:center;gap:4px">
@@ -6859,12 +6921,55 @@ function renderCtxList() {
       ${sysOpen ? `<div style="padding:0 0 8px">${systemCtxs.map(renderCtxCard).join('')}</div>` : ''}
     </div>` : '';
 
+  if (isPage) {
+    const pageCtxs = userCtxs.filter(c => isPrimaryCtx(c.id, S.sel));
+    const attachedCtxs = userCtxs.filter(c => !isPrimaryCtx(c.id, S.sel));
+    const pgOpen = S.openCats.pageCtx !== false;
+    const attOpen = S.openCats.attachedCtx !== false;
+
+    const pageCtxSection = pageCtxs.length > 0 ? `
+      <div style="border-bottom:1px solid var(--b1)">
+        <div style="display:flex;align-items:center;gap:6px;padding:11px 14px 0;cursor:pointer" onclick="S.openCats.pageCtx=!S.openCats.pageCtx;renderBody()">
+          <span style="font-size:10px;color:var(--t3);transition:transform .15s;display:inline-block;transform:rotate(${pgOpen?'90':'0'}deg)">›</span>
+          <span class="ps-lbl" style="padding:0;flex:1;font-size:11px">Page Context</span>
+        </div>
+        ${pgOpen ? `<div style="padding:0 0 8px">${pageCtxs.map(renderCtxCard).join('')}</div>` : ''}
+      </div>` : '';
+
+    const attachedCtxSection = `
+      <div style="border-bottom:1px solid var(--b1)">
+        <div style="display:flex;align-items:center;gap:6px;padding:11px 14px 0;cursor:pointer" onclick="S.openCats.attachedCtx=!S.openCats.attachedCtx;renderBody()">
+          <span style="font-size:10px;color:var(--t3);transition:transform .15s;display:inline-block;transform:rotate(${attOpen?'90':'0'}deg)">›</span>
+          <span class="ps-lbl" style="padding:0;flex:1;font-size:11px">Attached Contexts${attachedCtxs.length ? ' (' + attachedCtxs.length + ')' : ''}</span>
+        </div>
+        ${attOpen ? `<div style="padding:0 0 4px">
+          ${attachedCtxs.map(renderCtxCard).join('')}
+          <div class="add-ctx-btn" onclick="openModal('${S.sel}')" style="margin:10px 14px 12px"><span style="font-size:15px">＋</span> Add Context</div>
+        </div>` : ''}
+      </div>`;
+
+    return `<div class="ps" style="padding:0">
+      ${pageCtxSection}
+      ${attachedCtxSection}
+      ${systemSection}
+      <div class="ctx-tree-cta" onclick="toggleTree()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M6 9v6"/><path d="M18 9v6"/><circle cx="12" cy="3" r="1.5"/><circle cx="6" cy="9" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/><circle cx="12" cy="12" r="1.5"/><path d="M6 9L12 3L18 9"/></svg> Show context tree</div>
+    </div>`;
+  }
+
+  const attOpenSec = S.openCats.attachedCtx !== false;
   return `<div class="ps" style="padding:0">
-    ${systemSection}
-    <div class="ps-lbl" style="padding:11px 14px 0">${isPage ? 'Page Contexts' : 'Attached Contexts'}</div>
-    ${userCtxs.map(renderCtxCard).join('')}
-    <div class="add-ctx-btn" onclick="openModal('${S.sel}')" style="margin:10px 14px 12px"><span style="font-size:15px">＋</span> Add Context</div>
+    <div style="border-bottom:1px solid var(--b1)">
+      <div style="display:flex;align-items:center;gap:6px;padding:11px 14px 0;cursor:pointer" onclick="S.openCats.attachedCtx=!S.openCats.attachedCtx;renderBody()">
+        <span style="font-size:10px;color:var(--t3);transition:transform .15s;display:inline-block;transform:rotate(${attOpenSec?'90':'0'}deg)">›</span>
+        <span class="ps-lbl" style="padding:0;flex:1;font-size:11px">Attached Contexts${userCtxs.length ? ' (' + userCtxs.length + ')' : ''}</span>
+      </div>
+      ${attOpenSec ? `<div style="padding:0 0 4px">
+        ${userCtxs.map(renderCtxCard).join('')}
+        <div class="add-ctx-btn" onclick="openModal('${S.sel}')" style="margin:10px 14px 12px"><span style="font-size:15px">＋</span> Add Context</div>
+      </div>` : ''}
+    </div>
     ${parentNote}
+    ${systemSection}
     <div class="ctx-tree-cta" onclick="toggleTree()"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v6"/><path d="M6 9v6"/><path d="M18 9v6"/><circle cx="12" cy="3" r="1.5"/><circle cx="6" cy="9" r="1.5"/><circle cx="18" cy="9" r="1.5"/><circle cx="6" cy="18" r="1.5"/><circle cx="18" cy="18" r="1.5"/><circle cx="12" cy="12" r="1.5"/><path d="M6 9L12 3L18 9"/></svg> Show context tree</div>
   </div>`;
 }
@@ -8101,19 +8206,10 @@ function openDd(e, elId, propKey) {
   const dd = document.getElementById('dd');
   const panelLeft = window.innerWidth - parseInt(getComputedStyle(document.documentElement).getPropertyValue('--panel'));
   dd.style.left = Math.max(8, panelLeft - 260) + 'px';
-  dd.style.top = '0px';
-  dd.style.visibility = 'hidden';
   dd.classList.add('open');
-  requestAnimationFrame(() => {
-    const ddH = dd.offsetHeight;
-    const vpH = window.innerHeight;
-    let top = rect.bottom + 5;
-    if (top + ddH > vpH - 8) top = Math.max(8, rect.top - ddH - 5);
-    if (top + ddH > vpH - 8) top = Math.max(8, vpH - ddH - 8);
-    dd.style.top = top + 'px';
-    dd.style.visibility = '';
-  });
   document.getElementById('dd-title').textContent = `Connect · ${propKey}`;
+  S.dd._anchorY = rect.bottom;
+  S.dd._anchorTop = rect.top;
   renderDd();
   document.querySelectorAll('.prop-row,.fn-param-row').forEach(r => r.classList.remove('active-bind'));
   const rowId = `pr-${elId}-${propKey.replace(/\s/g,'_')}`;
@@ -8146,6 +8242,35 @@ function closeDd() {
   S.dd.paramName = null;
   document.getElementById('dd').classList.remove('open');
   document.querySelectorAll('.prop-row,.fn-param-row').forEach(r => r.classList.remove('active-bind'));
+}
+
+function repositionDd() {
+  const dd = document.getElementById('dd');
+  if (!dd || !dd.classList.contains('open')) return;
+  const vpH = window.innerHeight;
+  const anchorBottom = S.dd._anchorY || 0;
+  const anchorTop = S.dd._anchorTop || 0;
+  dd.style.top = '0px';
+  dd.style.bottom = 'auto';
+  dd.style.maxHeight = (vpH - 16) + 'px';
+  requestAnimationFrame(() => {
+    const ddH = dd.scrollHeight;
+    const spaceBelow = vpH - anchorBottom - 13;
+    const spaceAbove = anchorTop - 13;
+    if (ddH <= spaceBelow) {
+      dd.style.top = (anchorBottom + 5) + 'px';
+      dd.style.maxHeight = spaceBelow + 'px';
+    } else if (ddH <= spaceAbove) {
+      dd.style.top = (anchorTop - 5 - ddH) + 'px';
+      dd.style.maxHeight = spaceAbove + 'px';
+    } else if (spaceBelow >= spaceAbove) {
+      dd.style.top = (anchorBottom + 5) + 'px';
+      dd.style.maxHeight = spaceBelow + 'px';
+    } else {
+      dd.style.top = '8px';
+      dd.style.maxHeight = (anchorTop - 13) + 'px';
+    }
+  });
 }
 
 function renderDd() {
@@ -8410,6 +8535,7 @@ function renderDd() {
       ${S.dd._autoBindArray ? `✓ Bind · ${fieldName} + Repeater → ${S.dd._autoBindArray}` : `✓ Bind${fieldName ? ` · ${fieldName}` : ''}`}
     </button>
   `;
+  repositionDd();
 }
 
 function toggleSrcBox(e) {

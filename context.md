@@ -23,7 +23,7 @@ A context type is a **logical component** built on React Context. It has no UI o
 
 Think of a context type as a **class** — it defines behavior and structure, but doesn't exist on the page until instantiated. Each context type has a **component type** identifier (e.g., `wixStores.products`) that is unique across the platform.
 
-All context items (fields, functions, metadata) live in a single flat `context.items` map. The categorization into Fields, Item Actions, Context Actions, Metadata, and System Fields is a **product-level UX grouping** — not a technical separation.
+All context items (fields, functions, metadata) live in a single flat `context.items` map. The categorization into Data fields, Actions, Metadata, and System fields is a **product-level UX grouping** — not a technical separation.
 
 #### Data shapes
 
@@ -132,17 +132,16 @@ Every context can expose both **data** and **functions**:
 - **Data fields** — values the user can bind to component properties (e.g. `city`, `temperature`, `image`)
 - **Functions** — actions the user can bind to component events (e.g. button click)
 
-A list-type context can expose up to five layers of bindable content:
+A list-type context can expose up to four categories of bindable content:
 
-| Layer | What it contains | Scope | Example |
-|-------|-----------------|-------|---------|
-| **Fields** | Data values from the source | Per item | `name`, `description`, `icon`, `articleCount` |
-| **Item Actions** | Functions that operate on a specific item | Per item (inside a repeater) | `Navigate to item page`, `Open in editor` |
-| **Context Actions** | Functions that operate on the collection as a whole | Collection level | `Apply filters`, `Reset filters`, `Sort`, `Load more`, `Refresh data` |
+| Category | What it contains | Scope | Example |
+|----------|-----------------|-------|---------|
+| **Data fields** | Data values from the source | Per item | `name`, `description`, `icon`, `articleCount` |
+| **Actions** | Functions — both item-level and collection-level | Varies | `Navigate to item page`, `Apply filters`, `Load more`, `Refresh data` |
 | **Metadata** | Computed read-only values about the current state of the context | Collection level | `Total items`, `Items on page`, `Is loading`, `Active filter count` |
-| **System Fields** | Auto-generated fields managed by the platform | Per item | `_id`, `_createdDate`, `_updatedDate`, `_owner` |
+| **System fields** | Auto-generated fields managed by the platform | Per item | `_id`, `_createdDate`, `_updatedDate`, `_owner` |
 
-An object-type context typically exposes fields and item-level actions only.
+An object-type context typically exposes data fields and actions only.
 
 Users can also **add custom fields** to a context (e.g. adding a new field to a CMS collection directly from the context panel).
 
@@ -162,11 +161,10 @@ Users can also **add custom fields** to a context (e.g. adding a new field to a 
 
 | Category | Description |
 |----------|-------------|
-| **Fields** | Bindable data points per item |
-| **Item Actions** | Functions that operate on a specific item (e.g. navigate, edit) |
-| **Context Actions** | Functions that operate on the collection (e.g. filter, sort, load more) |
+| **Data fields** | Bindable data points per item |
+| **Actions** | Functions — item-level (e.g. navigate, edit) and collection-level (e.g. filter, sort, load more) |
 | **Metadata** | Computed values about the context state (e.g. total items, is loading) |
-| **System Fields** | Platform-managed fields (e.g. `_id`, `_createdDate`, `_owner`) |
+| **System fields** | Platform-managed fields (e.g. `_id`, `_createdDate`, `_owner`) |
 
 **Technical-level properties (from context provider spec):**
 
@@ -248,11 +246,40 @@ A context item can delegate its implementation to another context provider compo
 
 ## Binding
 
-Binding is the act of connecting a component property to a context field. When bound:
+Binding connects a **component property** to a **data source** — a context field or a function library function. Once bound, the property's value comes from data instead of being static.
 
-- The canvas shows a preview using the field's `sample` value
-- At runtime, the live data value from the context provider replaces the preview
-- A binding chip appears on the component showing the context icon and field name
+### Anatomy of a binding
+
+| Part | What it is | Example |
+|------|-----------|---------|
+| **Target** | The component property being bound | Text → `Value`, Image → `Source`, Button → `onClick` |
+| **Source** | The context or function library providing the value | `Articles`, `Weather App`, `myFunctions` |
+| **Field/Function** | The specific item from the source | `title`, `temperature`, `formatDate()` |
+
+### Property states
+
+| State | Appearance | Behavior |
+|-------|-----------|----------|
+| **Unbound** | Text input visible, bind button (snake icon) to the right | User can type a static value |
+| **Bound** | Pink chip replaces the input: source name + field name, ✕ to unbind | Static input hidden, canvas shows sample/live data |
+| **Active** | Bind button highlighted, dropdown open | User is selecting a source/field |
+
+### Binding flow
+
+1. User clicks the **bind button** (snake icon) next to a property
+2. **Source selection** — dropdown shows available contexts and function libraries
+3. **Field selection** — after selecting a source, its compatible fields appear
+4. **Binding applied** — pink chip appears, canvas updates with sample data
+5. **Unbind** — clicking ✕ on the chip removes the binding, static value is restored
+
+### Bound chip
+
+The chip shows two clickable parts:
+
+| Part | Display | Click action |
+|------|---------|-------------|
+| **Source** | Icon + context name (e.g., `⚡ myFunctions`) | Navigates to the container settings where this source lives |
+| **Field** | Field or function name + ✕ (e.g., `title ✕`) | ✕ unbinds the property |
 
 ### Binding Compatibility
 
@@ -264,9 +291,47 @@ Not every field can bind to every property. The system checks type compatibility
 | `image` | `image` |
 | `url` | `url` |
 | `boolean` | `boolean` |
-| `action` | Functions only |
+| `action` | Functions (void — event handlers) |
 | `list` | `array` |
 | `states` | `states`, `enum` |
+
+Function library functions follow the same rules based on their **return type** — a function returning `string` can bind to a `string` property, etc.
+
+### Function binding with parameters
+
+When a function with parameters is bound to a property:
+
+1. The function chip appears on the property row (source + function name)
+2. A **Parameters** section appears below the property, with one row per parameter
+3. Each parameter is independently bindable:
+   - **Static value** — user types directly in the input
+   - **Bound to context field** — user clicks the parameter's bind button and selects a field
+4. The function evaluates at runtime with the resolved parameter values
+
+Example: `twoValuesConcat()` bound to a Text `Value`:
+- Parameter `text1` → bound to `Articles · title`
+- Parameter `text2` → static value `"Read more"`
+- Result on canvas: `"The Future of AI · Read more"`
+
+### Canvas behavior
+
+| Binding type | Canvas shows |
+|-------------|-------------|
+| **Context field** | The field's `sample` value |
+| **Function (no params)** | The function's `sample` return value |
+| **Function (with params)** | Template rendered with parameter values |
+| **Unbound** | Static value or placeholder |
+
+### Unbinding
+
+Clicking ✕ on a bound chip:
+- Removes the binding and restores the previous static value (preserved during binding)
+- For functions with parameters: all parameter bindings are also removed
+
+### Open questions
+
+- **Static parameter input:** How does the user define static values for function parameters? Free text input? Type-specific controls (number stepper, date picker)? Should there be validation against the parameter's declared type?
+- **Function chip navigation:** When a property is bound to a context field, clicking the source name navigates to the container where the context lives. But function libraries are not attached to any container — where should clicking the source name navigate? To the Velo code file? Nowhere (disable navigation)? To a dedicated function library panel?
 
 ---
 
@@ -304,13 +369,93 @@ Contexts are grouped by type (CMS, Custom, Apps, System). The user selects which
 ### Section Settings Panel
 Shows attached contexts as cards with:
 - Context name and icon
-- Type badge (`object` / `list`)
+- Type badge (`object` / `list`) — for `list` contexts, also shows item count (e.g. `list · 24 items`)
 - Source label (e.g. "from Custom Code")
-- Field usage count (e.g. "2/9 fields connected")
+- Usage indicator — **"In use"** (pink) when at least one field/action is bound, **"Not connected"** (gray) when nothing is bound. Hover highlights all bound elements from this context on the canvas
+- **"What this context exposes"** — expandable section (clicking the indicator expands it) showing categorized lists: Data fields (N), Actions (N), Metadata (N), System fields (N). Each row shows "In use" or "+ Add" per item
 - Configuration settings (if available)
 
 ### Binding Dropdown
-When binding a property, fields from all accessible contexts (section, page, system) are shown, resolved by proximity. Fields are filtered by type compatibility. See [context-rules.md](./context-rules.md) for scope resolution priority.
+
+A floating panel that opens when the user clicks the bind button on any property.
+
+**Source selection panel** — three collapsible sections:
+
+| Section | Default state | Contents |
+|---------|--------------|----------|
+| **Available Contexts (N)** | Expanded | All non-system contexts available to this element, ordered by proximity |
+| **System (N)** | Collapsed | System contexts (Identity, Business Info, Page List, Locations) |
+| **Function Libraries (N)** | Collapsed | Reusable function libraries |
+
+Each context shows a **scope badge** indicating where it comes from: `This repeater` (orange), `Section` (green), `Page` (blue).
+
+Contexts are ordered **closest-first** (repeater → section → page). If the same context type exists at multiple levels, only the closest instance is shown.
+
+**"+ Add context"** — link at the bottom of Available Contexts. Opens the Add Context modal scoped to the current container. After adding, the new context is auto-selected.
+
+**Promote suggestion** — when a child repeater has a context not available at the current scope, a card appears offering to promote it to the section level.
+
+**Field selection panel** — after selecting a source, shows compatible fields filtered by type. Each field row shows type icon, name, and sample value.
+
+See [context-rules.md](./context-rules.md) for scope resolution priority.
 
 ### Canvas Pills
 Bound components show a pill with the context icon and field name, providing at-a-glance visibility of what's connected to what.
+
+---
+
+## Function Libraries
+
+### What it is
+
+A function library is a **code file** in the site's Velo files that exports reusable functions. These functions become available in the binding dropdown alongside context fields, allowing users to bind component properties and events to custom logic without writing code inline.
+
+### Relationship to contexts
+
+Function libraries are **not** contexts. They don't hold data or state — they transform, compute, or trigger actions.
+
+| | Contexts | Function Libraries |
+|--|---------|-------------------|
+| **Purpose** | Provide data | Transform data / trigger actions |
+| **State** | Have state, configuration, fields | Stateless — pure functions |
+| **Scope** | Attached to a container | Available site-wide |
+| **Source** | CMS, Apps, Custom Code | Velo files |
+
+### Library structure
+
+Each library exposes:
+
+| Property | Description |
+|----------|-------------|
+| **name** | File/module name (e.g., `myFunctions`, `Formatting`) |
+| **description** | Short description of the library's purpose |
+| **functions** | Array of exported functions |
+
+Each function has:
+
+| Property | Description |
+|----------|-------------|
+| **name** | Function name (e.g., `formatDate()`, `calcDiscount()`) |
+| **type** | Return type — determines binding compatibility |
+| **parameters** | Optional — typed parameters, each independently bindable |
+| **description** | What the function does |
+
+### Function types
+
+| Function type | Example | Bindable to |
+|--------------|---------|-------------|
+| **Returns a value** (string, number, boolean...) | `formatDate()`, `calcDiscount()`, `twoValuesConcat()` | Any property with a compatible type — same rules as context fields |
+| **Performs an action** (void — no return value) | `goToNextState()`, `autoRotate()`, `addToCart()` | Event handler properties only (onClick, onTimeout, etc.) |
+
+Both types can accept **parameters**. When a function with parameters is selected, each parameter becomes a sub-binding — connectable to a context field or a static value.
+
+### Number of libraries
+
+No limit. Each Velo file that follows the export pattern becomes a separate library in the binding dropdown.
+
+### Open questions
+
+- **Discovery:** How does the platform detect which Velo files are function libraries? Convention-based (specific folder/naming)? Explicit registration?
+- **Typing:** How are parameter types and return types declared? JSDoc? TypeScript? A manifest file?
+- **Scope:** Currently available site-wide. Should libraries support scoping to specific pages or sections?
+- **Versioning:** What happens when a developer changes a function signature that's already bound to components?
