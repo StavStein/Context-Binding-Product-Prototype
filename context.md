@@ -268,9 +268,11 @@ Binding connects a **component property** to a **data source** — a context fie
 
 1. User clicks the **bind button** (snake icon) next to a property
 2. **Source selection** — dropdown shows available contexts and function libraries
-3. **Field selection** — after selecting a source, its compatible fields appear
+3. **Field selection** — user clicks the field selector to open the list of compatible fields
 4. **Binding applied** — pink chip appears, canvas updates with sample data
 5. **Unbind** — clicking ✕ on the chip removes the binding, static value is restored
+
+Note: selecting a source does **not** auto-open the field list — the user explicitly opens it. This prevents accidental selections and gives the user a moment to confirm the source choice.
 
 ### Bound chip
 
@@ -278,7 +280,7 @@ The chip shows two clickable parts:
 
 | Part | Display | Click action |
 |------|---------|-------------|
-| **Source** | Icon + context name (e.g., `⚡ myFunctions`) | Navigates to the container settings where this source lives |
+| **Source** | Icon + context name (e.g., `⚡ myFunctions`) | Navigates to the context's configuration panel (drill-in) on the container where it lives |
 | **Field** | Field or function name + ✕ (e.g., `title ✕`) | ✕ unbinds the property |
 
 ### Binding Compatibility
@@ -328,6 +330,20 @@ Clicking ✕ on a bound chip:
 - Removes the binding and restores the previous static value (preserved during binding)
 - For functions with parameters: all parameter bindings are also removed
 
+### Edit content entry point
+
+When a property is bound, an "edit content" link appears below the binding chip, adapting to the source type:
+
+| Source type | Link text | Behavior |
+|-------------|----------|----------|
+| **CMS** | `📝 Edit in CMS` | Opens the CMS collection editor |
+| **Wix Apps** | `📝 Edit in [App name]` | Opens the app's dashboard |
+| **Custom Code** | `ƒ Computed value — edit in code` | Informational (gray, italic) — value is derived |
+| **Function Library** | `ƒ Computed value — edit in code` | Informational (gray, italic) — value is derived |
+| **System** | — | No link shown |
+
+This provides a clear path from a bound property to the place where the actual content can be edited, while making it explicit when a value is computed and cannot be directly edited.
+
 ### Open questions
 
 - **Static parameter input:** How does the user define static values for function parameters? Free text input? Type-specific controls (number stepper, date picker)? Should there be validation against the parameter's declared type?
@@ -337,12 +353,12 @@ Clicking ✕ on a bound chip:
 
 ## Context Lifecycle
 
-1. **Attach** — User adds a context to a container (page, section, or container component) via the Add Context modal
+1. **Attach** — User adds a context to a container (page, section, repeater, or container component) via the Add Context modal. For repeaters: if a `list` context is added and the Items property is unbound, the Items property is **auto-bound** to the context's array field
 2. **Configure** — User optionally adjusts context settings (e.g. units, refresh interval, filters)
 3. **Bind** — User connects component properties to context fields, actions, or metadata
 4. **Promote** — User moves the context from a container to its parent (e.g. section → page), broadening its scope
 5. **Runtime** — Context provider supplies live data; bound components display real values
-6. **Disconnect** — User can remove the context; all bindings are cleared, components revert to static values
+6. **Disconnect** — User can remove the context or disconnect the repeater; all inner bindings are removed (they cannot exist without a data source), components revert to static values
 
 ### Promote (move to parent)
 
@@ -369,7 +385,7 @@ Contexts are grouped by type (CMS, Custom, Apps, System). The user selects which
 ### Section Settings Panel
 Shows attached contexts as cards with:
 - Context name and icon
-- Type badge (`object` / `list`) — for `list` contexts, also shows item count (e.g. `list · 24 items`)
+- Type badge (`object` / `list`) — for `list` contexts, also shows item count (e.g. `list · 12 items`)
 - Source label (e.g. "from Custom Code")
 - Usage indicator — **"In use"** (pink) when at least one field/action is bound, **"Not connected"** (gray) when nothing is bound. Hover highlights all bound elements from this context on the canvas
 - **"What this context exposes"** — expandable section (clicking the indicator expands it) showing categorized lists: Data fields (N), Actions (N), Metadata (N), System fields (N). Each row shows "In use" or "+ Add" per item
@@ -398,6 +414,12 @@ Contexts are ordered **closest-first** (repeater → section → page). If the s
 **Field selection panel** — after selecting a source, shows compatible fields filtered by type. Each field row shows type icon, name, and sample value.
 
 See [context-rules.md](./context-rules.md) for scope resolution priority.
+
+### Event Handlers
+
+Pages, repeaters, and Multi-State Boxes expose **event handler** properties (e.g., `onClick`, `onDblClick`, `onMouseIn`, `onMouseOut`, `onViewportEnter`, `onViewportLeave`). These appear in a collapsible **"Event Handlers"** section in the settings panel, below Properties.
+
+Event handlers are bindable to **functions** — either context actions (void) or function library functions. This enables interactions like state transitions on timeout, navigation on click, or custom logic on viewport enter.
 
 ### Canvas Pills
 Bound components show a pill with the context icon and field name, providing at-a-glance visibility of what's connected to what.

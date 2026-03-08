@@ -13,7 +13,7 @@ Rationale:
 - Allows 2 repeaters with the same context type but different configurations on the same section (each owns its own instance)
 - Follows the same UX pattern as sections — same add/remove/represent experience
 
-The user still needs to bind the **Items** property to consume content. We can define "auto-connect to records array" once a context is attached.
+When a `list` context is attached to a repeater and the Items property is unbound, the Items property is **automatically bound** to the context's array field — no extra step needed.
 
 The user can **also** bind Items to a context that lives on a parent (section/page) — the repeater doesn't have to own a context.
 

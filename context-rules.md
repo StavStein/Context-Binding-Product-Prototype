@@ -148,12 +148,18 @@ When an element binds to a field, does the binding store a reference to the **in
 ### Instance removal
 **Decision:** When a context instance is removed, all bindings to it are **deleted**. No orphaned state — clean removal.
 
+### Repeater disconnect removes inner bindings
+When a repeater is disconnected from its data source (Items unbound), all inner element bindings are **removed** — they cannot exist without a data source. The user is informed: "N inner element bindings will be removed — item fields can't stay connected without a data source." Components revert to static values.
+
 ### Repeater data source switch
-When a repeater's Items property is reconnected to a different context (whether switched directly or disconnected and then reconnected), the system detects inner elements that still have bindings to the old context. A dialog prompts the user with two options:
+When a repeater's Items property is reconnected to a different context, the system detects inner elements that still have bindings to the old context. A dialog prompts the user with two options:
 - **Disconnect bindings** — removes all stale inner bindings, giving a clean slate for the new data source
 - **Keep bindings** — preserves inner bindings as-is (for advanced users who may have cross-context references)
 
 This check runs regardless of which path triggers the rebind (binding dropdown, skeleton CTA, or section context change).
+
+### Auto-bind Items on context add
+When a `list` context is added to a repeater (or to a section containing an unbound repeater), and the repeater's Items property is not yet bound, the Items property is **automatically bound** to the context's array field. This removes a manual step and immediately shows the data on canvas.
 
 ### Custom Code contexts
 **Decision:** Custom Code contexts follow the same flow as any other context — the user attaches them to a scope like any other context type. No special treatment needed.
