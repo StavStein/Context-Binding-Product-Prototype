@@ -4141,7 +4141,7 @@ const S = {
   sel: null,
   inspectorOpen: false,
   tab: 'settings',
-  openCats: {context:true, properties:true, visibility:false, events:false, repconfig:false, systemCtx:false, pageCtx:true, attachedCtx:true},
+  openCats: {context:true, properties:true, visibility:false, events:false, repconfig:false, systemCtx:false, pageCtx:true, attachedCtx:true, accessibility:true},
   ctxMap: {
     'page-home':       [],
     'page-demo262':    [],
@@ -5680,7 +5680,6 @@ function renderSettings() {
   if (def.isContainer) {
     return renderSettingsWithCategories(def, '', '');
   }
-  const mainProps = def.props.filter(p => p.k !== 'Visible');
   const visibleProp = def.props.find(p => p.k === 'Visible');
   let templateNote = '';
   if (def.repTemplate) {
@@ -5697,6 +5696,12 @@ function renderSettings() {
       </div>`;
     }
   }
+
+  if (def.type === 'Image') {
+    return renderImageSettings(S.sel, def, templateNote, visibleProp);
+  }
+
+  const mainProps = def.props.filter(p => p.k !== 'Visible');
   const propsHtml = `${templateNote}${mainProps.map(p => renderPropRow(S.sel, p)).join('')}`;
   const visHtml = renderVisibleProp(S.sel, visibleProp);
   return renderSettingsWithCategories(def, propsHtml, visHtml);
@@ -5736,6 +5741,114 @@ function renderSettingsWithCategories(def, propsHtml, visHtml) {
 
   html += renderEventHandlers(S.sel, def);
 
+  if (visHtml) {
+    html += `<div class="rp-cat ${S.openCats.visibility ? 'open' : ''}" id="rp-cat-visibility">
+      <div class="rp-cat-head" onclick="toggleCat('visibility')">
+        <span class="rp-cat-chevron">›</span>
+        <span class="rp-cat-title">Visibility</span>
+      </div>
+      <div class="rp-cat-body">${visHtml}</div>
+    </div>`;
+  }
+
+  return html;
+}
+
+/* ── IMAGE SETTINGS (structured panel) ── */
+function renderImageSettings(elId, def, templateNote, visibleProp) {
+  const sourceProp = def.props.find(p => p.k === 'Source');
+  const altProp = def.props.find(p => p.k === 'Alt Text');
+  const linkProp = def.props.find(p => p.k === 'Link' || p.k === 'Links to');
+  const linkBkey = `${elId}|Links to`;
+  const linkB = S.bindings[linkBkey];
+  const linkBound = !!linkB;
+  const linkCtx = linkBound ? findSource(linkB.ctxId) : null;
+
+  let html = `<div style="padding:12px 14px 0">${templateNote}`;
+
+  if (sourceProp) html += renderPropRow(elId, sourceProp);
+
+  html += `<div class="prop-wrap">
+    <div class="prop-key">Display mode</div>
+    <div class="prop-row-wrap">
+      <div class="prop-row"><div class="prop-main"><div class="prop-val">
+        <input class="prop-static" placeholder="e.g., Site" readonly style="cursor:default">
+      </div></div></div>
+    </div>
+  </div>`;
+
+  const linkSvg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12"><circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/></svg>';
+  const linkIcon = '<svg viewBox="0 0 16 16" fill="none" stroke="var(--t3)" stroke-width="1.5" stroke-linecap="round" width="14" height="14" style="flex-shrink:0"><path d="M6.5 8.5a3 3 0 004.2.3l2-2a3 3 0 00-4.2-4.2L7.3 3.8"/><path d="M9.5 7.5a3 3 0 00-4.2-.3l-2 2a3 3 0 004.2 4.2l1.2-1.2"/></svg>';
+  html += `<div class="prop-wrap">
+    <div class="prop-key">Links to</div>
+    <div class="prop-row-wrap">
+      <div class="prop-row ${linkBound?'bound':''}">
+        <div class="prop-main"><div class="prop-val">
+          ${linkBound && linkCtx
+            ? `<div class="prop-bound-chip prop-bound-detail">
+                <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${linkCtx.icon} ${linkCtx.name}</span>
+                <span class="prop-bound-field">${linkB.fieldName}<span class="chip-x" onclick="unbind('${elId}','Links to',event)">✕</span></span>
+              </div>`
+            : `<span style="display:flex;align-items:center;gap:6px">${linkIcon}<input class="prop-static" placeholder="Choose a link" readonly style="cursor:default"></span>`}
+        </div></div>
+      </div>
+      <div class="bind-btn ${linkBound?'bound':''}" onclick="openDd(event,'${elId}','Links to')" title="Connect to context">${linkSvg}</div>
+    </div>
+  </div>`;
+
+  let accessHtml = '';
+  const srcBkey = `${elId}|Source`;
+  const srcB = S.bindings[srcBkey];
+  const srcBound = !!srcB;
+  const srcCtx = srcBound ? findSource(srcB.ctxId) : null;
+  const altStaticVal = S.staticValues[`${elId}|Alt Text`] || '';
+  if (srcBound && srcCtx) {
+    const altFieldName = srcB.fieldName + ' / alt';
+    accessHtml += `<div class="prop-wrap">
+      <div class="prop-key" style="display:flex;align-items:center;gap:4px">Alt text <span style="font-size:10px;color:var(--t3);cursor:help" title="Auto-populated from bound image object">ⓘ</span></div>
+      <div class="prop-row bound" style="border-radius:8px">
+        <div class="prop-main"><div class="prop-val">
+          <div class="prop-bound-chip prop-bound-detail">
+            <span class="prop-bound-ctx">${srcCtx.icon} ${srcCtx.name}</span>
+            <span class="prop-bound-field">${altFieldName}</span>
+          </div>
+        </div></div>
+      </div>
+    </div>`;
+  } else {
+    accessHtml += `<div class="prop-wrap">
+      <div class="prop-key" style="display:flex;align-items:center;gap:4px">Alt text <span style="font-size:10px;color:var(--t3);cursor:help" title="Alternative text for screen readers">ⓘ</span></div>
+      <div class="prop-row-wrap">
+        <div class="prop-row">
+          <div class="prop-main"><div class="prop-val">
+            <input class="prop-static" placeholder="e.g., Smiling girl with backpack" value="${altStaticVal}"
+                   oninput="onStaticInput('${elId}','Alt Text',this.value)">
+          </div></div>
+        </div>
+      </div>
+    </div>`;
+  }
+  accessHtml += `<div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0 4px">
+    <div style="display:flex;align-items:center;gap:4px">
+      <span style="font-size:11px;color:var(--t2)">Set as decorative</span>
+      <span style="font-size:10px;color:var(--t3);cursor:help" title="Decorative images are hidden from screen readers">ⓘ</span>
+    </div>
+    <div class="img-toggle" style="width:36px;height:20px;border-radius:10px;background:var(--b1);position:relative;cursor:pointer;flex-shrink:0" onclick="this.classList.toggle('on');this.style.background=this.classList.contains('on')?'var(--acc)':'var(--b1)';this.querySelector('div').style.left=this.classList.contains('on')?'18px':'2px'">
+      <div style="width:16px;height:16px;border-radius:50%;background:white;position:absolute;top:2px;left:2px;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.2)"></div>
+    </div>
+  </div>`;
+
+  html += `</div>`;
+  html += `<div style="border-top:1px solid var(--b1);margin:0 14px"></div>`;
+  html += `<div class="rp-cat ${S.openCats.accessibility ? 'open' : ''}" id="rp-cat-accessibility">
+    <div class="rp-cat-head" onclick="toggleCat('accessibility')">
+      <span class="rp-cat-chevron">›</span>
+      <span class="rp-cat-title">Accessibility</span>
+    </div>
+    <div class="rp-cat-body">${accessHtml}</div>
+  </div>`;
+
+  const visHtml = renderVisibleProp(elId, visibleProp);
   if (visHtml) {
     html += `<div class="rp-cat ${S.openCats.visibility ? 'open' : ''}" id="rp-cat-visibility">
       <div class="rp-cat-head" onclick="toggleCat('visibility')">
@@ -6053,12 +6166,25 @@ function unbind(elId, propKey, e) {
       delete S.bindings[sibBkey];
       applyBindingToCanvas(sibId, propKey, null);
     });
+    const parentRep = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+    if (parentRep) syncRepVisualItems(parentRep);
+  }
+
+  if (def?.type === 'Image' && propKey === 'Source' && S.bindings[`${elId}|Alt Text`]) {
+    delete S.bindings[`${elId}|Alt Text`];
+    if (def.repTemplate) {
+      [1,2,3,4].forEach(i => {
+        const sibId = def.repTemplate + '-' + i;
+        delete S.bindings[`${sibId}|Alt Text`];
+      });
+    }
   }
 
   refreshElementBindTags();
 
   toast('Binding removed');
   updatePropRowDOM(elId, propKey);
+  renderRP();
   if (def?.isMultiState) {
     if (def.views) {
       def.views.forEach((v, i) => { v.name = 'State ' + (i + 1); v.enumValues = []; });
@@ -6562,7 +6688,6 @@ function syncRepVisualItems(repeaterId) {
     const clone = templateItem.cloneNode(true);
     clone.classList.add('rep-visual-clone');
     clone.removeAttribute('id');
-    clone.style.opacity = '0.6';
     clone.style.pointerEvents = 'none';
     clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
     clone.querySelectorAll('.c-el-overlay').forEach(el => el.remove());
@@ -8706,6 +8831,8 @@ function confirmBind(e) {
           applyBindingToCanvas(elId, propKey, itemField, srcId);
           if (def?.repTemplate) {
             applyRepBindingToAll(def.repTemplate, propKey, itemField, srcId);
+            const parentRep = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+            if (parentRep) syncRepVisualItems(parentRep);
           }
         }
         refreshElementBindTags();
@@ -8769,6 +8896,22 @@ function confirmBind(e) {
   }
   if (def?.repTemplate) {
     applyRepBindingToAll(def.repTemplate, propKey, field, srcId);
+    const parentRep = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+    if (parentRep) syncRepVisualItems(parentRep);
+  }
+  if (def?.type === 'Image' && propKey === 'Source' && field.type === 'image') {
+    const altProp = def.props.find(p => p.k === 'Alt Text');
+    if (altProp && !S.bindings[`${elId}|Alt Text`]) {
+      S.bindings[`${elId}|Alt Text`] = {ctxId: srcId, fieldName: fieldName + ' / alt', sample: '"Alt text for ' + fieldName + '"'};
+      if (def.repTemplate) {
+        [1,2,3,4].forEach(i => {
+          const sibId = def.repTemplate + '-' + i;
+          if (sibId !== elId) {
+            S.bindings[`${sibId}|Alt Text`] = {ctxId: srcId, fieldName: fieldName + ' / alt', sample: '"Alt text for ' + fieldName + '"'};
+          }
+        });
+      }
+    }
   }
   closeDd();
   refreshElementBindTags();
@@ -8780,6 +8923,8 @@ function confirmBind(e) {
     S.openCats.properties = true;
     renderRP();
     renderActionBar();
+  } else if (def?.type === 'Image' && propKey === 'Source') {
+    renderRP();
   } else {
     updatePropRowDOM(elId, propKey);
   }
@@ -11446,26 +11591,42 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
   var actionsHtml = isBound
     ? '<span class="prop-bound-ctx" onclick="navToSectionCtx(\'' + elId + '\',event)">' + ctxIcon + ' ' + ctxName + '</span>'
     + '<span class="prop-bound-field">' + fieldName + '<span class="chip-x" onclick="unbind(\'' + elId + '\',\'' + propK + '\',event)">&#x2715;</span></span>'
-    : '<span class="img-ctrl-hint">Static image</span>';
+    : '';
 
   var svg = '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">'
     + '<circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>'
     + '</svg>';
 
+  var editSourceHtml = '';
+  if (isBound && ctx) {
+    var isFunction = (b.ctxId && b.ctxId.indexOf('lib-') === 0) || b.fnHasParams;
+    var src = ctx.source;
+    if (isFunction || src === 'Custom Code') {
+      editSourceHtml = '<div style="display:flex;align-items:center;gap:4px;padding:2px 0 0;font-size:10px;color:var(--t3);font-style:italic">'
+        + '<span style="font-size:9px">ƒ</span> Computed value — edit in code</div>';
+    } else if (src === 'CMS') {
+      editSourceHtml = '<div style="padding:2px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer" onclick="event.stopPropagation()">📝 Edit in CMS</span></div>';
+    } else if (src !== 'System') {
+      editSourceHtml = '<div style="padding:2px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer" onclick="event.stopPropagation()">📝 Edit in ' + src + '</span></div>';
+    }
+  }
+
+  var thumbContent = isBound
+    ? '<img src="' + thumbSrc + '" style="width:100%;height:100%;object-fit:cover;border-radius:5px;display:block;' + blur + '">' + chipHtml
+    : '<div style="width:100%;height:100%;border:2px dashed var(--b1);border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--t3);cursor:pointer">+</div>';
+
   return '<div class="prop-wrap" id="' + rowId + '">'
-    + '<div class="prop-key">' + propK + '</div>'
+    + '<div class="prop-key">Image</div>'
     + '<div class="prop-row img-prop-row' + (isBound?' bound':'') + (isActiveDd?' active-bind':'') + '">'
     + '<div class="img-ctrl' + (isBound?' bound':'') + '">'
-      + '<div class="img-ctrl-thumb">'
-        + '<img src="' + thumbSrc + '" style="width:100%;height:100%;object-fit:cover;border-radius:5px;display:block;' + blur + '">'
-        + chipHtml
-      + '</div>'
+      + '<div class="img-ctrl-thumb">' + thumbContent + '</div>'
       + '<div class="img-ctrl-actions">'
         + actionsHtml
-        + '<div class="bind-btn" onclick="openDd(event,\'' + elId + '\',\'' + propK + '\')" title="Connect to context" style="margin-top:auto">' + svg + '</div>'
+        + '<div class="bind-btn' + (isBound?' bound':'') + '" onclick="openDd(event,\'' + elId + '\',\'' + propK + '\')" title="Connect to context" style="margin-top:auto">' + svg + '</div>'
       + '</div>'
     + '</div>'
   + '</div>'
+  + editSourceHtml
   + '</div>';
 }
 // Initialize bound classes from S.bindings
