@@ -155,6 +155,39 @@ html.dark .et-btn.product-mode-active{color:#a78bfa}
 html.dark .et-btn.product-mode-active::after{background:#a78bfa;box-shadow:0 0 6px #a78bfa80}
 body.product-mode .c-el:hover,body.product-mode .c-section:hover,body.product-mode .c-repeater:hover{outline:2px dashed #7c3aed40;outline-offset:-1px;cursor:help}
 body.product-mode .modal-box:hover{outline:2px dashed #7c3aed40;outline-offset:2px;cursor:help}
+.pm-panel{position:fixed;top:var(--top);left:0;width:280px;height:calc(100vh - var(--top));background:var(--sur);border-right:1px solid var(--b1);z-index:8500;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 20px #00000008}
+.pm-panel.open{transform:translateX(0)}
+.pm-panel-x{background:none;border:none;color:var(--t3);cursor:pointer;font-size:16px;padding:0;line-height:1;transition:.15s}
+.pm-panel-x:hover{color:var(--t1)}
+.pm-panel-head{padding:14px 16px;border-bottom:1px solid var(--b1);display:flex;align-items:center;justify-content:space-between}
+.pm-panel-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#7c3aed;display:flex;align-items:center;gap:6px}
+.pm-panel-count{font-size:10px;padding:1px 7px;border-radius:10px;background:#7c3aed18;color:#7c3aed;font-weight:600}
+.pm-panel-body{flex:1;overflow-y:auto;padding:8px}
+.pm-spec-card{padding:10px 12px;border-radius:8px;border:1px solid var(--b1);background:var(--sur2);margin-bottom:6px;cursor:pointer;transition:.15s}
+.pm-spec-card:hover{border-color:#7c3aed40;background:#7c3aed08}
+.pm-spec-card-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:4px}
+.pm-spec-card-comp{font-size:10px;color:var(--t3);margin-bottom:6px}
+.pm-spec-card-meta{display:flex;align-items:center;gap:6px}
+.pm-spec-card-status{font-size:9px;padding:1px 7px;border-radius:10px;font-weight:600}
+.pm-spec-card-status.implemented{background:#d946a812;color:#d946a8}
+.pm-spec-card-status.in-progress{background:#d9770612;color:#d97706}
+.pm-spec-card-status.planned{background:#3b82f612;color:#3b82f6}
+.pm-spec-card-ver{font-size:9px;color:var(--t3)}
+body.product-mode .has-spec{outline:2px solid #7c3aed60!important;outline-offset:-1px;cursor:pointer!important;position:relative}
+body.product-mode .has-spec::after{content:'📋';position:absolute;top:-8px;right:-8px;width:18px;height:18px;background:#7c3aed;border-radius:50%;font-size:8px;display:flex;align-items:center;justify-content:center;z-index:10;box-shadow:0 1px 4px #7c3aed40;pointer-events:none}
+body.product-mode #dd.has-spec{outline-offset:2px}
+body.product-mode #modal.has-spec{outline-offset:2px}
+.spec-status-wrap{position:relative;display:inline-flex;cursor:pointer}
+.spec-status-wrap:hover{opacity:.85}
+.spec-status-dd{position:absolute;top:100%;left:0;margin-top:4px;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 4px 16px #0002;overflow:hidden;z-index:10;min-width:140px;display:none}
+.spec-status-dd.open{display:block}
+.spec-status-dd-item{padding:6px 12px;font-size:10px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.1s}
+.spec-status-dd-item:hover{background:var(--sur2)}
+.spec-status-dd-item.active{background:var(--acc-d)}
+.spec-status-dd-dot{width:6px;height:6px;border-radius:50%}
+.spec-status-dd-dot.implemented{background:#d946a8}
+.spec-status-dd-dot.in-progress{background:#d97706}
+.spec-status-dd-dot.planned{background:#3b82f6}
 .spec-page{display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9000;background:var(--bg);overflow-y:auto}
 .spec-page.active{display:block}
 .spec-topbar{position:sticky;top:0;z-index:10;background:var(--sur);border-bottom:1px solid var(--b1);padding:10px 24px;display:flex;align-items:center;gap:12px}
@@ -205,7 +238,7 @@ body.product-mode .modal-box:hover{outline:2px dashed #7c3aed40;outline-offset:2
 .spec-demo-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:#22c55e;animation:spec-pulse 1.5s ease-in-out infinite}
 @keyframes spec-pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .spec-demo-body{padding:24px;display:flex;justify-content:center;background:var(--bg);position:relative;min-height:340px}
-.spec-demo-canvas{position:relative;width:460px}
+.spec-demo-canvas{position:relative;width:100%;max-width:520px}
 .spec-demo-step{position:absolute;opacity:0;transition:opacity .4s ease}
 .spec-demo-step.active{opacity:1}
 .spec-demo-timeline{display:flex;align-items:center;gap:0;padding:10px 14px;border-top:1px solid var(--b1);background:var(--sur2)}
@@ -220,6 +253,86 @@ body.product-mode .modal-box:hover{outline:2px dashed #7c3aed40;outline-offset:2
 .spec-demo-btn{padding:4px 14px;border-radius:6px;border:1px solid var(--b2);background:transparent;color:var(--t2);cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;transition:.15s;display:flex;align-items:center;gap:4px}
 .spec-demo-btn:hover{background:var(--sur);color:var(--t1);border-color:var(--b3)}
 .spec-demo-btn.playing{background:var(--acc-d);color:var(--acc);border-color:var(--acc-b)}
+.spec-flow-demo-toggle{display:flex;align-items:center;gap:6px;margin-top:16px;padding:8px 16px;border-radius:8px;border:1px solid var(--b2);background:var(--sur2);color:var(--acc);cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:600;transition:.2s;width:fit-content}
+.spec-flow-demo-toggle:hover{background:var(--acc-d);border-color:var(--acc-b);box-shadow:0 2px 8px rgba(59,130,246,.12)}
+.spec-flow-demo-toggle.active{background:var(--acc-d);border-color:var(--acc);color:var(--acc)}
+.spec-flow-demo-toggle svg{width:14px;height:14px;transition:transform .2s}
+.spec-flow-demo-toggle.active svg{transform:rotate(90deg)}
+.spec-flow-demo-inline{max-height:0;overflow:hidden;transition:max-height .4s ease,opacity .3s ease;opacity:0}
+.spec-flow-demo-inline.open{max-height:800px;opacity:1;margin-top:12px}
+.spec-demo-hub-tabs{display:flex;gap:0;border:1px solid var(--b1);border-radius:10px;overflow:hidden;margin-bottom:16px;background:var(--sur2)}
+.spec-demo-hub-tab{flex:1;padding:10px 8px;text-align:center;font-size:11px;font-weight:500;cursor:pointer;color:var(--t3);transition:.15s;font-family:'DM Sans',sans-serif;border:none;background:transparent;border-right:1px solid var(--b1);white-space:nowrap}
+.spec-demo-hub-tab:last-child{border-right:none}
+.spec-demo-hub-tab:hover{color:var(--t1);background:var(--sur)}
+.spec-demo-hub-tab.active{background:var(--sur);color:var(--acc);font-weight:600;box-shadow:inset 0 -2px 0 var(--acc)}
+.spec-section.collapsible .spec-section-title{cursor:pointer;display:flex;align-items:center;gap:6px}
+.spec-section-chevron{width:14px;height:14px;transition:transform .2s;flex-shrink:0}
+.spec-section.collapsed .spec-section-chevron{transform:rotate(-90deg)}
+.spec-section.collapsed .spec-section-body{display:none}
+.dm{display:flex;gap:8px;width:100%;font-family:'DM Sans',sans-serif;font-size:11px;height:310px;user-select:none}
+.dm-canvas{flex:1;background:var(--bg);border:1px solid var(--b1);border-radius:8px;padding:14px;overflow:hidden;position:relative}
+.dm-canvas-label{font-size:9px;color:var(--t3);margin-bottom:10px;letter-spacing:.3px;text-transform:uppercase;font-weight:600}
+.dm-el{padding:8px 12px;border-radius:6px;border:1px solid var(--b1);background:var(--sur);margin-bottom:6px;position:relative;cursor:default;transition:.15s}
+.dm-el.sel{border-color:var(--acc);box-shadow:0 0 0 2px var(--acc-b)}
+.dm-el.bound{border-color:var(--grn)}
+.dm-el-name{font-size:10px;color:var(--t1);font-weight:500}
+.dm-el-val{font-size:10px;color:var(--t3);margin-top:2px;font-style:italic}
+.dm-el-val.bound{color:var(--grn);font-style:normal;font-family:'DM Mono',monospace;font-size:9px}
+.dm-el-dot{width:5px;height:5px;border-radius:50%;background:var(--grn);position:absolute;top:8px;left:4px}
+.dm-el-tag{position:absolute;top:-8px;left:8px;font-size:7px;padding:1px 6px;border-radius:4px;background:var(--grn-d);color:var(--grn);font-family:'DM Mono',monospace;font-weight:600;white-space:nowrap}
+.dm-section{border:1px dashed var(--b2);border-radius:8px;padding:10px;position:relative}
+.dm-section-pill{position:absolute;top:-8px;left:10px;font-size:7px;padding:1px 6px;border-radius:4px;background:var(--grn-d);border:1px solid var(--grn-b);color:var(--grn);font-family:'DM Mono',monospace;font-weight:600;display:flex;align-items:center;gap:3px}
+.dm-inspector{width:180px;background:var(--sur);border:1px solid var(--b1);border-radius:8px;overflow:hidden;flex-shrink:0;display:flex;flex-direction:column}
+.dm-insp-head{padding:8px 10px;border-bottom:1px solid var(--b1);font-size:10px;font-weight:600;color:var(--t1);background:var(--sur2)}
+.dm-insp-body{padding:8px 10px;flex:1;overflow-y:auto}
+.dm-prop{margin-bottom:8px}
+.dm-prop-label{font-size:9px;font-weight:600;color:var(--t2);margin-bottom:3px}
+.dm-prop-row{display:flex;align-items:center;gap:4px}
+.dm-prop-val{flex:1;padding:4px 8px;border-radius:4px;border:1px solid var(--b1);background:var(--sur2);font-size:9px;color:var(--t2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.dm-prop-val.bound{background:var(--grn-d);border-color:var(--grn-b);color:var(--grn);font-family:'DM Mono',monospace}
+.dm-prop-bind{width:20px;height:20px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;cursor:pointer;flex-shrink:0;border:1px solid var(--b1);background:var(--sur2);color:var(--t3)}
+.dm-prop-bind.active{background:var(--acc-d);border-color:var(--acc-b);color:var(--acc)}
+.dm-prop-bind.bound{background:var(--grn-d);border-color:var(--grn-b);color:var(--grn)}
+.dm-prop-bind.pulse{animation:dm-pulse 1.2s ease-in-out infinite}
+@keyframes dm-pulse{0%,100%{box-shadow:0 0 0 0 var(--acc-b)}50%{box-shadow:0 0 0 4px var(--acc-b)}}
+.dm-connect{width:200px;background:var(--sur);border:1px solid var(--b2);border-radius:10px;box-shadow:0 4px 20px #0002;overflow:hidden;flex-shrink:0;display:flex;flex-direction:column}
+.dm-connect-head{padding:8px 10px;font-size:10px;font-weight:600;color:var(--t2);background:var(--sur2);border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center}
+.dm-connect-x{color:var(--t3);cursor:pointer;font-size:11px}
+.dm-dd-label{padding:6px 10px 2px;font-size:8px;font-weight:600;color:var(--t3);letter-spacing:.4px;text-transform:uppercase;font-family:'DM Mono',monospace}
+.dm-dd-box{margin:2px 8px 6px;padding:5px 8px;border-radius:5px;border:1px solid var(--b1);background:var(--sur2);font-size:10px;color:var(--t2);display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+.dm-dd-box.open{border-color:var(--acc);color:var(--t1)}
+.dm-dd-box.selected{background:var(--sur);color:var(--t1)}
+.dm-dd-box .chevron{font-size:8px;color:var(--t3)}
+.dm-dd-list{margin:0 8px 6px;border-radius:5px;overflow:hidden}
+.dm-dd-item{padding:5px 8px;font-size:10px;color:var(--t2);cursor:pointer;display:flex;align-items:center;gap:5px;transition:.1s}
+.dm-dd-item:hover{background:var(--sur2)}
+.dm-dd-item.sel{background:var(--acc-d);color:var(--acc);font-weight:500}
+.dm-dd-item-type{font-size:8px;color:var(--t3);font-family:'DM Mono',monospace;margin-left:auto}
+.dm-dd-group{padding:5px 8px 2px;font-size:7px;font-weight:600;color:var(--t3);letter-spacing:.4px;text-transform:uppercase;font-family:'DM Mono',monospace}
+.dm-bind-btn{margin:4px 8px 8px;padding:5px;border-radius:5px;border:none;font-size:10px;font-weight:600;font-family:'DM Sans',sans-serif;text-align:center;cursor:pointer;transition:.15s}
+.dm-bind-btn.disabled{background:var(--b1);color:var(--t4);cursor:default}
+.dm-bind-btn.active{background:var(--acc);color:#fff}
+.dm-bind-btn.active.pulse{animation:dm-btn-pulse 1.5s ease-in-out infinite}
+@keyframes dm-btn-pulse{0%,100%{box-shadow:none}50%{box-shadow:0 0 12px var(--acc-b)}}
+.dm-toast{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);padding:5px 14px;border-radius:12px;background:var(--t1);color:var(--bg);font-size:9px;font-weight:500;white-space:nowrap;animation:dm-toast-in .4s ease}
+.dm-toast .check{color:#22c55e}
+@keyframes dm-toast-in{from{opacity:0;transform:translateX(-50%) translateY(8px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+.dm-modal-overlay{position:absolute;inset:0;background:#00000020;display:flex;align-items:center;justify-content:center;border-radius:8px}
+.dm-modal{width:240px;background:var(--sur);border:1px solid var(--b2);border-radius:10px;box-shadow:0 8px 30px #0003;overflow:hidden}
+.dm-modal-head{padding:10px 12px;font-size:11px;font-weight:600;color:var(--t1);border-bottom:1px solid var(--b1);display:flex;justify-content:space-between;align-items:center}
+.dm-modal-body{padding:8px}
+.dm-modal-group{padding:4px 8px 2px;font-size:8px;font-weight:600;color:var(--t3);letter-spacing:.4px;text-transform:uppercase}
+.dm-modal-item{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:6px;cursor:pointer;transition:.1s}
+.dm-modal-item:hover{background:var(--sur2)}
+.dm-modal-item.sel{background:var(--acc-d);border:1px solid var(--acc-b)}
+.dm-modal-check{width:14px;height:14px;border-radius:4px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:9px;color:transparent;flex-shrink:0}
+.dm-modal-item.sel .dm-modal-check{background:var(--acc);border-color:var(--acc);color:#fff}
+.dm-modal-item-name{font-size:10px;color:var(--t1);font-weight:500}
+.dm-modal-item-type{font-size:8px;color:var(--t3);font-family:'DM Mono',monospace}
+.dm-modal-footer{padding:8px;border-top:1px solid var(--b1);display:flex;justify-content:flex-end;gap:6px}
+.dm-modal-btn{padding:4px 12px;border-radius:5px;border:none;font-size:10px;font-family:'DM Sans',sans-serif;cursor:pointer}
+.dm-modal-btn.primary{background:var(--acc);color:#fff;font-weight:600}
+.dm-modal-btn.ghost{background:transparent;color:var(--t3);border:1px solid var(--b1)}
 .tb-ai-btn{padding:4px 10px;border-radius:6px;border:1px solid var(--acc-b);background:var(--acc-d);color:var(--acc);cursor:pointer;font-size:11px;font-family:'DM Sans',sans-serif;font-weight:500;transition:.15s;display:flex;align-items:center;gap:4px}
 .tb-ai-btn:hover{background:var(--acc-b)}
 .tb-ai-btn.active{background:var(--acc);color:#fff;border-color:var(--acc)}
@@ -3179,6 +3292,15 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     </div>
 
+  </div>
+
+  <!-- PRODUCT MODE PANEL -->
+  <div class="pm-panel" id="pm-panel">
+    <div class="pm-panel-head">
+      <div class="pm-panel-title">Product Specs <span class="pm-panel-count" id="pm-panel-count">0</span></div>
+      <button class="pm-panel-x" onclick="document.getElementById('pm-panel').classList.remove('open')" title="Close">✕</button>
+    </div>
+    <div class="pm-panel-body" id="pm-panel-body"></div>
   </div>
 
   <!-- SPEC PAGE OVERLAY -->
@@ -10765,7 +10887,20 @@ const PRODUCT_SPECS = {
         </div>`
       },
       {
+        title: '🎬 Flows Demo',
+        type: 'demo-hub',
+        flows: [
+          { id: 'flow1', label: '1. Pre-Bound Repeater' },
+          { id: 'flow2', label: '2. Filter & Sort' },
+          { id: 'flow3', label: '3. UoU Filter' },
+          { id: 'flow4', label: '4. Another Context' },
+          { id: 'flow5', label: '5. Blank Repeater' },
+          { id: 'flow6', label: '6. Two Repeaters' }
+        ]
+      },
+      {
         title: '🔄 Flow 1 — Add Pre-Bound Repeater',
+        demoId: 'flow1',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">📦</span><div>User drags a pre-bound repeater (e.g., <b>Products Gallery</b>) from the Add Panel onto a section. Behavior depends on whether a matching context already exists on the page.</div></div>
         <table class="spec-table">
@@ -10788,28 +10923,8 @@ const PRODUCT_SPECS = {
         </div>`
       },
       {
-        title: '🎬 Flow 1 Demo — Add Pre-Bound Repeater',
-        type: 'html',
-        content: `<div class="spec-text">Interactive walkthrough of adding a pre-bound repeater when <b>no context exists</b> on the page — context is created on the repeater.</div>
-        <div class="spec-demo-wrap" id="spec-demo">
-          <div class="spec-demo-label">
-            <span>Add Pre-Bound Repeater (No Context on Page)</span>
-            <span class="spec-demo-badge">ANIMATED</span>
-          </div>
-          <div class="spec-demo-body">
-            <div class="spec-demo-canvas" id="spec-demo-canvas"></div>
-          </div>
-          <div class="spec-demo-caption" id="spec-demo-caption">Click Play to start the walkthrough</div>
-          <div class="spec-demo-timeline" id="spec-demo-timeline"></div>
-          <div class="spec-demo-controls">
-            <button class="spec-demo-btn" onclick="specDemoPrev()">← Prev</button>
-            <button class="spec-demo-btn" id="spec-demo-play-btn" onclick="specDemoTogglePlay()">▶ Play</button>
-            <button class="spec-demo-btn" onclick="specDemoNext()">Next →</button>
-          </div>
-        </div>`
-      },
-      {
         title: '🔍 Flow 2 — Filter & Sort Repeater Items',
+        demoId: 'flow2',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">🔍</span><div>Sort and filter are configured on the <b>context instance</b>, not on the repeater directly. Accessed via repeater settings → <b>"Edit context instance"</b> (floating panel).</div></div>
         <table class="spec-table">
@@ -10832,6 +10947,7 @@ const PRODUCT_SPECS = {
       },
       {
         title: '👤 Flow 3 — Add UoU Filter',
+        demoId: 'flow3',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">👤</span><div><b>User-on-User (UoU) interactions</b>: sort, filter, pagination, total items. These require the context to be <b>promoted to section level</b> so external controls can bind to context-level data.</div></div>
         <div class="spec-flow">
@@ -10854,6 +10970,7 @@ const PRODUCT_SPECS = {
       },
       {
         title: '🔀 Flow 4 — Select Another Context',
+        demoId: 'flow4',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">🔀</span><div>User switches the repeater to consume a <b>different context</b> that already exists on the page, instead of its own or current context.</div></div>
         <div class="spec-flow">
@@ -10873,6 +10990,7 @@ const PRODUCT_SPECS = {
       },
       {
         title: '📝 Flow 5 — Add Blank Repeater',
+        demoId: 'flow5',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">📝</span><div>User drags an <b>unconnected repeater</b> (e.g., from Quick Add). It has no context — user can design freely and connect later.</div></div>
         <div class="spec-flow">
@@ -10895,6 +11013,7 @@ const PRODUCT_SPECS = {
       },
       {
         title: '🔲 Flow 6 — Two Repeaters, Different Config',
+        demoId: 'flow6',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">🔲</span><div>Two repeaters on the same section can share the same <b>context type</b> but have <b>different configurations</b> (different sort, filter, page size). Each repeater owns its own context instance.</div></div>
         <div style="display:flex;gap:16px;margin:16px 0">
@@ -11173,12 +11292,74 @@ function getSpecIdForElement(elId) {
 }
 
 function toggleProductMode() {
+  const panel = document.getElementById('pm-panel');
+  if (S.productMode && !panel.classList.contains('open')) {
+    panel.classList.add('open');
+    return;
+  }
   S.productMode = !S.productMode;
   const btn = document.getElementById('product-mode-btn');
   btn.classList.toggle('product-mode-active', S.productMode);
   document.body.classList.toggle('product-mode', S.productMode);
-  toast(S.productMode ? '📋 Product Mode ON — right-click components to view specs' : 'Product Mode OFF', S.productMode);
+  if (S.productMode) {
+    _renderPmPanel();
+    _addSpecIndicators();
+    panel.classList.add('open');
+    toast('📋 Product Mode ON — click highlighted components to view specs');
+  } else {
+    _removeSpecIndicators();
+    panel.classList.remove('open');
+    toast('Product Mode OFF');
+  }
 }
+
+function _renderPmPanel() {
+  const body = document.getElementById('pm-panel-body');
+  const count = document.getElementById('pm-panel-count');
+  const keys = Object.keys(PRODUCT_SPECS);
+  count.textContent = keys.length;
+  let html = '';
+  keys.forEach(function(id) {
+    const s = PRODUCT_SPECS[id];
+    html += '<div class="pm-spec-card" onclick="openSpecPage(\'' + id + '\')">' +
+      '<div class="pm-spec-card-title">' + s.title + '</div>' +
+      '<div class="pm-spec-card-comp">' + s.component + '</div>' +
+      '<div class="pm-spec-card-meta">' +
+        '<span class="pm-spec-card-status ' + s.status + '">' + s.status.charAt(0).toUpperCase() + s.status.slice(1) + '</span>' +
+        '<span class="pm-spec-card-ver">v' + s.version + '</span>' +
+      '</div>' +
+    '</div>';
+  });
+  body.innerHTML = html;
+}
+
+function _addSpecIndicators() {
+  document.querySelectorAll('.c-repeater').forEach(function(el) {
+    if (getSpecIdForElement(el.id)) el.classList.add('has-spec');
+  });
+  var dd = document.getElementById('dd');
+  if (dd) dd.classList.add('has-spec');
+  var modal = document.getElementById('modal');
+  if (modal) modal.classList.add('has-spec');
+}
+
+function _removeSpecIndicators() {
+  document.querySelectorAll('.has-spec').forEach(function(el) {
+    el.classList.remove('has-spec');
+  });
+}
+
+document.addEventListener('click', function(e) {
+  if (!S.productMode) return;
+  var el = e.target.closest('.has-spec');
+  if (!el) return;
+  var specId = getSpecIdForElement(el.id);
+  if (specId) {
+    e.preventDefault();
+    e.stopPropagation();
+    openSpecPage(specId);
+  }
+}, true);
 
 function openSpecFromContextMenu() {
   document.getElementById('canvas-ctx-menu').classList.remove('open');
@@ -11197,22 +11378,31 @@ function openSpecPage(specId) {
   S.specPageId = specId;
   S.preSpecPage = S.currentPage;
 
+  document.getElementById('pm-panel').classList.remove('open');
   document.getElementById('spec-topbar-name').textContent = spec.title;
   document.getElementById('spec-body').innerHTML = renderSpecContent(spec);
   updateSpecElementInfo(specId);
   document.getElementById('spec-page').classList.add('active');
   document.querySelector('.topbar').style.display = 'none';
   document.getElementById('action-bar').style.display = 'none';
-  setTimeout(specDemoInit, 100);
+  setTimeout(function() {
+    specDemoInit();
+    specDemoScopedInit('hub', specId + ':flow1');
+  }, 100);
 }
 
 function closeSpecPage() {
   S.specPageOpen = false;
   specDemoStopPlay();
+  Object.keys(_scopedDemoState).forEach(function(k) { specDemoScopedStopPlay(k); });
   document.getElementById('spec-page').classList.remove('active');
   document.querySelector('.topbar').style.display = '';
   document.getElementById('action-bar').style.display = '';
   S.specPageId = null;
+  if (S.productMode) {
+    document.getElementById('pm-panel').classList.add('open');
+    _addSpecIndicators();
+  }
 }
 
 function updateSpecElementInfo(specId) {
@@ -11244,11 +11434,20 @@ function updateSpecElementInfo(specId) {
 }
 
 function renderSpecContent(spec) {
+  const statusLabel = spec.status.replace(/-/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
   let html = `<div class="spec-hero">
     <h1>${spec.title}</h1>
     <div class="spec-hero-sub">${spec.component}</div>
     <div class="spec-meta">
-      <div class="spec-meta-item"><span class="spec-status ${spec.status}">${spec.status.charAt(0).toUpperCase() + spec.status.slice(1)}</span></div>
+      <div class="spec-meta-item spec-status-wrap" onclick="toggleSpecStatusDd(event)">
+        <span class="spec-status ${spec.status}" id="spec-status-label">${statusLabel}</span>
+        <span style="font-size:8px;color:var(--t3)">▾</span>
+        <div class="spec-status-dd" id="spec-status-dd">
+          <div class="spec-status-dd-item${spec.status === 'implemented' ? ' active' : ''}" onclick="setSpecStatus(event,'implemented')"><span class="spec-status-dd-dot implemented"></span>Implemented</div>
+          <div class="spec-status-dd-item${spec.status === 'in-progress' ? ' active' : ''}" onclick="setSpecStatus(event,'in-progress')"><span class="spec-status-dd-dot in-progress"></span>In Progress</div>
+          <div class="spec-status-dd-item${spec.status === 'planned' ? ' active' : ''}" onclick="setSpecStatus(event,'planned')"><span class="spec-status-dd-dot planned"></span>Planned</div>
+        </div>
+      </div>
       <div class="spec-meta-item">👤 ${spec.owner}</div>
       <div class="spec-meta-item">📅 ${spec.lastUpdated}</div>
       <div class="spec-meta-item">v${spec.version}</div>
@@ -11256,10 +11455,36 @@ function renderSpecContent(spec) {
   </div>`;
 
   spec.sections.forEach(sec => {
-    html += `<div class="spec-section">`;
-    html += `<div class="spec-section-title">${sec.title}</div>`;
+    const isFlow = /Flow \d/.test(sec.title);
+    const chevron = `<svg class="spec-section-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6l4 4 4-4"/></svg>`;
+    html += `<div class="spec-section${isFlow ? ' collapsible collapsed' : ''}">`;
+    html += `<div class="spec-section-title"${isFlow ? ' onclick="this.parentElement.classList.toggle(\'collapsed\')"' : ''}>${sec.title}${isFlow ? chevron : ''}</div>`;
+    html += `<div class="spec-section-body">`;
 
-    if (sec.type === 'text') {
+    if (sec.type === 'demo-hub') {
+      html += `<div class="spec-text">Switch between flows to see animated walkthroughs of each interaction.</div>`;
+      html += `<div class="spec-demo-hub-tabs" id="spec-demo-hub-tabs">`;
+      sec.flows.forEach((f, i) => {
+        html += `<button class="spec-demo-hub-tab${i === 0 ? ' active' : ''}" data-flow="${f.id}" onclick="specDemoHubSwitch('${f.id}')">${f.label}</button>`;
+      });
+      html += `</div>`;
+      html += `<div class="spec-demo-wrap" id="spec-demo-hub">
+          <div class="spec-demo-label">
+            <span id="spec-demo-hub-label">${sec.flows[0].label}</span>
+            <span class="spec-demo-badge">ANIMATED</span>
+          </div>
+          <div class="spec-demo-body">
+            <div class="spec-demo-canvas" id="spec-demo-hub-canvas"></div>
+          </div>
+          <div class="spec-demo-caption" id="spec-demo-hub-caption">Click Play to start the walkthrough</div>
+          <div class="spec-demo-timeline" id="spec-demo-hub-timeline"></div>
+          <div class="spec-demo-controls">
+            <button class="spec-demo-btn" onclick="specDemoScopedPrev('hub')">← Prev</button>
+            <button class="spec-demo-btn" id="spec-demo-hub-play-btn" onclick="specDemoScopedTogglePlay('hub')">▶ Play</button>
+            <button class="spec-demo-btn" onclick="specDemoScopedNext('hub')">Next →</button>
+          </div>
+        </div>`;
+    } else if (sec.type === 'text') {
       html += `<div class="spec-text">${sec.content}</div>`;
     } else if (sec.type === 'list') {
       html += `<ul class="spec-list">${sec.items.map(i => `<li>${i}</li>`).join('')}</ul>`;
@@ -11271,11 +11496,73 @@ function renderSpecContent(spec) {
       html += sec.content;
     }
 
-    html += `</div>`;
+    if (sec.demoId) {
+      const stepsKey = S.specPageId + ':' + sec.demoId;
+      const hasSteps = SPEC_DEMO_STEPS_MAP[stepsKey] && SPEC_DEMO_STEPS_MAP[stepsKey].length > 0;
+      if (hasSteps) {
+        html += `<button class="spec-flow-demo-toggle" id="spec-demo-toggle-${sec.demoId}" onclick="specFlowDemoToggle('${sec.demoId}')">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4l4 4-4 4"/></svg>
+          <span>Show Demo</span>
+        </button>`;
+        html += `<div class="spec-flow-demo-inline" id="spec-demo-inline-${sec.demoId}">
+          <div class="spec-demo-wrap">
+            <div class="spec-demo-label">
+              <span>${sec.title.replace(/^[^\s]+\s/, '')}</span>
+              <span class="spec-demo-badge">ANIMATED</span>
+            </div>
+            <div class="spec-demo-body">
+              <div class="spec-demo-canvas" id="spec-demo-${sec.demoId}-canvas"></div>
+            </div>
+            <div class="spec-demo-caption" id="spec-demo-${sec.demoId}-caption">Click Play to start the walkthrough</div>
+            <div class="spec-demo-timeline" id="spec-demo-${sec.demoId}-timeline"></div>
+            <div class="spec-demo-controls">
+              <button class="spec-demo-btn" onclick="specDemoScopedPrev('${sec.demoId}')">← Prev</button>
+              <button class="spec-demo-btn" id="spec-demo-${sec.demoId}-play-btn" onclick="specDemoScopedTogglePlay('${sec.demoId}')">▶ Play</button>
+              <button class="spec-demo-btn" onclick="specDemoScopedNext('${sec.demoId}')">Next →</button>
+            </div>
+          </div>
+        </div>`;
+      }
+    }
+
+    html += `</div></div>`;
   });
 
   return html;
 }
+
+function toggleSpecStatusDd(e) {
+  e.stopPropagation();
+  var dd = document.getElementById('spec-status-dd');
+  if (dd) dd.classList.toggle('open');
+}
+
+function setSpecStatus(e, status) {
+  e.stopPropagation();
+  if (!S.specPageId) return;
+  var spec = PRODUCT_SPECS[S.specPageId];
+  if (!spec) return;
+  spec.status = status;
+  var label = document.getElementById('spec-status-label');
+  if (label) {
+    label.className = 'spec-status ' + status;
+    label.textContent = status.replace(/-/g, ' ').replace(/\b\w/g, function(c) { return c.toUpperCase(); });
+  }
+  var dd = document.getElementById('spec-status-dd');
+  if (dd) {
+    dd.classList.remove('open');
+    dd.querySelectorAll('.spec-status-dd-item').forEach(function(item) {
+      item.classList.toggle('active', item.getAttribute('onclick').indexOf(status) > -1);
+    });
+  }
+  if (S.productMode) _renderPmPanel();
+  toast('Status updated to ' + status.replace(/-/g, ' '));
+}
+
+document.addEventListener('click', function() {
+  var dd = document.getElementById('spec-status-dd');
+  if (dd) dd.classList.remove('open');
+});
 
 /* ── SPEC DEMO ANIMATION ── */
 const SPEC_DEMO_STEPS_MAP = {};
@@ -11283,622 +11570,419 @@ const SPEC_DEMO_STEPS_MAP = {};
 SPEC_DEMO_STEPS_MAP['connect-value-panel'] = [
   {
     caption: '<b>Step 1:</b> User clicks the ⚡ bind icon on the "Value" property row in the inspector',
-    render: function(ctx) {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Inspector panel bg -->
-        <rect x="220" y="0" width="240" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="240" y="24" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text>
-        <rect x="232" y="36" width="216" height="44" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="244" y="54" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Value</text>
-        <text x="244" y="70" font-size="10" font-family="DM Sans" fill="#8888a8" font-style="italic">This is a Title</text>
-        <!-- Bind icon with pulse -->
-        <rect x="420" y="44" width="24" height="24" rx="5" fill="#3b82f615" stroke="#3b82f640" stroke-width="1.5">
-          <animate attributeName="stroke-width" values="1.5;3;1.5" dur="1.2s" repeatCount="indefinite"/>
-        </rect>
-        <circle cx="432" cy="56" r="8" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity=".3">
-          <animate attributeName="r" values="8;16;8" dur="1.2s" repeatCount="indefinite"/>
-          <animate attributeName="opacity" values=".3;0;.3" dur="1.2s" repeatCount="indefinite"/>
-        </circle>
-        <text x="428" y="60" font-size="12" font-family="DM Sans" fill="#3b82f6">⚡</text>
-        <!-- Cursor -->
-        <path d="M438 64 L438 76 L442 72 L447 78" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1">
-          <animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/>
-        </path>
-        <!-- Canvas hint -->
-        <rect x="10" y="10" width="195" height="300" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="30" y="35" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <rect x="30" y="50" width="155" height="24" rx="4" fill="#f5f5f8"/>
-        <text x="42" y="66" font-size="11" font-family="DM Sans" fill="#4a4a6a">This is a Title</text>
-        <rect x="30" y="82" width="155" height="80" rx="4" fill="#f0f0f5" stroke="#e0e0ea"/>
-        <rect x="30" y="172" width="155" height="16" rx="4" fill="#f5f5f8"/>
-        <rect x="30" y="194" width="100" height="16" rx="4" fill="#f5f5f8"/>
-      </svg>`;
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">☁️ Weather App</div>' +
+            '<div class="dm-el"><div class="dm-el-name">City Text</div><div class="dm-el-val">Tel Aviv</div></div>' +
+            '<div class="dm-el sel"><div class="dm-el-name">Temperature</div><div class="dm-el-val">This is a Title</div></div>' +
+            '<div class="dm-el"><div class="dm-el-name">Condition</div><div class="dm-el-val">Sunny</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Temperature</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">Value</div><div class="dm-prop-row"><div class="dm-prop-val">This is a Title</div><div class="dm-prop-bind pulse active" title="Connect data">⚡</div></div></div>' +
+          '<div class="dm-prop"><div class="dm-prop-label">Visible</div><div class="dm-prop-row"><div class="dm-prop-val">true</div><div class="dm-prop-bind">⚡</div></div></div>' +
+        '</div></div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 2:</b> The Connect panel opens — source dropdown is ready to select',
-    render: function(ctx) {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <rect x="220" y="0" width="240" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea" opacity=".5"/>
-        <text x="240" y="24" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600" opacity=".5">Properties</text>
-        <!-- Connect panel -->
-        <rect x="100" y="20" width="240" height="180" rx="10" fill="#f0f0f5" stroke="#c8c8d8" filter="url(#shadow1)"/>
-        <defs><filter id="shadow1" x="-20" y="-10" width="300" height="220"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-opacity=".1"/></filter></defs>
-        <rect x="100" y="20" width="240" height="32" rx="10" fill="#e8e8f0"/>
-        <rect x="100" y="42" width="240" height="10" fill="#e8e8f0"/>
-        <text x="116" y="42" font-size="11" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Connect · Value</text>
-        <text x="320" y="42" font-size="12" font-family="DM Sans" fill="#8888a8">✕</text>
-        <text x="116" y="72" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT SOURCE</text>
-        <rect x="112" y="78" width="216" height="30" rx="6" stroke="#c8c8d8" fill="white"/>
-        <text x="124" y="97" font-size="11" font-family="DM Sans" fill="#8888a8">Select…</text>
-        <text x="308" y="97" font-size="9" fill="#8888a8">▾</text>
-        <text x="116" y="126" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT FIELD</text>
-        <rect x="112" y="132" width="216" height="30" rx="6" stroke="#c8c8d8" fill="white" opacity=".5"/>
-        <text x="124" y="151" font-size="11" font-family="DM Sans" fill="#b0b0c8">Pick source first</text>
-        <rect x="112" y="174" width="216" height="22" rx="6" fill="#c8c8d8"/>
-        <text x="184" y="189" font-size="10" font-family="DM Sans" fill="white">✓ Bind</text>
-        <!-- Pulse on source box -->
-        <rect x="112" y="78" width="216" height="30" rx="6" fill="none" stroke="#3b82f6" stroke-width="1.5" opacity=".6">
-          <animate attributeName="opacity" values=".6;.2;.6" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <!-- Canvas dimmed -->
-        <rect x="10" y="10" width="80" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/>
-      </svg>`;
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas" style="opacity:.4"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">☁️ Weather App</div>' +
+            '<div class="dm-el"><div class="dm-el-name">City Text</div></div>' +
+            '<div class="dm-el sel"><div class="dm-el-name">Temperature</div></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-connect"><div class="dm-connect-head">Connect · Value <span class="dm-connect-x">✕</span></div>' +
+          '<div class="dm-dd-label">Select Source</div>' +
+          '<div class="dm-dd-box" style="border-color:var(--acc)"><span style="color:var(--t3)">Select…</span><span class="chevron">▾</span></div>' +
+          '<div class="dm-dd-label" style="opacity:.4">Select Field</div>' +
+          '<div class="dm-dd-box" style="opacity:.4"><span style="color:var(--t4)">Pick source first</span><span class="chevron">▾</span></div>' +
+          '<div class="dm-bind-btn disabled">✓ Bind</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 3:</b> User opens the source dropdown and selects <b>"Weather App"</b>',
-    render: function(ctx) {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <rect x="220" y="0" width="240" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea" opacity=".5"/>
-        <!-- Connect panel -->
-        <rect x="100" y="20" width="240" height="260" rx="10" fill="#f0f0f5" stroke="#c8c8d8" filter="url(#shadow2)"/>
-        <defs><filter id="shadow2" x="-20" y="-10" width="300" height="300"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-opacity=".1"/></filter></defs>
-        <rect x="100" y="20" width="240" height="32" rx="10" fill="#e8e8f0"/>
-        <rect x="100" y="42" width="240" height="10" fill="#e8e8f0"/>
-        <text x="116" y="42" font-size="11" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Connect · Value</text>
-        <text x="320" y="42" font-size="12" font-family="DM Sans" fill="#8888a8">✕</text>
-        <text x="116" y="72" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT SOURCE</text>
-        <rect x="112" y="78" width="216" height="30" rx="6" stroke="#3b82f6" stroke-width="1.5" fill="white"/>
-        <text x="124" y="97" font-size="11" font-family="DM Sans" fill="#4a4a6a">Select…</text>
-        <text x="308" y="96" font-size="9" fill="#3b82f6">▴</text>
-        <!-- Dropdown open -->
-        <text x="118" y="124" font-size="8" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">CONTEXTS</text>
-        <rect x="112" y="129" width="216" height="28" rx="4" fill="#3b82f612" stroke="#3b82f640"/>
-        <text x="126" y="147" font-size="11" font-family="DM Sans" fill="#3b82f6">☁️ Weather App</text>
-        <text x="126" y="158" font-size="9" font-family="DM Sans" fill="#8888a8">Weather App · object</text>
-        <rect x="112" y="162" width="216" height="28" rx="4" fill="transparent"/>
-        <text x="126" y="180" font-size="11" font-family="DM Sans" fill="#4a4a6a">📝 CMS Articles</text>
-        <text x="126" y="191" font-size="9" font-family="DM Sans" fill="#8888a8">CMS Collection · array</text>
-        <text x="118" y="210" font-size="8" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">FUNCTION LIBRARIES</text>
-        <rect x="112" y="215" width="216" height="28" rx="4" fill="transparent"/>
-        <text x="126" y="233" font-size="11" font-family="DM Sans" fill="#4a4a6a">🔧 Formatters</text>
-        <!-- Cursor on Weather App -->
-        <path d="M200 148 L200 160 L204 156 L209 162" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1"/>
-        <rect x="10" y="10" width="80" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/>
-      </svg>`;
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div></div>' +
+        '<div class="dm-connect"><div class="dm-connect-head">Connect · Value <span class="dm-connect-x">✕</span></div>' +
+          '<div class="dm-dd-label">Select Source</div>' +
+          '<div class="dm-dd-box open"><span>Select…</span><span class="chevron" style="color:var(--acc)">▴</span></div>' +
+          '<div class="dm-dd-list">' +
+            '<div class="dm-dd-group">Contexts</div>' +
+            '<div class="dm-dd-item sel">☁️ Weather App <span class="dm-dd-item-type">object</span></div>' +
+            '<div class="dm-dd-item">📝 CMS Articles <span class="dm-dd-item-type">array</span></div>' +
+            '<div class="dm-dd-group">Function Libraries</div>' +
+            '<div class="dm-dd-item">🔧 Formatters</div>' +
+          '</div>' +
+          '<div class="dm-bind-btn disabled">✓ Bind</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 4:</b> Source selected — field dropdown auto-opens showing compatible fields',
-    render: function(ctx) {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <rect x="220" y="0" width="240" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea" opacity=".5"/>
-        <!-- Connect panel -->
-        <rect x="100" y="20" width="240" height="270" rx="10" fill="#f0f0f5" stroke="#c8c8d8" filter="url(#shadow3)"/>
-        <defs><filter id="shadow3" x="-20" y="-10" width="300" height="310"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-opacity=".1"/></filter></defs>
-        <rect x="100" y="20" width="240" height="32" rx="10" fill="#e8e8f0"/>
-        <rect x="100" y="42" width="240" height="10" fill="#e8e8f0"/>
-        <text x="116" y="42" font-size="11" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Connect · Value</text>
-        <text x="320" y="42" font-size="12" font-family="DM Sans" fill="#8888a8">✕</text>
-        <text x="116" y="72" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT SOURCE</text>
-        <rect x="112" y="78" width="216" height="30" rx="6" stroke="#c8c8d8" fill="#f8f8fc"/>
-        <text x="126" y="97" font-size="11" font-family="DM Sans" fill="#4a4a6a">☁️ Weather App</text>
-        <text x="308" y="97" font-size="9" fill="#8888a8">▾</text>
-        <text x="116" y="126" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT FIELD</text>
-        <rect x="112" y="132" width="216" height="30" rx="6" stroke="#3b82f6" stroke-width="1.5" fill="white"/>
-        <text x="124" y="151" font-size="11" font-family="DM Sans" fill="#8888a8">Select…</text>
-        <text x="308" y="150" font-size="9" fill="#3b82f6">▴</text>
-        <!-- Field dropdown -->
-        <rect x="112" y="168" width="216" height="26" rx="4" fill="transparent"/>
-        <text x="126" y="185" font-size="11" font-family="DM Sans" fill="#4a4a6a">city</text>
-        <text x="286" y="185" font-size="9" font-family="DM Mono" fill="#8888a8" text-anchor="end">string</text>
-        <rect x="112" y="194" width="216" height="26" rx="4" fill="#3b82f608" stroke="#3b82f630"/>
-        <text x="126" y="211" font-size="11" font-family="DM Sans" fill="#3b82f6" font-weight="500">temperature</text>
-        <text x="286" y="211" font-size="9" font-family="DM Mono" fill="#3b82f6" text-anchor="end">number</text>
-        <rect x="112" y="220" width="216" height="26" rx="4" fill="transparent"/>
-        <text x="126" y="237" font-size="11" font-family="DM Sans" fill="#4a4a6a">condition</text>
-        <text x="286" y="237" font-size="9" font-family="DM Mono" fill="#8888a8" text-anchor="end">enum</text>
-        <rect x="112" y="246" width="216" height="26" rx="4" fill="transparent"/>
-        <text x="126" y="263" font-size="11" font-family="DM Sans" fill="#4a4a6a">humidity</text>
-        <text x="286" y="263" font-size="9" font-family="DM Mono" fill="#8888a8" text-anchor="end">number</text>
-        <!-- Cursor on temperature -->
-        <path d="M230 212 L230 224 L234 220 L239 226" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1"/>
-        <rect x="10" y="10" width="80" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/>
-      </svg>`;
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div></div>' +
+        '<div class="dm-connect"><div class="dm-connect-head">Connect · Value <span class="dm-connect-x">✕</span></div>' +
+          '<div class="dm-dd-label">Select Source</div>' +
+          '<div class="dm-dd-box selected">☁️ Weather App <span class="chevron">▾</span></div>' +
+          '<div class="dm-dd-label">Select Field</div>' +
+          '<div class="dm-dd-box open"><span style="color:var(--t3)">Select…</span><span class="chevron" style="color:var(--acc)">▴</span></div>' +
+          '<div class="dm-dd-list">' +
+            '<div class="dm-dd-item">city <span class="dm-dd-item-type">string</span></div>' +
+            '<div class="dm-dd-item sel">temperature <span class="dm-dd-item-type">number</span></div>' +
+            '<div class="dm-dd-item">condition <span class="dm-dd-item-type">enum</span></div>' +
+            '<div class="dm-dd-item">humidity <span class="dm-dd-item-type">number</span></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 5:</b> Field "temperature" selected — <b>Bind button activates</b>',
-    render: function(ctx) {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <rect x="220" y="0" width="240" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea" opacity=".5"/>
-        <!-- Connect panel -->
-        <rect x="100" y="20" width="240" height="190" rx="10" fill="#f0f0f5" stroke="#c8c8d8" filter="url(#shadow4)"/>
-        <defs><filter id="shadow4" x="-20" y="-10" width="300" height="230"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-opacity=".1"/></filter></defs>
-        <rect x="100" y="20" width="240" height="32" rx="10" fill="#e8e8f0"/>
-        <rect x="100" y="42" width="240" height="10" fill="#e8e8f0"/>
-        <text x="116" y="42" font-size="11" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Connect · Value</text>
-        <text x="320" y="42" font-size="12" font-family="DM Sans" fill="#8888a8">✕</text>
-        <text x="116" y="72" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT SOURCE</text>
-        <rect x="112" y="78" width="216" height="30" rx="6" stroke="#c8c8d8" fill="#f8f8fc"/>
-        <text x="126" y="97" font-size="11" font-family="DM Sans" fill="#4a4a6a">☁️ Weather App</text>
-        <text x="308" y="97" font-size="9" fill="#8888a8">▾</text>
-        <text x="116" y="126" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.5">SELECT FIELD</text>
-        <rect x="112" y="132" width="216" height="30" rx="6" stroke="#3b82f6" stroke-width="1.5" fill="#3b82f608"/>
-        <text x="126" y="151" font-size="11" font-family="DM Sans" fill="#3b82f6">temperature</text>
-        <text x="308" y="151" font-size="9" fill="#8888a8">▾</text>
-        <!-- Bind button active -->
-        <rect x="112" y="176" width="216" height="28" rx="6" fill="#3b82f6">
-          <animate attributeName="fill" values="#3b82f6;#2563eb;#3b82f6" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <text x="168" y="194" font-size="11" font-family="DM Sans" fill="white" font-weight="500">✓ Bind · temperature</text>
-        <!-- Cursor approaching bind -->
-        <path d="M260 200 L260 212 L264 208 L269 214" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1">
-          <animateTransform attributeName="transform" type="translate" values="0,0;0,-6;0,0" dur="1s" repeatCount="indefinite"/>
-        </path>
-        <rect x="10" y="10" width="80" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/>
-      </svg>`;
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div></div>' +
+        '<div class="dm-connect"><div class="dm-connect-head">Connect · Value <span class="dm-connect-x">✕</span></div>' +
+          '<div class="dm-dd-label">Select Source</div>' +
+          '<div class="dm-dd-box selected">☁️ Weather App <span class="chevron">▾</span></div>' +
+          '<div class="dm-dd-label">Select Field</div>' +
+          '<div class="dm-dd-box selected" style="color:var(--acc)">temperature <span class="chevron">▾</span></div>' +
+          '<div class="dm-bind-btn active pulse">✓ Bind · temperature</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 6:</b> Binding confirmed! Canvas element now shows <b>bound data</b> with visual indicators',
-    render: function(ctx) {
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">☁️ Weather App</div>' +
+            '<div class="dm-el bound"><div class="dm-el-name">City Text</div><div class="dm-el-val bound">Weather · city</div><div class="dm-el-dot"></div></div>' +
+            '<div class="dm-el bound sel"><div class="dm-el-tag">☁️ Weather · temperature</div><div class="dm-el-dot"></div><div class="dm-el-name">Temperature</div><div class="dm-el-val bound">"24°C"</div></div>' +
+            '<div class="dm-el"><div class="dm-el-name">Condition</div><div class="dm-el-val">Sunny</div></div>' +
+          '</div>' +
+          '<div class="dm-toast"><span class="check">✓</span> Bound to temperature</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Temperature</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">Value</div><div class="dm-prop-row"><div class="dm-prop-val bound">temperature</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div class="dm-prop"><div class="dm-prop-label">Visible</div><div class="dm-prop-row"><div class="dm-prop-val">true</div><div class="dm-prop-bind">⚡</div></div></div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow1'] = [
+  {
+    caption: '<b>Step 1:</b> User drags a <b>Products Gallery</b> (pre-bound repeater) from the Add Panel',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section" style="border-style:solid;min-height:120px;display:flex;align-items:center;justify-content:center">' +
+            '<div style="text-align:center;color:var(--t3);font-size:10px"><div style="font-size:20px;margin-bottom:6px;opacity:.4">📦</div>Drop repeater here</div>' +
+          '</div>' +
+          '<div style="margin-top:10px;padding:8px 12px;background:var(--acc-d);border:1px dashed var(--acc-b);border-radius:8px;font-size:10px;color:var(--acc);text-align:center;font-weight:500">🖱️ Dragging: Products Gallery</div>' +
+        '</div>' +
+        '<div class="dm-inspector" style="width:140px"><div class="dm-insp-head">Add Elements</div><div class="dm-insp-body" style="font-size:10px;color:var(--t2)">' +
+          '<div style="padding:6px 0;border-bottom:1px solid var(--b1);font-weight:500">📦 Repeater</div>' +
+          '<div style="padding:6px 0;border-bottom:1px solid var(--b1);font-weight:500;color:var(--acc);position:relative">🛍️ Products Gallery<svg viewBox="-3 -1 12 17" style="position:absolute;right:-6px;top:4px;width:14px;height:18px"><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/></path></svg></div>' +
+          '<div style="padding:6px 0;font-weight:500">📋 Blog Feed</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 2:</b> Repeater dropped — system creates <b>context on the repeater</b> and auto-binds Items',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Repeater · Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Item 1</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Item 2</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Item 3</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Repeater</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">Items</div><div class="dm-prop-row"><div class="dm-prop-val bound">Stores · products</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:5px 0;font-size:9px;color:#22c55e;display:flex;align-items:center;gap:4px;position:relative">✓ Auto-bound to context<svg viewBox="-3 -1 12 17" style="position:absolute;right:-14px;top:2px;width:14px;height:18px"><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/></path></svg></div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 3:</b> Repeater shows <b>live data</b> — user can now bind inner elements to item fields',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound sel" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Yoga Mat"</div></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Yoga Mat"</div></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Title</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">Value</div><div class="dm-prop-row"><div class="dm-prop-val bound">Stores · name</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:4px 0;font-size:8px;color:var(--acc);display:flex;align-items:center;gap:3px;position:relative"><span style="font-size:7px;padding:1px 5px;background:var(--acc-d);border:1px solid var(--acc-b);border-radius:3px;font-family:\'DM Mono\',monospace">TEMPLATE</span> Scoped to repeater item<svg viewBox="-3 -1 12 17" style="position:absolute;right:-14px;top:0;width:14px;height:18px"><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/></path></svg></div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow2'] = [
+  {
+    caption: '<b>Step 1:</b> Select the repeater and open <b>context settings</b> from the inspector',
+    render: function() {
       return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
         <rect x="30" y="10" width="260" height="300" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="50" y="35" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <!-- Element with bound state -->
-        <rect x="50" y="50" width="220" height="36" rx="6" fill="white" stroke="#d946a8" stroke-width="1.5" stroke-dasharray="0">
-          <animate attributeName="stroke-dasharray" values="10,5;0,0;0,0" dur="1s" fill="freeze" repeatCount="1"/>
+        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
+        <rect x="46" y="48" width="228" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
+        <rect x="56" y="70" width="208" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="2">
+          <animate attributeName="stroke-width" values="2;3;2" dur="1.2s" repeatCount="indefinite"/>
         </rect>
-        <!-- Bound dot -->
-        <circle cx="60" cy="68" r="4" fill="#d946a8">
-          <animate attributeName="r" values="0;4;4" dur=".6s" fill="freeze"/>
-        </circle>
-        <!-- Bind tag -->
-        <rect x="70" y="53" width="120" height="14" rx="3" fill="#d946a812">
+        <rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"/>
+        <text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 CMS · Articles</text>
+        <rect x="68" y="86" width="184" height="38" rx="5" fill="white" stroke="#e0e0ea"/>
+        <text x="78" y="104" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Zero-Waste Kitchen Tips</text>
+        <rect x="68" y="130" width="184" height="38" rx="5" fill="white" stroke="#e0e0ea"/>
+        <text x="78" y="148" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">AI in Daily Life</text>
+        <rect x="68" y="174" width="184" height="38" rx="5" fill="white" stroke="#e0e0ea"/>
+        <text x="78" y="192" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Beginner Yoga Guide</text>
+        <rect x="68" y="218" width="184" height="38" rx="5" fill="white" stroke="#e0e0ea"/>
+        <text x="78" y="236" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Remote Work Setup</text>
+        <rect x="310" y="10" width="140" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
+        <text x="322" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Repeater Settings</text>
+        <text x="322" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a">Context</text>
+        <rect x="322" y="58" width="116" height="26" rx="6" fill="#10b98112" stroke="#10b98140">
+          <animate attributeName="stroke-width" values="1;2;1" dur="1s" repeatCount="indefinite"/>
+        </rect>
+        <text x="332" y="75" font-size="9" font-family="DM Sans" fill="#10b981" font-weight="500">Edit context instance →</text>
+        <g transform="translate(432,72)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g>
+      </svg>`;
+    }
+  },
+  {
+    caption: '<b>Step 2:</b> Context settings panel opens — add a <b>Sort rule</b>: Title A→Z',
+    render: function() {
+      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <rect x="10" y="10" width="220" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".4"/>
+        <text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8" opacity=".4">Canvas (dimmed)</text>
+        <rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/>
+        <text x="256" y="34" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Context · CMS Articles</text>
+        <text x="256" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text>
+        <rect x="256" y="64" width="180" height="36" rx="6" fill="#f5f5f8" stroke="#e0e0ea">
+          <animate attributeName="stroke" values="#e0e0ea;#3b82f6;#e0e0ea" dur="1.5s" repeatCount="indefinite"/>
+        </rect>
+        <text x="266" y="80" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Field: title</text>
+        <text x="266" y="94" font-size="9" font-family="DM Sans" fill="#3b82f6">Direction: A → Z</text>
+        <text x="256" y="120" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text>
+        <rect x="256" y="128" width="180" height="24" rx="6" fill="#f5f5f8" stroke="#e0e0ea" stroke-dasharray="4 2"/>
+        <text x="266" y="144" font-size="9" font-family="DM Sans" fill="#b0b0c8">No filters yet</text>
+        <rect x="256" y="164" width="80" height="24" rx="6" fill="#3b82f6">
+          <animate attributeName="opacity" values=".8;1;.8" dur="1s" repeatCount="indefinite"/>
+        </rect>
+        <text x="272" y="180" font-size="9" font-family="DM Sans" fill="white" font-weight="600">Apply</text>
+        <g transform="translate(380,80)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g>
+      </svg>`;
+    }
+  },
+  {
+    caption: '<b>Step 3:</b> Add a <b>Filter rule</b>: Description is not empty — click Apply',
+    render: function() {
+      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <rect x="10" y="10" width="220" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".4"/>
+        <rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/>
+        <text x="256" y="34" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Context · CMS Articles</text>
+        <text x="256" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text>
+        <rect x="256" y="64" width="180" height="26" rx="6" fill="#10b98112" stroke="#10b98130"/>
+        <text x="266" y="81" font-size="9" font-family="DM Sans" fill="#10b981">✓ title · A → Z</text>
+        <text x="256" y="108" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text>
+        <rect x="256" y="116" width="180" height="36" rx="6" fill="#f5f5f8" stroke="#d97706">
+          <animate attributeName="stroke-width" values="1;2;1" dur="1.5s" repeatCount="indefinite"/>
+        </rect>
+        <text x="266" y="132" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Field: description</text>
+        <text x="266" y="146" font-size="9" font-family="DM Sans" fill="#d97706">Condition: is not empty</text>
+        <rect x="256" y="168" width="80" height="24" rx="6" fill="#3b82f6">
+          <animate attributeName="opacity" values=".8;1;.8" dur="1s" repeatCount="indefinite"/>
+        </rect>
+        <text x="272" y="184" font-size="9" font-family="DM Sans" fill="white" font-weight="600">Apply</text>
+        <g transform="translate(310,178)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g>
+      </svg>`;
+    }
+  },
+  {
+    caption: '<b>Step 4:</b> Repeater updates — items are <b>sorted A→Z</b> and filtered (no empty descriptions)',
+    render: function() {
+      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+        <rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/>
+        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
+        <rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
+        <rect x="56" y="70" width="348" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/>
+        <rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"/>
+        <text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 CMS · Articles</text>
+        <rect x="200" y="64" width="60" height="16" rx="8" fill="#3b82f612" stroke="#3b82f630"/>
+        <text x="208" y="75" font-size="7" font-family="DM Mono" fill="#3b82f6">SORTED</text>
+        <rect x="266" y="64" width="66" height="16" rx="8" fill="#d9770612" stroke="#d9770630"/>
+        <text x="274" y="75" font-size="7" font-family="DM Mono" fill="#d97706">FILTERED</text>
+        <rect x="68" y="86" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea">
           <animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/>
         </rect>
-        <text x="76" y="63" font-size="8" font-family="DM Mono" fill="#d946a8" font-weight="600">
-          ☁️ Weather · temperature
-          <animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/>
-        </text>
-        <!-- Updated value -->
-        <text x="62" y="80" font-size="13" font-family="DM Sans" fill="#1a1a2e" font-weight="500">"24°C"</text>
-        <!-- Other elements -->
-        <rect x="50" y="100" width="220" height="80" rx="4" fill="#f0f0f5" stroke="#e0e0ea"/>
-        <rect x="50" y="190" width="220" height="16" rx="4" fill="#f5f5f8"/>
-        <rect x="50" y="214" width="140" height="16" rx="4" fill="#f5f5f8"/>
-        <!-- Context pill -->
-        <rect x="20" y="46" width="20" height="94" rx="4" fill="#d946a812" stroke="#d946a835">
-          <animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/>
+        <text x="78" y="106" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">AI in Daily Life</text>
+        <text x="78" y="120" font-size="8" font-family="DM Sans" fill="#8888a8">How artificial intelligence is transforming...</text>
+        <rect x="68" y="134" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea">
+          <animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/>
         </rect>
-        <text x="30" y="96" font-size="8" font-family="DM Sans" fill="#d946a8" transform="rotate(-90,30,96)">☁️ Weather</text>
-        <!-- Inspector showing bound state -->
-        <rect x="310" y="0" width="150" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="322" y="24" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text>
-        <rect x="318" y="36" width="134" height="50" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="326" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Value</text>
-        <rect x="326" y="58" width="100" height="18" rx="4" fill="#d946a812" stroke="#d946a835"/>
-        <text x="332" y="71" font-size="8" font-family="DM Mono" fill="#d946a8">temperature</text>
-        <rect x="430" y="56" width="16" height="18" rx="3" fill="#d946a812" stroke="#d946a835"/>
-        <text x="434" y="69" font-size="9" fill="#d946a8">⚡</text>
-        <!-- Toast -->
-        <rect x="140" y="268" width="180" height="28" rx="14" fill="#1a1a2e">
-          <animate attributeName="opacity" values="0;1;1;1" dur="2s" fill="freeze"/>
+        <text x="78" y="154" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Remote Work Setup</text>
+        <text x="78" y="168" font-size="8" font-family="DM Sans" fill="#8888a8">Build a productive home office with...</text>
+        <rect x="68" y="182" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea">
+          <animate attributeName="opacity" values="0;1" dur=".5s" begin=".3s" fill="freeze"/>
         </rect>
-        <text x="170" y="286" font-size="10" font-family="DM Sans" fill="#22c55e" font-weight="500">
-          ✓ Bound to temperature
-          <animate attributeName="opacity" values="0;1;1;1" dur="2s" fill="freeze"/>
-        </text>
+        <text x="78" y="202" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Zero-Waste Kitchen Tips</text>
+        <text x="78" y="216" font-size="8" font-family="DM Sans" fill="#8888a8">Practical advice for reducing waste in...</text>
+        <rect x="68" y="232" width="324" height="24" rx="5" fill="#f0f0f5" stroke="#e0e0ea" stroke-dasharray="4 2"/>
+        <text x="140" y="248" font-size="9" font-family="DM Sans" fill="#b0b0c8">"Beginner Yoga Guide" hidden (empty description)</text>
+        <rect x="140" y="272" width="180" height="20" rx="10" fill="#1a1a2e">
+          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
+        </rect>
+        <text x="162" y="286" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ 3 of 4 items shown · sorted A→Z</text>
       </svg>`;
     }
   }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context'] = [
-  {
-    caption: '<b>Step 1:</b> User drags a <b>Products Gallery</b> (pre-bound repeater) from the Add Panel',
-    render: function() {
-      return `<svg viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Add Panel -->
-        <rect x="10" y="10" width="140" height="320" rx="8" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="24" y="34" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Add Elements</text>
-        <rect x="20" y="46" width="120" height="10" rx="3" fill="#e0e0ea"/>
-        <rect x="20" y="64" width="120" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="32" y="86" font-size="10" font-family="DM Sans" fill="#8888a8">Text</text>
-        <rect x="20" y="108" width="120" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="32" y="130" font-size="10" font-family="DM Sans" fill="#8888a8">Image</text>
-        <rect x="20" y="152" width="120" height="36" rx="6" fill="#10b98112" stroke="#10b98140" stroke-width="1.5">
-          <animate attributeName="stroke-width" values="1.5;3;1.5" dur="1.2s" repeatCount="indefinite"/>
-        </rect>
-        <text x="32" y="168" font-size="10" font-family="DM Sans" fill="#10b981" font-weight="600">🔄 Products Gallery</text>
-        <text x="32" y="181" font-size="8" font-family="DM Sans" fill="#10b981" opacity=".7">Pre-bound repeater</text>
-        <rect x="20" y="196" width="120" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="32" y="218" font-size="10" font-family="DM Sans" fill="#8888a8">Button</text>
-        <!-- Canvas (empty section) -->
-        <rect x="170" y="10" width="280" height="320" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="186" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <rect x="186" y="48" width="248" height="270" rx="8" fill="#f8f8fc" stroke="#c8c8d8" stroke-dasharray="6 3"/>
-        <text x="260" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Hero</text>
-        <text x="270" y="180" font-size="11" font-family="DM Sans" fill="#b0b0c8" text-anchor="middle">Empty section</text>
-        <!-- Drag cursor -->
-        <path d="M152 172 L152 184 L156 180 L161 186" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1">
-          <animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/>
-        </path>
-      </svg>`;
-    }
-  },
-  {
-    caption: '<b>Step 2:</b> Repeater is dropped onto the section — system checks for existing context',
-    render: function() {
-      return `<svg viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
-        <rect x="30" y="10" width="400" height="320" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <!-- Section with repeater dropping -->
-        <rect x="46" y="48" width="368" height="270" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Hero</text>
-        <!-- Repeater ghost -->
-        <rect x="66" y="80" width="328" height="200" rx="10" fill="#10b98108" stroke="#10b981" stroke-width="1.5" stroke-dasharray="8 4">
-          <animate attributeName="opacity" values=".4;.8;.4" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <text x="180" y="170" font-size="12" font-family="DM Sans" fill="#10b981" font-weight="600">🔄 Products Gallery</text>
-        <text x="180" y="190" font-size="10" font-family="DM Sans" fill="#10b981" opacity=".7">Drop here to add</text>
-        <!-- Check indicator -->
-        <rect x="160" y="220" width="140" height="28" rx="14" fill="#f0f0f5" stroke="#c8c8d8">
-          <animate attributeName="fill" values="#f0f0f5;#fff3e0;#f0f0f5" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <text x="178" y="238" font-size="9" font-family="DM Sans" fill="#8888a8">🔍 Checking page context…</text>
-      </svg>`;
-    }
-  },
-  {
-    caption: '<b>Step 3:</b> No matching context found on page — <b>context is created on the repeater</b>',
-    render: function() {
-      return `<svg viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
-        <rect x="30" y="10" width="400" height="320" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <!-- Section -->
-        <rect x="46" y="48" width="368" height="270" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Hero</text>
-        <!-- Repeater (now placed) -->
-        <rect x="66" y="80" width="328" height="200" rx="10" fill="var(--sur2,#fafafe)" stroke="#10b981" stroke-width="1.5">
-          <animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="1s" repeatCount="1" fill="freeze"/>
-        </rect>
-        <!-- Context pill appearing -->
-        <rect x="76" y="74" width="110" height="16" rx="8" fill="#10b981">
-          <animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/>
-        </rect>
-        <text x="86" y="85" font-size="8" font-family="DM Sans" fill="white" font-weight="600">
-          📦 Stores · items
-          <animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/>
-        </text>
-        <!-- Repeater label -->
-        <text x="76" y="105" font-size="8" font-family="DM Mono" fill="#8888a8">🔄 Repeater · Products Gallery</text>
-        <!-- Skeleton items -->
-        <rect x="80" y="114" width="300" height="48" rx="6" fill="#f0f0f5" stroke="#e0e0ea"/>
-        <rect x="92" y="122" width="80" height="8" rx="2" fill="#dddde5"/>
-        <rect x="92" y="136" width="140" height="6" rx="2" fill="#e8e8ee"/>
-        <rect x="92" y="148" width="60" height="6" rx="2" fill="#e8e8ee"/>
-        <rect x="80" y="168" width="300" height="48" rx="6" fill="#f0f0f5" stroke="#e0e0ea"/>
-        <rect x="92" y="176" width="100" height="8" rx="2" fill="#dddde5"/>
-        <rect x="92" y="190" width="120" height="6" rx="2" fill="#e8e8ee"/>
-        <rect x="92" y="202" width="50" height="6" rx="2" fill="#e8e8ee"/>
-        <rect x="80" y="222" width="300" height="48" rx="6" fill="#f0f0f5" stroke="#e0e0ea"/>
-        <rect x="92" y="230" width="90" height="8" rx="2" fill="#dddde5"/>
-        <rect x="92" y="244" width="160" height="6" rx="2" fill="#e8e8ee"/>
-        <rect x="92" y="256" width="70" height="6" rx="2" fill="#e8e8ee"/>
-        <!-- Toast -->
-        <rect x="140" y="300" width="180" height="24" rx="12" fill="#1a1a2e">
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </rect>
-        <text x="158" y="316" font-size="9" font-family="DM Sans" fill="#10b981" font-weight="500">
-          ✓ Context created on repeater
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </text>
-      </svg>`;
-    }
-  },
-  {
-    caption: '<b>Step 4:</b> Items property is <b>auto-bound</b> to the context\'s array field — no extra step needed',
-    render: function() {
-      return `<svg viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
-        <rect x="30" y="10" width="280" height="320" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <!-- Section -->
-        <rect x="46" y="48" width="248" height="270" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <!-- Repeater bound -->
-        <rect x="56" y="80" width="228" height="200" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/>
-        <rect x="66" y="74" width="110" height="16" rx="8" fill="#10b981"/>
-        <text x="76" y="85" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text>
-        <!-- Items -->
-        <rect x="68" y="96" width="204" height="54" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="80" y="114" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Yoga Mat</text>
-        <text x="80" y="128" font-size="9" font-family="DM Sans" fill="#8888a8">$49.99</text>
-        <text x="200" y="128" font-size="8" font-family="DM Mono" fill="#10b981">in stock</text>
-        <rect x="68" y="156" width="204" height="54" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="80" y="174" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Running Shoes</text>
-        <text x="80" y="188" font-size="9" font-family="DM Sans" fill="#8888a8">$89.00</text>
-        <text x="200" y="188" font-size="8" font-family="DM Mono" fill="#10b981">in stock</text>
-        <rect x="68" y="216" width="204" height="54" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="80" y="234" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Water Bottle</text>
-        <text x="80" y="248" font-size="9" font-family="DM Sans" fill="#8888a8">$24.99</text>
-        <text x="200" y="248" font-size="8" font-family="DM Mono" fill="#d97706">out of stock</text>
-        <!-- Inspector -->
-        <rect x="320" y="10" width="130" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="332" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text>
-        <text x="332" y="50" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Items</text>
-        <rect x="332" y="56" width="100" height="18" rx="4" fill="#10b98112" stroke="#10b98135"/>
-        <text x="338" y="69" font-size="8" font-family="DM Mono" fill="#10b981">Stores · items</text>
-        <!-- Auto-bind indicator -->
-        <rect x="332" y="80" width="100" height="20" rx="4" fill="#10b98112">
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </rect>
-        <text x="342" y="94" font-size="8" font-family="DM Sans" fill="#10b981" font-weight="500">
-          ✓ Auto-bound
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </text>
-      </svg>`;
-    }
-  },
-  {
-    caption: '<b>Step 5:</b> Repeater shows live data — user can now bind inner elements to item fields',
-    render: function() {
-      return `<svg viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
-        <rect x="30" y="10" width="280" height="320" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <rect x="46" y="48" width="248" height="270" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <!-- Repeater bound with data -->
-        <rect x="56" y="80" width="228" height="200" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/>
-        <rect x="66" y="74" width="110" height="16" rx="8" fill="#10b981"/>
-        <text x="76" y="85" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text>
-        <!-- Item with bound elements highlighted -->
-        <rect x="68" y="96" width="204" height="54" rx="6" fill="white" stroke="#3b82f6" stroke-width="1.5"/>
-        <rect x="78" y="100" width="60" height="10" rx="2" fill="#d946a812"/>
-        <text x="82" y="108" font-size="7" font-family="DM Mono" fill="#d946a8">name</text>
-        <text x="80" y="124" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Yoga Mat</text>
-        <rect x="78" y="130" width="40" height="10" rx="2" fill="#d946a812"/>
-        <text x="82" y="138" font-size="7" font-family="DM Mono" fill="#d946a8">price</text>
-        <text x="80" y="148" font-size="9" font-family="DM Sans" fill="#8888a8">$49.99</text>
-        <!-- Other items (dimmed) -->
-        <rect x="68" y="156" width="204" height="54" rx="6" fill="white" stroke="#e0e0ea" opacity=".5"/>
-        <rect x="68" y="216" width="204" height="54" rx="6" fill="white" stroke="#e0e0ea" opacity=".5"/>
-        <!-- Inspector showing bind options -->
-        <rect x="320" y="10" width="130" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="332" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Item Properties</text>
-        <text x="332" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Value</text>
-        <rect x="332" y="58" width="100" height="18" rx="4" fill="#d946a812" stroke="#d946a835"/>
-        <text x="338" y="71" font-size="8" font-family="DM Mono" fill="#d946a8">name</text>
-        <text x="332" y="92" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Source</text>
-        <rect x="332" y="98" width="100" height="18" rx="4" fill="white" stroke="#e0e0ea"/>
-        <text x="338" y="111" font-size="8" font-family="DM Sans" fill="#8888a8">Not bound</text>
-        <!-- Bind icon pulse -->
-        <rect x="416" y="98" width="18" height="18" rx="4" fill="#3b82f615" stroke="#3b82f640">
-          <animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/>
-        </rect>
-        <text x="421" y="111" font-size="9" fill="#3b82f6">⚡</text>
-      </svg>`;
-    }
-  }
+SPEC_DEMO_STEPS_MAP['repeater-context:flow3'] = [
+  { caption: '<b>Step 1:</b> Context is <b>coupled to the repeater</b> — external filter can\'t bind', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="66" y="72" width="120" height="30" rx="6" fill="white" stroke="#e0e0ea"/><text x="76" y="91" font-size="9" font-family="DM Sans" fill="#8888a8">🔍 Filter by category...</text><rect x="56" y="116" width="348" height="170" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="110" width="90" height="16" rx="8" fill="#10b981"/><text x="74" y="121" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><text x="76" y="142" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 1</text><text x="76" y="166" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 2</text><text x="76" y="190" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 3</text><line x1="66" y1="72" x2="66" y2="116" stroke="#d97706" stroke-width="1" stroke-dasharray="4 3"/><text x="72" y="108" font-size="7" font-family="DM Mono" fill="#d97706">✗ can't bind — context is inside repeater</text><g transform="translate(140,92)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 2:</b> User promotes context to <b>section level</b> — clicks Promote', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="56" y="42" width="90" height="16" rx="8" fill="#d97706"><animate attributeName="fill" values="#10b981;#d97706;#d97706" dur="1s" fill="freeze"/></rect><text x="64" y="53" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="200" y="100" width="180" height="80" rx="10" fill="white" stroke="#d97706" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="216" y="122" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Promote Context</text><text x="216" y="140" font-size="8" font-family="DM Sans" fill="#8888a8">Move context from repeater</text><text x="216" y="152" font-size="8" font-family="DM Sans" fill="#8888a8">to section level?</text><rect x="216" y="160" width="80" height="22" rx="6" fill="#d97706"><animate attributeName="opacity" values=".7;1;.7" dur="1s" repeatCount="indefinite"/></rect><text x="230" y="175" font-size="9" font-family="DM Sans" fill="white" font-weight="600">Promote</text><g transform="translate(268,178)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 3:</b> Context on section — external filter <b>binds to context</b>', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="56" y="42" width="90" height="16" rx="8" fill="#d97706"/><text x="64" y="53" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="66" y="72" width="120" height="30" rx="6" fill="white" stroke="#3b82f6" stroke-width="1.5"/><text x="76" y="91" font-size="9" font-family="DM Sans" fill="#4a4a6a">🔍 Filter: Category</text><rect x="192" y="72" width="60" height="14" rx="4" fill="#3b82f612" stroke="#3b82f630"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="200" y="83" font-size="7" font-family="DM Mono" fill="#3b82f6">BOUND ⚡</text><rect x="56" y="116" width="348" height="170" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="110" width="130" height="16" rx="8" fill="#10b981"/><text x="74" y="121" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items (inherited)</text><text x="76" y="142" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 1 · Tech</text><text x="76" y="166" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 2 · Design</text><text x="76" y="190" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 3 · Tech</text><rect x="140" y="280" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="160" y="294" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ External filter controls UoU active</text></svg>`; } }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow4'] = [
+  { caption: '<b>Step 1:</b> Repeater bound to context — user clicks <b>⚡</b> on Items to switch', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="260" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="228" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="208" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"/><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><text x="76" y="98" font-size="9" font-family="DM Sans" fill="#4a4a6a">Product 1</text><text x="76" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">Product 2</text><rect x="310" y="10" width="140" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/><text x="322" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text><text x="322" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Items</text><rect x="322" y="58" width="116" height="20" rx="4" fill="#10b98112" stroke="#10b98130"/><text x="330" y="72" font-size="8" font-family="DM Mono" fill="#10b981">Stores · items</text><rect x="416" y="58" width="20" height="20" rx="4" fill="#3b82f615" stroke="#3b82f640"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="422" y="72" font-size="10" fill="#3b82f6">⚡</text><g transform="translate(434,76)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 2:</b> Context picker — select <b>CMS Articles</b> from section contexts', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="200" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/><rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/><text x="256" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Select Context Source</text><text x="256" y="52" font-size="8" font-family="DM Mono" fill="#8888a8">THIS REPEATER</text><rect x="256" y="58" width="180" height="26" rx="5" fill="#10b98112" stroke="#10b98130"/><text x="268" y="75" font-size="9" font-family="DM Sans" fill="#10b981">📦 Stores · items</text><text x="400" y="75" font-size="7" font-family="DM Sans" fill="#10b981">current</text><text x="256" y="102" font-size="8" font-family="DM Mono" fill="#8888a8">SECTION CONTEXTS</text><rect x="256" y="108" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="stroke" values="#e0e0ea;#3b82f6;#e0e0ea" dur="1.5s" repeatCount="indefinite"/></rect><text x="268" y="125" font-size="9" font-family="DM Sans" fill="#4a4a6a">📋 CMS · Articles</text><rect x="256" y="140" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="157" font-size="9" font-family="DM Sans" fill="#4a4a6a">📊 CMS · Events</text><g transform="translate(320,130)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 3:</b> Repeater rebound to <b>CMS Articles</b> — shows new data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="348" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"><animate attributeName="stroke" values="#10b981;#3b82f6" dur=".6s" fill="freeze"/></rect><rect x="66" y="64" width="100" height="16" rx="8" fill="#3b82f6"><animate attributeName="fill" values="#10b981;#3b82f6" dur=".6s" fill="freeze"/></rect><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📋 CMS · Articles</text><rect x="68" y="86" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="78" y="106" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">How to Build a React App</text><rect x="68" y="134" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="78" y="154" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Design Systems 101</text><rect x="68" y="182" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".3s" fill="freeze"/></rect><text x="78" y="202" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">UX Research Methods</text><rect x="140" y="272" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="158" y="286" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Rebound to CMS · Articles</text></svg>`; } }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow5'] = [
+  { caption: '<b>Step 1:</b> User drags a <b>blank repeater</b> — no context attached', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="66" y="80" width="328" height="200" rx="10" fill="#fafafe" stroke="#c8c8d8" stroke-width="1.5" stroke-dasharray="8 4"/><text x="76" y="105" font-size="8" font-family="DM Mono" fill="#8888a8">🔄 Repeater · Blank</text><rect x="86" y="120" width="288" height="50" rx="6" fill="#f0f0f5" stroke="#e0e0ea" stroke-dasharray="4 2"/><rect x="96" y="130" width="80" height="10" rx="3" fill="#dddde5"/><rect x="96" y="146" width="120" height="8" rx="3" fill="#e8e8ee"/><rect x="86" y="178" width="288" height="50" rx="6" fill="#f0f0f5" stroke="#e0e0ea" stroke-dasharray="4 2"/><rect x="96" y="188" width="80" height="10" rx="3" fill="#dddde5"/><rect x="96" y="204" width="120" height="8" rx="3" fill="#e8e8ee"/><text x="180" y="260" font-size="9" font-family="DM Sans" fill="#b0b0c8">No data source connected</text><g transform="translate(200,150)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 2:</b> User clicks <b>⚡</b> on Items to connect data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="260" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="228" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="208" height="220" rx="10" fill="#fafafe" stroke="#c8c8d8" stroke-width="1.5"/><text x="66" y="94" font-size="8" font-family="DM Mono" fill="#8888a8">🔄 Repeater · Blank</text><rect x="310" y="10" width="140" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/><text x="322" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text><text x="322" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Items</text><rect x="322" y="58" width="116" height="20" rx="4" fill="white" stroke="#e0e0ea"/><text x="330" y="72" font-size="8" font-family="DM Sans" fill="#b0b0c8">Not connected</text><rect x="416" y="58" width="20" height="20" rx="4" fill="#3b82f615" stroke="#3b82f640"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="422" y="72" font-size="10" fill="#3b82f6">⚡</text><g transform="translate(434,76)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 3:</b> Choose <b>"+ Add new context"</b> — created on repeater', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="200" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/><rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/><text x="256" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Connect Repeater Items</text><text x="256" y="52" font-size="8" font-family="DM Mono" fill="#8888a8">USE EXISTING CONTEXT</text><rect x="256" y="58" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="75" font-size="9" font-family="DM Sans" fill="#4a4a6a">📦 Stores · items</text><rect x="256" y="90" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="107" font-size="9" font-family="DM Sans" fill="#4a4a6a">📋 CMS · Articles</text><rect x="256" y="130" width="180" height="2" rx="1" fill="#e0e0ea"/><text x="256" y="150" font-size="8" font-family="DM Mono" fill="#8888a8">CREATE NEW</text><rect x="256" y="156" width="180" height="32" rx="5" fill="#3b82f608" stroke="#3b82f630"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="268" y="176" font-size="9" font-family="DM Sans" fill="#3b82f6" font-weight="500">+ Add new context</text><g transform="translate(370,172)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 4:</b> Context connected — repeater <b>auto-binds Items</b> and shows data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="348" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"><animate attributeName="stroke" values="#c8c8d8;#10b981" dur=".6s" fill="freeze"/></rect><rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="68" y="86" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="136" y="112" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Yoga Mat</text><text x="136" y="126" font-size="8" font-family="DM Sans" fill="#8888a8">$49.99</text><rect x="68" y="142" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="136" y="168" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Running Shoes</text><text x="136" y="182" font-size="8" font-family="DM Sans" fill="#8888a8">$89.00</text><rect x="68" y="198" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".3s" fill="freeze"/></rect><text x="136" y="224" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Water Bottle</text><text x="136" y="238" font-size="8" font-family="DM Sans" fill="#8888a8">$24.99</text><rect x="140" y="272" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="168" y="286" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Connected · Items auto-bound</text></svg>`; } }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow6'] = [
+  { caption: '<b>Step 1:</b> Two repeaters, same <b>CMS Articles</b> type — each owns its own instance', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="440" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="26" y="48" width="408" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="40" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Blog</text><rect x="36" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="46" y="60" width="100" height="16" rx="8" fill="#10b981"/><text x="54" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. A)</text><text x="46" y="90" font-size="8" font-family="DM Mono" fill="#10b981">Sort: Title A→Z · Show 6</text><rect x="46" y="98" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><rect x="46" y="136" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="156" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="46" y="174" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="194" font-size="9" font-family="DM Sans" fill="#4a4a6a">Remote Work Setup</text><rect x="240" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"/><rect x="250" y="60" width="100" height="16" rx="8" fill="#3b82f6"/><text x="258" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. B)</text><text x="250" y="90" font-size="8" font-family="DM Mono" fill="#3b82f6">Sort: Date Desc · Show 3</text><rect x="250" y="98" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">Zero-Waste Kitchen Tips</text><rect x="250" y="136" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="156" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="250" y="174" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="194" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><g transform="translate(230,140)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
+  { caption: '<b>Step 2:</b> Each has its own <b>sort, filter, page size</b> — fully independent configs', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="220" height="300" rx="10" fill="white" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.06))"/><text x="26" y="34" font-size="11" font-family="DM Sans" fill="#10b981" font-weight="600">Repeater A — Config</text><text x="26" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text><rect x="26" y="62" width="190" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="34" y="77" font-size="9" font-family="DM Sans" fill="#10b981">Title · A → Z</text><text x="26" y="100" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text><rect x="26" y="106" width="190" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="34" y="121" font-size="9" font-family="DM Sans" fill="#10b981">Category = "Tech"</text><text x="26" y="146" font-size="9" font-family="DM Mono" fill="#8888a8">PAGE SIZE</text><rect x="26" y="152" width="50" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="42" y="167" font-size="9" font-family="DM Sans" fill="#10b981" font-weight="600">6</text><rect x="240" y="10" width="220" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.06))"/><text x="256" y="34" font-size="11" font-family="DM Sans" fill="#3b82f6" font-weight="600">Repeater B — Config</text><text x="256" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text><rect x="256" y="62" width="190" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="264" y="77" font-size="9" font-family="DM Sans" fill="#3b82f6">Date · Descending</text><text x="256" y="100" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text><rect x="256" y="106" width="190" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="264" y="121" font-size="9" font-family="DM Sans" fill="#3b82f6">Category = "Design"</text><text x="256" y="146" font-size="9" font-family="DM Mono" fill="#8888a8">PAGE SIZE</text><rect x="256" y="152" width="50" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="272" y="167" font-size="9" font-family="DM Sans" fill="#3b82f6" font-weight="600">3</text><text x="230" y="240" font-size="9" font-family="DM Sans" fill="#8888a8" text-anchor="middle">Same type · Different instances</text></svg>`; } },
+  { caption: '<b>Step 3:</b> Changing A\'s filter <b>does not affect</b> B — independent instances', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="440" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas — after editing Repeater A's filter</text><rect x="26" y="48" width="408" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="36" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="2"><animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="1.5s" repeatCount="indefinite"/></rect><rect x="46" y="60" width="100" height="16" rx="8" fill="#10b981"/><text x="54" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. A)</text><text x="46" y="90" font-size="7" font-family="DM Mono" fill="#d97706">Filter changed → "Design"</text><rect x="46" y="100" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="54" y="120" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="46" y="138" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="54" y="158" font-size="9" font-family="DM Sans" fill="#4a4a6a">UI Patterns for Mobile</text><rect x="240" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"/><rect x="250" y="60" width="100" height="16" rx="8" fill="#3b82f6"/><text x="258" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. B)</text><text x="250" y="90" font-size="7" font-family="DM Mono" fill="#8888a8">Unchanged</text><rect x="250" y="100" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="120" font-size="9" font-family="DM Sans" fill="#4a4a6a">Zero-Waste Kitchen Tips</text><rect x="250" y="138" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="158" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="250" y="176" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="196" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><rect x="130" y="282" width="200" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="148" y="296" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Independent instances — no cross-effects</text></svg>`; } }
 ];
 
 SPEC_DEMO_STEPS_MAP['add-context-panel'] = [
   {
     caption: '<b>Step 1:</b> User clicks <b>"+ Add Context"</b> from the inspector or section settings',
     render: function() {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Inspector panel -->
-        <rect x="240" y="0" width="220" height="320" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="256" y="24" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Section · Articles</text>
-        <text x="256" y="44" font-size="9" font-family="DM Mono" fill="#8888a8">ATTACHED CONTEXTS</text>
-        <rect x="252" y="52" width="196" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="264" y="70" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">📝 CMS Articles</text>
-        <text x="264" y="82" font-size="9" font-family="DM Sans" fill="#8888a8">list · 12 items</text>
-        <!-- Add Context button -->
-        <rect x="252" y="98" width="196" height="30" rx="8" fill="#3b82f608" stroke="#3b82f630" stroke-width="1.5">
-          <animate attributeName="stroke-width" values="1.5;3;1.5" dur="1.2s" repeatCount="indefinite"/>
-        </rect>
-        <text x="290" y="117" font-size="11" font-family="DM Sans" fill="#3b82f6" font-weight="600">＋ Add Context</text>
-        <!-- Cursor -->
-        <path d="M340 122 L340 134 L344 130 L349 136" stroke="#1a1a2e" stroke-width="1.5" fill="#1a1a2e" fill-opacity=".1">
-          <animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/>
-        </path>
-        <!-- Canvas hint -->
-        <rect x="10" y="10" width="220" height="300" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <rect x="26" y="48" width="188" height="248" rx="6" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <text x="40" y="48" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Articles</text>
-        <rect x="36" y="70" width="168" height="40" rx="4" fill="#f0f0f5"/>
-        <rect x="36" y="120" width="168" height="40" rx="4" fill="#f0f0f5"/>
-        <rect x="36" y="170" width="168" height="40" rx="4" fill="#f0f0f5"/>
-      </svg>`;
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section" style="min-height:100px">' +
+            '<div style="font-size:9px;color:var(--t3);padding:20px;text-align:center">Empty section — no context attached</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Section · Empty</div><div class="dm-insp-body">' +
+          '<div style="font-size:10px;font-weight:600;color:var(--t1);margin-bottom:6px">Context</div>' +
+          '<div style="font-size:9px;color:var(--t3);margin-bottom:8px">No data context attached</div>' +
+          '<div style="padding:6px 10px;border-radius:6px;border:1px dashed var(--acc-b);background:var(--acc-d);color:var(--acc);font-size:10px;font-weight:600;text-align:center;cursor:pointer">+ Add Context</div>' +
+        '</div></div>' +
+      '</div>';
     }
   },
   {
     caption: '<b>Step 2:</b> Modal opens showing available contexts grouped by <b>CMS</b> and <b>Custom</b>',
     render: function() {
-      return `<svg viewBox="0 0 460 370" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Dimmed background -->
-        <rect x="0" y="0" width="460" height="370" fill="#00000020" rx="4"/>
-        <!-- Modal -->
-        <rect x="80" y="10" width="300" height="350" rx="14" fill="#f8f8fc" stroke="#c8c8d8" filter="url(#mshadow)"/>
-        <defs><filter id="mshadow" x="40" y="0" width="380" height="390"><feDropShadow dx="0" dy="8" stdDeviation="16" flood-opacity=".15"/></filter></defs>
-        <!-- Header -->
-        <rect x="80" y="10" width="300" height="46" rx="14" fill="#f0f0f5"/>
-        <rect x="80" y="42" width="300" height="14" fill="#f0f0f5"/>
-        <text x="96" y="34" font-size="13" font-family="Syne" fill="#1a1a2e" font-weight="700">Add Context</text>
-        <text x="96" y="48" font-size="9" font-family="DM Sans" fill="#8888a8">Section · <tspan font-weight="600" fill="#4a4a6a">Articles</tspan></text>
-        <text x="362" y="38" font-size="14" fill="#8888a8">✕</text>
-        <!-- CMS Label -->
-        <text x="96" y="76" font-size="8" font-family="DM Sans" fill="#3b82f6" font-weight="600" letter-spacing="0.5">CMS</text>
-        <!-- Articles (already attached) -->
-        <rect x="90" y="82" width="280" height="36" rx="6" fill="#3b82f610" stroke="#3b82f630"/>
-        <text x="102" y="99" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Articles</text>
-        <text x="102" y="112" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <text x="348" y="104" font-size="12" fill="#3b82f6" font-weight="600">✓</text>
-        <!-- My Team (with badge) -->
-        <rect x="90" y="124" width="280" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="102" y="141" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">My Team</text>
-        <text x="160" y="141" font-size="8" font-family="DM Sans" fill="#3b82f6">Available from page</text>
-        <text x="102" y="154" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <rect x="346" y="134" width="14" height="14" rx="3" stroke="#c8c8d8" fill="white"/>
-        <!-- Categories -->
-        <rect x="90" y="166" width="280" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="102" y="183" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Categories</text>
-        <text x="102" y="196" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <rect x="346" y="176" width="14" height="14" rx="3" stroke="#c8c8d8" fill="white"/>
-        <!-- + New collection -->
-        <text x="102" y="218" font-size="10" font-family="DM Sans" fill="#3b82f6" font-weight="600">+ New collection</text>
-        <!-- Divider -->
-        <rect x="96" y="228" width="268" height="1" fill="#e0e0ea"/>
-        <!-- Custom Label -->
-        <text x="96" y="248" font-size="8" font-family="DM Sans" fill="#8888a8" font-weight="600" letter-spacing="0.5">CUSTOM</text>
-        <!-- Weather App -->
-        <rect x="90" y="254" width="280" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="102" y="271" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Weather App</text>
-        <text x="102" y="284" font-size="9" font-family="DM Sans" fill="#8888a8">object</text>
-        <rect x="346" y="264" width="14" height="14" rx="3" stroke="#c8c8d8" fill="white"/>
-        <!-- Footer -->
-        <line x1="80" y1="310" x2="380" y2="310" stroke="#e0e0ea"/>
-        <rect x="96" y="322" width="80" height="26" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="118" y="339" font-size="10" font-family="DM Sans" fill="#4a4a6a">Cancel</text>
-        <rect x="186" y="322" width="180" height="26" rx="8" fill="#c8c8d8"/>
-        <text x="234" y="339" font-size="10" font-family="DM Sans" fill="white">Apply changes</text>
-      </svg>`;
+      return '<div class="dm" style="position:relative">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div></div>' +
+        '<div class="dm-inspector" style="opacity:.3"><div class="dm-insp-head">Section</div></div>' +
+        '<div class="dm-modal-overlay">' +
+          '<div class="dm-modal"><div class="dm-modal-head">Add Context <span style="font-size:9px;color:var(--t3);font-weight:400">Section · Empty</span></div>' +
+            '<div class="dm-modal-body">' +
+              '<div class="dm-modal-group">CMS Collections</div>' +
+              '<div class="dm-modal-item"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">📝 CMS Articles</div><div class="dm-modal-item-type">CMS Collection · array</div></div></div>' +
+              '<div class="dm-modal-item"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">👥 My Team</div><div class="dm-modal-item-type">CMS Collection · array</div></div></div>' +
+              '<div class="dm-modal-group">Custom</div>' +
+              '<div class="dm-modal-item"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">☁️ Weather App</div><div class="dm-modal-item-type">Custom Code · object</div></div></div>' +
+            '</div>' +
+            '<div class="dm-modal-footer"><div class="dm-modal-btn ghost">Cancel</div><div class="dm-modal-btn primary" style="opacity:.4">Apply changes</div></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
-    caption: '<b>Step 3:</b> User selects <b>"My Team"</b> — shadowing warning appears since it\'s available from page',
+    caption: '<b>Step 3:</b> User selects <b>"My Team"</b> — checkbox fills, Apply button becomes active',
     render: function() {
-      return `<svg viewBox="0 0 460 380" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <rect x="0" y="0" width="460" height="380" fill="#00000020" rx="4"/>
-        <rect x="80" y="10" width="300" height="360" rx="14" fill="#f8f8fc" stroke="#c8c8d8" filter="url(#mshadow2)"/>
-        <defs><filter id="mshadow2" x="40" y="0" width="380" height="400"><feDropShadow dx="0" dy="8" stdDeviation="16" flood-opacity=".15"/></filter></defs>
-        <rect x="80" y="10" width="300" height="46" rx="14" fill="#f0f0f5"/>
-        <rect x="80" y="42" width="300" height="14" fill="#f0f0f5"/>
-        <text x="96" y="34" font-size="13" font-family="Syne" fill="#1a1a2e" font-weight="700">Add Context</text>
-        <text x="96" y="48" font-size="9" font-family="DM Sans" fill="#8888a8">Section · <tspan font-weight="600" fill="#4a4a6a">Articles</tspan></text>
-        <text x="362" y="38" font-size="14" fill="#8888a8">✕</text>
-        <text x="96" y="76" font-size="8" font-family="DM Sans" fill="#3b82f6" font-weight="600" letter-spacing="0.5">CMS</text>
-        <!-- Articles (attached) -->
-        <rect x="90" y="82" width="280" height="36" rx="6" fill="#3b82f610" stroke="#3b82f630"/>
-        <text x="102" y="99" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Articles</text>
-        <text x="102" y="112" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <text x="348" y="104" font-size="12" fill="#3b82f6" font-weight="600">✓</text>
-        <!-- My Team (now selected — with shadow warning) -->
-        <rect x="90" y="124" width="280" height="62" rx="6" fill="#3b82f610" stroke="#3b82f630">
-          <animate attributeName="stroke-width" values="1;2;1" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <text x="102" y="141" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">My Team</text>
-        <text x="160" y="141" font-size="8" font-family="DM Sans" fill="#d97706">Overrides page instance</text>
-        <text x="102" y="154" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <!-- Shadow warning -->
-        <rect x="98" y="160" width="264" height="20" rx="4" fill="#f59e0b14"/>
-        <text x="106" y="174" font-size="7.5" font-family="DM Sans" fill="#d97706">This section will use its own instance. Page-level hidden.</text>
-        <text x="348" y="148" font-size="12" fill="#3b82f6" font-weight="600">✓</text>
-        <!-- Categories -->
-        <rect x="90" y="194" width="280" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="102" y="211" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Categories</text>
-        <text x="102" y="224" font-size="9" font-family="DM Sans" fill="#8888a8">list</text>
-        <rect x="346" y="204" width="14" height="14" rx="3" stroke="#c8c8d8" fill="white"/>
-        <text x="102" y="246" font-size="10" font-family="DM Sans" fill="#3b82f6" font-weight="600">+ New collection</text>
-        <rect x="96" y="256" width="268" height="1" fill="#e0e0ea"/>
-        <text x="96" y="276" font-size="8" font-family="DM Sans" fill="#8888a8" font-weight="600" letter-spacing="0.5">CUSTOM</text>
-        <rect x="90" y="282" width="280" height="36" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="102" y="299" font-size="11" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Weather App</text>
-        <text x="102" y="312" font-size="9" font-family="DM Sans" fill="#8888a8">object</text>
-        <rect x="346" y="292" width="14" height="14" rx="3" stroke="#c8c8d8" fill="white"/>
-        <!-- Footer with active button -->
-        <line x1="80" y1="328" x2="380" y2="328" stroke="#e0e0ea"/>
-        <rect x="96" y="340" width="80" height="26" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="118" y="357" font-size="10" font-family="DM Sans" fill="#4a4a6a">Cancel</text>
-        <rect x="186" y="340" width="180" height="26" rx="8" fill="#3b82f6">
-          <animate attributeName="fill" values="#3b82f6;#2563eb;#3b82f6" dur="1.5s" repeatCount="indefinite"/>
-        </rect>
-        <text x="218" y="357" font-size="10" font-family="DM Sans" fill="white" font-weight="500">Apply changes (+1)</text>
-      </svg>`;
+      return '<div class="dm" style="position:relative">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div></div>' +
+        '<div class="dm-inspector" style="opacity:.3"><div class="dm-insp-head">Section</div></div>' +
+        '<div class="dm-modal-overlay">' +
+          '<div class="dm-modal"><div class="dm-modal-head">Add Context <span style="font-size:9px;color:var(--t3);font-weight:400">Section · Empty</span></div>' +
+            '<div class="dm-modal-body">' +
+              '<div class="dm-modal-group">CMS Collections</div>' +
+              '<div class="dm-modal-item"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">📝 CMS Articles</div><div class="dm-modal-item-type">CMS Collection · array</div></div></div>' +
+              '<div class="dm-modal-item sel"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">👥 My Team</div><div class="dm-modal-item-type">CMS Collection · array</div></div></div>' +
+              '<div class="dm-modal-group">Custom</div>' +
+              '<div class="dm-modal-item"><div class="dm-modal-check">✓</div><div><div class="dm-modal-item-name">☁️ Weather App</div><div class="dm-modal-item-type">Custom Code · object</div></div></div>' +
+            '</div>' +
+            '<div class="dm-modal-footer"><div class="dm-modal-btn ghost">Cancel</div><div class="dm-modal-btn primary">Apply changes</div></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
     }
   },
   {
-    caption: '<b>Step 4:</b> User clicks <b>"Apply changes"</b> — context is attached and appears on canvas',
+    caption: '<b>Step 4:</b> User clicks <b>"Apply changes"</b> — context is attached and <b>appears on canvas</b>',
     render: function() {
-      return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%">
-        <!-- Canvas -->
-        <rect x="10" y="10" width="300" height="300" rx="8" fill="white" stroke="#e0e0ea"/>
-        <text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text>
-        <!-- Section with context pills -->
-        <rect x="26" y="48" width="268" height="252" rx="6" fill="#f8f8fc" stroke="#c8c8d8"/>
-        <text x="40" y="48" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Articles</text>
-        <!-- Articles context pill -->
-        <rect x="36" y="60" width="90" height="16" rx="8" fill="#e8439312" stroke="#e8439335">
-          <animate attributeName="opacity" values="0;1" dur=".4s" fill="freeze"/>
-        </rect>
-        <text x="46" y="71" font-size="8" font-family="DM Sans" fill="#e84393" font-weight="600">
-          📝 Articles
-          <animate attributeName="opacity" values="0;1" dur=".4s" fill="freeze"/>
-        </text>
-        <!-- My Team context pill (new!) -->
-        <rect x="134" y="60" width="90" height="16" rx="8" fill="#e8439312" stroke="#e8439335">
-          <animate attributeName="opacity" values="0;0;1" dur=".8s" fill="freeze"/>
-        </rect>
-        <text x="144" y="71" font-size="8" font-family="DM Sans" fill="#e84393" font-weight="600">
-          👥 My Team
-          <animate attributeName="opacity" values="0;0;1" dur=".8s" fill="freeze"/>
-        </text>
-        <!-- Repeater with items -->
-        <rect x="36" y="84" width="248" height="60" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="48" y="104" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">The Future of AI in Design</text>
-        <text x="48" y="118" font-size="9" font-family="DM Sans" fill="#8888a8">Sarah Chen · 5 min</text>
-        <rect x="36" y="150" width="248" height="60" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="48" y="170" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Building Better Products</text>
-        <text x="48" y="184" font-size="9" font-family="DM Sans" fill="#8888a8">Mark Rivera · 8 min</text>
-        <rect x="36" y="216" width="248" height="60" rx="6" fill="white" stroke="#e0e0ea"/>
-        <text x="48" y="236" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Design Systems at Scale</text>
-        <text x="48" y="250" font-size="9" font-family="DM Sans" fill="#8888a8">Jane Doe · 6 min</text>
-        <!-- Inspector -->
-        <rect x="320" y="10" width="130" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/>
-        <text x="332" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Attached Contexts</text>
-        <rect x="328" y="40" width="110" height="30" rx="4" fill="white" stroke="#e0e0ea"/>
-        <text x="336" y="56" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">📝 Articles</text>
-        <text x="336" y="66" font-size="8" font-family="DM Sans" fill="#8888a8">list</text>
-        <rect x="328" y="76" width="110" height="30" rx="4" fill="#3b82f608" stroke="#3b82f630">
-          <animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/>
-        </rect>
-        <text x="336" y="92" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="500">
-          👥 My Team
-          <animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/>
-        </text>
-        <text x="336" y="102" font-size="8" font-family="DM Sans" fill="#8888a8">
-          list
-          <animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/>
-        </text>
-        <!-- Toast -->
-        <rect x="120" y="280" width="180" height="24" rx="12" fill="#1a1a2e">
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </rect>
-        <text x="148" y="296" font-size="9" font-family="DM Sans" fill="#22c55e" font-weight="500">
-          ✓ My Team context added
-          <animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/>
-        </text>
-      </svg>`;
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section" style="border-color:var(--grn-b);border-style:solid"><div class="dm-section-pill">👥 My Team</div>' +
+            '<div style="font-size:9px;color:var(--t2);padding:16px;text-align:center">Section now has <b>My Team</b> context — elements can bind to team member fields</div>' +
+          '</div>' +
+          '<div class="dm-toast"><span class="check">✓</span> Context added to section</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Section · Empty</div><div class="dm-insp-body">' +
+          '<div style="font-size:10px;font-weight:600;color:var(--t1);margin-bottom:6px">Context</div>' +
+          '<div style="padding:6px 8px;border-radius:6px;background:var(--grn-d);border:1px solid var(--grn-b);display:flex;align-items:center;gap:6px;margin-bottom:4px">' +
+            '<span style="font-size:12px">👥</span>' +
+            '<div><div style="font-size:10px;font-weight:600;color:var(--t1)">My Team</div><div style="font-size:8px;color:var(--t3);font-family:\'DM Mono\',monospace">CMS Collection</div></div>' +
+          '</div>' +
+          '<div style="padding:6px 10px;border-radius:6px;border:1px dashed var(--b2);color:var(--t3);font-size:9px;text-align:center;margin-top:6px">+ Add Context</div>' +
+        '</div></div>' +
+      '</div>';
     }
   }
 ];
+
 
 function _getActiveSpecDemoSteps() {
   return SPEC_DEMO_STEPS_MAP[S.specPageId] || [];
@@ -11989,6 +12073,115 @@ function specDemoStopPlay() {
   _specDemoTimer = null;
   var btn = document.getElementById('spec-demo-play-btn');
   if (btn) { btn.textContent = '▶ Play'; btn.classList.remove('playing'); }
+}
+
+/* ── SCOPED DEMO SYSTEM (per-flow demos & hub) ── */
+const _scopedDemoState = {};
+
+function _getScopedState(scope) {
+  if (!_scopedDemoState[scope]) _scopedDemoState[scope] = { step: 0, timer: null, playing: false, stepsKey: null };
+  return _scopedDemoState[scope];
+}
+
+function specDemoScopedInit(scope, stepsKey) {
+  var canvas = document.getElementById('spec-demo-' + scope + '-canvas');
+  var timeline = document.getElementById('spec-demo-' + scope + '-timeline');
+  if (!canvas || !timeline) return;
+  var steps = SPEC_DEMO_STEPS_MAP[stepsKey] || [];
+  if (!steps.length) return;
+  var st = _getScopedState(scope);
+  st.stepsKey = stepsKey; st.step = 0;
+  if (st.timer) { clearInterval(st.timer); st.timer = null; }
+  st.playing = false;
+  var tlHtml = '';
+  steps.forEach(function(s, i) {
+    if (i > 0) tlHtml += '<div class="spec-demo-line" id="spec-demo-' + scope + '-line-' + (i-1) + '"></div>';
+    tlHtml += '<div class="spec-demo-dot" id="spec-demo-' + scope + '-dot-' + i + '" onclick="specDemoScopedGoTo(\'' + scope + '\',' + i + ')"></div>';
+  });
+  timeline.innerHTML = tlHtml;
+  specDemoScopedRender(scope);
+  var btn = document.getElementById('spec-demo-' + scope + '-play-btn');
+  if (btn) { btn.textContent = '▶ Play'; btn.classList.remove('playing'); }
+}
+
+function specDemoScopedRender(scope) {
+  var st = _getScopedState(scope);
+  var canvas = document.getElementById('spec-demo-' + scope + '-canvas');
+  var caption = document.getElementById('spec-demo-' + scope + '-caption');
+  if (!canvas || !st.stepsKey) return;
+  var steps = SPEC_DEMO_STEPS_MAP[st.stepsKey] || [];
+  if (!steps.length) return;
+  canvas.innerHTML = steps[st.step].render();
+  if (caption) caption.innerHTML = steps[st.step].caption;
+  steps.forEach(function(s, i) {
+    var dot = document.getElementById('spec-demo-' + scope + '-dot-' + i);
+    var line = document.getElementById('spec-demo-' + scope + '-line-' + i);
+    if (dot) dot.className = 'spec-demo-dot' + (i === st.step ? ' active' : '') + (i < st.step ? ' done' : '');
+    if (line) line.className = 'spec-demo-line' + (i < st.step ? ' done' : '');
+  });
+}
+
+function specDemoScopedNext(scope) {
+  var st = _getScopedState(scope);
+  var steps = SPEC_DEMO_STEPS_MAP[st.stepsKey] || [];
+  if (st.step < steps.length - 1) { st.step++; specDemoScopedRender(scope); }
+  else if (st.playing) specDemoScopedStopPlay(scope);
+}
+
+function specDemoScopedPrev(scope) {
+  var st = _getScopedState(scope);
+  if (st.step > 0) { st.step--; specDemoScopedRender(scope); }
+}
+
+function specDemoScopedGoTo(scope, idx) {
+  _getScopedState(scope).step = idx;
+  specDemoScopedRender(scope);
+}
+
+function specDemoScopedTogglePlay(scope) {
+  var st = _getScopedState(scope);
+  if (st.playing) { specDemoScopedStopPlay(scope); return; }
+  var steps = SPEC_DEMO_STEPS_MAP[st.stepsKey] || [];
+  st.playing = true;
+  var btn = document.getElementById('spec-demo-' + scope + '-play-btn');
+  if (btn) { btn.textContent = '⏸ Pause'; btn.classList.add('playing'); }
+  if (st.step >= steps.length - 1) { st.step = 0; specDemoScopedRender(scope); }
+  st.timer = setInterval(function() { specDemoScopedNext(scope); }, 3000);
+}
+
+function specDemoScopedStopPlay(scope) {
+  var st = _getScopedState(scope);
+  st.playing = false;
+  if (st.timer) { clearInterval(st.timer); st.timer = null; }
+  var btn = document.getElementById('spec-demo-' + scope + '-play-btn');
+  if (btn) { btn.textContent = '▶ Play'; btn.classList.remove('playing'); }
+}
+
+function specFlowDemoToggle(flowId) {
+  var container = document.getElementById('spec-demo-inline-' + flowId);
+  var toggle = document.getElementById('spec-demo-toggle-' + flowId);
+  if (!container || !toggle) return;
+  var isOpen = container.classList.contains('open');
+  var label = toggle.querySelector('span');
+  if (isOpen) {
+    container.classList.remove('open'); toggle.classList.remove('active');
+    if (label) label.textContent = 'Show Demo';
+    specDemoScopedStopPlay(flowId);
+  } else {
+    container.classList.add('open'); toggle.classList.add('active');
+    if (label) label.textContent = 'Hide Demo';
+    specDemoScopedInit(flowId, S.specPageId + ':' + flowId);
+  }
+}
+
+function specDemoHubSwitch(flowId) {
+  var tabs = document.querySelectorAll('#spec-demo-hub-tabs .spec-demo-hub-tab');
+  tabs.forEach(function(t) { t.classList.toggle('active', t.getAttribute('data-flow') === flowId); });
+  var label = document.getElementById('spec-demo-hub-label');
+  var activeTab = document.querySelector('#spec-demo-hub-tabs .spec-demo-hub-tab.active');
+  if (label && activeTab) label.textContent = activeTab.textContent;
+  specDemoScopedStopPlay('hub');
+  specDemoScopedInit('hub', S.specPageId + ':' + flowId);
 }
 
 /* ── TOAST ── */
