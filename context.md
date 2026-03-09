@@ -344,6 +344,32 @@ When a property is bound, an "edit content" link appears below the binding chip,
 
 This provides a clear path from a bound property to the place where the actual content can be edited, while making it explicit when a value is computed and cannot be directly edited.
 
+### Image settings panel
+
+Image elements have a dedicated settings layout reflecting that images are **compound objects** (containing `src`, `alt`, and potentially more sub-properties).
+
+**Panel structure:**
+
+| Section | Contents |
+|---------|----------|
+| **Image** (Source) | Thumbnail preview + binding chip. Unbound: dashed placeholder with `+`. Bound: blurred thumbnail with field chip overlay |
+| **Display Mode** | Dropdown: `fit` / `fill` / `by aspect ratio` (static, not bindable) |
+| **Links to** | Link input with chain icon + bind button |
+| **Accessibility** (collapsible) | Alt text + "Set as decorative" toggle |
+| **Visibility** (collapsible) | Render condition (boolean binding) |
+
+**Alt text behavior — follows Source binding:**
+
+| Source state | Alt text state | Details |
+|-------------|---------------|---------|
+| **Unbound** | Static input | User types alt text manually |
+| **Bound** | Auto-bound chip | Shows `fieldName / alt` from the same context. Not independently bindable — no bind button, no ✕ to disconnect |
+| **Unbound again** | Reverts to static | Unbinding Source removes Alt text binding too |
+
+The key product decision: an image field in the data model is treated as an object with `src` and `alt`. Binding the Source property binds the entire object — Alt text is populated automatically as part of the same binding.
+
+**Set as decorative:** When toggled on, Alt text is visually disabled (grayed out, non-interactive) regardless of whether it's static or bound. Decorative images are hidden from screen readers.
+
 ### Open questions
 
 - **Static parameter input:** How does the user define static values for function parameters? Free text input? Type-specific controls (number stepper, date picker)? Should there be validation against the parameter's declared type?
