@@ -1,0 +1,9 @@
+{
+  "name": "Pen to Figma Importer",
+  "id": "pen-to-figma-importer-local",
+  "api": "1.0.0",
+  "main": "code.js",
+  "capabilities": [],
+  "enableProposedApi": false,
+  "editorType": ["figma"]
+}

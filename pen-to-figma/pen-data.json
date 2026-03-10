@@ -1,0 +1,5486 @@
+[
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "content": "PRODUCT SPEC",
+            "fill": "#0D6E6E",
+            "fontFamily": "JetBrains Mono",
+            "fontSize": 11,
+            "fontWeight": "600",
+            "id": "jgBlG",
+            "letterSpacing": 2,
+            "name": "badgeLabel",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "content": "IMPLEMENTED",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "7ACPp",
+                "letterSpacing": 1,
+                "name": "badgeStatusText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 4,
+            "fill": "#0D6E6E",
+            "id": "qkv12",
+            "name": "badgeStatus",
+            "padding": [
+              4,
+              8
+            ],
+            "type": "frame"
+          }
+        ],
+        "gap": 8,
+        "id": "Z9oJZ",
+        "name": "badge",
+        "type": "frame"
+      },
+      {
+        "content": "Repeater & Context",
+        "fill": "#1A1A1A",
+        "fontFamily": "Newsreader",
+        "fontSize": 40,
+        "fontWeight": "500",
+        "id": "JpZtp",
+        "lineHeight": 1.05,
+        "name": "title",
+        "type": "text"
+      },
+      {
+        "content": "Repeater (.c-repeater)",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 14,
+        "fontWeight": "500",
+        "id": "WgIeY",
+        "name": "subtitle",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "content": "Context Binding Team",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "gKxUj",
+            "name": "metaOwner",
+            "type": "text"
+          },
+          {
+            "content": "Feb 2026 · v1.0",
+            "fill": "#888888",
+            "fontFamily": "JetBrains Mono",
+            "fontSize": 12,
+            "fontWeight": "500",
+            "id": "j8BFz",
+            "name": "metaDate",
+            "type": "text"
+          }
+        ],
+        "gap": 24,
+        "id": "YGOTP",
+        "name": "meta",
+        "type": "frame"
+      },
+      {
+        "fill": "#E5E5E5",
+        "height": 1,
+        "id": "e1C92",
+        "name": "divider",
+        "type": "rectangle",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "OVERVIEW",
+            "fill": "#888888",
+            "fontFamily": "JetBrains Mono",
+            "fontSize": 11,
+            "fontWeight": "600",
+            "id": "Axi71",
+            "letterSpacing": 2,
+            "name": "overviewLabel",
+            "type": "text"
+          },
+          {
+            "content": "The Repeater is a context provider — contexts can be attached directly to it. This creates an easier mental model: the repeater is the list. The user binds the Items property to consume content.\n\nWhen a list context is attached and Items is unbound, it is automatically bound to the context's array field — no extra step needed.\n\nThe user can also bind Items to a context that lives on a parent (section/page) — the repeater doesn't have to own a context.",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 14,
+            "id": "QCWwY",
+            "lineHeight": 1.5,
+            "name": "overviewText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "gap": 16,
+        "id": "lYxYj",
+        "layout": "vertical",
+        "name": "Overview Section",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "PRODUCT DECISIONS",
+            "fill": "#888888",
+            "fontFamily": "JetBrains Mono",
+            "fontSize": 11,
+            "fontWeight": "600",
+            "id": "pbfSL",
+            "letterSpacing": 2,
+            "name": "decisionsLabel",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "content": "Topic",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 11,
+                    "fontWeight": "600",
+                    "id": "43NQU",
+                    "name": "headerTopic",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Decision",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 11,
+                    "fontWeight": "600",
+                    "id": "6dwyN",
+                    "name": "headerDecision",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Details",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 11,
+                    "fontWeight": "600",
+                    "id": "tbWIo",
+                    "name": "headerDetails",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#F0F0F0",
+                "gap": 12,
+                "id": "uZI0K",
+                "name": "headerRow",
+                "padding": [
+                  12,
+                  16
+                ],
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Where context lives",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "zhYuC",
+                    "name": "r1t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Repeater is a provider",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "rBUVO",
+                    "name": "r1d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Contexts attach directly to the repeater. Reduces reparenting issues on D&D.",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "NpPTP",
+                    "lineHeight": 1.4,
+                    "name": "r1det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "NwDAU",
+                "name": "row1",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Context picker (Items)",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "jFXVK",
+                    "name": "r2t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Repeater's own = default",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "037zS",
+                    "name": "r2d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Shows repeater's own context with \"This repeater\" scope badge. Also shows parent contexts.",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "I5rSu",
+                    "lineHeight": 1.4,
+                    "name": "r2det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "IPdxG",
+                "name": "row2",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Auto-bind",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "lIccS",
+                    "name": "r3t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Automatic",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "iIfpT",
+                    "name": "r3d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Items property auto-bound to context's array field when list context attached.",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "UuYLG",
+                    "lineHeight": 1.4,
+                    "name": "r3det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "FFDQo",
+                "name": "row3",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Shadowing",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "rsfBX",
+                    "name": "r4t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Allowed",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "w3DpZ",
+                    "name": "r4d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Same context type at parent and child levels. Closest instance wins (proximity resolution).",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "5WqW5",
+                    "lineHeight": 1.4,
+                    "name": "r4det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "VH07D",
+                "name": "row4",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Copy & Paste",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "ElOE4",
+                    "name": "r5t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "Smart duplication",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "wtTOQ",
+                    "name": "r5d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Coupled context → duplicated. Parent context → not duplicated. Paste out of context → disconnected.",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "HzkFs",
+                    "lineHeight": 1.4,
+                    "name": "r5det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "KWDTk",
+                "name": "row5",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Sort, Filter & Page Size",
+                    "fill": "#1A1A1A",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "k8IRa",
+                    "name": "r6t",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 160
+                  },
+                  {
+                    "content": "On context instance",
+                    "fill": "#0D6E6E",
+                    "fontFamily": "Inter",
+                    "fontSize": 13,
+                    "fontWeight": "500",
+                    "id": "96Qrf",
+                    "name": "r6d",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": 180
+                  },
+                  {
+                    "content": "Configured via repeater settings → \"Edit context instance\" floating panel. Applies to main records array.",
+                    "fill": "#666666",
+                    "fontFamily": "Inter",
+                    "fontSize": 12,
+                    "id": "gmdjP",
+                    "lineHeight": 1.4,
+                    "name": "r6det",
+                    "textGrowth": "fixed-width",
+                    "type": "text",
+                    "width": "fill_container"
+                  }
+                ],
+                "fill": "#FFFFFF",
+                "gap": 12,
+                "id": "7St8K",
+                "name": "row6",
+                "padding": [
+                  12,
+                  16
+                ],
+                "stroke": {
+                  "fill": "#F0F0F0",
+                  "thickness": {
+                    "top": 1
+                  }
+                },
+                "type": "frame",
+                "width": "fill_container"
+              }
+            ],
+            "clip": true,
+            "cornerRadius": 8,
+            "id": "dO22o",
+            "layout": "vertical",
+            "name": "Decisions Table",
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "gap": 16,
+        "id": "36ni1",
+        "layout": "vertical",
+        "name": "Product Decisions",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "FLOWS OVERVIEW",
+            "fill": "#888888",
+            "fontFamily": "JetBrains Mono",
+            "fontSize": 11,
+            "fontWeight": "600",
+            "id": "V9E9Y",
+            "letterSpacing": 2,
+            "name": "flowsLabel",
+            "type": "text"
+          },
+          {
+            "children": [
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "content": "01",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "pRcoe",
+                        "name": "c1num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Add Pre-Bound Repeater",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "hDMaQ",
+                        "name": "c1title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "From add panel (e.g., Products Gallery). Context exists on page / No context on page.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "56X8h",
+                        "lineHeight": 1.4,
+                        "name": "c1desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "5uP92",
+                    "layout": "vertical",
+                    "name": "card1",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  },
+                  {
+                    "children": [
+                      {
+                        "content": "02",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "Ec0jp",
+                        "name": "c2num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Filter & Sort Items",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "MGuUd",
+                        "name": "c2title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Sort by title A/Z. Filter out if description is empty.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "y7foK",
+                        "lineHeight": 1.4,
+                        "name": "c2desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "GqHRn",
+                    "layout": "vertical",
+                    "name": "card2",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  },
+                  {
+                    "children": [
+                      {
+                        "content": "03",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "2GDy0",
+                        "name": "c3num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Add UoU Filter",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "6m7eB",
+                        "name": "c3title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Promote context to section so external controls can bind to it.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "3R4Qs",
+                        "lineHeight": 1.4,
+                        "name": "c3desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "wgJyf",
+                    "layout": "vertical",
+                    "name": "card3",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  }
+                ],
+                "gap": 12,
+                "id": "vVL0d",
+                "layout": "vertical",
+                "name": "col1",
+                "type": "frame",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "content": "04",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "CMN1J",
+                        "name": "c4num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Select Another Context",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "gcivs",
+                        "name": "c4title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Switch to a different context already on the page to feed the repeater.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "vC9jw",
+                        "lineHeight": 1.4,
+                        "name": "c4desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "8Zxuk",
+                    "layout": "vertical",
+                    "name": "card4",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  },
+                  {
+                    "children": [
+                      {
+                        "content": "05",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "Msvwq",
+                        "name": "c5num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Add Blank Repeater",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "jYwOi",
+                        "name": "c5title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Select context: from existing, or create a new one.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "CU4J7",
+                        "lineHeight": 1.4,
+                        "name": "c5desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "HO6Eq",
+                    "layout": "vertical",
+                    "name": "card5",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  },
+                  {
+                    "children": [
+                      {
+                        "content": "06",
+                        "fill": "#0D6E6E",
+                        "fontFamily": "JetBrains Mono",
+                        "fontSize": 9,
+                        "fontWeight": "700",
+                        "id": "yJhRG",
+                        "name": "c6num",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Two Repeaters, Different Config",
+                        "fill": "#1A1A1A",
+                        "fontFamily": "Newsreader",
+                        "fontSize": 16,
+                        "fontWeight": "500",
+                        "id": "paXHI",
+                        "name": "c6title",
+                        "type": "text"
+                      },
+                      {
+                        "content": "Show 2 repeaters with different configuration of the same context.",
+                        "fill": "#888888",
+                        "fontFamily": "Inter",
+                        "fontSize": 11,
+                        "id": "jkG6B",
+                        "lineHeight": 1.4,
+                        "name": "c6desc",
+                        "textGrowth": "fixed-width",
+                        "type": "text",
+                        "width": "fill_container"
+                      }
+                    ],
+                    "cornerRadius": 8,
+                    "fill": "#FFFFFF",
+                    "gap": 6,
+                    "id": "iWXzd",
+                    "layout": "vertical",
+                    "name": "card6",
+                    "padding": 16,
+                    "stroke": {
+                      "fill": "#E5E5E5",
+                      "thickness": 1
+                    },
+                    "type": "frame",
+                    "width": "fill_container"
+                  }
+                ],
+                "gap": 12,
+                "id": "IjvxZ",
+                "layout": "vertical",
+                "name": "col2",
+                "type": "frame",
+                "width": "fill_container"
+              }
+            ],
+            "gap": 12,
+            "id": "lz0MY",
+            "name": "Flows Grid",
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "gap": 16,
+        "id": "R0dkL",
+        "layout": "vertical",
+        "name": "Flows Overview",
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 32,
+    "id": "ziBq6",
+    "layout": "vertical",
+    "name": "Overview - Repeater & Context",
+    "padding": 48,
+    "type": "frame",
+    "width": 960,
+    "x": 0,
+    "y": 0
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 1",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "nI0RQ",
+                "letterSpacing": 1,
+                "name": "f1badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "vzDav",
+            "name": "f1badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Add Pre-Bound Repeater",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "qZzEB",
+            "name": "f1title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "lbuPJ",
+        "name": "f1header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "📦",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "hzYr9",
+            "name": "f1noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "User drags a pre-bound repeater (e.g., Products Gallery) from the Add Panel onto a section. Behavior depends on whether a matching context already exists on the page.",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "WXXOL",
+            "lineHeight": 1.5,
+            "name": "f1noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "i13VI",
+        "name": "f1note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "SCENARIOS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "B0aW3",
+        "letterSpacing": 2,
+        "name": "scenarioLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Scenario",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "iBCwq",
+                "name": "sth1",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Behavior",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "UPZfy",
+                "name": "sth2",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#F0F0F0",
+            "gap": 12,
+            "id": "YNbwH",
+            "name": "sthRow",
+            "padding": [
+              12,
+              16
+            ],
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Context exists on parent",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "qIvj3",
+                "name": "sr1t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Inherit from parent. No context added to the repeater. Items auto-bind to the parent's context array.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "DxH6p",
+                "lineHeight": 1.4,
+                "name": "sr1d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "aAoMG",
+            "name": "sr1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "No context on parent",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "sq1gS",
+                "name": "sr2t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Context added on the repeater. Repeater owns it. Items auto-bind to the new context's array field.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "zIrKM",
+                "lineHeight": 1.4,
+                "name": "sr2d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "K98hg",
+            "name": "sr2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "id": "nVEgD",
+        "layout": "vertical",
+        "name": "Scenario Table",
+        "stroke": {
+          "fill": "#E5E5E5",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "FLOW STEPS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "JmANn",
+        "letterSpacing": 2,
+        "name": "flowLabel",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "oqH4t",
+                "name": "s1num",
+                "type": "text"
+              },
+              {
+                "content": "Drag repeater\nfrom Add Panel",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "a6eO0",
+                "lineHeight": 1.4,
+                "name": "s1text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "llqzX",
+            "layout": "vertical",
+            "name": "step1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "e3S5T",
+            "name": "arrow1",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "Rm62S",
+                "name": "s2num",
+                "type": "text"
+              },
+              {
+                "content": "Drop onto\nsection",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "bgIfw",
+                "lineHeight": 1.4,
+                "name": "s2text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "duHAi",
+            "layout": "vertical",
+            "name": "step2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "o7nPq",
+            "name": "arrow2",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "hDQId",
+                "name": "s3num",
+                "type": "text"
+              },
+              {
+                "content": "Check parent\nfor context",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "tbsLS",
+                "lineHeight": 1.4,
+                "name": "s3text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "mISfh",
+            "layout": "vertical",
+            "name": "step3",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "S5dRR",
+            "name": "arrow3",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "8nJQ7",
+                "name": "s4num",
+                "type": "text"
+              },
+              {
+                "content": "Inherit / Create\ncontext",
+                "fill": "#0D6E6E",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "Wmrmz",
+                "lineHeight": 1.4,
+                "name": "s4text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#F0F8F8",
+            "gap": 4,
+            "id": "WHSxh",
+            "layout": "vertical",
+            "name": "step4",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "jmZcj",
+            "name": "arrow4",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "D2gru",
+                "name": "s5num",
+                "type": "text"
+              },
+              {
+                "content": "Items\nauto-bind",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "KB2hL",
+                "lineHeight": 1.4,
+                "name": "s5text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "7jVHb",
+            "layout": "vertical",
+            "name": "step5",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "aEt0K",
+            "name": "arrow5",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "6",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "sEHkG",
+                "name": "s6num",
+                "type": "text"
+              },
+              {
+                "content": "Canvas\nshows data",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "BlB0a",
+                "lineHeight": 1.4,
+                "name": "s6text",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "nl1Yi",
+            "layout": "vertical",
+            "name": "step6",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          }
+        ],
+        "id": "ZjL7t",
+        "name": "Flow Steps",
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "c20ZI",
+    "layout": "vertical",
+    "name": "Flow 1 - Add Pre-Bound Repeater",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 1369
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 2",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "rehLu",
+                "letterSpacing": 1,
+                "name": "f2badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "dGLe6",
+            "name": "f2badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Filter & Sort Repeater Items",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "MwDo7",
+            "name": "f2title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "JhfpF",
+        "name": "f2header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "🔍",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "JniwM",
+            "name": "f2noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "Sort and filter are configured on the context instance, not on the repeater directly. Accessed via repeater settings → \"Edit context instance\" (floating panel).",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "zNRdP",
+            "lineHeight": 1.5,
+            "name": "f2noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "83Ddp",
+        "name": "f2note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "ACTIONS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "eYF2o",
+        "letterSpacing": 2,
+        "name": "actionsLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Action",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "MMcaq",
+                "name": "ath1",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 220
+              },
+              {
+                "content": "Details",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "lbI9G",
+                "name": "ath2",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#F0F0F0",
+            "gap": 12,
+            "id": "b3vax",
+            "name": "athRow",
+            "padding": [
+              12,
+              16
+            ],
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Sort by title A→Z",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "HIIeH",
+                "name": "ar1t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 220
+              },
+              {
+                "content": "Select field \"title\" → direction \"Ascending\". Applies to the main records array. Repeater items reorder immediately.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "4Ry2K",
+                "lineHeight": 1.4,
+                "name": "ar1d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "pibFx",
+            "name": "ar1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Filter: Description not empty",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "ksUGi",
+                "name": "ar2t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 220
+              },
+              {
+                "content": "Add filter rule: field \"description\" → condition \"is not empty\". Items that don't match are hidden from repeater.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "ditmn",
+                "lineHeight": 1.4,
+                "name": "ar2d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "FrCba",
+            "name": "ar2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "id": "I6Rqw",
+        "layout": "vertical",
+        "name": "Actions Table",
+        "stroke": {
+          "fill": "#E5E5E5",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "FLOW STEPS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "9U606",
+        "letterSpacing": 2,
+        "name": "f2flowLabel",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "LqnqO",
+                "name": "f2s1n",
+                "type": "text"
+              },
+              {
+                "content": "Select\nrepeater",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "81fhN",
+                "lineHeight": 1.4,
+                "name": "f2s1t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "5YYlt",
+            "layout": "vertical",
+            "name": "f2s1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "UV0MX",
+            "name": "f2a1",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "A9lE6",
+                "name": "f2s2n",
+                "type": "text"
+              },
+              {
+                "content": "Open context\nsettings",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "5bQaR",
+                "lineHeight": 1.4,
+                "name": "f2s2t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "FpOKg",
+            "layout": "vertical",
+            "name": "f2s2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "dolgl",
+            "name": "f2a2",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "enoen",
+                "name": "f2s3n",
+                "type": "text"
+              },
+              {
+                "content": "Add sort /\nfilter rule",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "9ucFd",
+                "lineHeight": 1.4,
+                "name": "f2s3t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "pM0FX",
+            "layout": "vertical",
+            "name": "f2s3",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "WAWey",
+            "name": "f2a3",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "uxY6c",
+                "name": "f2s4n",
+                "type": "text"
+              },
+              {
+                "content": "Configure field\n& direction",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "GWw08",
+                "lineHeight": 1.4,
+                "name": "f2s4t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "nkqHu",
+            "layout": "vertical",
+            "name": "f2s4",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "Rt0Mq",
+            "name": "f2a4",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "gYIJ3",
+                "name": "f2s5n",
+                "type": "text"
+              },
+              {
+                "content": "Repeater\nupdates",
+                "fill": "#0D6E6E",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "yrlil",
+                "lineHeight": 1.4,
+                "name": "f2s5t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#F0F8F8",
+            "gap": 4,
+            "id": "eVNen",
+            "layout": "vertical",
+            "name": "f2s5",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame"
+          }
+        ],
+        "id": "Wv8NP",
+        "name": "Flow 2 Steps",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "📐",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "xeSP2",
+            "name": "f2note2Icon",
+            "type": "text"
+          },
+          {
+            "content": "If the repeater uses a parent context, sort/filter is also accessible via section settings → context configuration. Applies only to the main records array — nested arrays (e.g., tags) are not affected.",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 12,
+            "id": "SOCFd",
+            "lineHeight": 1.5,
+            "name": "f2note2Text",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#FFFAF0",
+        "gap": 10,
+        "id": "qtUNw",
+        "name": "f2note2",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#E07B5422",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "uBvny",
+    "layout": "vertical",
+    "name": "Flow 2 - Filter & Sort",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 1982
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 3",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "lYnxn",
+                "letterSpacing": 1,
+                "name": "f3badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "376yD",
+            "name": "f3badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Add UoU Filter",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "r1IsB",
+            "name": "f3title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "enzv6",
+        "name": "f3header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "👤",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "Jcjrs",
+            "name": "f3noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "User-on-User (UoU) interactions: sort, filter, pagination, total items. These require the context to be promoted to section level so external controls can bind to context-level data.",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "fi7RE",
+            "lineHeight": 1.5,
+            "name": "f3noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "pWOeS",
+        "name": "f3note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "FLOW STEPS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "i9VFf",
+        "letterSpacing": 2,
+        "name": "f3stepsLabel",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "53MOT",
+                "name": "f3s1n",
+                "type": "text"
+              },
+              {
+                "content": "Context on\nrepeater (coupled)",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "WXuXL",
+                "lineHeight": 1.4,
+                "name": "f3s1t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 120
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "m7LIu",
+            "layout": "vertical",
+            "name": "f3s1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "Ja7uz",
+            "name": "f3a1",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "5rHx1",
+                "name": "f3s2n",
+                "type": "text"
+              },
+              {
+                "content": "User wants\nexternal filter",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "GbXuM",
+                "lineHeight": 1.4,
+                "name": "f3s2t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 120
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "LiVDa",
+            "layout": "vertical",
+            "name": "f3s2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "ZlMhb",
+            "name": "f3a2",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#E07B54",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "JNIxG",
+                "name": "f3s3n",
+                "type": "text"
+              },
+              {
+                "content": "Promote to\nsection",
+                "fill": "#E07B54",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "Ac90n",
+                "lineHeight": 1.4,
+                "name": "f3s3t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 120
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFAF0",
+            "gap": 4,
+            "id": "K73LG",
+            "layout": "vertical",
+            "name": "f3s3",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E07B54",
+              "thickness": 2
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "1pvWJ",
+            "name": "f3a3",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "RmRMK",
+                "name": "f3s4n",
+                "type": "text"
+              },
+              {
+                "content": "External controls\nbind to context",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "CsDDN",
+                "lineHeight": 1.4,
+                "name": "f3s4t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 120
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "RyQQA",
+            "layout": "vertical",
+            "name": "f3s4",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "AE5dz",
+            "name": "f3a4",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "qHoPX",
+                "name": "f3s5n",
+                "type": "text"
+              },
+              {
+                "content": "UoU\nactive",
+                "fill": "#0D6E6E",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "fAfOH",
+                "lineHeight": 1.4,
+                "name": "f3s5t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 120
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#F0F8F8",
+            "gap": 4,
+            "id": "IIcjz",
+            "layout": "vertical",
+            "name": "f3s5",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame"
+          }
+        ],
+        "id": "KCQa1",
+        "name": "Flow 3 Steps",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "ENTRY POINTS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "SsJau",
+        "letterSpacing": 2,
+        "name": "f3entryLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Entry Point",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "ad8WB",
+                "name": "f3th1",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Behavior",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "Je2Qp",
+                "name": "f3th2",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#F0F0F0",
+            "gap": 12,
+            "id": "QiIoc",
+            "name": "f3th",
+            "padding": [
+              12,
+              16
+            ],
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Repeater settings",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "G9VYt",
+                "name": "f3r1t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Message suggests to promote when context is coupled to repeater.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "ygOqc",
+                "lineHeight": 1.4,
+                "name": "f3r1d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "GMuNU",
+            "name": "f3r1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Binding dropdown (external)",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "Dgg1b",
+                "name": "f3r2t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 240
+              },
+              {
+                "content": "Shows the repeater's context with a \"Promote to section\" action.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "mpPmp",
+                "lineHeight": 1.4,
+                "name": "f3r2d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "3wyh5",
+            "name": "f3r2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "id": "dseO7",
+        "layout": "vertical",
+        "name": "Entry Points Table",
+        "stroke": {
+          "fill": "#E5E5E5",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "⚠️",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "iYzYc",
+            "name": "f3warnIcon",
+            "type": "text"
+          },
+          {
+            "content": "Same requirement applies to any context-level data outside repeater items — e.g., itemsCount, total items, current filter state.",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 12,
+            "id": "KG5GV",
+            "lineHeight": 1.5,
+            "name": "f3warnText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#FFF5F5",
+        "gap": 10,
+        "id": "bYljq",
+        "name": "f3warn",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#EF444422",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "uxlqk",
+    "layout": "vertical",
+    "name": "Flow 3 - UoU Filter",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 2695
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 4",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "BSpX0",
+                "letterSpacing": 1,
+                "name": "f4badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "d87ar",
+            "name": "f4badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Select Another Context",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "SMwHq",
+            "name": "f4title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "Z00CC",
+        "name": "f4header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "🔀",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "3iH7N",
+            "name": "f4noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "User switches the repeater to consume a different context that already exists on the page, instead of its own or current context.",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "8Vrft",
+            "lineHeight": 1.5,
+            "name": "f4noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "u2Fm7",
+        "name": "f4note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "FLOW STEPS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "hw2V8",
+        "letterSpacing": 2,
+        "name": "f4stepsLabel",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "JFp2d",
+                "name": "f4s1n",
+                "type": "text"
+              },
+              {
+                "content": "Select\nrepeater",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "o3mMX",
+                "lineHeight": 1.4,
+                "name": "f4s1t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 90
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "CpoXg",
+            "layout": "vertical",
+            "name": "f4s1",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "Nql7j",
+            "name": "f4a1",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "5idpQ",
+                "name": "f4s2n",
+                "type": "text"
+              },
+              {
+                "content": "Open Items\nbinding",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "F5oSm",
+                "lineHeight": 1.4,
+                "name": "f4s2t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 90
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "cuBaw",
+            "layout": "vertical",
+            "name": "f4s2",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "waMem",
+            "name": "f4a2",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "beXUQ",
+                "name": "f4s3n",
+                "type": "text"
+              },
+              {
+                "content": "Context picker\nshows options",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "AggWb",
+                "lineHeight": 1.4,
+                "name": "f4s3t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "4FJco",
+            "layout": "vertical",
+            "name": "f4s3",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "fNWlt",
+            "name": "f4a3",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#3B82F6",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "UZ6cB",
+                "name": "f4s4n",
+                "type": "text"
+              },
+              {
+                "content": "Select different\ncontext",
+                "fill": "#3B82F6",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "E2Ue5",
+                "lineHeight": 1.4,
+                "name": "f4s4t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#EFF6FF",
+            "gap": 4,
+            "id": "t5N16",
+            "layout": "vertical",
+            "name": "f4s4",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#3B82F6",
+              "thickness": 2
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "mHjAr",
+            "name": "f4a4",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "5A6Lt",
+                "name": "f4s5n",
+                "type": "text"
+              },
+              {
+                "content": "Select\narray field",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "7E3rm",
+                "lineHeight": 1.4,
+                "name": "f4s5t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 90
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "SysO7",
+            "layout": "vertical",
+            "name": "f4s5",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "2Yu4h",
+            "name": "f4a5",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "6",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "ZJN2Q",
+                "name": "f4s6n",
+                "type": "text"
+              },
+              {
+                "content": "Rebind\n& refresh",
+                "fill": "#0D6E6E",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "N9aCX",
+                "lineHeight": 1.4,
+                "name": "f4s6t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 90
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#F0F8F8",
+            "gap": 4,
+            "id": "ASZDi",
+            "layout": "vertical",
+            "name": "f4s6",
+            "padding": [
+              12,
+              14
+            ],
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame"
+          }
+        ],
+        "id": "xKvfu",
+        "name": "Flow 4 Steps",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "💡",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "V9H51",
+            "name": "f4hintIcon",
+            "type": "text"
+          },
+          {
+            "content": "The context picker shows: repeater's own context (with \"This repeater\" badge), parent contexts (section/page), and page-level contexts. The user picks any available context and selects which array field to bind Items to.",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 12,
+            "id": "MKbpo",
+            "lineHeight": 1.5,
+            "name": "f4hintText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "OwLwM",
+        "name": "f4hint",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "LeS54",
+    "layout": "vertical",
+    "name": "Flow 4 - Select Another Context",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 3387
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 5",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "YLp2s",
+                "letterSpacing": 1,
+                "name": "f5badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "SvAVz",
+            "name": "f5badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Add Blank Repeater",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "91qvT",
+            "name": "f5title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "zcP2O",
+        "name": "f5header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "📝",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "wLoUo",
+            "name": "f5noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "User drags an unconnected repeater (e.g., from Quick Add). It has no context — user can design freely and connect later.",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "Drhce",
+            "lineHeight": 1.5,
+            "name": "f5noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "XACX2",
+        "name": "f5note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "FLOW STEPS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "k10n3",
+        "letterSpacing": 2,
+        "name": "f5stepsLabel",
+        "type": "text"
+      },
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "FeU6H",
+                "name": "f5s1n",
+                "type": "text"
+              },
+              {
+                "content": "Drag blank\nrepeater",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "Ct6FM",
+                "lineHeight": 1.4,
+                "name": "f5s1t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "VhMI4",
+            "layout": "vertical",
+            "name": "f5s1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "4lxtS",
+            "name": "f5a1",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "GWiZp",
+                "name": "f5s2n",
+                "type": "text"
+              },
+              {
+                "content": "Design elements\ninside",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "IQ0D8",
+                "lineHeight": 1.4,
+                "name": "f5s2t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "ntzmx",
+            "layout": "vertical",
+            "name": "f5s2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "9qA3P",
+            "name": "f5a2",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "HGVsS",
+                "name": "f5s3n",
+                "type": "text"
+              },
+              {
+                "content": "Bind Items\nproperty",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "500",
+                "id": "V60AD",
+                "lineHeight": 1.4,
+                "name": "f5s3t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 4,
+            "id": "uuHsQ",
+            "layout": "vertical",
+            "name": "f5s3",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "7OuEB",
+            "name": "f5a3",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#3B82F6",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "Momp1",
+                "name": "f5s4n",
+                "type": "text"
+              },
+              {
+                "content": "Choose context\nsource",
+                "fill": "#3B82F6",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "e2fIv",
+                "lineHeight": 1.4,
+                "name": "f5s4t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#EFF6FF",
+            "gap": 4,
+            "id": "5qP44",
+            "layout": "vertical",
+            "name": "f5s4",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#3B82F6",
+              "thickness": 2
+            },
+            "type": "frame"
+          },
+          {
+            "content": "→",
+            "fill": "#AAAAAA",
+            "fontFamily": "Inter",
+            "fontSize": 18,
+            "fontWeight": "normal",
+            "id": "aFyx6",
+            "name": "f5a4",
+            "type": "text"
+          },
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 9,
+                "fontWeight": "700",
+                "id": "ZFd0d",
+                "name": "f5s5n",
+                "type": "text"
+              },
+              {
+                "content": "Connected",
+                "fill": "#0D6E6E",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "7vVL6",
+                "lineHeight": 1.4,
+                "name": "f5s5t",
+                "textAlign": "center",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#F0F8F8",
+            "gap": 4,
+            "id": "yE250",
+            "layout": "vertical",
+            "name": "f5s5",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame"
+          }
+        ],
+        "id": "oFOnM",
+        "name": "Flow 5 Steps",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "OPTIONS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "e2wLu",
+        "letterSpacing": 2,
+        "name": "f5optLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Option",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "j5Yp5",
+                "name": "f5th1",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Description",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "tzc9z",
+                "name": "f5th2",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#F0F0F0",
+            "gap": 12,
+            "id": "zECwS",
+            "name": "f5th",
+            "padding": [
+              12,
+              16
+            ],
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Use parent context",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "Oirpq",
+                "name": "f5r1t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "\"Use from page/section.\" Repeater references parent's context — no new context created.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "mlkem",
+                "lineHeight": 1.4,
+                "name": "f5r1d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "LhYCU",
+            "name": "f5r1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "+ Add context",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 13,
+                "fontWeight": "500",
+                "id": "CBJio",
+                "name": "f5r2t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "New context created on the repeater. Exists only for it.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "NPnE5",
+                "lineHeight": 1.4,
+                "name": "f5r2d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "VGjk1",
+            "name": "f5r2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "id": "P0AHs",
+        "layout": "vertical",
+        "name": "Options Table",
+        "stroke": {
+          "fill": "#E5E5E5",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "💡",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "mLteI",
+            "name": "f5hintIcon",
+            "type": "text"
+          },
+          {
+            "content": "If user tries to bind inner elements before the repeater's Items has data → suggest auto-binding the repeater to the selected array alongside the element binding.",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 12,
+            "id": "iZYBu",
+            "lineHeight": 1.5,
+            "name": "f5hintText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "fDJe6",
+        "name": "f5hint",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "9HDId",
+    "layout": "vertical",
+    "name": "Flow 5 - Blank Repeater",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 3884
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "FLOW 6",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "r9379",
+                "letterSpacing": 1,
+                "name": "f6badgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#0D6E6E",
+            "id": "QdyFg",
+            "name": "f6badge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Two Repeaters, Different Config",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "3l1Zc",
+            "name": "f6title",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "LYE88",
+        "name": "f6header",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "🔲",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "5X0ll",
+            "name": "f6noteIcon",
+            "type": "text"
+          },
+          {
+            "content": "Two repeaters on the same section can share the same context type but have different configurations (different sort, filter, page size). Each repeater owns its own context instance.",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 13,
+            "id": "IWoRN",
+            "lineHeight": 1.5,
+            "name": "f6noteText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#F0F8F8",
+        "gap": 10,
+        "id": "XLSkT",
+        "name": "f6note",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#0D6E6E22",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "content": "COMPARISON",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "AhqsS",
+        "letterSpacing": 2,
+        "name": "f6compLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Repeater A — CMS Articles",
+                "fill": "#0D6E6E",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "id": "4TqCy",
+                "name": "repATitle",
+                "type": "text"
+              },
+              {
+                "content": "Sort: Title A→Z",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "0vDBm",
+                "name": "repASort",
+                "type": "text"
+              },
+              {
+                "content": "Filter: Category = \"Tech\"",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "vh7I0",
+                "name": "repAFilter",
+                "type": "text"
+              },
+              {
+                "content": "Page size: 6",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "EUEod",
+                "name": "repAPage",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 10,
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "4RXeM",
+            "layout": "vertical",
+            "name": "repA",
+            "padding": 20,
+            "stroke": {
+              "fill": "#0D6E6E",
+              "thickness": 2
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Repeater B — CMS Articles",
+                "fill": "#3B82F6",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 12,
+                "fontWeight": "600",
+                "id": "d7GrW",
+                "name": "repBTitle",
+                "type": "text"
+              },
+              {
+                "content": "Sort: Date Desc",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "7ChKG",
+                "name": "repBSort",
+                "type": "text"
+              },
+              {
+                "content": "Filter: Category = \"Design\"",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "i2VNv",
+                "name": "repBFilter",
+                "type": "text"
+              },
+              {
+                "content": "Page size: 3",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "E4daz",
+                "name": "repBPage",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 10,
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "b5pcw",
+            "layout": "vertical",
+            "name": "repB",
+            "padding": 20,
+            "stroke": {
+              "fill": "#3B82F6",
+              "thickness": 2
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "gap": 16,
+        "id": "5oUct",
+        "name": "f6comp",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "children": [
+          {
+            "content": "📐",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "normal",
+            "id": "1N6FD",
+            "name": "f6archIcon",
+            "type": "text"
+          },
+          {
+            "content": "Each repeater owns its own context instance. Changes to one repeater's sort/filter/page size do not affect the other. This is possible because context lives on the repeater (Decision #1).",
+            "fill": "#666666",
+            "fontFamily": "Inter",
+            "fontSize": 12,
+            "id": "Kl3GV",
+            "lineHeight": 1.5,
+            "name": "f6archText",
+            "textGrowth": "fixed-width",
+            "type": "text",
+            "width": "fill_container"
+          }
+        ],
+        "cornerRadius": 8,
+        "fill": "#FFFAF0",
+        "gap": 10,
+        "id": "z3omq",
+        "name": "f6archNote",
+        "padding": [
+          14,
+          18
+        ],
+        "stroke": {
+          "fill": "#E07B5422",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "EGt5Y",
+    "layout": "vertical",
+    "name": "Flow 6 - Two Repeaters Different Config",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 4556
+  },
+  {
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "children": [
+              {
+                "content": "REFERENCE",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "700",
+                "id": "DUfjS",
+                "letterSpacing": 1,
+                "name": "reqBadgeText",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 6,
+            "fill": "#1A1A1A",
+            "id": "t2Fq9",
+            "name": "reqBadge",
+            "padding": [
+              6,
+              12
+            ],
+            "type": "frame"
+          },
+          {
+            "content": "Requirements & Edge Cases",
+            "fill": "#1A1A1A",
+            "fontFamily": "Newsreader",
+            "fontSize": 28,
+            "fontWeight": "500",
+            "id": "oH8kT",
+            "name": "reqTitle",
+            "type": "text"
+          }
+        ],
+        "gap": 12,
+        "id": "UINpA",
+        "name": "reqHeader",
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "fill": "#E5E5E5",
+        "height": 1,
+        "id": "OUftm",
+        "name": "reqDivider",
+        "type": "rectangle",
+        "width": "fill_container"
+      },
+      {
+        "content": "FUNCTIONAL REQUIREMENTS",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "BgVC9",
+        "letterSpacing": 2,
+        "name": "frLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "content": "Requirement",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "MuI21",
+                "name": "frTh1",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Description",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "nFZQv",
+                "name": "frTh2",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "content": "Status",
+                "fill": "#1A1A1A",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 11,
+                "fontWeight": "600",
+                "id": "wNIXh",
+                "name": "frTh3",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 100
+              }
+            ],
+            "fill": "#F0F0F0",
+            "gap": 12,
+            "id": "XUcUT",
+            "name": "frTh",
+            "padding": [
+              12,
+              16
+            ],
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Context as provider",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "aE9NZ",
+                "name": "fr1t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Repeater is a context provider — contexts attach directly to it.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "8qi3C",
+                "lineHeight": 1.4,
+                "name": "fr1d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Done",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "qrVAW",
+                    "name": "fr1st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#0D6E6E",
+                "id": "UpAlJ",
+                "name": "fr1s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "IVoJo",
+            "name": "fr1",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Auto-bind Items",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "MheUD",
+                "name": "fr2t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Items auto-bound to array field when list context attached.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "LxGCu",
+                "lineHeight": 1.4,
+                "name": "fr2d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Done",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "U7AUu",
+                    "name": "fr2st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#0D6E6E",
+                "id": "57cuo",
+                "name": "fr2s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "pQZdP",
+            "name": "fr2",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Context picker scoping",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "1NSQq",
+                "name": "fr3t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Shows repeater's own context (default), parent contexts, scope badge.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "HqjQe",
+                "lineHeight": 1.4,
+                "name": "fr3d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Done",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "q2hPo",
+                    "name": "fr3st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#0D6E6E",
+                "id": "Noxaw",
+                "name": "fr3s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "tSins",
+            "name": "fr3",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "D&D (reparenting)",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "4AD8v",
+                "name": "fr4t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "Coupled context moves with repeater. Inherited: choose copy/promote/disconnect.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "gXA7l",
+                "lineHeight": 1.4,
+                "name": "fr4d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "In Progress",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "hUMlY",
+                    "name": "fr4st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#E07B54",
+                "id": "BT0jG",
+                "name": "fr4s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "Qahxl",
+            "name": "fr4",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Suggest auto-bind",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "ETcqv",
+                "name": "fr5t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "If user binds inner element before Items has data, suggest auto-binding.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "JjQiS",
+                "lineHeight": 1.4,
+                "name": "fr5d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Planned",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "EceGd",
+                    "name": "fr5st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#888888",
+                "id": "9R4PP",
+                "name": "fr5s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "7zYeL",
+            "name": "fr5",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "content": "Live site (unbound)",
+                "fill": "#1A1A1A",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "fontWeight": "500",
+                "id": "krUys",
+                "name": "fr6t",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": 200
+              },
+              {
+                "content": "What to show when repeater is unbound on live site — collapse, placeholder, or hide.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 11,
+                "id": "voDes",
+                "lineHeight": 1.4,
+                "name": "fr6d",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              },
+              {
+                "children": [
+                  {
+                    "content": "Planned",
+                    "fill": "#FFFFFF",
+                    "fontFamily": "JetBrains Mono",
+                    "fontSize": 9,
+                    "fontWeight": "700",
+                    "id": "MsJ8u",
+                    "name": "fr6st",
+                    "type": "text"
+                  }
+                ],
+                "cornerRadius": 4,
+                "fill": "#888888",
+                "id": "8yJi9",
+                "name": "fr6s",
+                "padding": [
+                  3,
+                  8
+                ],
+                "type": "frame"
+              }
+            ],
+            "fill": "#FFFFFF",
+            "gap": 12,
+            "id": "Vf4h2",
+            "name": "fr6",
+            "padding": [
+              10,
+              16
+            ],
+            "stroke": {
+              "fill": "#F0F0F0",
+              "thickness": {
+                "top": 1
+              }
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "id": "jbvlk",
+        "layout": "vertical",
+        "name": "Requirements Table",
+        "stroke": {
+          "fill": "#E5E5E5",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": "fill_container"
+      },
+      {
+        "fill": "#E5E5E5",
+        "height": 1,
+        "id": "oJcdk",
+        "name": "ecDivider",
+        "type": "rectangle",
+        "width": "fill_container"
+      },
+      {
+        "content": "EDGE CASES",
+        "fill": "#888888",
+        "fontFamily": "JetBrains Mono",
+        "fontSize": 11,
+        "fontWeight": "600",
+        "id": "R2IcE",
+        "letterSpacing": 2,
+        "name": "ecLabel",
+        "type": "text"
+      },
+      {
+        "children": [
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#EF4444",
+                "height": 6,
+                "id": "xZY6W",
+                "name": "ec1dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "Paste out of context — repeater pasted where no matching context exists → elements are disconnected. TBD: editor experience.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "bPdhB",
+                "lineHeight": 1.5,
+                "name": "ec1text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "ESTor",
+            "name": "ec1",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#E07B54",
+                "height": 6,
+                "id": "t1oG3",
+                "name": "ec2dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "Drag to different section (inherited context) — context stays in original section. User must choose: copy to new section / promote to page / disconnect.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "k6ASo",
+                "lineHeight": 1.5,
+                "name": "ec2text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "gOE25",
+            "name": "ec2",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#E07B54",
+                "height": 6,
+                "id": "wa8wN",
+                "name": "ec3dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "Nested arrays — sub-arrays do not have context-level sort/filter/page size. User needs to bind to a function that returns a filtered/sorted array.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "tiIHn",
+                "lineHeight": 1.5,
+                "name": "ec3text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "g3jFu",
+            "name": "ec3",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#888888",
+                "height": 6,
+                "id": "VvqJK",
+                "name": "ec4dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "Blank repeater + inner element bind — if Items has no data and user tries to bind an inner element, suggest auto-binding the repeater first.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "KhP1P",
+                "lineHeight": 1.5,
+                "name": "ec4text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "Sllyy",
+            "name": "ec4",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#888888",
+                "height": 6,
+                "id": "K6vxz",
+                "name": "ec5dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "Context-level vs item-level fields — binding UI should clearly indicate when a field is \"Same value across all rows\" (context-level).",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "c3iQm",
+                "lineHeight": 1.5,
+                "name": "ec5text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "Z8SGf",
+            "name": "ec5",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          },
+          {
+            "children": [
+              {
+                "cornerRadius": 3,
+                "fill": "#0D6E6E",
+                "height": 6,
+                "id": "LrWVg",
+                "name": "ec6dot",
+                "type": "frame",
+                "width": 6
+              },
+              {
+                "content": "System contexts on repeater — not allowed. System contexts (User, Site, Router) appear only at page level.",
+                "fill": "#666666",
+                "fontFamily": "Inter",
+                "fontSize": 12,
+                "id": "sobn6",
+                "lineHeight": 1.5,
+                "name": "ec6text",
+                "textGrowth": "fixed-width",
+                "type": "text",
+                "width": "fill_container"
+              }
+            ],
+            "cornerRadius": 8,
+            "fill": "#FFFFFF",
+            "gap": 10,
+            "id": "4fSxT",
+            "name": "ec6",
+            "padding": [
+              12,
+              16
+            ],
+            "stroke": {
+              "fill": "#E5E5E5",
+              "thickness": 1
+            },
+            "type": "frame",
+            "width": "fill_container"
+          }
+        ],
+        "gap": 10,
+        "id": "yeGf7",
+        "layout": "vertical",
+        "name": "ecList",
+        "type": "frame",
+        "width": "fill_container"
+      }
+    ],
+    "cornerRadius": 12,
+    "fill": "#FAFAFA",
+    "gap": 28,
+    "id": "fasVE",
+    "layout": "vertical",
+    "name": "Requirements & Edge Cases",
+    "padding": [
+      40,
+      48
+    ],
+    "type": "frame",
+    "width": 1100,
+    "x": 0,
+    "y": 5140
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame1",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 1",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 1213,
+    "y": 1369,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "1",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "65SNX",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "J10Jc",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Canvas Starting State",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "GZpO0",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "tVzOQ",
+        "name": "s1label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "6DOur",
+            "name": "callout-f1",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 50,
+            "y": 40,
+            "children": [
+              {
+                "content": "Click + to open Add Panel",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "0Xv3D",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step1",
+          "mode": "fill"
+        },
+        "height": 768,
+        "id": "BwnP7",
+        "layout": "none",
+        "name": "Screen 1",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "The editor canvas in its initial state.\nHero section and weather data are visible.",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "XKSE6",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame2",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 2",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 2739,
+    "y": 1369,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "2",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "YF9fU",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "wES86",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Open Add Panel",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "bxqdQ",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "XWHKd",
+        "name": "s2label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "lu15M",
+            "name": "callout-f2",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 135,
+            "y": 150,
+            "children": [
+              {
+                "content": "Select Articles repeater",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "b5kg8",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step2",
+          "mode": "fill"
+        },
+        "height": 768,
+        "id": "TLlZJ",
+        "layout": "none",
+        "name": "Screen 2",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "User clicks + to open the Add Elements panel.\nRepeater presets appear: Blank, Articles, Team.",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "2kiHv",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame3",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 3",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 4265,
+    "y": 1369,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "3",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "dzr2F",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "4jiq2",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Add Articles Repeater",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "j32Hz",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "ZzjHX",
+        "name": "s3label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "7aJ1j",
+            "name": "callout-f3",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 530,
+            "y": 350,
+            "children": [
+              {
+                "content": "Repeater added to canvas",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "6qniy",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step3",
+          "mode": "fill"
+        },
+        "height": 768,
+        "id": "7W3Fv",
+        "layout": "none",
+        "name": "Screen 3",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "User selects \"Articles\" (pre-bound repeater).\nIt's auto-placed and connected to data.",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "tk1fq",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame4",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 4",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 1213,
+    "y": 2409,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "4",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "EN5vo",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "rJuni",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Context Auto-Bound",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "cYA31",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "0tmxX",
+        "name": "s4label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "AbwmJ",
+            "name": "callout-f4",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 85,
+            "y": 325,
+            "children": [
+              {
+                "content": "Context pill appears",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "1VC9b",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step4",
+          "mode": "fill"
+        },
+        "height": 768,
+        "id": "6H9qY",
+        "layout": "none",
+        "name": "Screen 4",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "The repeater's context is auto-bound.\nPink pill: \"Articles repeater added & connected\".",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "be0qo",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame5",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 5",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 2739,
+    "y": 2409,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "5",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "MOuUC",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "depDx",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Items Auto-Bind",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "Qy7Aw",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "OJqcS",
+        "name": "s5label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "MdHcK",
+            "name": "callout-f5",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 195,
+            "y": 322,
+            "children": [
+              {
+                "content": "Context: Articles • articles",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "F4x9j",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step5",
+          "mode": "fill"
+        },
+        "height": 768,
+        "id": "qOEa1",
+        "layout": "none",
+        "name": "Screen 5",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "Context pill shows \"Repeater | S Articles · articles\".\nItems are auto-bound to the Articles context.",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "9rcel",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  },
+  {
+    "alignItems": "center",
+    "cornerRadius": 16,
+    "fill": "#F5F5F5",
+    "gap": 16,
+    "id": "stepFrame6",
+    "layout": "vertical",
+    "name": "Flow 1 — Step 6",
+    "padding": [
+      32,
+      40
+    ],
+    "type": "frame",
+    "x": 4265,
+    "y": 2409,
+    "children": [
+      {
+        "alignItems": "center",
+        "children": [
+          {
+            "alignItems": "center",
+            "children": [
+              {
+                "content": "6",
+                "fill": "#FFFFFF",
+                "fontFamily": "JetBrains Mono",
+                "fontSize": 13,
+                "fontWeight": "700",
+                "id": "0JJa3",
+                "type": "text"
+              }
+            ],
+            "cornerRadius": 14,
+            "fill": "#0D6E6E",
+            "height": 28,
+            "id": "nmSTM",
+            "justifyContent": "center",
+            "layout": "vertical",
+            "type": "frame",
+            "width": 28
+          },
+          {
+            "content": "Full Canvas with Data",
+            "fill": "#1A1A1A",
+            "fontFamily": "Inter",
+            "fontSize": 16,
+            "fontWeight": "600",
+            "id": "Gq4ZU",
+            "type": "text"
+          }
+        ],
+        "gap": 10,
+        "id": "s9Bqi",
+        "name": "s6label",
+        "type": "frame"
+      },
+      {
+        "children": [
+          {
+            "cornerRadius": 8,
+            "fill": "#0D6E6E",
+            "id": "mfD7y",
+            "name": "callout-f6",
+            "padding": [
+              8,
+              14
+            ],
+            "type": "frame",
+            "x": 410,
+            "y": 545,
+            "children": [
+              {
+                "content": "Repeater live with data",
+                "fill": "#FFFFFF",
+                "fontFamily": "Inter",
+                "fontSize": 14,
+                "fontWeight": "600",
+                "id": "Q0ydP",
+                "type": "text"
+              }
+            ]
+          }
+        ],
+        "clip": true,
+        "cornerRadius": 8,
+        "fill": {
+          "type": "image",
+          "imageKey": "step6",
+          "mode": "stretch"
+        },
+        "height": 768,
+        "id": "ee7rV",
+        "layout": "none",
+        "name": "Screen 6",
+        "stroke": {
+          "fill": "#E0E0E0",
+          "thickness": 1
+        },
+        "type": "frame",
+        "width": 1366
+      },
+      {
+        "content": "Full canvas: hero, weather, and Articles repeater\nall visible. Data is live and connected.",
+        "fill": "#666666",
+        "fontFamily": "Inter",
+        "fontSize": 13,
+        "fontWeight": "normal",
+        "id": "fHlCA",
+        "lineHeight": 1.5,
+        "textAlign": "center",
+        "textGrowth": "fixed-width",
+        "type": "text",
+        "width": "fill_container"
+      }
+    ]
+  }
+]

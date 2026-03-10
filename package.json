@@ -16,5 +16,9 @@
     "url": "https://github.com/StavStein/Context-Binding-Product-Prototype/issues"
   },
   "homepage": "https://github.com/StavStein/Context-Binding-Product-Prototype#readme",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "playwright": "^1.58.2",
+    "puppeteer": "^24.37.5"
+  }
 }
