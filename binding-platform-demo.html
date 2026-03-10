@@ -48,6 +48,12 @@ body{background:var(--bg);color:var(--t1);font-family:'DM Sans',sans-serif;font-
 .pp-group{padding:7px 14px 4px;font-size:10px;font-weight:600;color:var(--t3);letter-spacing:.3px;margin-top:4px;border-top:1px solid var(--b1);cursor:default}
 .pp-sub{padding:7px 14px 7px 26px;font-size:12px;color:var(--t2);cursor:pointer;transition:.1s;display:flex;align-items:center;gap:8px}
 .pp-sub:hover{background:var(--sur2);color:var(--t1)}
+.pp-archive-toggle{cursor:pointer;display:flex;align-items:center;justify-content:space-between}
+.pp-archive-toggle:hover{color:var(--t2)}
+.pp-archive-chevron{font-size:10px;transition:transform .15s}
+.pp-archive-toggle.open .pp-archive-chevron{transform:rotate(90deg)}
+.pp-archive-items .pp-sub{opacity:.6}
+.pp-archive-items .pp-sub:hover{opacity:1}
 .pp-manage{padding:8px 14px;font-size:11px;color:var(--acc);cursor:pointer;text-align:center;border-top:1px solid var(--b1);margin-top:4px}
 .pp-manage:hover{background:var(--sur2)}
 .tb-tabs{display:flex;align-items:center;gap:2px;height:100%;margin-left:0}
@@ -168,6 +174,9 @@ body.product-mode .prop-row-wrap:hover,body.product-mode .et-panel-row:hover{out
 .pm-panel-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:#7c3aed;display:flex;align-items:center;gap:6px}
 .pm-panel-count{font-size:10px;padding:1px 7px;border-radius:10px;background:#7c3aed18;color:#7c3aed;font-weight:600}
 .pm-panel-body{flex:1;overflow-y:auto;padding:8px}
+.pm-panel-footer{padding:10px 16px;border-top:1px solid var(--b1)}
+.pm-exit-btn{width:100%;padding:8px;border:1px solid #7c3aed40;background:#7c3aed10;color:#7c3aed;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;transition:.15s;font-family:'DM Sans',sans-serif}
+.pm-exit-btn:hover{background:#7c3aed20;border-color:#7c3aed60}
 .pm-spec-card{padding:10px 12px;border-radius:8px;border:1px solid var(--b1);background:var(--sur2);margin-bottom:6px;cursor:pointer;transition:.15s}
 .pm-spec-card:hover{border-color:#7c3aed40;background:#7c3aed08}
 .pm-spec-card-title{font-size:12px;font-weight:600;color:var(--t1);margin-bottom:4px}
@@ -504,7 +513,7 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 
 /* CANVAS ELEMENTS - visual */
 .c-el{border-radius:8px;cursor:pointer;transition:all .18s;position:relative;overflow:visible}
-.c-el:hover .c-el-overlay{opacity:1}
+.c-el:hover .c-el-overlay{opacity:1;border-color:#b6d8f5}
 .c-el.sel .c-el-overlay{opacity:1;border-color:var(--acc)}
 .c-el.bound .c-el-overlay{border-color:var(--grn)}
 .c-el.bound.sel .c-el-overlay{opacity:1;border-color:#e84393}
@@ -1385,18 +1394,12 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
     </div>
     <div class="sep"></div>
     <div class="page-sel-wrap">
-      <div class="page-sel" onclick="togglePagesPanel(event)"><span class="page-sel-name">📄 Demo 26.2</span> <span class="page-sel-chevron">▾</span></div>
+      <div class="page-sel" onclick="togglePagesPanel(event)"><span class="page-sel-name">📄 Demo 26.2 (home)</span> <span class="page-sel-chevron">▾</span></div>
       <div class="pages-panel" id="pages-panel">
-        <div class="pp-item" onclick="selectPage(this,'Homepage')">📄 Home</div>
-        <div class="pp-item" onclick="selectPage(this,'Items (List)')">📄 Items (List)</div>
-        <div class="pp-item" onclick="selectPage(this,'Repeater Usecases')">📄 Repeater Usecases</div>
-        <div class="pp-item" onclick="selectPage(this,'Repeater')">↻ Repeater</div>
+        <div class="pp-item active" onclick="selectPage(this,'Demo 26.2 (home)')">📄 Demo 26.2 (home)</div>
         <div class="pp-group">Repeater · Context Placement</div>
         <div class="pp-sub" onclick="selectPage(this,'Option A · On Repeater')">Ⓐ On Repeater</div>
-        <div class="pp-sub" onclick="selectPage(this,'Option B · On Parent')">Ⓑ On Parent</div>
         <div class="pp-item" onclick="selectPage(this,'Multi-State Box')">◫ Multi-State Box</div>
-        <div class="pp-item" onclick="selectPage(this,'Demo')">📄 Demo</div>
-        <div class="pp-item active" onclick="selectPage(this,'Demo 26.2')">📄 Demo 26.2</div>
         <div class="pp-group">Item Pages (Dynamic)</div>
         <div class="pp-sub" onclick="selectPage(this,'Product Item')">🛒 Product Item</div>
         <div class="pp-group">Reference Pages</div>
@@ -1405,6 +1408,15 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
         <div class="pp-sub" onclick="selectPage(this,'Role Item')">🏷 Role Item</div>
         <div class="pp-sub" onclick="selectPage(this,'Book Item')">📖 Book Item</div>
         <div class="pp-sub" onclick="selectPage(this,'Author Item')">✍️ Author Item</div>
+        <div class="pp-group pp-archive-toggle" onclick="toggleArchive()" id="archive-toggle">📦 Archive <span class="pp-archive-chevron">▸</span></div>
+        <div class="pp-archive-items" id="archive-items" style="display:none">
+          <div class="pp-sub" onclick="selectPage(this,'Repeater Usecases')">📄 Repeater Usecases</div>
+          <div class="pp-sub" onclick="selectPage(this,'Items (List)')">📄 Items (List)</div>
+          <div class="pp-sub" onclick="selectPage(this,'Homepage')">📄 Home</div>
+          <div class="pp-sub" onclick="selectPage(this,'Repeater')">↻ Repeater</div>
+          <div class="pp-sub" onclick="selectPage(this,'Demo')">📄 Demo</div>
+          <div class="pp-sub" onclick="selectPage(this,'Option B · On Parent')">Ⓑ On Parent</div>
+        </div>
         <div class="pp-manage">Manage Pages</div>
       </div>
     </div>
@@ -4043,7 +4055,7 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
     <!-- DEMO 26.2 PAGE -->
     <div class="canvas-inner" id="demo262-page">
-      <div class="page-sel-bar" id="psb-demo262" onclick="selectPageEl(event,'page-demo262')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Demo 26.2</div>
+      <div class="page-sel-bar" id="psb-demo262" onclick="selectPageEl(event,'page-demo262')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg> Page · Demo 26.2 (home)</div>
 
       <!-- Section: Weather (connected to Weather App) -->
       <div class="c-section has-ctx" id="sec-d262-weather" onclick="selEl(event,'sec-d262-weather')">
@@ -4080,10 +4092,88 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
         </div>
       </div>
 
-      <!-- Section: Empty 1 -->
+      <!-- Section: Blank Repeater -->
       <div class="c-section" id="sec-d262-empty1" onclick="selEl(event,'sec-d262-empty1')">
         <div class="ctx-pill" id="pill-sec-d262-empty1"></div>
-        <div class="s-body" style="min-height:400px"></div>
+        <div class="s-body">
+          <div style="padding:24px 24px 8px">
+            <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--t1);margin-bottom:4px">My List</div>
+          </div>
+          <div class="c-repeater" id="repeater-d262-blank" onclick="selEl(event,'repeater-d262-blank')" style="margin:0 24px 24px;border-radius:6px">
+            <div class="ctx-pill rep-pill" id="pill-repeater-d262-blank"></div>
+            <div class="c-el-overlay"></div>
+            <div class="rep-header" onclick="selElSettings(event,'repeater-d262-blank')">
+              <span class="rep-icon">↻</span>
+              <span class="rep-label">Repeater</span>
+              <span class="rep-count" id="rep-count-d262-blank">— not connected</span>
+              <div class="rep-bind-btn" onclick="openDd(event,'repeater-d262-blank','Items')" title="Connect to list">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12">
+                  <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
+                </svg>
+              </div>
+            </div>
+            <div class="rep-notice">Not connected to data — all items show the same placeholder content. <span style="text-decoration:underline;cursor:pointer;font-weight:600" onclick="repNoticeAction(event,'repeater-d262-blank')">Connect data →</span></div>
+            <div style="display:flex;flex-direction:column;gap:8px;padding:8px">
+              <div class="rep-item" id="rep-d262b-1" onclick="selEl(event,'rep-d262b-1')" style="display:flex;gap:16px;padding:16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative;align-items:center">
+                <div class="c-el-overlay"></div>
+                <div class="c-el c-el-img" id="el-d262b-img-1" onclick="selEl(event,'el-d262b-img-1')" style="cursor:pointer;width:64px;height:64px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1);flex-shrink:0;overflow:hidden">
+                  <div class="c-el-overlay" style="border-radius:8px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag"></div></div>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="c-el c-el-text" id="el-d262b-title-1" onclick="selEl(event,'el-d262b-title-1')" style="cursor:pointer">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-title-1" style="font-weight:600;font-size:14px;color:var(--t1)">Item Title</div>
+                  </div>
+                  <div class="c-el c-el-text" id="el-d262b-desc-1" onclick="selEl(event,'el-d262b-desc-1')" style="cursor:pointer;margin-top:2px">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-desc-1" style="font-size:12px;color:var(--t3)">Description goes here</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rep-item" id="rep-d262b-2" onclick="selEl(event,'rep-d262b-2')" style="display:flex;gap:16px;padding:16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative;align-items:center">
+                <div class="c-el-overlay"></div>
+                <div class="c-el c-el-img" id="el-d262b-img-2" onclick="selEl(event,'el-d262b-img-2')" style="cursor:pointer;width:64px;height:64px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1);flex-shrink:0;overflow:hidden">
+                  <div class="c-el-overlay" style="border-radius:8px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag"></div></div>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="c-el c-el-text" id="el-d262b-title-2" onclick="selEl(event,'el-d262b-title-2')" style="cursor:pointer">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-title-2" style="font-weight:600;font-size:14px;color:var(--t1)">Item Title</div>
+                  </div>
+                  <div class="c-el c-el-text" id="el-d262b-desc-2" onclick="selEl(event,'el-d262b-desc-2')" style="cursor:pointer;margin-top:2px">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-desc-2" style="font-size:12px;color:var(--t3)">Description goes here</div>
+                  </div>
+                </div>
+              </div>
+              <div class="rep-item" id="rep-d262b-3" onclick="selEl(event,'rep-d262b-3')" style="display:flex;gap:16px;padding:16px;border-radius:8px;border:1px solid var(--b1);cursor:pointer;position:relative;align-items:center">
+                <div class="c-el-overlay"></div>
+                <div class="c-el c-el-img" id="el-d262b-img-3" onclick="selEl(event,'el-d262b-img-3')" style="cursor:pointer;width:64px;height:64px;border-radius:8px;background:var(--sur2);border:1px solid var(--b1);flex-shrink:0;overflow:hidden">
+                  <div class="c-el-overlay" style="border-radius:8px"></div>
+                  <div class="el-tags"><div class="el-type-tag">Image</div><div class="el-bind-tag"></div></div>
+                </div>
+                <div style="flex:1;min-width:0">
+                  <div class="c-el c-el-text" id="el-d262b-title-3" onclick="selEl(event,'el-d262b-title-3')" style="cursor:pointer">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-title-3" style="font-weight:600;font-size:14px;color:var(--t1)">Item Title</div>
+                  </div>
+                  <div class="c-el c-el-text" id="el-d262b-desc-3" onclick="selEl(event,'el-d262b-desc-3')" style="cursor:pointer;margin-top:2px">
+                    <div class="c-el-overlay" style="border-radius:4px"></div>
+                    <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag"></div></div>
+                    <div id="v-el-d262b-desc-3" style="font-size:12px;color:var(--t3)">Description goes here</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Section: Empty 2 -->
@@ -4103,6 +4193,9 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
       <button class="pm-panel-x" onclick="document.getElementById('pm-panel').classList.remove('open')" title="Close">✕</button>
     </div>
     <div class="pm-panel-body" id="pm-panel-body"></div>
+    <div class="pm-panel-footer">
+      <button class="pm-exit-btn" onclick="toggleProductMode()">Exit Product Mode</button>
+    </div>
   </div>
 
   <!-- SPEC PAGE OVERLAY -->
@@ -5125,7 +5218,7 @@ const EL_DEFS = {
   'el-weather-img':{name:'Weather Image',  type:'Image',   section:'sec-weather', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-snowman':   {name:'Snowman Icon',  type:'Icon',    section:'sec-weather', props:[{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   // Repeater (bindable to a list context field)
-  'repeater-articles': {name:'Repeater', type:'Repeater', section:'sec-articles', isRepeater:true,
+  'repeater-articles': {name:'Repeater', type:'Repeater', section:'sec-articles', isRepeater:true, contextModel:'on-repeater',
     props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   // Repeater items (template — binding applies to all)
   'rep-item-1':    {name:'Item 1',       type:'RepItem', section:'sec-articles', isRepItem:true, props:[]},
@@ -5147,7 +5240,7 @@ const EL_DEFS = {
   'el-art-time-2': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-art-time-3': {name:'Read Time',    type:'Text',    section:'sec-articles', repTemplate:'el-art-time', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'page-home':    {name:'Page · Home', type:'Page', isPage:true, page:'home', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
-  'page-demo262': {name:'Page · Demo 26.2', type:'Page', isPage:true, page:'demo262', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'page-demo262': {name:'Page · Demo 26.2 (home)', type:'Page', isPage:true, page:'demo262', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'page-items':   {name:'Page · Items (List)', type:'Page', isPage:true, page:'items-list', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'page-ruc':     {name:'Page · Repeater Usecases', type:'Page', isPage:true, page:'repeater-usecases', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'page-msb':     {name:'Page · Multi-State Box', type:'Page', isPage:true, page:'msb', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
@@ -5159,7 +5252,7 @@ const EL_DEFS = {
   // Items List page
   'sec-items':    {name:'Section · Items',    type:'Section',  isContainer:true, page:'items-list', parentPage:'page-items', props:[]},
   'el-items-title':{name:'Page Title',  type:'Text',    section:'sec-items', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-items':{name:'Repeater',    type:'Repeater',section:'sec-items', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-items':{name:'Repeater',    type:'Repeater',section:'sec-items', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-item-s1':  {name:'Item 1',       type:'RepItem', section:'sec-items', isRepItem:true, props:[]},
   'rep-item-s2':  {name:'Item 2',       type:'RepItem', section:'sec-items', isRepItem:true, props:[]},
   'rep-item-s3':  {name:'Item 3',       type:'RepItem', section:'sec-items', isRepItem:true, props:[]},
@@ -5187,7 +5280,7 @@ const EL_DEFS = {
   'el-rel-img':     {name:'Item Image',       type:'Image', section:'sec-rel-product', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-rel-locations':{name:'Section · Store Locations', type:'Section', isContainer:true, page:'item-relationship', parentPage:'page-rel-detail', props:[]},
   'el-rel-loc-title':{name:'Section Title',   type:'Text',  section:'sec-rel-locations', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-rel-locations':{name:'Repeater',   type:'Repeater', section:'sec-rel-locations', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-rel-locations':{name:'Repeater',   type:'Repeater', section:'sec-rel-locations', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-rel-loc-1':  {name:'Location 1',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
   'rep-rel-loc-2':  {name:'Location 2',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
   'rep-rel-loc-3':  {name:'Location 3',       type:'RepItem', section:'sec-rel-locations', isRepItem:true, props:[]},
@@ -5205,7 +5298,7 @@ const EL_DEFS = {
   'el-msb-loading-text':  {name:'Loading Text',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'loading',  props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-title':   {name:'Empty Title',     type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-msb-empty-btn':     {name:'Browse Button',   type:'Button', section:'sec-msb', msbParent:'msb-articles', msbView:'empty',    props:[{k:'Label',t:'string'},{k:'Click Action',t:'action'}]},
-  'repeater-msb-items':   {name:'Repeater',         type:'Repeater', section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-msb-items':   {name:'Repeater',         type:'Repeater', section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-msb-item-1':       {name:'Article 1',        type:'RepItem', section:'sec-msb', isRepItem:true, props:[]},
   'rep-msb-item-2':       {name:'Article 2',        type:'RepItem', section:'sec-msb', isRepItem:true, props:[]},
   'el-msb-item-title-1':  {name:'Article Title',    type:'Text',   section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5216,7 +5309,7 @@ const EL_DEFS = {
   'el-msb-item-thumb-2':  {name:'Thumbnail',        type:'Image',  section:'sec-msb', msbParent:'msb-articles', msbView:'hasItems', repTemplate:'el-msb-item-thumb', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
   // Repeater Usecases page
   'sec-ruc-articles':    {name:'Section · Articles List', type:'Section', isContainer:true, page:'repeater-usecases', parentPage:'page-ruc', props:[]},
-  'repeater-ruc-articles':{name:'Repeater',     type:'Repeater', section:'sec-ruc-articles', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ruc-articles':{name:'Repeater',     type:'Repeater', section:'sec-ruc-articles', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ruc-art-1':  {name:'Article 1',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
   'rep-ruc-art-2':  {name:'Article 2',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
   'rep-ruc-art-3':  {name:'Article 3',    type:'RepItem', section:'sec-ruc-articles', isRepItem:true, props:[]},
@@ -5227,7 +5320,7 @@ const EL_DEFS = {
   'el-ruc-art-author-2': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ruc-art-author-3': {name:'Author',        type:'Text', section:'sec-ruc-articles', repTemplate:'el-ruc-art-author', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ruc-tags':        {name:'Section · Article Tags', type:'Section', isContainer:true, page:'repeater-usecases', parentPage:'page-ruc', props:[]},
-  'repeater-ruc-tags':   {name:'Repeater',      type:'Repeater', section:'sec-ruc-tags', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ruc-tags':   {name:'Repeater',      type:'Repeater', section:'sec-ruc-tags', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ruc-tag-1':  {name:'Tag 1',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
   'rep-ruc-tag-2':  {name:'Tag 2',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
   'rep-ruc-tag-3':  {name:'Tag 3',        type:'RepItem', section:'sec-ruc-tags', isRepItem:true, props:[]},
@@ -5239,7 +5332,7 @@ const EL_DEFS = {
   // Repeater Concept page
   'page-rep':         {name:'Page · Repeater', type:'Page', isPage:true, page:'repeater-concept', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-rep-connected':   {name:'Section 1', type:'Section', isContainer:true, page:'repeater-concept', parentPage:'page-rep', props:[]},
-  'repeater-rep-products':{name:'Repeater',     type:'Repeater', section:'sec-rep-connected', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-rep-products':{name:'Repeater',     type:'Repeater', section:'sec-rep-connected', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-rp-1':  {name:'Item 1', type:'RepItem', section:'sec-rep-connected', isRepItem:true, props:[]},
   'rep-rp-2':  {name:'Item 2', type:'RepItem', section:'sec-rep-connected', isRepItem:true, props:[]},
   'rep-rp-3':  {name:'Item 3', type:'RepItem', section:'sec-rep-connected', isRepItem:true, props:[]},
@@ -5256,7 +5349,7 @@ const EL_DEFS = {
   'el-rp-btn-2':  {name:'Add to Cart',   type:'Button', section:'sec-rep-connected', repTemplate:'el-rp-btn', props:[{k:'Label',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-rp-btn-3':  {name:'Add to Cart',   type:'Button', section:'sec-rep-connected', repTemplate:'el-rp-btn', props:[{k:'Label',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-rep-empty':   {name:'Section 2', type:'Section', isContainer:true, page:'repeater-concept', parentPage:'page-rep', props:[]},
-  'repeater-rep-empty':{name:'Repeater',  type:'Repeater', section:'sec-rep-empty', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-rep-empty':{name:'Repeater',  type:'Repeater', section:'sec-rep-empty', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-re-1':  {name:'Item 1', type:'RepItem', section:'sec-rep-empty', isRepItem:true, props:[]},
   'rep-re-2':  {name:'Item 2', type:'RepItem', section:'sec-rep-empty', isRepItem:true, props:[]},
   'rep-re-3':  {name:'Item 3', type:'RepItem', section:'sec-rep-empty', isRepItem:true, props:[]},
@@ -5272,7 +5365,7 @@ const EL_DEFS = {
   'sec-rep-controls':   {name:'Section 3', type:'Section', isContainer:true, page:'repeater-concept', parentPage:'page-rep', props:[]},
   'el-rc-search':  {name:'Search Input', type:'Input',   section:'sec-rep-controls', props:[{k:'Value',t:'string'},{k:'Placeholder',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-rc-sort':    {name:'Sort Dropdown', type:'Dropdown', section:'sec-rep-controls', props:[{k:'Value',t:'string'},{k:'Options',t:'list'},{k:'Visible',t:'boolean'}]},
-  'repeater-rep-articles':{name:'Repeater', type:'Repeater', section:'sec-rep-controls', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-rep-articles':{name:'Repeater', type:'Repeater', section:'sec-rep-controls', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-rc-1':  {name:'Item 1', type:'RepItem', section:'sec-rep-controls', isRepItem:true, props:[]},
   'rep-rc-2':  {name:'Item 2', type:'RepItem', section:'sec-rep-controls', isRepItem:true, props:[]},
   'rep-rc-3':  {name:'Item 3', type:'RepItem', section:'sec-rep-controls', isRepItem:true, props:[]},
@@ -5302,7 +5395,20 @@ const EL_DEFS = {
   'el-demo-member-tag-2': {name:'Member Tagline',  type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-demo-member-tag-3': {name:'Member Tagline',  type:'Text',    section:'sec-demo-team', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-d262-weather':    {name:'Section · Weather', type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
-  'sec-d262-empty1':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
+  'sec-d262-empty1':     {name:'Section · My List',  type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
+  'repeater-d262-blank': {name:'Repeater', type:'Repeater', section:'sec-d262-empty1', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'rep-d262b-1':  {name:'Item 1', type:'RepItem', section:'sec-d262-empty1', isRepItem:true, props:[]},
+  'rep-d262b-2':  {name:'Item 2', type:'RepItem', section:'sec-d262-empty1', isRepItem:true, props:[]},
+  'rep-d262b-3':  {name:'Item 3', type:'RepItem', section:'sec-d262-empty1', isRepItem:true, props:[]},
+  'el-d262b-img-1':   {name:'Image',   type:'Image', section:'sec-d262-empty1', repTemplate:'el-d262b-img', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-img-2':   {name:'Image',   type:'Image', section:'sec-d262-empty1', repTemplate:'el-d262b-img', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-img-3':   {name:'Image',   type:'Image', section:'sec-d262-empty1', repTemplate:'el-d262b-img', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-title-1': {name:'Title',   type:'Text',  section:'sec-d262-empty1', repTemplate:'el-d262b-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-title-2': {name:'Title',   type:'Text',  section:'sec-d262-empty1', repTemplate:'el-d262b-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-title-3': {name:'Title',   type:'Text',  section:'sec-d262-empty1', repTemplate:'el-d262b-title', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-desc-1':  {name:'Description', type:'Text', section:'sec-d262-empty1', repTemplate:'el-d262b-desc', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-desc-2':  {name:'Description', type:'Text', section:'sec-d262-empty1', repTemplate:'el-d262b-desc', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-d262b-desc-3':  {name:'Description', type:'Text', section:'sec-d262-empty1', repTemplate:'el-d262b-desc', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-d262-empty2':     {name:'Section · Empty',   type:'Section', isContainer:true, page:'demo262', parentPage:'page-demo262', props:[]},
   'el-d262-weather-img': {name:'Weather Image',     type:'Image',   section:'sec-d262-weather', props:[{k:'Source',t:'image'},{k:'Visible',t:'boolean'}]},
   'el-d262-city':        {name:'City',              type:'Text',    section:'sec-d262-weather', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5399,7 +5505,7 @@ const EL_DEFS = {
   'page-ref-tm':  {name:'Page · Team Members', type:'Page', isPage:true, page:'ref-tm', props:[{k:'onClick',t:'function'},{k:'onDblClick',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'sec-ref-tm-all':      {name:'Section · All Members', type:'Section', isContainer:true, page:'ref-tm', parentPage:'page-ref-tm', props:[]},
   'el-ref-tm-title':     {name:'Page Title', type:'Text', section:'sec-ref-tm-all', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-tm':     {name:'Repeater', type:'Repeater', section:'sec-ref-tm-all', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-tm':     {name:'Repeater', type:'Repeater', section:'sec-ref-tm-all', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-tm-1':        {name:'Item 1', type:'RepItem', section:'sec-ref-tm-all', isRepItem:true, props:[]},
   'rep-ref-tm-2':        {name:'Item 2', type:'RepItem', section:'sec-ref-tm-all', isRepItem:true, props:[]},
   'rep-ref-tm-3':        {name:'Item 3', type:'RepItem', section:'sec-ref-tm-all', isRepItem:true, props:[]},
@@ -5414,7 +5520,7 @@ const EL_DEFS = {
   'el-ref-tm-role-3':    {name:'Role Name', type:'Text', section:'sec-ref-tm-all', repTemplate:'el-ref-tm-role', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-tm-filtered': {name:'Section · Filtered', type:'Section', isContainer:true, page:'ref-tm', parentPage:'page-ref-tm', props:[]},
   'el-ref-tmf-title':    {name:'Section Title', type:'Text', section:'sec-ref-tm-filtered', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-tmf':    {name:'Repeater', type:'Repeater', section:'sec-ref-tm-filtered', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-tmf':    {name:'Repeater', type:'Repeater', section:'sec-ref-tm-filtered', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-tmf-1':       {name:'Item 1', type:'RepItem', section:'sec-ref-tm-filtered', isRepItem:true, props:[]},
   'rep-ref-tmf-2':       {name:'Item 2', type:'RepItem', section:'sec-ref-tm-filtered', isRepItem:true, props:[]},
   'el-ref-tmf-name-1':   {name:'Member Name', type:'Text', section:'sec-ref-tm-filtered', repTemplate:'el-ref-tmf-name', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5436,7 +5542,7 @@ const EL_DEFS = {
   'el-ref-ri-desc':      {name:'Role Description', type:'Text', section:'sec-ref-ri-info', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-ri-members':  {name:'Section · Team Members', type:'Section', isContainer:true, page:'ref-ri', parentPage:'page-ref-ri', props:[]},
   'el-ref-ri-members-title': {name:'Section Title', type:'Text', section:'sec-ref-ri-members', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-ri-members': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-members', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-ri-members': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-members', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-ri-m-1':      {name:'Member 1', type:'RepItem', section:'sec-ref-ri-members', isRepItem:true, props:[]},
   'rep-ref-ri-m-2':      {name:'Member 2', type:'RepItem', section:'sec-ref-ri-members', isRepItem:true, props:[]},
   'el-ref-ri-mimg-1':    {name:'Member Image', type:'Image', section:'sec-ref-ri-members', repTemplate:'el-ref-ri-mimg', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5448,7 +5554,7 @@ const EL_DEFS = {
   // Role Item page — Approach B section (separate context + filter)
   'sec-ref-ri-members-b':  {name:'Section · Team Members (B)', type:'Section', isContainer:true, page:'ref-ri', parentPage:'page-ref-ri', props:[]},
   'el-ref-ri-members-b-title': {name:'Section Title', type:'Text', section:'sec-ref-ri-members-b', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-ri-members-b': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-members-b', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-ri-members-b': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-members-b', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-ri-mb-1':     {name:'Member 1', type:'RepItem', section:'sec-ref-ri-members-b', isRepItem:true, props:[]},
   'rep-ref-ri-mb-2':     {name:'Member 2', type:'RepItem', section:'sec-ref-ri-members-b', isRepItem:true, props:[]},
   'el-ref-ri-mbimg-1':   {name:'Member Image', type:'Image', section:'sec-ref-ri-members-b', repTemplate:'el-ref-ri-mbimg', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5459,7 +5565,7 @@ const EL_DEFS = {
   'el-ref-ri-mbemail-2': {name:'Member Email', type:'Text', section:'sec-ref-ri-members-b', repTemplate:'el-ref-ri-mbemail', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-ri-others':   {name:'Section · Other Roles', type:'Section', isContainer:true, page:'ref-ri', parentPage:'page-ref-ri', props:[]},
   'el-ref-ri-others-title': {name:'Section Title', type:'Text', section:'sec-ref-ri-others', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-ri-others': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-others', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-ri-others': {name:'Repeater', type:'Repeater', section:'sec-ref-ri-others', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-ri-o-1':      {name:'Role 1', type:'RepItem', section:'sec-ref-ri-others', isRepItem:true, props:[]},
   'rep-ref-ri-o-2':      {name:'Role 2', type:'RepItem', section:'sec-ref-ri-others', isRepItem:true, props:[]},
   'rep-ref-ri-o-3':      {name:'Role 3', type:'RepItem', section:'sec-ref-ri-others', isRepItem:true, props:[]},
@@ -5479,14 +5585,14 @@ const EL_DEFS = {
   'el-ref-bi-img':       {name:'Cover Image', type:'Image', section:'sec-ref-bi-info', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-bi-authors':  {name:'Section · Authors', type:'Section', isContainer:true, page:'ref-bi', parentPage:'page-ref-bi', props:[]},
   'el-ref-bi-authors-title': {name:'Section Title', type:'Text', section:'sec-ref-bi-authors', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-bi-authors': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-authors', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-bi-authors': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-authors', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-bi-a-1':      {name:'Author 1', type:'RepItem', section:'sec-ref-bi-authors', isRepItem:true, props:[]},
   'el-ref-bi-aimg-1':    {name:'Author Image', type:'Image', section:'sec-ref-bi-authors', repTemplate:'el-ref-bi-aimg', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ref-bi-aname-1':   {name:'Author Name', type:'Text', section:'sec-ref-bi-authors', repTemplate:'el-ref-bi-aname', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-ref-bi-abio-1':    {name:'Author Bio', type:'Text', section:'sec-ref-bi-authors', repTemplate:'el-ref-bi-abio', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-bi-related':  {name:'Section · Related Books', type:'Section', isContainer:true, page:'ref-bi', parentPage:'page-ref-bi', props:[]},
   'el-ref-bi-related-title': {name:'Section Title', type:'Text', section:'sec-ref-bi-related', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-bi-related': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-related', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-bi-related': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-related', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-bi-r-1':      {name:'Book 1', type:'RepItem', section:'sec-ref-bi-related', isRepItem:true, props:[]},
   'rep-ref-bi-r-2':      {name:'Book 2', type:'RepItem', section:'sec-ref-bi-related', isRepItem:true, props:[]},
   'el-ref-bi-rcover-1':  {name:'Book Cover', type:'Image', section:'sec-ref-bi-related', repTemplate:'el-ref-bi-rcover', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5497,7 +5603,7 @@ const EL_DEFS = {
   'el-ref-bi-rinfo-2':   {name:'Book Info', type:'Text', section:'sec-ref-bi-related', repTemplate:'el-ref-bi-rinfo', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-bi-all':      {name:'Section · All Books', type:'Section', isContainer:true, page:'ref-bi', parentPage:'page-ref-bi', props:[]},
   'el-ref-bi-all-title': {name:'Section Title', type:'Text', section:'sec-ref-bi-all', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-bi-all': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-all', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-bi-all': {name:'Repeater', type:'Repeater', section:'sec-ref-bi-all', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-bi-all-1':    {name:'Book 1', type:'RepItem', section:'sec-ref-bi-all', isRepItem:true, props:[]},
   'rep-ref-bi-all-2':    {name:'Book 2', type:'RepItem', section:'sec-ref-bi-all', isRepItem:true, props:[]},
   'rep-ref-bi-all-3':    {name:'Book 3', type:'RepItem', section:'sec-ref-bi-all', isRepItem:true, props:[]},
@@ -5515,7 +5621,7 @@ const EL_DEFS = {
   'el-ref-ai-img':       {name:'Author Image', type:'Image', section:'sec-ref-ai-info', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
   'sec-ref-ai-books':    {name:'Section · Books', type:'Section', isContainer:true, page:'ref-ai', parentPage:'page-ref-ai', props:[]},
   'el-ref-ai-books-title': {name:'Section Title', type:'Text', section:'sec-ref-ai-books', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
-  'repeater-ref-ai-books': {name:'Repeater', type:'Repeater', section:'sec-ref-ai-books', isRepeater:true, props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-ref-ai-books': {name:'Repeater', type:'Repeater', section:'sec-ref-ai-books', isRepeater:true, contextModel:'on-repeater', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
   'rep-ref-ai-b-1':      {name:'Book 1', type:'RepItem', section:'sec-ref-ai-books', isRepItem:true, props:[]},
   'rep-ref-ai-b-2':      {name:'Book 2', type:'RepItem', section:'sec-ref-ai-books', isRepItem:true, props:[]},
   'el-ref-ai-bcover-1':  {name:'Book Cover', type:'Image', section:'sec-ref-ai-books', repTemplate:'el-ref-ai-bcover', props:[{k:'Source',t:'image'},{k:'Alt Text',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -5545,22 +5651,32 @@ const S = {
     'sec-hero':     ['custom-countdown'],
     'sec-weather':  ['weather'],
     'sec-articles': [],
+    'repeater-articles': [],
     'sec-empty':    [],
     'sec-items':       [],
+    'repeater-items': [],
     'sec-rel-product': [],
-    'sec-rel-locations': ['stores-locations'],
-    'sec-msb':          ['cms-articles'],
-    'sec-ruc-articles': ['cms-articles'],
-    'sec-ruc-tags':     ['cms-articles'],
+    'sec-rel-locations': [],
+    'repeater-rel-locations': ['stores-locations'],
+    'sec-msb':          [],
+    'repeater-msb-items': ['cms-articles'],
+    'sec-ruc-articles': [],
+    'repeater-ruc-articles': ['cms-articles'],
+    'sec-ruc-tags':     [],
+    'repeater-ruc-tags': ['cms-articles'],
     'sec-demo-team':    ['cms-my-team'],
     'sec-demo-empty':   [],
     'sec-d262-weather': ['weather'],
     'sec-d262-empty1':  [],
+    'repeater-d262-blank': [],
     'sec-d262-empty2':  [],
     'page-rep':         [],
-    'sec-rep-connected':['stores'],
+    'sec-rep-connected':[],
+    'repeater-rep-products': ['stores'],
     'sec-rep-empty':    [],
-    'sec-rep-controls': ['cms-articles'],
+    'repeater-rep-empty': [],
+    'sec-rep-controls': [],
+    'repeater-rep-articles': ['cms-articles'],
     'sec-opta-prebound':[],
     'repeater-opta-prebound':['cms-articles'],
     'sec-opta-blank':   [],
@@ -5821,7 +5937,7 @@ const S = {
   specPageOpen: false,
   specPageId: null,
   preSpecPage: null,
-  currentPage: 'Demo 26.2',
+  currentPage: 'Demo 26.2 (home)',
   currentItemIdx: 0,
   sortRules: {
     'cms-articles': [{field:'title', dir:'asc'}, {field:'readTime', dir:'desc'}],
@@ -5842,9 +5958,7 @@ const S = {
 function pillNavDesign(sectionId) {
   S.sel = sectionId;
   S.ctxSettingsView = null;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  const n = document.getElementById(sectionId);
-  if (n) n.classList.add('sel');
+  updateSelectionVisual(sectionId);
   S.tab = 'design';
   renderRP();
 }
@@ -5879,17 +5993,7 @@ function pillNavCtx(targetId, ctxId) {
   S.sel = targetId;
   S.ctxSettingsView = ctxId || null;
   S.inspectorOpen = true;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
-  const def = EL_DEFS[targetId];
-  if (def?.isPage) {
-    const psbId = 'psb-' + targetId.replace('page-', '');
-    const bar = document.getElementById(psbId);
-    if (bar) bar.classList.add('sel');
-  } else {
-    const n = document.getElementById(targetId);
-    if (n) n.classList.add('sel');
-  }
+  updateSelectionVisual(targetId);
   S.tab = 'settings';
   S.openCats.context = true;
   renderRP();
@@ -5899,9 +6003,7 @@ function pillNavCtx(targetId, ctxId) {
 function navToPageCtx(pageId) {
   S.sel = pageId;
   S.ctxSettingsView = null;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  const n = document.getElementById(pageId);
-  if (n) n.classList.add('sel');
+  updateSelectionVisual(pageId);
   S.tab = 'settings';
   S.openCats.context = true;
   renderRP();
@@ -5913,9 +6015,7 @@ function elPillNavDesign(e, elId) {
   S.sel = elId;
   S.ctxSettingsView = null;
   S.inspectorOpen = true;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  const n = document.getElementById(elId);
-  if (n) n.classList.add('sel');
+  updateSelectionVisual(elId);
   S.tab = 'design';
   renderRP();
   renderActionBar();
@@ -5926,17 +6026,7 @@ function elPillNavCtx(e, elId) {
   S.sel = elId;
   S.ctxSettingsView = null;
   S.inspectorOpen = true;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
-  const def = EL_DEFS[elId];
-  if (def?.isPage) {
-    const psbId = 'psb-' + elId.replace('page-', '');
-    const bar = document.getElementById(psbId);
-    if (bar) bar.classList.add('sel');
-  } else {
-    const n = document.getElementById(elId);
-    if (n) n.classList.add('sel');
-  }
+  updateSelectionVisual(elId);
   S.tab = 'settings';
   renderRP();
   renderActionBar();
@@ -6040,18 +6130,34 @@ function exitTextEditing() {
   const prev = document.querySelector('.val[contenteditable="true"]');
   if (!prev) return;
   const elId = prev.id.replace('v-', '');
-  const tpl = EL_DEFS[elId]?.repTemplate || elId;
+  const def = EL_DEFS[elId];
+  const tpl = def?.repTemplate || elId;
   const val = prev.textContent.trim();
   S.staticValues[tpl + '|Value'] = val;
   prev.removeEventListener('input', onInlineInput);
   prev.removeEventListener('keydown', onInlineKeydown);
   prev.contentEditable = 'false';
   prev.closest('.c-el-text')?.classList.remove('editing');
+  prev.closest('.c-el')?.classList.remove('editing');
   if (!val) {
     prev.textContent = propPlaceholder('Value');
     prev.classList.remove('static');
   } else {
     prev.classList.add('static');
+  }
+  if (def?.repTemplate) {
+    Object.keys(EL_DEFS).forEach(sibId => {
+      if (sibId === elId) return;
+      if (EL_DEFS[sibId].repTemplate !== def.repTemplate) return;
+      const sibVal = document.getElementById('v-' + sibId);
+      if (sibVal) {
+        sibVal.textContent = val || propPlaceholder('Value');
+        if (val) sibVal.classList.add('static');
+        else sibVal.classList.remove('static');
+      }
+    });
+    const parentRepId = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+    if (parentRepId) syncRepVisualItems(parentRepId);
   }
 }
 
@@ -6223,6 +6329,21 @@ function closeLinkPanel() {
   document.getElementById('link-panel').classList.remove('open');
 }
 
+function updateSelectionVisual(id) {
+  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
+  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
+  if (!id) return;
+  const def = EL_DEFS[id];
+  if (def?.isPage) {
+    const psbId = 'psb-' + id.replace('page-', '');
+    const bar = document.getElementById(psbId);
+    if (bar) bar.classList.add('sel');
+  } else {
+    const n = document.getElementById(id);
+    if (n) n.classList.add('sel');
+  }
+}
+
 function selEl(e, id) {
   e.stopPropagation();
   if (S.sel === id) {
@@ -6237,11 +6358,7 @@ function selEl(e, id) {
   closeEtPanel();
   S.sel = id;
   S.ctxSettingsView = null;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
-  const n = document.getElementById(id);
-  if (n) n.classList.add('sel');
-  const def = EL_DEFS[id];
+  updateSelectionVisual(id);
   S.tab = 'design';
   renderRP();
   renderActionBar();
@@ -6273,11 +6390,22 @@ function startInlineEdit(elId) {
 function onInlineInput(e) {
   const valEl = e.target;
   const elId = valEl.id.replace('v-', '');
-  const tpl = EL_DEFS[elId]?.repTemplate || elId;
+  const def = EL_DEFS[elId];
+  const tpl = def?.repTemplate || elId;
   const val = valEl.textContent;
   S.staticValues[tpl + '|Value'] = val;
   const propInput = document.querySelector(`#pr-${elId}-Value .prop-static`);
   if (propInput) propInput.value = val;
+  if (def?.repTemplate) {
+    Object.keys(EL_DEFS).forEach(sibId => {
+      if (sibId === elId) return;
+      if (EL_DEFS[sibId].repTemplate !== def.repTemplate) return;
+      const sibVal = document.getElementById('v-' + sibId);
+      if (sibVal) sibVal.textContent = val || propPlaceholder('Value');
+    });
+    const parentRepId = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+    if (parentRepId) syncRepVisualItems(parentRepId);
+  }
 }
 
 function onInlineKeydown(e) {
@@ -6296,8 +6424,7 @@ function canvasClick(e) {
     closeLinkPanel();
     closeEtPanel();
     S.sel = null;
-    document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-    document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
+    updateSelectionVisual(null);
     renderRP();
     renderActionBar();
   }
@@ -6305,7 +6432,7 @@ function canvasClick(e) {
 }
 
 function getCurrentPageId() {
-  const map = {'Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo','Team Members List':'page-ref-tm','Team Member Item':'page-ref-tmi','Role Item':'page-ref-ri','Book Item':'page-ref-bi','Author Item':'page-ref-ai'};
+  const map = {'Homepage':'page-home','Demo 26.2 (home)':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo','Team Members List':'page-ref-tm','Team Member Item':'page-ref-tmi','Role Item':'page-ref-ri','Book Item':'page-ref-bi','Author Item':'page-ref-ai'};
   return map[S.currentPage] || 'page-home';
 }
 
@@ -6315,10 +6442,7 @@ function selectPageEl(e, pageId) {
   S.ctxSettingsView = null;
   S.tab = 'design';
   S.inspectorOpen = true;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  document.querySelectorAll('.page-sel-bar').forEach(b => b.classList.remove('sel'));
-  const bar = e.currentTarget;
-  if (bar) bar.classList.add('sel');
+  updateSelectionVisual(pageId);
   renderRP();
   renderActionBar();
 }
@@ -6382,9 +6506,7 @@ function selElSettings(e, id) {
   S.sel = id;
   S.ctxSettingsView = null;
   S.inspectorOpen = true;
-  document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
-  const n = document.getElementById(id);
-  if (n) n.classList.add('sel');
+  updateSelectionVisual(id);
   S.tab = 'settings';
   renderRP();
   renderActionBar();
@@ -6619,7 +6741,7 @@ function renderSettingsRepeaterOnRepeater(def) {
     </div>
     <div class="rp-cat-body">
       <div class="prop-wrap">
-        <div class="prop-key">Items</div>
+        <div class="prop-key" style="display:flex;align-items:center;gap:4px">"Items" <span style="font-size:10px;color:var(--t3);cursor:help" title="The repeater's only data property. Connect it to any available array to populate items with dynamic content. Inner elements can then bind to fields within each item.">ⓘ</span></div>
         <div class="prop-row ${b?'bound':''} ${isActiveDd?'active-bind':''}">
           <div class="prop-main">
             <div class="prop-val">
@@ -7068,7 +7190,7 @@ function renderSettings() {
       </div>
       <div class="rp-cat-body">
         <div class="prop-wrap">
-          <div class="prop-key">Items</div>
+          <div class="prop-key" style="display:flex;align-items:center;gap:4px">"Items" <span style="font-size:10px;color:var(--t3);cursor:help" title="The repeater's only data property. Connect it to any available array to populate items with dynamic content. Inner elements can then bind to fields within each item.">ⓘ</span></div>
           <div class="prop-row ${b?'bound':''} ${isActiveDd?'active-bind':''}">
             <div class="prop-main">
               <div class="prop-val">
@@ -7205,12 +7327,48 @@ function renderSettings() {
   }
   if (def.isRepItem) {
     const idx = parseInt(S.sel.split('-').pop());
+    const parentRepId = Object.keys(EL_DEFS).find(id => EL_DEFS[id].isRepeater && EL_DEFS[id].section === def.section);
+    const itemsBinding = parentRepId ? S.bindings[parentRepId + '|Items'] : null;
+    let dataHtml = '';
+    if (itemsBinding) {
+      const ctx = findSource(itemsBinding.ctxId);
+      const ctxName = ctx ? resolveCtxName(ctx.id) : itemsBinding.ctxId;
+      const arrayField = itemsBinding.fieldName || 'items';
+      let itemFields = [];
+      if (ctx) {
+        const arrField = ctx.fields.find(f => f.name === arrayField);
+        if (arrField && arrField.itemFields) {
+          itemFields = arrField.itemFields;
+        } else if (ctx.type === 'list' && ctx.fields) {
+          itemFields = ctx.fields.filter(f => f.type !== 'array' || f.name !== arrayField);
+        }
+      }
+      dataHtml = `
+        <div style="font-size:11px;color:var(--t3);line-height:1.6;padding:4px 0">
+          Select elements inside to bind them.<br>
+          <span style="color:var(--acc)">Bindings apply to all items as a template.</span>
+        </div>
+        <div style="margin-top:6px;padding:8px 10px;background:var(--sur2);border-radius:8px;border:1px solid var(--b1)">
+          <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.3px;margin-bottom:6px">Available per item · ${ctx?.icon || ''} ${ctxName} · ${arrayField}</div>
+          ${itemFields.length > 0 ? itemFields.map(f =>
+            `<div style="display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px">
+              <span style="font-family:'DM Mono',monospace;font-size:10px;color:var(--t3);width:16px;text-align:center">${getFieldTypeIcon(f.type)}</span>
+              <span style="color:var(--t2)">${f.name}</span>
+              <span style="font-size:9px;color:var(--t3);font-family:'DM Mono',monospace;margin-left:auto">${f.type}</span>
+            </div>`).join('') : `<div style="font-size:11px;color:var(--t3)">All context fields are available</div>`}
+        </div>`;
+    } else {
+      dataHtml = `
+        <div style="display:flex;align-items:center;gap:6px;padding:8px 10px;margin-top:4px;background:#fff3cd;border:1px solid #ffc107;border-radius:8px">
+          <span style="font-size:14px">⚠️</span>
+          <div style="font-size:10px;color:#856404;line-height:1.4">
+            Repeater is <b>not connected to data</b>. Connect the repeater's "Items" property to an array to populate items with dynamic content.
+          </div>
+        </div>`;
+    }
     return `<div class="ps">
       <div class="ps-lbl">Repeater Item ${idx}</div>
-      <div style="font-size:11px;color:var(--t3);line-height:1.8;padding:4px 0">
-        Select elements inside to bind them.<br>
-        <span style="color:var(--acc)">Bindings apply to all items as a template.</span>
-      </div>
+      ${dataHtml}
     </div>`;
   }
   if (def.isPage) {
@@ -8024,18 +8182,25 @@ function refreshRepeaterSkeletons() {
     if (!repEl) return;
     if (repEl.dataset.noSkeleton) return;
     const sectionId = def.section;
-    const hasCtx = (S.ctxMap[sectionId] || []).length > 0;
+    const isOnRepeater = def.contextModel === 'on-repeater';
     const isBound = !!S.bindings[id + '|Items'];
-
     const existingOverlay = repEl.querySelector('.rep-skeleton-overlay');
+
+    if (isOnRepeater) {
+      if (existingOverlay) existingOverlay.remove();
+      repEl.classList.remove('has-skeleton');
+      return;
+    }
+
+    const ctxTarget = sectionId;
+    const hasCtx = (S.ctxMap[ctxTarget] || []).length > 0;
 
     if (isBound) {
       repEl.classList.remove('has-skeleton');
       if (existingOverlay) existingOverlay.remove();
     } else if (hasCtx) {
-      // Section has context but repeater not bound — show "connect" CTA
       repEl.classList.add('has-skeleton');
-      const ctxIds = S.ctxMap[sectionId] || [];
+      const ctxIds = S.ctxMap[ctxTarget] || [];
       const listCtx = ctxIds.map(cid => findSource(cid)).find(c => c && c.type === 'list');
       const ctxLabel = listCtx ? listCtx.icon + ' ' + listCtx.name : 'data source';
       if (existingOverlay) existingOverlay.remove();
@@ -8047,18 +8212,17 @@ function refreshRepeaterSkeletons() {
         overlay.innerHTML = `
           <span class="rep-skel-icon">🔗</span>
           <div class="rep-skel-title">Almost there!</div>
-          <div class="rep-skel-desc">Connect this repeater to<br>${ctxLabel}</div>
+          <div class="rep-skel-desc">Connect this repeater's "Items" to<br>${ctxLabel}</div>
           <button class="rep-skel-btn" onclick="event.stopPropagation();autoBindRepeater('${id}','${listCtx.id}','${fieldName}')">Connect to ${fieldName || 'data'}</button>`;
       } else {
         overlay.innerHTML = `
           <span class="rep-skel-icon">⚠️</span>
           <div class="rep-skel-title">No list data available</div>
           <div class="rep-skel-desc">The attached context has no list fields.<br>Add a list-type context instead.</div>
-          <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${sectionId}')">Change Context</button>`;
+          <button class="rep-skel-btn" onclick="event.stopPropagation();openModal('${ctxTarget}')">Change Context</button>`;
       }
       repEl.appendChild(overlay);
     } else {
-      // No context at all
       repEl.classList.add('has-skeleton');
       if (existingOverlay) existingOverlay.remove();
       const overlay = document.createElement('div');
@@ -8246,18 +8410,41 @@ function syncRepVisualItems(repeaterId) {
     clone.removeAttribute('id');
     clone.style.pointerEvents = 'none';
     clone.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+    clone.querySelectorAll('[onclick]').forEach(el => el.removeAttribute('onclick'));
     clone.querySelectorAll('.c-el-overlay').forEach(el => el.remove());
     clone.querySelectorAll('.el-tags').forEach(el => el.remove());
     clone.querySelectorAll('.ctx-pill').forEach(el => el.remove());
+    const templateEls = templateItem.querySelectorAll('.c-el');
+    const cloneEls = clone.querySelectorAll('.c-el');
+    cloneEls.forEach((cel, idx) => {
+      cel.style.pointerEvents = 'auto';
+      cel.style.cursor = 'pointer';
+      const tplEl = templateEls[idx];
+      if (tplEl && tplEl.id) {
+        cel.addEventListener('click', function(e) { e.stopPropagation(); selEl(e, tplEl.id); });
+      }
+    });
     if (sampleData.length > 0) {
       const row = sampleData[i % sampleData.length];
       if (row) {
-        const texts = clone.querySelectorAll('div[style*="font-weight:600"], div[style*="font-size:14px"]');
-        if (texts[0] && row.title) texts[0].textContent = row.title;
-        if (texts[0] && row.name) texts[0].textContent = row.name;
-        const subs = clone.querySelectorAll('div[style*="font-size:12px"], div[style*="color:var(--t3)"]');
-        if (subs[0] && row.author) subs[0].textContent = row.author;
-        if (subs[0] && row.price) subs[0].textContent = row.price;
+        const tplCEls = templateItem.querySelectorAll('.c-el');
+        const clnCEls = clone.querySelectorAll('.c-el');
+        tplCEls.forEach((tplEl, idx) => {
+          if (!tplEl.id) return;
+          const bk = Object.keys(S.bindings).find(k => k.startsWith(tplEl.id + '|'));
+          if (!bk) return;
+          const bind = S.bindings[bk];
+          if (!bind?.fieldName || !row[bind.fieldName]) return;
+          const clnEl = clnCEls[idx];
+          if (!clnEl) return;
+          if (tplEl.classList.contains('c-el-img')) {
+            const img = clnEl.querySelector('img');
+            if (img && row[bind.fieldName] !== '[img url]') img.src = row[bind.fieldName];
+          } else {
+            const valDiv = clnEl.querySelector('.val') || clnEl.querySelector('div[style]') || clnEl.querySelector('span');
+            if (valDiv) valDiv.textContent = row[bind.fieldName].replace(/^"|"$/g, '');
+          }
+        });
       }
     }
     container.appendChild(clone);
@@ -8620,7 +8807,7 @@ function renderCtxList() {
   const showSplit = inheritedCtxs.length > 0;
 
   const renderCtxCard = (c) => {
-      const hasConfig = (c.config && c.config.length > 0) || c.type === 'list';
+      const hasConfig = (c.config && c.config.length > 0) || c.type === 'list' || c.isDynamicPageCtx;
       const configCount = hasConfig && c.config ? c.config.length : 0;
       const primary = isPrimaryCtx(c.id, S.sel);
       const isUnconfigured = isUnmodifiedInstance(c.id);
@@ -8858,13 +9045,12 @@ function renderCtxSettings(ctxId) {
     <div class="ctx-settings-panel">
       <div class="ctx-back" onclick="closeCtxSettings()">
         <span class="ctx-back-arrow">←</span>
-        <span>Back to contexts</span>
+        <span>Back to settings</span>
       </div>
       <div class="ctx-settings-head">
         <span class="ctx-settings-icon">${ctx.icon}</span>
         <div style="flex:1;min-width:0">
           <div class="ctx-settings-title">${displayName}</div>
-          <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">${ctx.fields.length} fields</div>
         </div>
         <span class="ctx-settings-badge ${badgeClass}">${ctx.type}</span>
       </div>
@@ -9157,6 +9343,13 @@ function togglePagesPanel(e) {
   document.getElementById('pages-panel').classList.toggle('open');
 }
 
+function toggleArchive() {
+  const toggle = document.getElementById('archive-toggle');
+  const items = document.getElementById('archive-items');
+  const isOpen = toggle.classList.toggle('open');
+  items.style.display = isOpen ? '' : 'none';
+}
+
 const ITEM_DATA = [
   { name:'Sunny Day Tee',      desc:'Classic cotton tee featuring our iconic sun logo. Perfect for warm weather days. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#1a1a2e', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#f0f0f0" stroke="#ddd" stroke-width="1"/><circle cx="60" cy="62" r="10" fill="#FFD700" opacity=".8"/><path d="M55 55 Q60 48 65 55" stroke="#87CEEB" stroke-width="1.5" fill="none"/>' },
   { name:'Cloud Nine Hoodie',  desc:'Cozy pullover hoodie with cloud pattern. Stay warm when the forecast turns cold. This is a paragraph. It is connected to a CMS collection through a dataset. Click "Edit Text" to update content from the connected collection.', bg:'#d4c4a8', svg:'<path d="M35 45 L45 30 L60 38 L75 30 L85 45 L75 50 L75 90 L45 90 L45 50 Z" fill="#fff" stroke="#eee" stroke-width="1"/><ellipse cx="60" cy="60" rx="12" ry="6" fill="#ccc" opacity=".6"/><ellipse cx="55" cy="58" rx="8" ry="5" fill="#ddd" opacity=".7"/>' },
@@ -9233,7 +9426,7 @@ function selectPage(el, name) {
     aiPage.classList.add('active-page');
   } else if (name === 'Demo') {
     demoPage.classList.remove('hidden-page');
-  } else if (name === 'Demo 26.2') {
+  } else if (name === 'Demo 26.2 (home)') {
     demo262Page.classList.remove('hidden-page');
   } else {
     homePage.classList.remove('hidden-page');
@@ -10473,6 +10666,13 @@ document.addEventListener('click', function() {
   document.getElementById('canvas-ctx-menu').classList.remove('open');
 });
 
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    if (S.specPageOpen) { closeSpecPage(); return; }
+    if (S.productMode) { toggleProductMode(); return; }
+  }
+});
+
 function removeContextMenuTarget() {
   if (_ctxMenuTarget) {
     const hasRepeater = _ctxMenuTarget.querySelector('[id^="repeater-"]');
@@ -11394,10 +11594,14 @@ function renderModalList() {
 
   const groupOrder = ['CMS', 'Custom', 'Apps'];
   const grouped = {};
+  const seenCollections = new Set();
   CTX_DEFS.forEach(ctx => {
     if (ctx.group === 'System') return;
     if (removedInherited.includes(ctx.id)) return;
     if (ctx.isDynamicPageCtx && !primaries.includes(ctx.id)) return;
+    const collectionKey = ctx.name + '|' + ctx.type + '|' + (ctx.group || '');
+    if (seenCollections.has(collectionKey) && !pending.includes(ctx.id) && !current.includes(ctx.id)) return;
+    seenCollections.add(collectionKey);
     const g = ctx.group || 'Other';
     if (!grouped[g]) grouped[g] = [];
     grouped[g].push(ctx);
@@ -11422,39 +11626,27 @@ function renderModalList() {
     const isPrimary  = primaries.includes(ctx.id);
     const isOnPage   = !isPage && pageCtxIds.includes(ctx.id);
     const isOnChild  = isPage && childSectionCtxIds.has(ctx.id);
-    const isLocked   = isPrimary;
-    const willAdd    = !isAttached && isPending;
-    const willRemove = isAttached && !isPending;
-    const keeping    = isAttached && isPending;
-    const cls        = (keeping || willAdd) ? 'attached' : '';
-    const checkIcon  = (keeping || willAdd) ? '✓' : '';
+    const alreadyHere = isAttached || isPrimary;
     const childSection = isOnChild ? Object.keys(EL_DEFS).find(id => EL_DEFS[id].parentPage === target && (S.ctxMap[id]||[]).includes(ctx.id)) : null;
     const childName  = childSection ? (EL_DEFS[childSection]?.name || childSection).replace('Section · ','') : '';
-    const badge      = isPrimary  ? `<span style="font-size:10px;color:var(--t3);margin-left:6px;font-weight:400">Page context</span>`
-                     : isOnPage && !isPending ? `<span style="font-size:10px;color:var(--acc);margin-left:6px;font-weight:400">Available from page</span>`
-                     : isOnPage && isPending  ? `<span style="font-size:10px;color:#d97706;margin-left:6px;font-weight:400">Overrides page instance</span>`
-                     : isOnChild && !isPending ? `<span style="font-size:10px;color:var(--acc);margin-left:6px;font-weight:400">On section "${childName}"</span>`
-                     : isOnChild && isPending  ? `<span style="font-size:10px;color:#d97706;margin-left:6px;font-weight:400">Section "${childName}" has a local override</span>`
-                     : willRemove ? `<span style="font-size:10px;color:var(--red);margin-left:6px;font-weight:400">Remove</span>`
+    const badge      = alreadyHere ? `<span style="font-size:10px;color:var(--t3);margin-left:6px;font-weight:400">Connected</span>`
+                     : isOnPage    ? `<span style="font-size:10px;color:var(--acc);margin-left:6px;font-weight:400">Available from page</span>`
+                     : isOnChild   ? `<span style="font-size:10px;color:var(--acc);margin-left:6px;font-weight:400">On section "${childName}"</span>`
+                     : isPending   ? `<span style="font-size:10px;color:var(--acc);margin-left:6px;font-weight:400">Will be added</span>`
                      : '';
-    const shadowNote = isOnPage && isPending
-      ? `<div style="font-size:10px;color:#d97706;line-height:1.4;margin-top:4px;padding:4px 8px;background:color-mix(in srgb, #f59e0b 8%, transparent);border-radius:4px">This section will use its own instance. The page-level instance will be hidden for elements in this section.</div>`
-      : isOnChild && isPending
-      ? `<div style="font-size:10px;color:#d97706;line-height:1.4;margin-top:4px;padding:4px 8px;background:color-mix(in srgb, #f59e0b 8%, transparent);border-radius:4px">Elements in "${childName}" will keep using the section's local instance.</div>`
-      : '';
     const promoteBtn = isOnChild && !isPending
       ? `<div style="margin-top:4px;display:flex;gap:6px">
           <span style="font-size:9px;padding:2px 8px;border-radius:4px;background:var(--acc);color:#fff;font-weight:600;white-space:nowrap;cursor:pointer" onclick="event.stopPropagation();promoteCtxToPage('${ctx.id}','${childSection}')">↑ Promote to page</span>
         </div>`
       : '';
-    return `<div class="modal-item ${cls}${isLocked ? ' locked' : ''}" id="mi-${ctx.id}" onclick="${isLocked ? '' : `toggleModalCtx('${ctx.id}')`}" style="${isLocked ? 'opacity:.6;cursor:default' : ''}">
+    const clickable = !alreadyHere;
+    return `<div class="modal-item${alreadyHere ? ' attached' : isPending ? ' attached' : ''}${!clickable ? ' locked' : ''}" id="mi-${ctx.id}" onclick="${clickable ? `toggleModalCtx('${ctx.id}')` : ''}" style="${!clickable ? 'opacity:.55;cursor:default' : ''}">
       <div style="flex:1;min-width:0">
         <div class="modal-item-name">${resolveCtxName(ctx.id)}${badge}</div>
         <div class="modal-item-sub">${ctx.type}</div>
-        ${shadowNote}
         ${promoteBtn}
       </div>
-      <div class="modal-check">${isPrimary ? '🔒' : checkIcon}</div>
+      ${alreadyHere ? '<div style="font-size:11px;color:var(--t3)">✓</div>' : isPending ? '<div style="font-size:11px;color:var(--acc);font-weight:600">+</div>' : ''}
     </div>`;
   };
 
@@ -11491,8 +11683,10 @@ function renderModalList() {
 }
 
 function toggleModalCtx(id) {
+  const current = S.ctxMap[S.modal.target] || [];
   const primaries = S.primaryCtx[S.modal.target] || [];
   if (primaries.includes(id)) return;
+  if (current.includes(id)) return;
   const idx = S.modal.pending.indexOf(id);
   if (idx >= 0) S.modal.pending.splice(idx, 1);
   else S.modal.pending.push(id);
@@ -12190,12 +12384,12 @@ function renderTree() {
   const isRep = S.currentPage === 'Repeater';
   const isMsb = S.currentPage === 'Multi-State Box';
   const isDemo = S.currentPage === 'Demo';
-  const isDemo262 = S.currentPage === 'Demo 26.2';
+  const isDemo262 = S.currentPage === 'Demo 26.2 (home)';
   const sections = isItemsList ? ['sec-items'] : isConcept ? ['sec-rel-product','sec-rel-locations'] : isRuc ? ['sec-ruc-articles','sec-ruc-tags'] : isRep ? ['sec-rep-connected','sec-rep-empty','sec-rep-controls'] : isMsb ? ['sec-msb'] : isDemo ? ['sec-demo-team','sec-demo-empty'] : isDemo262 ? ['sec-d262-weather','sec-d262-empty1','sec-d262-empty2'] : ['sec-hero','sec-weather','sec-articles'];
-  const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isRep ? 'Repeater' : isMsb ? 'Multi-State Box' : isDemo ? 'Demo' : isDemo262 ? 'Demo 26.2' : 'Home Page';
+  const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isRep ? 'Repeater' : isMsb ? 'Multi-State Box' : isDemo ? 'Demo' : isDemo262 ? 'Demo 26.2 (home)' : 'Home Page';
   const pageIcon = isConcept ? '🛒' : '📄';
 
-  const pageIdMap = {'Home Page':'page-home','Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo'};
+  const pageIdMap = {'Home Page':'page-home','Homepage':'page-home','Demo 26.2 (home)':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo'};
   const pageId = pageIdMap[pageLabel] || null;
   const pageCtxIds = pageId ? (S.ctxMap[pageId]||[]) : [];
   const hasDynamicPage = isConcept;
@@ -13293,7 +13487,7 @@ const PRODUCT_SPECS = {
       {
         title: '📌 Overview',
         type: 'text',
-        content: `The <b>Add Context</b> panel is a modal that lets users attach or detach context instances from a scope (section or page). It displays available contexts grouped by source type — <b>CMS</b>, <b>Custom</b>, and <b>Apps</b> — with multi-select checkboxes. The panel also surfaces hierarchy relationships: page-level contexts appear with an <b>"Available from page"</b> badge, and shadowing is shown with visual warnings.`
+        content: `The <b>Add Context</b> panel is a modal that lets users attach new context instances to a scope (section or page). It displays available contexts grouped by source type — <b>CMS</b>, <b>Custom</b>, and <b>Apps</b>. Contexts already connected to the scope are shown as disabled (cannot be removed from here). The panel also surfaces hierarchy relationships: page-level contexts appear with an <b>"Available from page"</b> badge. Each collection appears once in the list — filtered variants are deduplicated.`
       },
       {
         title: '🎯 Purpose & Goals',
@@ -13365,7 +13559,7 @@ const PRODUCT_SPECS = {
       {
         title: '⚡ User Flow',
         type: 'flow',
-        steps: ['Click "+ Add Context"', 'Modal opens with scope info', 'Browse CMS / Custom / Apps groups', 'Check/uncheck contexts', 'See badges & warnings', 'Click "Apply changes"', 'Contexts attached to scope']
+        steps: ['Click "+ Add Context"', 'Modal opens with scope info', 'Browse CMS / Custom / Apps groups', 'Select contexts to add', 'Already connected shown as disabled', 'Click "Apply changes"', 'Contexts attached to scope']
       },
       {
         title: '🎬 Happy Flow Demo',
@@ -14438,7 +14632,7 @@ SPEC_DEMO_STEPS_MAP['add-context-panel'] = [
     render: function() { return _demoScreen('demo-screens/add-context-panel/step1.png', '31%', '73%'); }
   },
   {
-    caption: '<b>Step 2:</b> <b>Add Context modal</b> opens — showing CMS and Custom contexts with checkboxes',
+    caption: '<b>Step 2:</b> <b>Add Context modal</b> opens — showing available CMS and Custom contexts',
     render: function() { return _demoScreen('demo-screens/add-context-panel/step2.png', '30%', '61%'); }
   },
   {
@@ -14740,6 +14934,22 @@ const REP_SAMPLE_DATA = {
     {name:"Riley Carter", role:"Content Crafter", tagline:"Weaving words into wonders", image:"[img url]"},
     {name:"Maya Ramirez", role:"Analytics Ace", tagline:"Decoding the data jungle", image:"[img url]"},
     {name:"Ali Torel", role:"Social Superstar", tagline:"Ruling the social realm", image:"[img url]"}
+  ],
+  'cms-team-members': [
+    {name:"Riley Carter", role:"🎨 UX Designer", email:"riley@studio.com"},
+    {name:"Maya Ramirez", role:"🎨 UX Designer", email:"maya@studio.com"},
+    {name:"Ali Torel", role:"💻 Developer", email:"ali@studio.com"},
+    {name:"Jordan Lee", role:"💻 Developer", email:"jordan@studio.com"},
+    {name:"Sam Nakamura", role:"📊 PM", email:"sam@studio.com"},
+    {name:"Morgan Blake", role:"🎨 UX Designer", email:"morgan@studio.com"}
+  ],
+  'cms-team-members-filtered': [
+    {name:"Riley Carter", role:"🎨 UX Designer", email:"riley@studio.com"},
+    {name:"Morgan Blake", role:"🎨 UX Designer", email:"morgan@studio.com"}
+  ],
+  'cms-team-members-by-role': [
+    {name:"Riley Carter", role:"🎨 UX Designer", email:"riley@studio.com"},
+    {name:"Morgan Blake", role:"🎨 UX Designer", email:"morgan@studio.com"}
   ]
 };
 
