@@ -6370,10 +6370,26 @@ function selEl(e, id) {
   renderActionBar();
 }
 
+function findValEl(elId) {
+  const v = document.getElementById('v-' + elId);
+  if (v) return v;
+  const domEl = document.getElementById(elId);
+  if (!domEl) return null;
+  const children = Array.from(domEl.children);
+  for (let i = children.length - 1; i >= 0; i--) {
+    const ch = children[i];
+    if (!ch.classList.contains('c-el-overlay') && !ch.classList.contains('el-tags') && ch.tagName !== 'SVG' && !ch.classList.contains('detail-related-info')) {
+      ch.id = 'v-' + elId;
+      return ch;
+    }
+  }
+  return null;
+}
+
 function startInlineEdit(elId) {
   exitTextEditing();
   const domEl = document.getElementById(elId);
-  const valEl = document.getElementById('v-' + elId);
+  const valEl = findValEl(elId);
   if (!domEl || !valEl) return;
   const bkey = elId + '|Value';
   const currentVal = S.staticValues[bkey] || '';
@@ -7161,6 +7177,18 @@ function renderSettings() {
     const repVisHtml = renderVisibleProp(S.sel, def.props.find(p => p.k === 'Visible'));
     const repEventsHtml = renderEventHandlers(S.sel, def);
 
+    const repCtxIds = S.ctxMap[S.sel] || [];
+    const repCtxHtml = repCtxIds.length > 0 ? (() => {
+      const ctxContent = renderCtxList();
+      return `<div class="rp-cat ${S.openCats.context !== false ? 'open' : ''}" id="rp-cat-context">
+        <div class="rp-cat-head" onclick="toggleCat('context')">
+          <span class="rp-cat-chevron">›</span>
+          <span class="rp-cat-title">Context (${repCtxIds.length})</span>
+        </div>
+        <div class="rp-cat-body" style="padding:0">${ctxContent}</div>
+      </div>`;
+    })() : '';
+
     const ctxSummaryHtml = b && ctx
       ? `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
           <div class="rp-cat-head" onclick="toggleCat('repconfig')">
@@ -7184,7 +7212,8 @@ function renderSettings() {
         </div>`
       : '';
 
-    return `<div class="rp-cat ${S.openCats.properties ? 'open' : ''}" id="rp-cat-properties">
+    return `${repCtxHtml}
+    <div class="rp-cat ${S.openCats.properties ? 'open' : ''}" id="rp-cat-properties">
       <div class="rp-cat-head" onclick="toggleCat('properties')">
         <span class="rp-cat-chevron">›</span>
         <span class="rp-cat-title">Properties</span>
@@ -7555,7 +7584,7 @@ function renderPropRow(elId, prop) {
   // for Value/Label props, fall back to canvas element's current text
   let staticVal = S.staticValues[bkey] || '';
   if (!staticVal && !isBound && (prop.k === 'Value' || prop.k === 'Label')) {
-    const canvasEl = document.getElementById('v-' + elId);
+    const canvasEl = findValEl(elId);
     if (canvasEl) staticVal = canvasEl.textContent.trim();
   }
 
@@ -7787,18 +7816,18 @@ function onStaticInput(elId, propKey, val) {
 }
 
 function updateCanvasStatic(elId, propKey, val) {
-  // only update Value/Label props, not Source/Alt etc.
   if (!['Value','Label'].includes(propKey)) return;
   const domEl = document.getElementById(elId);
   if (!domEl) return;
-  const valEl = document.getElementById('v-'+elId);
-  // text element
+  const valEl = findValEl(elId);
   if (valEl && domEl.classList.contains('c-el-text')) {
     valEl.textContent = val || propPlaceholder(propKey);
     valEl.style.color = val ? 'var(--t1)' : '';
     valEl.style.fontFamily = val ? "'Syne', sans-serif" : '';
     valEl.style.fontSize = val ? '15px' : '';
     valEl.classList.toggle('static', !!val);
+  } else if (valEl) {
+    valEl.textContent = val || propPlaceholder(propKey);
   }
   // button label
   const btnEl = domEl.querySelector('.c-el-btn');
@@ -7942,7 +7971,7 @@ function updateFnCanvasPreview(elId, propKey) {
   const bkey = `${elId}|${propKey}`;
   const b = S.bindings[bkey];
   if (!b || !b.fnHasParams || !b.fnParams) return;
-  const valEl = document.getElementById('v-' + elId);
+  const valEl = findValEl(elId);
   if (!valEl) return;
   const template = b.fnTemplate;
   if (!template) return;
@@ -11257,7 +11286,7 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
   const def = EL_DEFS[elId];
   const propDef = def?.props.find(p => p.k === propKey);
   if (propDef?.t === 'function') return;
-  const valEl = document.getElementById('v-'+elId);
+  const valEl = findValEl(elId);
   const ctx = ctxId ? findSource(ctxId) : null;
   const ctxName = ctxId ? resolveCtxName(ctxId) : '?';
 
@@ -11397,6 +11426,13 @@ function getAvailableCtx(elId, includeUnmodified) {
         (S.ctxMap[rid] || []).forEach(id => repIds.add(id));
       }
     });
+    const elDom = document.getElementById(elId);
+    const closestRep = elDom ? elDom.closest('.c-repeater') : null;
+    if (closestRep) {
+      (S.ctxMap[closestRep.id] || []).forEach(id => repIds.add(id));
+      const repB = S.bindings[closestRep.id + '|Items'];
+      if (repB && repB.ctxId) repIds.add(repB.ctxId);
+    }
   }
 
   const ids = [...repIds];
@@ -12315,14 +12351,19 @@ function renderTree() {
   const isMsb = S.currentPage === 'Multi-State Box';
   const isDemo = S.currentPage === 'Demo';
   const isDemo262 = S.currentPage === 'Demo 26.2';
-  const sections = isItemsList ? ['sec-items'] : isConcept ? ['sec-rel-product','sec-rel-locations'] : isRuc ? ['sec-ruc-articles','sec-ruc-tags'] : isRep ? ['sec-rep-connected','sec-rep-empty','sec-rep-controls'] : isMsb ? ['sec-msb'] : isDemo ? ['sec-demo-team','sec-demo-empty'] : isDemo262 ? ['sec-d262-weather','sec-d262-empty1','sec-d262-empty2'] : ['sec-hero','sec-weather','sec-articles'];
-  const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isRep ? 'Repeater' : isMsb ? 'Multi-State Box' : isDemo ? 'Demo' : isDemo262 ? 'Demo 26.2' : 'Home Page';
-  const pageIcon = isConcept ? '🛒' : '📄';
+  const isRefTm = S.currentPage === 'Team Members List';
+  const isRefTmi = S.currentPage === 'Team Member Item';
+  const isRefRi = S.currentPage === 'Role Item';
+  const isRefBi = S.currentPage === 'Book Item';
+  const isRefAi = S.currentPage === 'Author Item';
+  const sections = isItemsList ? ['sec-items'] : isConcept ? ['sec-rel-product','sec-rel-locations'] : isRuc ? ['sec-ruc-articles','sec-ruc-tags'] : isRep ? ['sec-rep-connected','sec-rep-empty','sec-rep-controls'] : isMsb ? ['sec-msb'] : isDemo ? ['sec-demo-team','sec-demo-empty'] : isDemo262 ? ['sec-d262-weather','sec-d262-empty1','sec-d262-empty2'] : isRefTm ? ['sec-ref-tm'] : isRefTmi ? ['sec-ref-tmi-info','sec-ref-tmi-role','sec-ref-tmi-members','sec-ref-tmi-members-b'] : isRefRi ? ['sec-ref-ri-info','sec-ref-ri-members','sec-ref-ri-members-b','sec-ref-ri-others'] : isRefBi ? ['sec-ref-bi-info','sec-ref-bi-authors','sec-ref-bi-related','sec-ref-bi-byauthor','sec-ref-bi-all'] : isRefAi ? ['sec-ref-ai-info','sec-ref-ai-books'] : ['sec-hero','sec-weather','sec-articles'];
+  const pageLabel = isItemsList ? 'Items (List)' : isConcept ? 'Product Item' : isRuc ? 'Repeater Usecases' : isRep ? 'Repeater' : isMsb ? 'Multi-State Box' : isDemo ? 'Demo' : isDemo262 ? 'Demo 26.2' : isRefTm ? 'Team Members List' : isRefTmi ? 'Team Member Item' : isRefRi ? 'Role Item' : isRefBi ? 'Book Item' : isRefAi ? 'Author Item' : 'Home Page';
+  const pageIcon = isConcept ? '🛒' : (isRefTm || isRefTmi) ? '👥' : (isRefRi) ? '🏷' : (isRefBi) ? '📖' : (isRefAi) ? '✍️' : '📄';
 
-  const pageIdMap = {'Home Page':'page-home','Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo'};
+  const pageIdMap = {'Home Page':'page-home','Homepage':'page-home','Demo 26.2':'page-demo262','Items (List)':'page-items','Product Item':'page-rel-detail','Repeater Usecases':'page-ruc','Repeater':'page-rep','Multi-State Box':'page-msb','Option A · On Repeater':'page-opta','Option B · On Parent':'page-optb','Demo':'page-demo','Team Members List':'page-ref-tm','Team Member Item':'page-ref-tmi','Role Item':'page-ref-ri','Book Item':'page-ref-bi','Author Item':'page-ref-ai'};
   const pageId = pageIdMap[pageLabel] || null;
   const pageCtxIds = pageId ? (S.ctxMap[pageId]||[]) : [];
-  const hasDynamicPage = isConcept;
+  const hasDynamicPage = isConcept || isRefTmi || isRefRi || isRefBi || isRefAi;
   const pageSel = S.sel === pageId ? 'font-weight:600;color:var(--acc)' : 'color:var(--t3)';
 
   let h = `<div class="tp-row"><div class="tp-item" style="${pageSel};cursor:pointer" onclick="selEl({stopPropagation:()=>{}},'${pageId}');document.getElementById('tree-panel').classList.remove('open')"><span>${pageIcon}</span> ${pageLabel} ${pageCtxIds.length ? '<span class="tp-dot"></span>' : ''}</div></div>`;
@@ -14889,7 +14930,7 @@ function applyRepBindingToAll(templateKey, propKey, field, ctxId) {
       const cimg = document.getElementById('cimg-' + elId);
       if (cimg) cimg.src = IMG_SKY;
     } else {
-      const valEl = document.getElementById('v-' + elId);
+      const valEl = findValEl(elId);
       if (valEl) {
         valEl.textContent = realVal;
         if (valEl.classList.contains('val')) valEl.classList.remove('static');
@@ -15490,7 +15531,15 @@ function sfGetDynamicPageContexts() {
   const ctxId = S.ctxSettingsView || '';
   const ctx = findSource(ctxId);
   if (!ctx) return [];
-  const sectionId = Object.keys(S.ctxMap).find(k => (S.ctxMap[k] || []).includes(ctxId));
+  let sectionId = Object.keys(S.ctxMap).find(k => (S.ctxMap[k] || []).includes(ctxId));
+  if (!sectionId) {
+    const repKey = Object.keys(S.bindings).find(bk => bk.endsWith('|Items') && S.bindings[bk].ctxId === ctxId);
+    if (repKey) {
+      const repId = repKey.split('|')[0];
+      const repDef = EL_DEFS[repId];
+      sectionId = repDef?.section || repId;
+    }
+  }
   if (!sectionId) return [];
   let pageId = null;
   let cur = sectionId;
