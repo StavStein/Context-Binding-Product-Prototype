@@ -95,6 +95,7 @@ Each use case follows this structure:
 | B21 | I want to control whether an element shows or hides based on data | `Show/hide` `Visibility` `Boolean binding` | 🔶 | High |
 | B22 | I want to bind alt text for image accessibility | `Image alt` `Accessibility` `Auto-bind` | ✅ | High |
 | B23 | I want to mark an image as decorative (no alt text needed) | `Image settings` `Decorative` `Accessibility` | 🔶 | NTH |
+| B24 | I want to manage what happens when a bound field is empty | `Empty fields` `Fallback behavior` | ⬜ | High |
 
 ---
 
@@ -150,7 +151,7 @@ Each use case follows this structure:
 | D01 | I want to filter the list to show only specific items | `Filter` `Static filter` | ✅ |
 | D02 | I want to sort my list by a specific field | `Sort` `Static sort` | ✅ |
 | D03 | I want to show items in a random order | `Random order` `Sort override` | ⬜ |
-| D04 | I want to limit how many items load per page | `Page size` `Pagination` | ⬜ |
+| D04 | I want to limit how many items load per page | `Page size` `Pagination` | 🔶 |
 | D05 | I want to add multiple filter rules (AND logic) | `Filter dialog` `Multiple rules` | 🔶 |
 | D06 | I want to edit or delete an existing filter rule | `Filter dialog` `Edit/Delete rule` | 🔶 |
 | D07 | I want to sort by multiple fields (primary + secondary) | `Sort dialog` `Multiple rules` | ⬜ |
@@ -202,12 +203,12 @@ Each use case follows this structure:
 | G02 | I want to add sort buttons that let visitors sort the list | `UoU` `Sort control` `Bound sort` | ⬜ |
 | G03 | I want to add pagination (next/prev) to my repeater | `UoU` `Pagination` `Page-based` | ⬜ |
 | G04 | I want to show the total number of items | `UoU` `Metadata binding` `Total items` | ⬜ |
-| G05 | I want to add a "Load more" button | `UoU` `Pagination` `Action binding` | ⬜ |
+| G05 | I want to add a "Load more" button | `UoU` `Pagination` `Action binding` | 🔶 |
 | G06 | I want to add category filter tabs/buttons | `UoU` `Filter control` `Dynamic filter` | ⬜ |
 | G07 | I want to show a loading state while data loads | `UoU` `Metadata` `Is loading` | ⬜ |
 | G08 | I want to show "No results" when filters return empty | `UoU` `Empty state` `Conditional display` | ⬜ |
 | G09 | I want to promote the repeater's context so external controls can access it | `Promote context` `Scope change` | ⬜ |
-| G10 | I want infinite scroll that loads items as the visitor scrolls | `UoU` `Pagination` `Infinite scroll` | ⬜ |
+| G10 | I want infinite scroll that loads items as the visitor scrolls | `UoU` `Pagination` `Infinite scroll` | 🔶 |
 | G11 | I want a filter dropdown where options update based on other active filters | `UoU` `Conditional filtering` `Dependent inputs` | ⬜ |
 | G12 | I want to use an Input component as a filter for the list | `Input role` `Filter mode` `Context controller` | ⬜ |
 | G13 | I want to use an Input component as a sort control for the list | `Input role` `Sort mode` `Context controller` | ⬜ |
@@ -331,10 +332,8 @@ Each use case follows this structure:
 
 | # | User Intent | Tags | Status |
 |---|------------|------|--------|
-| P01 | I want to manage what happens when a bound field is empty | `Empty fields` `CMS` `Fallback behavior` | ⬜ |
 | P02 | I want to add a new field to my collection from the context panel | `CMS` `Add field` `Schema editing` | ⬜ |
 | P03 | I want to see which collections are connected to which pages/sections | `CMS` `Usage overview` `Site map` | ⬜ |
-| P04 | I want to connect one context's filter to another context's selection | `Context-to-context` `Cross-context filtering` | ⬜ |
 
 ---
 
@@ -343,12 +342,12 @@ Each use case follows this structure:
 | Area | Total | ✅ Done | 🔶 Partial | ⬜ Not Started |
 |------|-------|---------|------------|----------------|
 | **A** — Data Sources | 17 | 6 | 5 | 6 |
-| **B** — Binding | 23 | 14 | 4 | 5 |
+| **B** — Binding | 24 | 14 | 4 | 6 |
 | **C** — Repeater & List Renderers | 21 | 4 | 2 | 15 |
-| **D** — Configuration | 11 | 3 | 2 | 6 |
+| **D** — Configuration | 11 | 3 | 3 | 5 |
 | **E** — References | 8 | 8 | 0 | 0 |
 | **F** — Functions & Actions | 11 | 4 | 0 | 7 |
-| **G** — UoU Interactions | 13 | 0 | 0 | 13 |
+| **G** — UoU Interactions | 13 | 0 | 2 | 11 |
 | **H** — Multi-State Box | 9 | 8 | 1 | 0 |
 | **I** — Dynamic Pages | 10 | 5 | 0 | 5 |
 | **J** — Scope & Lifecycle | 10 | 1 | 1 | 8 |
@@ -357,8 +356,8 @@ Each use case follows this structure:
 | **M** — Design Variants | 4 | 0 | 0 | 4 |
 | **N** — Write Mode & Forms | 7 | 0 | 0 | 7 |
 | **O** — Custom Components & Dev | 5 | 0 | 0 | 5 |
-| **P** — CMS-Specific | 4 | 0 | 0 | 4 |
-| **TOTAL** | **165** | **59** | **16** | **90** |
+| **P** — CMS-Specific | 2 | 0 | 0 | 2 |
+| **TOTAL** | **164** | **59** | **19** | **86** |
 
 ---
 
@@ -370,17 +369,17 @@ Each use case follows this structure:
 
 ### Key Takeaway
 
-**59 out of 165 use cases are prototyped (~36%).**
+**59 out of 164 use cases are prototyped (~36%), with 19 partially done.**
 
 Entire untouched areas:
 - **N — Write Mode & Forms** (7 use cases) — data collection, form submission, input validation, update records
-- **G — UoU Interactions** (13 use cases) — search, sort, pagination, infinite scroll, empty states, loading, conditional filtering
 - **O — Custom Components & Dev** (5 use cases) — custom components with binding, Velo contexts, AI wiring
 - **M — Design Variants** (4 use cases) — conditional styling, variant switching, layout states
-- **P — CMS-Specific** (4 use cases) — empty fields, inline field creation, usage overview, cross-context filtering
+- **P — CMS-Specific** (2 use cases) — inline field creation, usage overview
 
 Critical areas with significant remaining work:
-- **C — Repeater & List Renderers** (3/17) — Gallery, Table, Accordion, Tabs, Slideshow, Maps, nested repeaters, presets
+- **G — UoU Interactions** (0/13 done, 2 partial) — search, sort, pagination, infinite scroll, empty states, loading, conditional filtering
+- **C — Repeater & List Renderers** (4/21 done) — Gallery, Table, Accordion, Tabs, Slideshow, Maps, nested repeaters, presets
 - **J — Scope & Lifecycle** (1/10) — promote, lightbox, missing context guidance, system contexts
 - **I — Dynamic Pages** (5/10) — URL binding, page variants, app dynamic pages
 - **F — Functions & Actions** (4/11) — event handlers, action chaining, OOTB libraries, conflict resolution

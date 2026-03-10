@@ -862,10 +862,10 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .ctx-link-toast.show{opacity:1}
 .ctx-section-label{padding:8px 14px 4px;font-size:9px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.5px;color:var(--t3);display:flex;align-items:center;gap:6px}
 .ctx-section-label:after{content:'';flex:1;height:1px;background:var(--b1)}
-.ctx-parent-note-wrap{margin:8px 14px 0;padding:0}
-.ctx-parent-note-label{font-size:10px;color:var(--t3);margin-bottom:2px;padding:0 2px}
-.ctx-parent-note-item{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:5px;font-size:11px;color:var(--t2);cursor:pointer;transition:.12s}
-.ctx-parent-note-item:hover{background:var(--b1);color:var(--acc)}
+.ctx-parent-note-wrap{margin:0;padding:0}
+.ctx-parent-note-label{font-size:10px;color:var(--t3);margin-bottom:2px;padding:8px 14px 0;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.3px}
+.ctx-parent-note-item{display:flex;align-items:center;gap:8px;padding:8px 10px;margin:6px 14px;border-radius:8px;font-size:12px;font-weight:500;color:var(--t2);background:var(--sur2);border:1px solid var(--b2);cursor:pointer;transition:.15s;opacity:.75}
+.ctx-parent-note-item:hover{border-color:var(--acc);background:color-mix(in srgb, var(--acc) 4%, var(--sur2));opacity:1}
 .ctx-parent-note-arrow{font-size:10px;color:var(--t3);margin-left:auto;opacity:0;transition:.12s}
 .ctx-parent-note-item:hover .ctx-parent-note-arrow{opacity:1;color:var(--acc)}
 .ctx-tree-cta{display:flex;align-items:center;gap:6px;margin:4px 14px 10px;padding:6px 10px;border-radius:6px;font-size:11px;color:var(--t3);cursor:pointer;transition:.12s}
@@ -6075,6 +6075,7 @@ const S = {
       {field:'title', condition:'not_in', value:'Current Book · relatedBooks', isDynamic:true, dynamicCtxId:'cms-book-current', dynamicField:'relatedBooks'}
     ],
   },
+  repPagination: {},
 };
 
 /* ── ELEMENT SELECTION ── */
@@ -6656,12 +6657,13 @@ function repNoticeAction(e, repeaterId) {
   const def = EL_DEFS[repeaterId];
   if (!def) return;
   const sectionId = def.section;
+  const repCtxs = S.ctxMap[repeaterId] || [];
   const sectionCtxs = S.ctxMap[sectionId] || [];
   const parentPage = EL_DEFS[sectionId]?.parentPage;
   const pageCtxs = parentPage ? (S.ctxMap[parentPage] || []) : [];
-  const hasCtx = sectionCtxs.length > 0 || pageCtxs.length > 0;
+  const hasCtx = repCtxs.length > 0 || sectionCtxs.length > 0 || pageCtxs.length > 0;
   if (!hasCtx) {
-    openModal(sectionId);
+    openModal(repeaterId);
   } else {
     selElSettings(e, repeaterId);
     setTimeout(() => openDd(e, repeaterId, 'Items'), 80);
@@ -6810,6 +6812,62 @@ function renderAnims() {
   </div>`;
 }
 
+/* ── REPEATER PAGINATION HELPERS ── */
+function getRepPag(repId) {
+  if (!S.repPagination[repId]) S.repPagination[repId] = {mode:'scroll', showLimit:false, limit:12, infoBannerDismissed:false};
+  return S.repPagination[repId];
+}
+function setRepPagMode(repId, mode) {
+  const p = getRepPag(repId);
+  p.mode = mode;
+  renderBody();
+  refreshRepLoadMoreButton(repId);
+}
+function toggleRepShowLimit(repId) {
+  const p = getRepPag(repId);
+  p.showLimit = !p.showLimit;
+  renderBody();
+}
+function setRepLimit(repId, val) {
+  const p = getRepPag(repId);
+  const max = 1000;
+  p.limit = Math.max(1, Math.min(max, parseInt(val) || 1));
+  if (p.limit >= 100 && p.mode === 'scroll') p.infoBannerDismissed = false;
+  renderBody();
+}
+function dismissRepInfoBanner(repId) {
+  const p = getRepPag(repId);
+  p.infoBannerDismissed = true;
+  renderBody();
+}
+function refreshRepLoadMoreButton(repId) {
+  const repEl = document.getElementById(repId);
+  if (!repEl) return;
+  const existing = repEl.querySelector('.rep-load-more-btn');
+  const p = getRepPag(repId);
+  const b = S.bindings[repId + '|Items'];
+  if (p.mode === 'button' && b) {
+    if (!existing) {
+      const btn = document.createElement('div');
+      btn.className = 'rep-load-more-btn';
+      btn.innerHTML = `<div class="c-el-overlay" style="border-radius:6px"></div>
+        <div style="display:flex;align-items:center;gap:6px;justify-content:center">
+          <span style="font-size:12px;font-weight:600;color:var(--acc)">Load more</span>
+        </div>
+        <div style="position:absolute;top:-8px;right:-8px;background:var(--grn);color:#fff;font-size:8px;font-weight:700;padding:1px 5px;border-radius:4px;font-family:'DM Mono',monospace;white-space:nowrap">loadMore</div>`;
+      btn.style.cssText = 'position:relative;margin:8px auto 12px;padding:10px 24px;border:1.5px solid var(--acc);border-radius:8px;cursor:pointer;text-align:center;background:color-mix(in srgb, var(--acc) 4%, transparent);max-width:160px;transition:.15s';
+      repEl.appendChild(btn);
+    }
+  } else if (existing) {
+    existing.remove();
+  }
+}
+function refreshAllRepLoadMoreButtons() {
+  Object.keys(EL_DEFS).forEach(id => {
+    if (EL_DEFS[id].isRepeater) refreshRepLoadMoreButton(id);
+  });
+}
+
 /* ── SETTINGS TAB: REPEATER ON-REPEATER MODEL ── */
 function renderSettingsRepeaterOnRepeater(def) {
   const repId = S.sel;
@@ -6828,19 +6886,46 @@ function renderSettingsRepeaterOnRepeater(def) {
   if (S.ctxSettingsView) return renderCtxSettings(S.ctxSettingsView);
   const ctxContent = renderCtxList();
 
-  const ctxSummaryHtml = b && ctx
-    ? `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
+  let ctxSummaryHtml = '';
+  if (b && ctx) {
+    const p = getRepPag(repId);
+    const showInfoBanner = p.mode === 'scroll' && p.showLimit && p.limit >= 100 && !p.infoBannerDismissed;
+
+    const infoBannerHtml = showInfoBanner ? `
+          <div style="margin-top:8px;padding:8px 10px;background:color-mix(in srgb, var(--acc) 6%, transparent);border:1px solid color-mix(in srgb, var(--acc) 20%, transparent);border-radius:8px;display:flex;gap:8px;align-items:flex-start">
+            <span style="font-size:13px;flex-shrink:0;margin-top:1px">ⓘ</span>
+            <div style="flex:1;font-size:10px;color:var(--t2);line-height:1.5">To display more than 100 items, switch to 'Load more button'. The 100-item limit for infinite scroll helps your site stay fast.</div>
+            <span style="font-size:11px;color:var(--t3);cursor:pointer;flex-shrink:0;padding:2px" onclick="event.stopPropagation();dismissRepInfoBanner('${repId}')">✕</span>
+          </div>` : '';
+
+    ctxSummaryHtml = `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
         <div class="rp-cat-head" onclick="toggleCat('repconfig')">
           <span class="rp-cat-chevron">›</span>
           <span class="rp-cat-title">Pagination, Filter & Sort</span>
         </div>
         <div class="rp-cat-body">
-          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0">
-            <span style="font-size:11px;color:var(--t2)">'Load more' button</span>
-            <div class="tog" onclick="this.classList.toggle('on')" style="transform:scale(.8)"></div>
+          <div style="font-size:10px;color:var(--t3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.3px">Choose how to show your items</div>
+          <div style="display:flex;gap:8px">
+            <div onclick="setRepPagMode('${repId}','scroll')" style="flex:1;padding:10px 8px;border-radius:8px;border:2px solid ${p.mode==='scroll'?'var(--acc)':'var(--b1)'};background:${p.mode==='scroll'?'color-mix(in srgb, var(--acc) 6%, transparent)':'var(--bg)'};cursor:pointer;text-align:center;transition:.15s">
+              <div style="font-size:18px;margin-bottom:4px;opacity:.7">⟳</div>
+              <div style="font-size:11px;font-weight:${p.mode==='scroll'?'600':'400'};color:${p.mode==='scroll'?'var(--acc)':'var(--t2)'}">Infinite scroll</div>
+            </div>
+            <div onclick="setRepPagMode('${repId}','button')" style="flex:1;padding:10px 8px;border-radius:8px;border:2px solid ${p.mode==='button'?'var(--acc)':'var(--b1)'};background:${p.mode==='button'?'color-mix(in srgb, var(--acc) 6%, transparent)':'var(--bg)'};cursor:pointer;text-align:center;transition:.15s">
+              <div style="margin-bottom:4px"><span style="font-size:10px;padding:3px 10px;border-radius:4px;border:1px solid ${p.mode==='button'?'var(--acc)':'var(--b2)'};color:${p.mode==='button'?'var(--acc)':'var(--t3)'}">Load more</span></div>
+              <div style="font-size:11px;font-weight:${p.mode==='button'?'600':'400'};color:${p.mode==='button'?'var(--acc)':'var(--t2)'}">Load more button</div>
+            </div>
           </div>
-          <div style="border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-top:6px">
-            <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Items per load</span><span style="color:var(--t1);font-weight:600">4</span></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;margin-top:10px">
+            <span style="font-size:11px;color:var(--t2);display:flex;align-items:center;gap:4px">Show limited number of items <span style="font-size:10px;color:var(--t3);cursor:help" title="Cap the number of items shown per load. Max 100 for infinite scroll, up to 1000 with load more button.">ⓘ</span></span>
+            <div class="tog ${p.showLimit?'on':''}" onclick="toggleRepShowLimit('${repId}')" style="transform:scale(.8)"></div>
+          </div>
+          ${p.showLimit ? `
+          <div style="margin-top:4px;display:flex;align-items:center;gap:10px;padding:2px 0">
+            <input type="range" min="1" max="${p.mode==='scroll'?100:1000}" value="${p.limit}" oninput="setRepLimit('${repId}',this.value)" style="flex:1;accent-color:var(--acc);height:4px">
+            <input type="number" min="1" max="${p.mode==='scroll'?100:1000}" value="${p.limit}" onchange="setRepLimit('${repId}',this.value)" style="width:52px;padding:4px 6px;border:1px solid var(--b1);border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;text-align:center;background:var(--bg);color:var(--t1)">
+          </div>
+          ${infoBannerHtml}` : ''}
+          <div style="border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-top:10px">
             <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Filter</span><span style="color:var(--t1);font-weight:600">${(S.filterRules[b.ctxId]||[]).length > 0 ? (S.filterRules[b.ctxId].length + ' filter' + (S.filterRules[b.ctxId].length > 1 ? 's' : '')) : 'None'}</span></div>
             <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Sort</span><span style="color:var(--t1);font-weight:600">${(S.sortRules[b.ctxId]||[]).length > 0 ? (S.sortRules[b.ctxId].length + ' sort rule' + (S.sortRules[b.ctxId].length > 1 ? 's' : '')) : 'None'}</span></div>
             <div style="margin-top:8px;text-align:center">
@@ -6848,8 +6933,8 @@ function renderSettingsRepeaterOnRepeater(def) {
             </div>
           </div>
         </div>
-      </div>`
-    : '';
+      </div>`;
+  }
 
   const promoteHtml = ctxCount > 0 && !isPromoted
     ? `<div style="margin:12px 14px;padding:10px 12px;border:1px solid var(--b1);border-radius:8px;background:var(--sur2)">
@@ -7311,19 +7396,46 @@ function renderSettings() {
       </div>`;
     })() : '';
 
-    const ctxSummaryHtml = b && ctx
-      ? `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
+    let ctxSummaryHtml = '';
+    if (b && ctx) {
+      const p = getRepPag(S.sel);
+      const showInfoBanner = p.mode === 'scroll' && p.showLimit && p.limit >= 100 && !p.infoBannerDismissed;
+
+      const infoBannerHtml = showInfoBanner ? `
+            <div style="margin-top:8px;padding:8px 10px;background:color-mix(in srgb, var(--acc) 6%, transparent);border:1px solid color-mix(in srgb, var(--acc) 20%, transparent);border-radius:8px;display:flex;gap:8px;align-items:flex-start">
+              <span style="font-size:13px;flex-shrink:0;margin-top:1px">ⓘ</span>
+              <div style="flex:1;font-size:10px;color:var(--t2);line-height:1.5">To display more than 100 items, switch to 'Load more button'. The 100-item limit for infinite scroll helps your site stay fast.</div>
+              <span style="font-size:11px;color:var(--t3);cursor:pointer;flex-shrink:0;padding:2px" onclick="event.stopPropagation();dismissRepInfoBanner('${S.sel}')">✕</span>
+            </div>` : '';
+
+      ctxSummaryHtml = `<div class="rp-cat ${S.openCats.repconfig ? 'open' : ''}" id="rp-cat-repconfig">
           <div class="rp-cat-head" onclick="toggleCat('repconfig')">
             <span class="rp-cat-chevron">›</span>
             <span class="rp-cat-title">Pagination, Filter & Sort</span>
           </div>
           <div class="rp-cat-body">
-            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0">
-              <span style="font-size:11px;color:var(--t2)">'Load more' button</span>
-              <div class="tog" onclick="this.classList.toggle('on')" style="transform:scale(.8)"></div>
+            <div style="font-size:10px;color:var(--t3);margin-bottom:6px;font-weight:600;text-transform:uppercase;letter-spacing:.3px">Choose how to show your items</div>
+            <div style="display:flex;gap:8px">
+              <div onclick="setRepPagMode('${S.sel}','scroll')" style="flex:1;padding:10px 8px;border-radius:8px;border:2px solid ${p.mode==='scroll'?'var(--acc)':'var(--b1)'};background:${p.mode==='scroll'?'color-mix(in srgb, var(--acc) 6%, transparent)':'var(--bg)'};cursor:pointer;text-align:center;transition:.15s">
+                <div style="font-size:18px;margin-bottom:4px;opacity:.7">⟳</div>
+                <div style="font-size:11px;font-weight:${p.mode==='scroll'?'600':'400'};color:${p.mode==='scroll'?'var(--acc)':'var(--t2)'}">Infinite scroll</div>
+              </div>
+              <div onclick="setRepPagMode('${S.sel}','button')" style="flex:1;padding:10px 8px;border-radius:8px;border:2px solid ${p.mode==='button'?'var(--acc)':'var(--b1)'};background:${p.mode==='button'?'color-mix(in srgb, var(--acc) 6%, transparent)':'var(--bg)'};cursor:pointer;text-align:center;transition:.15s">
+                <div style="margin-bottom:4px"><span style="font-size:10px;padding:3px 10px;border-radius:4px;border:1px solid ${p.mode==='button'?'var(--acc)':'var(--b2)'};color:${p.mode==='button'?'var(--acc)':'var(--t3)'}">Load more</span></div>
+                <div style="font-size:11px;font-weight:${p.mode==='button'?'600':'400'};color:${p.mode==='button'?'var(--acc)':'var(--t2)'}">Load more button</div>
+              </div>
             </div>
-            <div style="border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-top:6px">
-              <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Items per load</span><span style="color:var(--t1);font-weight:600">4</span></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:4px 0;margin-top:10px">
+              <span style="font-size:11px;color:var(--t2);display:flex;align-items:center;gap:4px">Show limited number of items <span style="font-size:10px;color:var(--t3);cursor:help" title="Cap the number of items shown per load. Max 100 for infinite scroll, up to 1000 with load more button.">ⓘ</span></span>
+              <div class="tog ${p.showLimit?'on':''}" onclick="toggleRepShowLimit('${S.sel}')" style="transform:scale(.8)"></div>
+            </div>
+            ${p.showLimit ? `
+            <div style="margin-top:4px;display:flex;align-items:center;gap:10px;padding:2px 0">
+              <input type="range" min="1" max="${p.mode==='scroll'?100:1000}" value="${p.limit}" oninput="setRepLimit('${S.sel}',this.value)" style="flex:1;accent-color:var(--acc);height:4px">
+              <input type="number" min="1" max="${p.mode==='scroll'?100:1000}" value="${p.limit}" onchange="setRepLimit('${S.sel}',this.value)" style="width:52px;padding:4px 6px;border:1px solid var(--b1);border-radius:6px;font-size:12px;font-family:'DM Mono',monospace;text-align:center;background:var(--bg);color:var(--t1)">
+            </div>
+            ${infoBannerHtml}` : ''}
+            <div style="border:1px solid var(--b1);border-radius:8px;padding:10px 12px;margin-top:10px">
               <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Filter</span><span style="color:var(--t1);font-weight:600">${(S.filterRules[b.ctxId]||[]).length > 0 ? (S.filterRules[b.ctxId].length + ' filter' + (S.filterRules[b.ctxId].length > 1 ? 's' : '')) : 'None'}</span></div>
               <div style="display:flex;justify-content:space-between;padding:2px 0;font-size:11px"><span style="color:var(--t3)">Sort</span><span style="color:var(--t1);font-weight:600">${(S.sortRules[b.ctxId]||[]).length > 0 ? (S.sortRules[b.ctxId].length + ' sort rule' + (S.sortRules[b.ctxId].length > 1 ? 's' : '')) : 'None'}</span></div>
               <div style="margin-top:8px;text-align:center">
@@ -7331,8 +7443,8 @@ function renderSettings() {
               </div>
             </div>
           </div>
-        </div>`
-      : '';
+        </div>`;
+    }
 
     return `${repCtxHtml}
     <div class="rp-cat ${S.openCats.properties ? 'open' : ''}" id="rp-cat-properties">
@@ -8098,6 +8210,7 @@ function doUnbindRepeater(elId) {
     syncRepVisualItems(elId);
   }
   refreshElementBindTags();
+  refreshRepLoadMoreButton(elId);
   toast(removedCount > 0 ? `Repeater disconnected · ${removedCount} inner binding${removedCount > 1 ? 's' : ''} removed` : 'Repeater disconnected');
   refreshAllPills();
   renderBody();
@@ -8492,6 +8605,7 @@ function doRepItemsBind(elId, propKey, srcId, fieldName) {
   syncRepVisualItems(elId);
   refreshAllPills();
   refreshRepeaterSkeletons();
+  refreshRepLoadMoreButton(elId);
   renderBody();
 }
 
@@ -8931,8 +9045,15 @@ function renderCtxList() {
   const ctxIds = S.ctxMap[ctxTarget] || [];
   const attached = ctxIds.map(id => findSource(id)).filter(Boolean);
   const isPage = selDef && selDef.isPage;
-  const parentPageId = selDef?.parentPage;
+  const isRepeater = selDef && selDef.isRepeater;
+  let parentPageId = selDef?.parentPage;
 
+  if (!parentPageId && isRepeater && selDef.section) {
+    const secDef = EL_DEFS[selDef.section];
+    if (secDef?.parentPage) parentPageId = secDef.parentPage;
+  }
+
+  const sectionId = selDef?.section;
   const inheritedCtxs = [];
   const ownCtxs = [];
   attached.forEach(c => {
@@ -8944,12 +9065,24 @@ function renderCtxList() {
     }
   });
 
+  const seenInherited = new Set(inheritedCtxs.map(c => c.id));
+
+  if (!isPage && isRepeater && sectionId) {
+    const secCtxIds = S.ctxMap[sectionId] || [];
+    secCtxIds.forEach(id => {
+      if (!ctxIds.includes(id) && !seenInherited.has(id)) {
+        const c = findSource(id);
+        if (c) { inheritedCtxs.push(c); seenInherited.add(id); }
+      }
+    });
+  }
+
   if (!isPage && parentPageId) {
     const pageCtxIds = S.ctxMap[parentPageId] || [];
     pageCtxIds.forEach(id => {
-      if (!ctxIds.includes(id)) {
+      if (!ctxIds.includes(id) && !seenInherited.has(id)) {
         const c = findSource(id);
-        if (c) inheritedCtxs.push(c);
+        if (c) { inheritedCtxs.push(c); seenInherited.add(id); }
       }
     });
   }
@@ -9022,14 +9155,15 @@ function renderCtxList() {
   const inheritedSystemCtxs = inheritedCtxs.filter(c => c.group === 'System');
 
   let parentNote = '';
-  if (parentPageId && !isPage && inheritedUserCtxs.length > 0) {
+  if (!isPage && inheritedUserCtxs.length > 0) {
     parentNote = `<div class="ctx-parent-note-wrap">
       <div class="ctx-parent-note-label">Also available from parent containers</div>
-      ${inheritedUserCtxs.map(c =>
-        `<div class="ctx-parent-note-item" onclick="navToPageCtx('${parentPageId}')">
+      ${inheritedUserCtxs.map(c => {
+        const ctxOwner = sectionId && (S.ctxMap[sectionId] || []).includes(c.id) ? sectionId : parentPageId;
+        return `<div class="ctx-parent-note-item" onclick="navToPageCtx('${ctxOwner || parentPageId}')">
           <span>${c.icon} ${resolveCtxName(c.id)}</span><span class="ctx-parent-note-arrow">→</span>
-        </div>`
-      ).join('')}
+        </div>`;
+      }).join('')}
     </div>`;
   }
 
@@ -9203,12 +9337,13 @@ function renderCtxSettings(ctxId) {
         <span class="ctx-settings-icon">${ctx.icon}</span>
         <div style="flex:1;min-width:0">
           <div class="ctx-settings-title">${displayName}</div>
+          <div class="ctx-card-src" style="margin-top:2px">from ${ctx.source}</div>
         </div>
         <span class="ctx-settings-badge ${badgeClass}">${ctx.type}</span>
       </div>
       <div class="ctx-settings-section">
         <div class="ctx-cfg-row">
-          <div class="ctx-cfg-lbl">Context Name</div>
+          <div class="ctx-cfg-lbl">Context Name <span class="cfg-info">?<span class="cfg-info-tip">A custom display name for this context instance. Rename it to keep things clear when using multiple contexts of the same type.</span></span></div>
           <div class="ctx-cfg-right">
             <div class="cfg-prop-row">
               <div class="cfg-main">
@@ -9588,7 +9723,7 @@ function selectPage(el, name) {
   document.querySelectorAll('.sel').forEach(n => n.classList.remove('sel'));
   renderRP();
   refreshAllPills();
-  setTimeout(refreshRepeaterSkeletons, 50);
+  setTimeout(() => { refreshRepeaterSkeletons(); refreshAllRepLoadMoreButtons(); }, 50);
 }
 
 function navItem(dir) {
@@ -11685,9 +11820,10 @@ function openModal(sectionId) {
   S.modal = {target:sectionId, pending: [...current], initial: [...current], promotes: []};
   const def = EL_DEFS[sectionId];
   const isPage = def?.isPage;
-  const scopeType = isPage ? 'Page' : 'Section';
+  const isRepeater = def?.isRepeater;
+  const scopeType = isPage ? 'Page' : isRepeater ? 'Repeater' : 'Section';
   const rawName = def ? def.name : sectionId;
-  const displayName = rawName.replace(/^(Page|Section)\s*·\s*/i, '').trim();
+  const displayName = rawName.replace(/^(Page|Section|Repeater)\s*·\s*/i, '').trim();
   const scopeEl = document.getElementById('modal-scope');
   if (scopeEl) scopeEl.innerHTML = scopeType + ' · <strong style="color:var(--t2)">' + displayName + '</strong>';
   renderModalList();
