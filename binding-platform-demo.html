@@ -159,6 +159,7 @@ html.dark .et-btn.product-mode-active{color:#a78bfa}
 html.dark .et-btn.product-mode-active::after{background:#a78bfa;box-shadow:0 0 6px #a78bfa80}
 body.product-mode .c-el:hover,body.product-mode .c-section:hover,body.product-mode .c-repeater:hover{outline:2px dashed #7c3aed40;outline-offset:-1px;cursor:help}
 body.product-mode .modal-box:hover{outline:2px dashed #7c3aed40;outline-offset:2px;cursor:help}
+body.product-mode .prop-row-wrap:hover,body.product-mode .et-panel-row:hover{outline:2px dashed #7c3aed40;outline-offset:1px;cursor:help}
 .pm-panel{position:fixed;top:var(--top);left:0;width:280px;height:calc(100vh - var(--top));background:var(--sur);border-right:1px solid var(--b1);z-index:8500;transform:translateX(-100%);transition:transform .3s ease;display:flex;flex-direction:column;box-shadow:4px 0 20px #00000008}
 .pm-panel.open{transform:translateX(0)}
 .pm-panel-x{background:none;border:none;color:var(--t3);cursor:pointer;font-size:16px;padding:0;line-height:1;transition:.15s}
@@ -236,6 +237,7 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .spec-status.implemented{background:#d946a812;color:#d946a8}
 .spec-status.in-progress{background:#d9770612;color:#d97706}
 .spec-status.planned{background:#3b82f612;color:#3b82f6}
+.spec-tbd{display:inline;padding:1px 6px;border-radius:4px;font-size:inherit;font-weight:600;background:#f59e0b18;color:#d97706;border:1px dashed #d9770640}
 .spec-demo-wrap{border:1px solid var(--b1);border-radius:12px;overflow:hidden;margin:16px 0;background:var(--sur)}
 .spec-demo-label{display:flex;align-items:center;justify-content:space-between;font-size:10px;font-weight:600;color:var(--t3);padding:8px 14px;background:var(--sur2);border-bottom:1px solid var(--b1);text-transform:uppercase;letter-spacing:.5px}
 .spec-demo-badge{font-size:9px;padding:2px 8px;border-radius:10px;background:#22c55e18;color:#22c55e;font-weight:600;letter-spacing:.3px;display:flex;align-items:center;gap:4px}
@@ -12864,23 +12866,105 @@ const PRODUCT_SPECS = {
     sections: [
       {
         title: '📌 Overview',
-        type: 'text',
-        content: `The <b>Repeater</b> is a context provider — contexts can be attached directly to it. This creates an easier mental model: <b>the repeater is the list</b>. The user binds the Items property to consume content. When a list context is attached and Items is unbound, it is <b>automatically bound</b> to the context's array field — no extra step needed.<br><br>The user can <b>also</b> bind Items to a context that lives on a parent (section/page) — the repeater doesn't have to own a context.`
+        type: 'html',
+        content: `<div class="spec-text" style="line-height:1.8">
+          <b>Repeater & Context</b> — how the repeater connects to data and what happens at each step.
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:160px">Concept</th><th>Description</th></tr>
+          <tr><td><b>Context ownership</b></td><td>The repeater <b>can</b> be a context provider (context attached directly to it), or it can <b>consume</b> context from a parent (section/page).</td></tr>
+          <tr><td><b>"Items" property</b></td><td>The repeater's only data property. Binds to any array field from any context in scope.</td></tr>
+          <tr><td><b>Auto-bind</b></td><td>When a list context is attached, "Items" auto-binds to its array field — unless already bound to another context.</td></tr>
+          <tr><td><b>Mental model</b></td><td><b>The repeater is the list.</b> The user connects it to data, and inner elements bind to fields from each item.</td></tr>
+        </table>`
+      },
+      {
+        title: '🏗️ Repeater Settings Panel — Anatomy',
+        type: 'html',
+        content: `<div class="spec-text">When a repeater is selected, the inspector shows a dedicated settings panel. Its structure changes based on whether the repeater is <b>bound</b> (connected to data) or <b>unbound</b>.</div>
+        <div class="spec-wireframe">
+          <div class="spec-wireframe-label">Repeater Settings Panel — Context on Repeater, Bound</div>
+          <div class="spec-wireframe-body">
+            <svg viewBox="0 0 300 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:300px">
+              <rect x="1" y="1" width="298" height="478" rx="4" stroke="#e0e0ea" fill="#f5f5f8"/>
+              <!-- Context section -->
+              <text x="12" y="20" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">› Context (1)</text>
+              <rect x="10" y="28" width="280" height="56" rx="6" fill="white" stroke="#e0e0ea"/>
+              <rect x="18" y="36" width="16" height="16" rx="4" fill="#10b98118" stroke="#10b98140"/>
+              <text x="22" y="47" font-size="8">📝</text>
+              <text x="40" y="47" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">CMS Articles</text>
+              <text x="40" y="60" font-size="7" font-family="DM Sans" fill="#8888a8">5 fields · list</text>
+              <rect x="230" y="38" width="50" height="16" rx="4" fill="#10b98112" stroke="#10b98130"/>
+              <text x="237" y="49" font-size="7" font-family="DM Sans" fill="#10b981">manage →</text>
+              <text x="18" y="78" font-size="8" font-family="DM Sans" fill="#3b82f6" font-weight="500" cursor="pointer">+ Add context</text>
+              <!-- Properties section -->
+              <text x="12" y="104" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">› Properties</text>
+              <rect x="10" y="112" width="280" height="40" rx="6" fill="white" stroke="#e0e0ea"/>
+              <text x="18" y="128" font-size="9" font-family="DM Sans" fill="#8888a8" font-weight="500">Items</text>
+              <rect x="18" y="134" width="200" height="14" rx="3" fill="#10b98112" stroke="#10b98130"/>
+              <text x="24" y="144" font-size="7" font-family="DM Mono" fill="#10b981">📝 CMS Articles · items</text>
+              <text x="228" y="144" font-size="8" fill="#10b981">✕</text>
+              <rect x="260" y="126" width="22" height="22" rx="4" fill="#f0f0f5" stroke="#e0e0ea"/>
+              <text x="267" y="140" font-size="9" fill="#8888a8">⚡</text>
+              <!-- Pagination, Filter & Sort section -->
+              <text x="12" y="172" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">› Pagination, Filter &amp; Sort</text>
+              <rect x="10" y="180" width="280" height="130" rx="6" fill="white" stroke="#e0e0ea"/>
+              <text x="18" y="198" font-size="9" font-family="DM Sans" fill="#8888a8">'Load more' button</text>
+              <rect x="240" y="188" width="28" height="14" rx="7" fill="#e0e0ea" stroke="#c8c8d8"/>
+              <circle cx="250" cy="195" r="5" fill="white"/>
+              <rect x="18" y="210" width="262" height="90" rx="6" fill="#f8f8fc" stroke="#e0e0ea"/>
+              <text x="26" y="226" font-size="8" font-family="DM Sans" fill="#8888a8">Items per load</text>
+              <text x="248" y="226" font-size="8" font-family="DM Sans" fill="#4a4a6a" font-weight="600" text-anchor="end">4</text>
+              <text x="26" y="242" font-size="8" font-family="DM Sans" fill="#8888a8">Filter</text>
+              <text x="248" y="242" font-size="8" font-family="DM Sans" fill="#4a4a6a" font-weight="600" text-anchor="end">None</text>
+              <text x="26" y="258" font-size="8" font-family="DM Sans" fill="#8888a8">Sort</text>
+              <text x="248" y="258" font-size="8" font-family="DM Sans" fill="#4a4a6a" font-weight="600" text-anchor="end">Custom sort</text>
+              <text x="140" y="288" font-size="8" font-family="DM Sans" fill="#3b82f6" font-weight="500" text-anchor="middle">Edit context settings →</text>
+              <!-- Visibility section -->
+              <text x="12" y="332" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">› Visibility</text>
+              <rect x="10" y="340" width="280" height="32" rx="6" fill="white" stroke="#e0e0ea"/>
+              <text x="18" y="358" font-size="9" font-family="DM Sans" fill="#8888a8">Render condition</text>
+              <rect x="260" y="348" width="22" height="22" rx="4" fill="#f0f0f5" stroke="#e0e0ea"/>
+              <text x="267" y="362" font-size="9" fill="#8888a8">⚡</text>
+              <!-- Event Handlers section -->
+              <text x="12" y="392" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">› Event Handlers</text>
+              <rect x="10" y="400" width="280" height="62" rx="6" fill="white" stroke="#e0e0ea"/>
+              <text x="18" y="416" font-size="8" font-family="DM Mono" fill="#8888a8">onItemReady</text>
+              <rect x="236" y="408" width="46" height="14" rx="3" fill="#f0f0f5" stroke="#e0e0ea"/>
+              <text x="245" y="418" font-size="7" fill="#8888a8">bind ⚡</text>
+              <text x="18" y="434" font-size="8" font-family="DM Mono" fill="#8888a8">onItemRemoved</text>
+              <rect x="236" y="426" width="46" height="14" rx="3" fill="#f0f0f5" stroke="#e0e0ea"/>
+              <text x="245" y="436" font-size="7" fill="#8888a8">bind ⚡</text>
+              <text x="18" y="452" font-size="8" font-family="DM Mono" fill="#8888a8">onMouseIn / Out / ...</text>
+            </svg>
+          </div>
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th>Section</th><th>Contents</th><th>Visibility</th></tr>
+          <tr><td><b>Context</b></td><td>Attached context list — shows context name, icon, field count, and "manage" link. When empty: shows only "+ Add context" action.</td><td>Always visible. Empty when no context is attached.</td></tr>
+          <tr><td><b>Properties</b></td><td><b>"Items"</b> — the repeater's only data property. Can bind to <b>any array field</b> from any context available in scope (repeater's own, section, or page). Shows binding chip (context + field) with disconnect (✕) and a bind button.</td><td>Always</td></tr>
+          <tr><td><b>Pagination, Filter & Sort</b></td><td>'Load more' toggle, items per load, filter, sort summary, link to "Edit context settings"</td><td>Only when "Items" is bound</td></tr>
+          <tr><td><b>Visibility</b></td><td>Render condition — boolean binding to show/hide the repeater</td><td>Always</td></tr>
+          <tr><td><b>Event Handlers</b></td><td>onItemReady, onItemRemoved, onMouseIn, onMouseOut, onViewportEnter, onViewportLeave</td><td>Always</td></tr>
+          <tr><td><b>Promote to section</b></td><td>Action banner: "↑ Promote to section" — allows UoU controls outside the repeater to access the context.</td><td>Only when context is on the repeater and not yet promoted</td></tr>
+        </table>
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>When "Items" is <b>unbound</b>, the Properties section shows <i>"Connect to an array field →"</i> instead of a binding chip, and the Pagination, Filter & Sort section is hidden entirely.</div></div>
+        <div class="spec-note"><span class="spec-note-icon">🔑</span><div><b>Context section is always present</b> — when no context is attached it shows only "+ Add context". When the context lives <b>on the repeater</b>, a <b>Promote to section</b> action appears at the bottom, allowing UoU controls outside the repeater to access the data.</div></div>`
       },
       {
         title: '🎯 Product Decisions',
         type: 'table',
         headers: ['Topic', 'Decision', 'Details'],
         rows: [
-          ['Where context lives', '<span class="spec-status implemented">Repeater is a provider</span>', 'Contexts attach directly to the repeater. Reduces reparenting issues on D&D. Allows 2 repeaters with same context type but different configs on the same section.'],
-          ['Context picker (Items)', '<span class="spec-status implemented">Repeater\'s own context = default</span>', 'Shows repeater\'s own context with scope badge <b>"This repeater"</b>. Also shows parent contexts (section/page) as alternatives.'],
-          ['Auto-bind', '<span class="spec-status implemented">Automatic</span>', 'Items property is automatically bound to the context\'s array field when a list context is attached — no extra step needed.'],
-          ['Shadowing', '<span class="spec-status implemented">Allowed</span>', 'Same context type can exist at parent and child levels. Closest instance wins (proximity resolution). Informational message, not blocked.'],
-          ['Copy & Paste', '<span class="spec-status implemented">Smart duplication</span>', 'Coupled context → <b>duplicated</b> (new instance). Parent context → <b>not duplicated</b> (binding references parent). Paste out of context → disconnected (TBD editor experience).'],
-          ['Drag & Drop', '<span class="spec-status in-progress">Partial</span>', 'Coupled context moves with repeater. Inherited context: TBD — user must choose: copy to new section / promote to page / disconnect.'],
-          ['Sort, Filter & Page Size', '<span class="spec-status implemented">On context instance</span>', 'Configured via repeater settings → "Edit context instance" (floating panel). Applies only to main records array.'],
-          ['Array binding', '<span class="spec-status implemented">Any array</span>', 'Users can bind any array. Inner elements bind to <b>item-level fields</b> (unique per item) or <b>context-level fields</b> (same across all items).'],
-          ['System contexts', '<span class="spec-status implemented">Page level only</span>', 'System contexts (User, Site, Router) appear only at page level — not on sections or repeaters.']
+          ['PD-1 · Where context lives', '<span class="spec-status implemented">Repeater can be a provider</span>', 'Contexts <b>can</b> attach directly to the repeater, but the repeater can also consume context from a parent (section/page). Reduces reparenting issues on D&D. Allows 2 repeaters with same context type but different configs on the same section.'],
+          ['PD-2 · Binding panel ("Items")', '<span class="spec-status implemented">Repeater\'s own context = default</span>', 'When binding the "Items" property via the <b>Connect · Value panel</b>, the repeater\'s own context is shown as the default source with scope badge <b>"This repeater"</b>. Parent contexts (section/page) appear as alternatives.'],
+          ['PD-3 · Auto-bind', '<span class="spec-status implemented">Automatic</span>', '"Items" property auto-binds to the context\'s array field when a list context is attached — unless "Items" is already bound to another context.'],
+          ['PD-4 · Copy & Paste', '<span class="spec-status implemented">Smart duplication</span>', 'Coupled context → <b>duplicated</b> (new instance). Parent context → <b>not duplicated</b> (binding references parent). Paste out of context → disconnected (<span class="spec-tbd">TBD</span> editor experience).'],
+          ['PD-5 · Drag & Drop', '<span class="spec-status in-progress">Partial</span>', 'Coupled context moves with repeater. Inherited context: <span class="spec-tbd">TBD</span> — user must choose: copy to new section / promote to page / disconnect.'],
+          ['PD-6 · Sort, Filter & Page Size', '<span class="spec-status implemented">On context instance</span>', 'Sort, filter, and page size are always configured on the <b>context instance</b>, not on the repeater itself. The repeater settings link to the context configuration panel for the context bound to "Items". These settings apply only to the <b>main records array</b> — other arrays exposed by the same context (e.g., tags, categories) are not affected. <span class="spec-tbd">TBD</span>: how to distinguish between the records array and other arrays in the context schema.'],
+          ['PD-7 · Array binding', '<span class="spec-status implemented">Any array</span>', '"Items" can bind to <b>any array field</b> exposed by the context. There are two types of arrays:<br>• <b>Records array</b> — the main collection (e.g., articles, products). All context configuration (sort, filter, page size) applies to this array.<br>• <b>Item-level array</b> — a field on each record (e.g., tags, images). No configuration — it\'s just a nested value on the item.<br><br>Inside the repeater, elements can bind to:<br>• <b>Item fields</b> — from the current array item (different value per row)<br>• <b>Context fields</b> — from the context itself (same value across all rows, e.g., totalItems)<br><br><span class="spec-tbd">TBD</span>: whether each repeater item will be exposed as a <b>sub-context</b> — giving inner elements a scoped context for the current item.'],
+          ['PD-8 · Canvas indication: unbound "Items"', '<span class="spec-tbd">TBD</span>', 'Two different states look identical on canvas — the repeater shows 3 placeholder items in both cases:<br><br>• <b>Context attached, "Items" unbound</b> — context exists on the repeater (or parent), but "Items" is not connected to any array. The user needs to <b>bind "Items"</b>.<br>• <b>No context at all</b> — repeater has no context. The user needs to <b>add a context first</b>, then bind "Items".<br><br>The canvas indication must <b>distinguish between these two states</b> so the user knows what action to take. Currently described as a single "not connected" indication (Flows 6 & 7), but in practice the entry point and messaging should differ:<br>• With context → direct to "Items" binding panel<br>• Without context → direct to context attachment first<br><br><span class="spec-tbd">TBD</span>: exact visual differentiation — separate messages, different CTA labels, or a single flow that detects context availability and adapts.'],
+          ['PD-9 · "Items" bound to a different context', '<span class="spec-tbd">TBD</span>', 'The repeater can have a context attached to it (e.g., <b>CMS Articles</b>) while "Items" is bound to a <b>different</b> context from a parent scope (e.g., <b>CMS Products</b> on the section). This is a valid state — but potentially confusing:<br><br>• The Context section in the repeater settings shows <b>CMS Articles</b><br>• The "Items" binding chip shows <b>CMS Products · items</b><br>• The canvas displays Products data, not Articles<br><br>The user may assume the attached context is what "feeds" the repeater, when in fact it\'s a different source entirely. The attached context is still available for inner elements to bind to (context-level fields), but the <b>list data</b> comes from elsewhere.<br><br><span class="spec-tbd">TBD</span>: How to communicate this clearly:<br>• Should the settings panel highlight the mismatch? (e.g., a note: "Items is connected to a different context")<br>• Should the "Items" chip in Properties show the source context with a scope badge to distinguish it from the attached context?<br>• Should the canvas indication reflect the actual data source, not just the attached context?'],
         ]
       },
       {
@@ -12889,27 +12973,35 @@ const PRODUCT_SPECS = {
         content: `<div class="spec-text">The following flows describe the key interactions when working with repeaters and context. Each flow is detailed below with step-by-step walkthroughs.</div>
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px">
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">1. Add Pre-Bound Repeater</div>
-            <div style="font-size:10px;color:var(--t3);line-height:1.5">From add panel (e.g., Products Gallery). Context exists on page / No context on page.</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">1. Pre-Bound Repeater — Context Exists</div>
+            <div style="font-size:10px;color:var(--t3);line-height:1.5">Drag from add panel (e.g., Products Gallery). Matching context already on page → inherit it.</div>
           </div>
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">2. Filter & Sort Items</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">2. Pre-Bound Repeater — No Context</div>
+            <div style="font-size:10px;color:var(--t3);line-height:1.5">Drag from add panel. No matching context on page → context created on repeater.</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">3. Filter & Sort Items</div>
             <div style="font-size:10px;color:var(--t3);line-height:1.5">Sort by title A/Z. Filter out if description is empty.</div>
           </div>
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">3. Add UoU Filter</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">4. Add UoU Filter</div>
             <div style="font-size:10px;color:var(--t3);line-height:1.5">Promote context to section → external controls can bind to it.</div>
           </div>
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">4. Select Another Context</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">5. Select Another Context</div>
             <div style="font-size:10px;color:var(--t3);line-height:1.5">Switch to a different context already on the page to feed the repeater.</div>
           </div>
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">5. Add Blank Repeater</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">6. Disconnect "Items"</div>
+            <div style="font-size:10px;color:var(--t3);line-height:1.5">Unbind repeater from data source. Confirmation dialog → all inner bindings removed.</div>
+          </div>
+          <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">7. Add Blank Repeater</div>
             <div style="font-size:10px;color:var(--t3);line-height:1.5">Select context: from existing, or create a new one.</div>
           </div>
           <div style="padding:12px 16px;background:var(--sur2);border:1px solid var(--b1);border-radius:8px">
-            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">6. Two Repeaters, Different Config</div>
+            <div style="font-size:11px;font-weight:600;color:var(--t1);margin-bottom:4px">8. Two Repeaters, Different Config</div>
             <div style="font-size:10px;color:var(--t3);line-height:1.5">Show 2 repeaters with different configuration of the same context.</div>
           </div>
         </div>`
@@ -12918,49 +13010,64 @@ const PRODUCT_SPECS = {
         title: '🎬 Flows Demo',
         type: 'demo-hub',
         flows: [
-          { id: 'flow1', label: '1. Pre-Bound Repeater' },
-          { id: 'flow2', label: '2. Filter & Sort' },
-          { id: 'flow3', label: '3. UoU Filter' },
-          { id: 'flow4', label: '4. Another Context' },
-          { id: 'flow5', label: '5. Blank Repeater' },
-          { id: 'flow6', label: '6. Two Repeaters' }
+          { id: 'flow1', label: '1. Pre-Bound — Context Exists' },
+          { id: 'flow2', label: '2. Pre-Bound — No Context' },
+          { id: 'flow3', label: '3. Filter & Sort' },
+          { id: 'flow4', label: '4. UoU Filter' },
+          { id: 'flow5', label: '5. Another Context' },
+          { id: 'flow6', label: '6. Disconnect Items' },
+          { id: 'flow7', label: '7. Blank Repeater' },
+          { id: 'flow8', label: '8. Two Repeaters' }
         ]
       },
       {
-        title: '🔄 Flow 1 — Add Pre-Bound Repeater',
+        title: '🔄 Flow 1 — Pre-Bound Repeater, Context Exists on Page',
         demoId: 'flow1',
         type: 'html',
-        content: `<div class="spec-note"><span class="spec-note-icon">📦</span><div>User drags a pre-bound repeater (e.g., <b>Products Gallery</b>) from the Add Panel onto a section. Behavior depends on whether a matching context already exists on the page.</div></div>
-        <table class="spec-table">
-          <tr><th>Scenario</th><th>Behavior</th></tr>
-          <tr><td><b>Context exists on parent</b></td><td>Inherit from parent. No context added to the repeater. Items auto-bind to the parent's context array.</td></tr>
-          <tr><td><b>No context on parent</b></td><td>Context added <b>on the repeater</b>. Repeater owns it. Items auto-bind to the new context's array field.</td></tr>
-        </table>
+        content: `<div class="spec-note"><span class="spec-note-icon">📦</span><div>User drags a pre-bound repeater (e.g., <b>Products Gallery</b>) from the Add Panel onto a section. A matching context <b>already exists</b> on the page or section.</div></div>
+        <div class="spec-text">The repeater <b>inherits</b> the existing context — no new context is created. "Items" auto-binds to the parent's context array. The repeater immediately shows live data.</div>
         <div class="spec-flow" style="margin-top:16px">
           <div class="spec-flow-step">Drag repeater from Add Panel</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step">Drop onto section</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Check parent for context</div>
+          <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">Matching context found on parent</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">Inherit / Create context</div>
+          <div class="spec-flow-step">Inherit parent context</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Items auto-bind</div>
+          <div class="spec-flow-step">"Items" auto-binds</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step">Canvas shows data</div>
-        </div>`
+        </div>
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>No context is added to the repeater itself. The Context section in the repeater settings panel remains empty. Sort, filter, and page size are configured on the parent's context instance.</div></div>`
       },
       {
-        title: '🔍 Flow 2 — Filter & Sort Repeater Items',
+        title: '📦 Flow 2 — Pre-Bound Repeater, No Context on Page',
         demoId: 'flow2',
         type: 'html',
-        content: `<div class="spec-note"><span class="spec-note-icon">🔍</span><div>Sort and filter are configured on the <b>context instance</b>, not on the repeater directly. Accessed via repeater settings → <b>"Edit context instance"</b> (floating panel).</div></div>
-        <table class="spec-table">
-          <tr><th>Action</th><th>Details</th></tr>
-          <tr><td><b>Sort by title A→Z</b></td><td>Select field "title" → direction "Ascending". Applies to the main records array. Repeater items reorder immediately.</td></tr>
-          <tr><td><b>Filter: Description not empty</b></td><td>Add filter rule: field "description" → condition "is not empty". Items that don't match are hidden from repeater.</td></tr>
-        </table>
+        content: `<div class="spec-note"><span class="spec-note-icon">📦</span><div>User drags a pre-bound repeater (e.g., <b>Products Gallery</b>) from the Add Panel onto a section. <b>No matching context</b> exists on the page.</div></div>
+        <div class="spec-text">A new context instance is created <b>on the repeater</b>. The repeater owns it. "Items" auto-binds to the new context's array field. The repeater immediately shows live data.</div>
         <div class="spec-flow" style="margin-top:16px">
+          <div class="spec-flow-step">Drag repeater from Add Panel</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Drop onto section</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step" style="border-color:#d97706;color:#d97706">No matching context found</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Create context on repeater</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">"Items" auto-binds</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Canvas shows data</div>
+        </div>
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>The context is <b>coupled</b> to the repeater — it appears in the Context section of the repeater settings panel. To allow external controls (search, sort) to access it, the user can later <b>promote</b> it to the section level (see Flow 4).</div></div>`
+      },
+      {
+        title: '🔍 Flow 3 — Filter & Sort Repeater Items',
+        demoId: 'flow3',
+        type: 'html',
+        content: `<div class="spec-note"><span class="spec-note-icon">🔍</span><div>Sort and filter are configured on the <b>context instance</b>, not on the repeater directly. Accessed via repeater settings → opens the context configuration panel for the context bound to "Items".</div></div>
+        <div class="spec-flow" style="margin-top:12px">
           <div class="spec-flow-step">Select repeater</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step">Open context settings</div>
@@ -12971,11 +13078,17 @@ const PRODUCT_SPECS = {
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">Repeater updates</div>
         </div>
-        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">📐</span><div>If the repeater uses a <b>parent context</b>, sort/filter is also accessible via section settings → context configuration. Applies only to the main records array — nested arrays (e.g., tags) are not affected.</div></div>`
+        <table class="spec-table" style="margin-top:16px">
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>Sort</b></td><td>Select field (e.g., "title") → direction "Ascending" or "Descending". Applies to the main records array. Repeater items reorder immediately.</td></tr>
+          <tr><td><b>Filter</b></td><td>Add filter rule: field + condition (e.g., "description" → "is not empty"). Items that don't match are hidden from repeater.</td></tr>
+          <tr><td><b>Scope</b></td><td>Applies only to the <b>main records array</b> — nested arrays (e.g., tags) are not affected.</td></tr>
+          <tr><td><b>Parent context</b></td><td>If the repeater uses a parent context, sort/filter is also accessible via section settings → context configuration.</td></tr>
+        </table>`
       },
       {
-        title: '👤 Flow 3 — Add UoU Filter',
-        demoId: 'flow3',
+        title: '👤 Flow 4 — Add UoU Filter',
+        demoId: 'flow4',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">👤</span><div><b>User-on-User (UoU) interactions</b>: sort, filter, pagination, total items. These require the context to be <b>promoted to section level</b> so external controls can bind to context-level data.</div></div>
         <div class="spec-flow">
@@ -12990,35 +13103,73 @@ const PRODUCT_SPECS = {
           <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">UoU active</div>
         </div>
         <table class="spec-table" style="margin-top:16px">
-          <tr><th>Entry Point</th><th>Behavior</th></tr>
-          <tr><td><b>Repeater settings</b></td><td>Message suggests to promote when context is coupled to repeater.</td></tr>
-          <tr><td><b>Binding dropdown (external element)</b></td><td>Shows the repeater's context with a "Promote to section" action.</td></tr>
-        </table>
-        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">⚠️</span><div>Same requirement applies to any context-level data outside repeater items — e.g., <span class="spec-code">itemsCount</span>, total items, current filter state.</div></div>`
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>When needed</b></td><td>External controls (search bar, sort dropdown, pagination) need to bind to context-level data that lives on the repeater.</td></tr>
+          <tr><td><b>Entry point: Repeater settings</b></td><td>Message suggests to promote when context is coupled to repeater.</td></tr>
+          <tr><td><b>Entry point: Binding dropdown</b></td><td>When an external element opens the binding panel, the repeater's context appears with a "Promote to section" action.</td></tr>
+          <tr><td><b>Applies to</b></td><td>Any context-level data outside repeater items — e.g., <span class="spec-code">itemsCount</span>, total items, current filter state.</td></tr>
+        </table>`
       },
       {
-        title: '🔀 Flow 4 — Select Another Context',
-        demoId: 'flow4',
+        title: '🔀 Flow 5 — Select Another Context',
+        demoId: 'flow5',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">🔀</span><div>User switches the repeater to consume a <b>different context</b> that already exists on the page, instead of its own or current context.</div></div>
         <div class="spec-flow">
           <div class="spec-flow-step">Select repeater</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Open Items property binding</div>
-          <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Context picker shows options</div>
+          <div class="spec-flow-step">Open "Items" binding</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step" style="border-color:var(--acc);color:var(--acc)">Select different context</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Select array field</div>
+          <div class="spec-flow-step" style="border-color:#d97706;color:#d97706">Confirmation dialog</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">Rebind & refresh</div>
         </div>
-        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>The context picker shows: repeater's own context (with <b>"This repeater"</b> badge), parent contexts (section/page), and page-level contexts. The user picks any available context and selects which array field to bind Items to.</div></div>`
+        <table class="spec-table" style="margin-top:16px">
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>Binding panel</b></td><td>Shows repeater's own context (with <b>"This repeater"</b> badge), parent contexts (section/page), and page-level contexts. User picks any available context and selects which array field to bind "Items" to.</td></tr>
+          <tr><td><b>Confirmation dialog</b></td><td>If inner elements are bound to the old context, a dialog appears with two options (see below).</td></tr>
+          <tr><td><b>"Disconnect bindings"</b></td><td>Removes all inner connections — start fresh with the new data source.</td></tr>
+          <tr><td><b>"Keep bindings"</b></td><td>Leaves inner connections to the old context. Since that context is no longer the repeater's data source, those fields resolve as <b>context-level</b> (not item-level) — all repeater items will show <b>the same value</b>.</td></tr>
+          <tr><td><b>No inner bindings</b></td><td>If no inner elements are bound, the switch happens immediately — no confirmation needed.</td></tr>
+          <tr><td><b>Result: mismatched context</b></td><td>After switching, the repeater may have one context <b>attached</b> (e.g., Articles) while "Items" is bound to a <b>different</b> context (e.g., Products from the section). The settings panel shows both, but the data source is the one bound to "Items" — not the attached context. <span class="spec-tbd">⚠️ See PD-9.</span></td></tr>
+        </table>
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon"><span class="spec-tbd" style="font-size:10px">TBD</span></span><div><b>Smart rebind:</b> Should the system attempt to automatically rebind inner elements to matching fields in the new context (by name/type)? E.g., if old context had <span class="spec-code">title</span> and new context also has <span class="spec-code">title</span>, auto-rebind instead of disconnect.</div></div>`
       },
       {
-        title: '📝 Flow 5 — Add Blank Repeater',
-        demoId: 'flow5',
+        title: '🔌 Flow 6 — Disconnect "Items"',
+        demoId: 'flow6',
+        type: 'html',
+        content: `<div class="spec-note"><span class="spec-note-icon">🔌</span><div>User disconnects the "Items" property — unbinding the repeater from its data source. All inner element bindings are removed because item fields cannot exist without a data source.</div></div>
+        <div class="spec-flow">
+          <div class="spec-flow-step">Select repeater</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Click ✕ on "Items" binding chip</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step" style="border-color:#d97706;color:#d97706">Confirmation dialog</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step" style="border-color:var(--red,#e84393);color:var(--red,#e84393)">User confirms "Disconnect"</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">All inner bindings removed</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Repeater shows placeholders</div>
+        </div>
+        <table class="spec-table" style="margin-top:16px">
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>Confirmation message</b></td><td>"Disconnecting the repeater from its data source. <b>N</b> inner element bindings will be removed — item fields can't stay connected without a data source."</td></tr>
+          <tr><td><b>Inner bindings</b></td><td>All bindings of elements inside the repeater (repTemplate elements) are <b>permanently removed</b>. Elements revert to static/placeholder values.</td></tr>
+          <tr><td><b>Canvas after disconnect</b></td><td>Repeater resets to <b>3 default items</b> with identical placeholder content. The item count label shows "— not connected".</td></tr>
+          <tr><td><b>Canvas indication</b></td><td>A clear indication on the canvas explaining <b>why all items look the same</b> and <b>what the user needs to do</b>. In this case context <b>is</b> attached — entry point opens the <b>"Items" binding panel</b> directly. <span class="spec-tbd">⚠️ See PD-8 — this state must be visually distinct from "no context at all" (Flow 7).</span></td></tr>
+          <tr><td><b>Context section</b></td><td>If the context was on the repeater, it <b>remains attached</b> — only "Items" is unbound. The user can reconnect later.</td></tr>
+          <tr><td><b>No inner bindings</b></td><td>If no inner elements are bound, a simpler message appears: "Disconnect this repeater from its data source? All items will show the same placeholder content."</td></tr>
+          <tr><td><b>Unconnected repeater on live site</b></td><td><span class="spec-tbd">TBD</span> — What should the repeater show on the published site when "Items" is not connected? Options: hide entirely, show an empty state, or collapse. Needs product decision.</td></tr>
+        </table>
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>This is a <b>destructive action</b> — inner bindings cannot be automatically restored. The user must rebind inner elements manually if they reconnect "Items" later.</div></div>`
+      },
+      {
+        title: '📝 Flow 7 — Add Blank Repeater',
+        demoId: 'flow7',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">📝</span><div>User drags an <b>unconnected repeater</b> (e.g., from Quick Add). It has no context — user can design freely and connect later.</div></div>
         <div class="spec-flow">
@@ -13026,22 +13177,23 @@ const PRODUCT_SPECS = {
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step">Design elements inside</div>
           <div class="spec-flow-arrow">→</div>
-          <div class="spec-flow-step">Bind Items property</div>
+          <div class="spec-flow-step">Bind "Items" property</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step" style="border-color:var(--acc);color:var(--acc)">Choose context source</div>
           <div class="spec-flow-arrow">→</div>
           <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn)">Connected</div>
         </div>
         <table class="spec-table" style="margin-top:16px">
-          <tr><th>Option</th><th>Description</th></tr>
-          <tr><td><b>Use parent context</b></td><td>"Use from page/section." Repeater references parent's context — no new context created.</td></tr>
-          <tr><td><b>+ Add context</b></td><td>New context created <b>on the repeater</b>. Exists only for it.</td></tr>
-        </table>
-        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">💡</span><div>If user tries to bind <b>inner elements</b> before the repeater's Items has data → suggest <b>auto-binding the repeater</b> to the selected array alongside the element binding.</div></div>`
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>Canvas indication</b></td><td>A clear indication on the canvas explaining why all items look the same and what the user needs to do. In this case <b>no context exists</b> — the entry point should direct the user to <b>attach a context first</b> (or create one). <span class="spec-tbd">⚠️ See PD-8 — this state must be visually distinct from "context attached but unbound" (Flow 6).</span></td></tr>
+          <tr><td><b>Connect to existing context</b></td><td>User binds "Items" to a context that already exists on the section or page — no new context created.</td></tr>
+          <tr><td><b>Create new context</b></td><td>User creates a new context (on the repeater or on the section) and binds "Items" to it.</td></tr>
+          <tr><td><b>Inner elements before connect</b></td><td>If user tries to bind inner elements before "Items" has data → suggest <b>auto-binding the repeater</b> to the selected array alongside the element binding.</td></tr>
+        </table>`
       },
       {
-        title: '🔲 Flow 6 — Two Repeaters, Different Config',
-        demoId: 'flow6',
+        title: '🔲 Flow 8 — Two Repeaters, Different Config',
+        demoId: 'flow8',
         type: 'html',
         content: `<div class="spec-note"><span class="spec-note-icon">🔲</span><div>Two repeaters on the same section can share the same <b>context type</b> but have <b>different configurations</b> (different sort, filter, page size). Each repeater owns its own context instance.</div></div>
         <div style="display:flex;gap:16px;margin:16px 0">
@@ -13062,23 +13214,24 @@ const PRODUCT_SPECS = {
             </div>
           </div>
         </div>
-        <div class="spec-note"><span class="spec-note-icon">📐</span><div>Each repeater owns its own context instance. Changes to one repeater's sort/filter/page size do <b>not</b> affect the other. This is possible because context lives on the repeater (Decision #1).</div></div>`
+        <table class="spec-table" style="margin-top:16px">
+          <tr><th>Aspect</th><th>Behavior</th></tr>
+          <tr><td><b>Context ownership</b></td><td>Each repeater owns its own context instance of the same type. Changes to one repeater's sort/filter/page size do <b>not</b> affect the other.</td></tr>
+          <tr><td><b>Why it works</b></td><td>Because context can live on the repeater itself (PD-1). Two instances of the same context type can coexist on one section, each scoped to its repeater.</td></tr>
+          <tr><td><b>Inner elements</b></td><td>Each repeater binds inner elements to its own context instance — no cross-talk between repeaters.</td></tr>
+          <tr><td><b>Parent context alternative</b></td><td>If both repeaters inherit from a single parent context, they share the same sort/filter/page size — they show identical data. Use separate instances to differentiate.</td></tr>
+        </table>`
       },
       {
         title: '📐 Functional Requirements',
         type: 'table',
         headers: ['Requirement', 'Description', 'Status'],
         rows: [
-          ['Context as provider', 'Repeater is a context provider — contexts attach directly to it.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Auto-bind Items', 'When a list context is attached and Items is unbound, Items is automatically bound to the array field.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Context picker scoping', 'Items property picker shows repeater\'s own context (default), parent contexts, and "This repeater" scope badge.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Shadowing allowed', 'Same context type on parent and child is allowed. Closest instance wins.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Smart copy & paste', 'Coupled context is duplicated. Parent context reference is preserved. Paste out of context disconnects.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Sort & filter (context-level)', 'Configured on the context instance via floating panel. Applies to main records array.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Array binding (any array)', 'Users can bind any array including non-records. Inner elements bind to item-level or context-level fields.', '<span class="spec-status implemented">Implemented</span>'],
-          ['UoU interactions', 'Context must be promoted to section first. External controls bind to context-level data.', '<span class="spec-status implemented">Implemented</span>'],
-          ['Drag & drop (reparenting)', 'Coupled context moves with repeater. Inherited context: choose copy/promote/disconnect.', '<span class="spec-status in-progress">In Progress</span>'],
-          ['Blank repeater: suggest auto-bind', 'If user binds inner element before Items has data, suggest auto-binding the repeater.', '<span class="spec-status planned">Planned</span>'],
+          ['Disconnect "Items"', 'Unbinding "Items" removes all inner element bindings (destructive). Confirmation dialog warns user with count of affected bindings. See Flow 6.', '<span class="spec-status implemented">Implemented</span>'],
+          ['Data source switch', 'Switching "Items" to a different context: "Disconnect bindings" (start fresh) or "Keep bindings" (inner elements stay connected to old context). <span class="spec-tbd">TBD</span>: smart rebind to matching fields. See Flow 5.', '<span class="spec-status implemented">Implemented</span>'],
+          ['Blank repeater: suggest auto-bind', 'If user binds inner element before "Items" has data, suggest auto-binding the repeater alongside the element binding. See Flow 7.', '<span class="spec-status implemented">Implemented</span>'],
+          ['Canvas indication (unconnected)', 'Clear indication on canvas when repeater is not connected to data, with entry point to "Items" binding panel. See Flow 6 & 7.', '<span class="spec-status implemented">Implemented</span>'],
+          ['Drag & drop (reparenting)', 'Coupled context moves with repeater. Inherited context: <span class="spec-tbd">TBD</span> — choose copy / promote to page / disconnect.', '<span class="spec-status in-progress">In Progress</span>'],
           ['Live site behavior (unbound)', 'What to show when repeater is unbound on live site — collapse, placeholder, or hide.', '<span class="spec-status planned">Planned</span>']
         ]
       },
@@ -13086,13 +13239,29 @@ const PRODUCT_SPECS = {
         title: '⚠️ Edge Cases',
         type: 'list',
         items: [
-          '<b>Paste out of context</b> — repeater is pasted where no matching context exists → elements are disconnected. TBD: editor experience for this scenario.',
+          '<b>Remove context from repeater</b> — different from disconnecting "Items" (Flow 6). Removing the context entirely detaches the context instance from the repeater. "Items" becomes unbound and all inner bindings are removed. <span class="spec-tbd">TBD</span>: should the confirmation dialog differ from the "Items" disconnect dialog?',
+          '<b>Paste out of context</b> — repeater is pasted where no matching context exists → elements are disconnected. <span class="spec-tbd">TBD</span>: editor experience for this scenario.',
           '<b>Drag to different section (inherited context)</b> — context stays in original section. User must choose: copy to new section / promote to page / disconnect.',
-          '<b>Nested arrays</b> — sub-arrays do not have context-level sort/filter/page size. User needs to bind to a function that returns a filtered/sorted array.',
-          '<b>Blank repeater + inner element bind</b> — if Items has no data and user tries to bind an inner element, suggest auto-binding the repeater first.',
-          '<b>Context-level vs item-level fields</b> — binding UI should clearly indicate when a field is "Same value across all rows" (context-level).',
-          '<b>System contexts on repeater</b> — not allowed. System contexts (User, Site, Router) appear only at page level.'
+          '<b>Nested arrays</b> — sub-arrays do not have context-level sort/filter/page size. User needs to bind to a function that returns a filtered/sorted array.'
         ]
+      },
+      {
+        title: '🟠 Open TBDs',
+        type: 'html',
+        content: `<div class="spec-text">All open questions collected in one place for tracking.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:50px">Ref</th><th style="width:180px">Topic</th><th>Question</th><th style="width:90px">Needs</th></tr>
+          <tr><td><span class="spec-tbd">PD-4</span></td><td>Copy & Paste</td><td>What editor experience when pasting a repeater outside its context scope?</td><td><span style="color:#d97706;font-weight:600;font-size:10px">Product</span> + <span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+          <tr><td><span class="spec-tbd">PD-5</span></td><td>Drag & Drop</td><td>Inherited context on reparenting: copy to new section / promote to page / disconnect?</td><td><span style="color:#d97706;font-weight:600;font-size:10px">Product</span> + <span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+          <tr><td><span class="spec-tbd">PD-6</span></td><td>Sort, Filter & Page Size</td><td>How to distinguish between the records array and other arrays in the context schema?</td><td><span style="color:#2563eb;font-weight:600;font-size:10px">R&D</span></td></tr>
+          <tr><td><span class="spec-tbd">PD-7</span></td><td>Array binding</td><td>Should each repeater item be exposed as a sub-context (scoped context for inner elements)?</td><td><span style="color:#2563eb;font-weight:600;font-size:10px">R&D</span> + <span style="color:#d97706;font-weight:600;font-size:10px">Product</span></td></tr>
+          <tr><td><span class="spec-tbd">PD-8</span></td><td>Canvas indication: unbound "Items"</td><td>How to visually distinguish "context attached but unbound" vs. "no context at all"?</td><td><span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+          <tr><td><span class="spec-tbd">PD-9</span></td><td>"Items" bound to different context</td><td>How to communicate that the attached context ≠ the data source?</td><td><span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+          <tr><td><span class="spec-tbd">F5</span></td><td>Smart rebind (Flow 5)</td><td>When switching context — auto-rebind inner elements to matching fields by name/type?</td><td><span style="color:#2563eb;font-weight:600;font-size:10px">R&D</span></td></tr>
+          <tr><td><span class="spec-tbd">F6</span></td><td>Live site: unconnected repeater</td><td>What to show on published site when "Items" is not connected?</td><td><span style="color:#d97706;font-weight:600;font-size:10px">Product</span></td></tr>
+          <tr><td><span class="spec-tbd">EC</span></td><td>Remove context from repeater</td><td>Should the confirmation dialog differ from the "Items" disconnect dialog?</td><td><span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+          <tr><td><span class="spec-tbd">EC</span></td><td>Paste out of context</td><td>Editor experience when repeater is pasted where no matching context exists?</td><td><span style="color:#7c3aed;font-weight:600;font-size:10px">UX</span></td></tr>
+        </table>`
       },
       {
         title: '🔗 Related Components',
@@ -13297,6 +13466,151 @@ const PRODUCT_SPECS = {
         <div class="spec-text" style="margin-top:8px">The Add Context modal is the <b>entry point for context management</b>. After a context is attached, it appears as a context pill on the canvas section, and becomes available as a binding source in the Connect Panel.</div>`
       }
     ]
+  },
+
+  'binding-controller': {
+    title: 'Binding Controller',
+    component: 'Property Row (.prop-row-wrap)',
+    status: 'implemented',
+    owner: 'Context Binding Team',
+    lastUpdated: 'Feb 2026',
+    version: '1.0',
+    sections: [
+      {
+        title: '📌 Overview',
+        type: 'html',
+        content: `<div class="spec-text" style="line-height:1.8">
+          The <b>Binding Controller</b> is the property-level UI that lets users connect a single element property to a data source field — or view/manage an existing connection.
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:140px">Concept</th><th>Description</th></tr>
+          <tr><td><b>Where it appears</b></td><td>Every bindable property row in the inspector panel (right panel) and in the element toolbar panel (floating panel).</td></tr>
+          <tr><td><b>Core parts</b></td><td>Property label, value area (input or bound chip), bind button (⚡), and optional secondary actions.</td></tr>
+          <tr><td><b>Role</b></td><td>Entry point to the <b>Connect · Value Panel</b>. Shows binding status at a glance and provides disconnect (✕) action.</td></tr>
+        </table>`
+      },
+      {
+        title: '🏗️ Anatomy',
+        type: 'html',
+        content: `<div class="spec-wireframe">
+          <div class="spec-wireframe-label">Binding Controller — Bound State</div>
+          <div class="spec-wireframe-body">
+            <svg viewBox="0 0 320 100" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:320px">
+              <rect x="1" y="1" width="318" height="98" rx="6" stroke="#e0e0ea" fill="#f5f5f8"/>
+              <!-- Label -->
+              <text x="12" y="20" font-size="10" font-family="DM Sans" fill="#8888a8" font-weight="500">Value</text>
+              <!-- Row border -->
+              <rect x="10" y="28" width="268" height="52" rx="7" fill="white" stroke="#10b98140"/>
+              <!-- Context name -->
+              <text x="18" y="46" font-size="10" font-family="DM Sans" fill="#8888a8">Articles</text>
+              <!-- Field chip -->
+              <rect x="18" y="54" width="60" height="20" rx="10" fill="#fce4ec"/>
+              <text x="28" y="67" font-size="10" font-family="DM Mono" fill="#e84393" font-weight="600">title</text>
+              <text x="65" y="67" font-size="10" fill="#e84393" opacity=".6">✕</text>
+              <!-- Bind button -->
+              <rect x="284" y="34" width="28" height="28" rx="6" fill="#10b98112" stroke="#10b98130"/>
+              <circle cx="293" cy="42" r="3" stroke="#10b981" stroke-width="1.2" fill="none"/>
+              <circle cx="303" cy="56" r="3" stroke="#10b981" stroke-width="1.2" fill="none"/>
+              <path d="M293 45C293 50 303 48 303 53" stroke="#10b981" stroke-width="1.2" stroke-linecap="round"/>
+              <!-- Edit link -->
+              <text x="14" y="94" font-size="10" font-family="DM Sans" fill="#6c5ce7">📝 Edit in CMS</text>
+            </svg>
+          </div>
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:140px">Part</th><th>Description</th></tr>
+          <tr><td><b>Property label</b></td><td>Name of the property (e.g., "Value", "Label", "Image src", "Items").</td></tr>
+          <tr><td><b>Value area</b></td><td>When <b>unbound</b>: editable text input with placeholder. When <b>bound</b>: shows context name + field chip with disconnect (✕).</td></tr>
+          <tr><td><b>Bind button</b></td><td>Opens the <b>Connect · Value Panel</b>. Visual state changes based on binding status (see states below).</td></tr>
+          <tr><td><b>Edit source link</b></td><td>Appears when bound. Links to the data source editor (CMS, custom code, etc.).</td></tr>
+          <tr><td><b>Function params</b></td><td>When bound to a function with parameters, a sub-section appears below with parameter binding rows.</td></tr>
+        </table>`
+      },
+      {
+        title: '🎨 Visual States',
+        type: 'html',
+        content: `<div class="spec-text">The binding controller has distinct visual states that communicate the current binding status at a glance.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:140px">State</th><th>Value Area</th><th>Bind Button</th><th>Secondary</th></tr>
+          <tr>
+            <td><b>Unbound</b></td>
+            <td>Editable text input with placeholder (e.g., <i>"Enter text…"</i>). White background, default border.</td>
+            <td>Default — gray icon, neutral border. Hover: accent color.</td>
+            <td>None.</td>
+          </tr>
+          <tr>
+            <td><b>Bound</b></td>
+            <td>Input hidden. Shows <b>context name</b> (clickable → navigates to context section) and <b>field chip</b> (pink pill with field name + ✕ disconnect).</td>
+            <td>Green — green icon, green border, green tinted background.</td>
+            <td>"📝 Edit in CMS" (or source-specific link). Function params section if applicable.</td>
+          </tr>
+          <tr>
+            <td><b>Active (panel open)</b></td>
+            <td>Accent-colored border and background tint — indicates the Connect · Value Panel is open for this property.</td>
+            <td>Accent color highlight.</td>
+            <td>Connect · Value Panel visible.</td>
+          </tr>
+          <tr>
+            <td><b>Inside repeater (bound)</b></td>
+            <td>Same as "Bound" + <b>"↳ Binding applies to all items"</b> label above the property row (accent color, mono font).</td>
+            <td>Same as "Bound".</td>
+            <td>Repeater template indicator.</td>
+          </tr>
+          <tr>
+            <td><b>Inside repeater (unconnected repeater)</b></td>
+            <td>Same as "Bound" but with a <b>warning banner</b>: "⚠️ The parent repeater is not connected to data. All items will show the same content."</td>
+            <td>Same as "Bound".</td>
+            <td>Yellow warning banner.</td>
+          </tr>
+        </table>
+
+        <div class="spec-note" style="margin-top:12px"><span class="spec-note-icon">🎨</span><div><b>Color coding:</b> Unbound = neutral (gray), Bound = green, Active/connecting = accent (purple/blue). Inside repeater adds contextual messaging above the property row.</div></div>`
+      },
+      {
+        title: '⚡ Interactions',
+        type: 'html',
+        content: `<table class="spec-table">
+          <tr><th style="width:180px">Action</th><th>Behavior</th></tr>
+          <tr><td><b>Click bind button (unbound)</b></td><td>Opens the <b>Connect · Value Panel</b> positioned near the property row. Shows available contexts and fields.</td></tr>
+          <tr><td><b>Click bind button (bound)</b></td><td>Opens the <b>Connect · Value Panel</b> with the current binding pre-selected. User can switch to a different field or context.</td></tr>
+          <tr><td><b>Click ✕ on field chip</b></td><td>Disconnects the binding. Property reverts to static value (last entered text, or placeholder). Bind button returns to neutral state.</td></tr>
+          <tr><td><b>Click context name</b></td><td>Navigates to the context section in the inspector — highlights the context instance that provides this binding.</td></tr>
+          <tr><td><b>Click "Edit in CMS"</b></td><td>Opens the data source editor for the bound context (CMS content manager, custom code panel, etc.).</td></tr>
+          <tr><td><b>Type in input (unbound)</b></td><td>Sets a <b>static value</b> for the property. Updates the canvas element in real-time.</td></tr>
+          <tr><td><b>Type in input (bound)</b></td><td>Not possible — input is hidden when bound. User must disconnect first.</td></tr>
+        </table>`
+      },
+      {
+        title: '📐 Variants',
+        type: 'html',
+        content: `<div class="spec-text">The binding controller adapts to different property types and contexts.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:160px">Variant</th><th>Difference</th></tr>
+          <tr><td><b>Text property</b></td><td>Standard — text input with placeholder. Double-click on canvas starts inline editing.</td></tr>
+          <tr><td><b>Image property</b></td><td>Shows thumbnail preview instead of text input. Bound state shows image from data source.</td></tr>
+          <tr><td><b>"Items" property (repeater)</b></td><td>Binds to an <b>array</b> instead of a single field. Disconnect triggers confirmation dialog (destructive — removes all inner bindings). See Repeater & Context spec.</td></tr>
+          <tr><td><b>Function binding</b></td><td>When bound to a function (e.g., <span class="spec-code">formatDate(date, locale)</span>), a <b>parameters sub-section</b> appears below with its own binding rows for each parameter.</td></tr>
+          <tr><td><b>Boolean property</b></td><td>Used for visibility conditions (render condition). Bind button connects to a boolean field.</td></tr>
+          <tr><td><b>Element toolbar variant</b></td><td>Compact version in the floating toolbar panel. Same states, slightly different layout.</td></tr>
+        </table>`
+      },
+      {
+        title: '🔗 Related Components',
+        type: 'html',
+        content: `<div class="spec-flow">
+          <div class="spec-flow-step">Element selected</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn);font-weight:600">Binding Controller (this)</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Connect · Value Panel</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Context Instance</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Canvas update</div>
+        </div>
+        <div class="spec-text" style="margin-top:8px">The Binding Controller is the bridge between the inspector and the Connect · Value Panel. It shows the current state and provides entry/exit points for binding operations.</div>`
+      }
+    ]
   }
 };
 
@@ -13307,6 +13621,7 @@ const SPEC_MAP = {
   'repeater-articles': 'repeater-context',
   'repeater-items': 'repeater-context',
   'modal': 'add-context-panel',
+  'et-panel': 'binding-controller',
 };
 
 function getSpecIdForElement(elId) {
@@ -13316,6 +13631,7 @@ function getSpecIdForElement(elId) {
   if (el && el.closest('.dd')) return 'connect-value-panel';
   if (el && el.closest('.c-repeater')) return 'repeater-context';
   if (el && el.closest('#modal')) return 'add-context-panel';
+  if (el && (el.closest('.prop-row-wrap') || el.closest('.et-panel-row') || el.closest('#et-panel'))) return 'binding-controller';
   return null;
 }
 
@@ -13405,6 +13721,7 @@ function openSpecPage(specId) {
   S.specPageOpen = true;
   S.specPageId = specId;
   S.preSpecPage = S.currentPage;
+  history.replaceState(null, '', '#spec=' + specId);
 
   document.getElementById('pm-panel').classList.remove('open');
   document.getElementById('spec-topbar-name').textContent = spec.title;
@@ -13427,6 +13744,7 @@ function closeSpecPage() {
   document.querySelector('.topbar').style.display = '';
   document.getElementById('action-bar').style.display = '';
   S.specPageId = null;
+  history.replaceState(null, '', window.location.pathname);
   if (S.productMode) {
     document.getElementById('pm-panel').classList.add('open');
     _addSpecIndicators();
@@ -13634,22 +13952,83 @@ SPEC_DEMO_STEPS_MAP['connect-value-panel'] = [
 
 SPEC_DEMO_STEPS_MAP['repeater-context:flow1'] = [
   {
-    caption: '<b>Step 1:</b> Repeater selected — inspector shows <b>properties and context bindings</b>',
-    render: function() { return _demoScreen('demo-screens/repeater-context/step1.png', '18%', '82%'); }
+    caption: '<b>Step 1:</b> Section already has a <b>matching context</b> (e.g., Stores · Products). User drags a <b>Products Gallery</b> from the Add Panel.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill" style="background:var(--grn-d);color:var(--grn)">Section · Shop — 🛍 Stores</div>' +
+            '<div style="min-height:60px;display:flex;align-items:center;justify-content:center">' +
+              '<div style="text-align:center;color:var(--t3);font-size:10px"><div style="font-size:20px;margin-bottom:6px;opacity:.4">📦</div>Drop repeater here</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="margin-top:10px;padding:8px 12px;background:var(--acc-d);border:1px dashed var(--acc-b);border-radius:8px;font-size:10px;color:var(--acc);text-align:center;font-weight:500">🖱️ Dragging: Products Gallery</div>' +
+        '</div>' +
+        '<div class="dm-inspector" style="width:140px"><div class="dm-insp-head">Add Elements</div><div class="dm-insp-body" style="font-size:10px;color:var(--t2)">' +
+          '<div style="padding:6px 0;border-bottom:1px solid var(--b1);font-weight:500">📦 Repeater</div>' +
+          '<div style="padding:6px 0;border-bottom:1px solid var(--b1);font-weight:500;color:var(--acc)">🛍️ Products Gallery</div>' +
+          '<div style="padding:6px 0;font-weight:500">📋 Blog Feed</div>' +
+        '</div></div>' +
+      '</div>';
+    }
   },
   {
-    caption: '<b>Step 2:</b> Open <b>Items binding</b> dropdown — context picker shows available sources',
-    render: function() { return _demoScreen('demo-screens/repeater-context/step2.png', '18%', '59%'); }
+    caption: '<b>Step 2:</b> Matching context found on section — repeater <b>inherits</b> it. "Items" auto-binds. No new context created.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill" style="background:var(--grn-d);color:var(--grn)">Section · Shop — 🛍 Stores</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Yoga Mat</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Water Bottle</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2);text-align:center"><div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>Dumbbell Set</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div style="padding:4px 0;font-size:9px;color:var(--t3);font-weight:500">Context</div>' +
+          '<div style="padding:4px 8px;font-size:9px;color:var(--t3);font-style:italic;border:1px dashed var(--b1);border-radius:6px;margin-bottom:8px">No context on repeater</div>' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val bound">🛍 Stores · products</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:5px 0;font-size:9px;color:#22c55e;display:flex;align-items:center;gap:4px">✓ Inherited from section context</div>' +
+        '</div></div>' +
+      '</div>';
+    }
   },
   {
-    caption: '<b>Step 3:</b> Inner element selected — inspector shows <b>scoped binding</b> to repeater item',
-    render: function() { return _demoScreen('demo-screens/repeater-context/step3.png', '47%', '33%'); }
+    caption: '<b>Step 3:</b> Repeater shows <b>live data</b> — user can now bind inner elements to item fields',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill" style="background:var(--grn-d);color:var(--grn)">Section · Shop — 🛍 Stores</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound sel" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Yoga Mat"</div></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Water Bottle"</div></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Title</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">Value</div><div class="dm-prop-row"><div class="dm-prop-val bound">🛍 Stores · name</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:4px 0;font-size:8px;color:var(--acc);display:flex;align-items:center;gap:3px"><span style="font-size:7px;padding:1px 5px;background:var(--acc-d);border:1px solid var(--acc-b);border-radius:3px;font-family:\'DM Mono\',monospace">TEMPLATE</span> Scoped to repeater item</div>' +
+        '</div></div>' +
+      '</div>';
+    }
   }
 ];
 
-/* removed old flow1 */ void [
+SPEC_DEMO_STEPS_MAP['repeater-context:flow2'] = [
   {
-    caption: 'OLD',
+    caption: '<b>Step 1:</b> User drags a <b>Products Gallery</b> (pre-bound repeater) from the Add Panel',
     render: function() {
       return '<div class="dm">' +
         '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
@@ -13667,7 +14046,7 @@ SPEC_DEMO_STEPS_MAP['repeater-context:flow1'] = [
     }
   },
   {
-    caption: '<b>Step 2:</b> Repeater dropped — system creates <b>context on the repeater</b> and auto-binds Items',
+    caption: '<b>Step 2:</b> No matching context found — system creates <b>context on the repeater</b> and auto-binds "Items"',
     render: function() {
       return '<div class="dm">' +
         '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
@@ -13682,9 +14061,14 @@ SPEC_DEMO_STEPS_MAP['repeater-context:flow1'] = [
             '</div>' +
           '</div>' +
         '</div>' +
-        '<div class="dm-inspector"><div class="dm-insp-head">Properties · Repeater</div><div class="dm-insp-body">' +
-          '<div class="dm-prop"><div class="dm-prop-label">Items</div><div class="dm-prop-row"><div class="dm-prop-val bound">Stores · products</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
-          '<div style="padding:5px 0;font-size:9px;color:#22c55e;display:flex;align-items:center;gap:4px;position:relative">✓ Auto-bound to context<svg viewBox="-3 -1 12 17" style="position:absolute;right:-14px;top:2px;width:14px;height:18px"><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/></path></svg></div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div style="padding:4px 0;font-size:9px;color:var(--t3);font-weight:500">Context (1)</div>' +
+          '<div style="padding:6px 8px;border:1px solid var(--grn-b);border-radius:6px;background:var(--grn-d);margin-bottom:8px;display:flex;align-items:center;gap:6px">' +
+            '<span style="font-size:10px">🛍</span>' +
+            '<div><div style="font-size:9px;font-weight:600;color:var(--t1)">Stores</div><div style="font-size:7px;color:var(--t3)">products · 156 items</div></div>' +
+          '</div>' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val bound">🛍 Stores · products</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:5px 0;font-size:9px;color:#22c55e;display:flex;align-items:center;gap:4px">✓ Context created on repeater · auto-bound</div>' +
         '</div></div>' +
       '</div>';
     }
@@ -13719,7 +14103,7 @@ SPEC_DEMO_STEPS_MAP['repeater-context:flow1'] = [
   }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context:flow2'] = [
+SPEC_DEMO_STEPS_MAP['repeater-context:flow3'] = [
   {
     caption: '<b>Step 1:</b> Select the repeater and open <b>context settings</b> from the inspector',
     render: function() {
@@ -13840,26 +14224,209 @@ SPEC_DEMO_STEPS_MAP['repeater-context:flow2'] = [
   }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context:flow3'] = [
+SPEC_DEMO_STEPS_MAP['repeater-context:flow4'] = [
   { caption: '<b>Step 1:</b> Context is <b>coupled to the repeater</b> — external filter can\'t bind', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="66" y="72" width="120" height="30" rx="6" fill="white" stroke="#e0e0ea"/><text x="76" y="91" font-size="9" font-family="DM Sans" fill="#8888a8">🔍 Filter by category...</text><rect x="56" y="116" width="348" height="170" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="110" width="90" height="16" rx="8" fill="#10b981"/><text x="74" y="121" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><text x="76" y="142" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 1</text><text x="76" y="166" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 2</text><text x="76" y="190" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 3</text><line x1="66" y1="72" x2="66" y2="116" stroke="#d97706" stroke-width="1" stroke-dasharray="4 3"/><text x="72" y="108" font-size="7" font-family="DM Mono" fill="#d97706">✗ can't bind — context is inside repeater</text><g transform="translate(140,92)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 2:</b> User promotes context to <b>section level</b> — clicks Promote', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="56" y="42" width="90" height="16" rx="8" fill="#d97706"><animate attributeName="fill" values="#10b981;#d97706;#d97706" dur="1s" fill="freeze"/></rect><text x="64" y="53" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="200" y="100" width="180" height="80" rx="10" fill="white" stroke="#d97706" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="216" y="122" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Promote Context</text><text x="216" y="140" font-size="8" font-family="DM Sans" fill="#8888a8">Move context from repeater</text><text x="216" y="152" font-size="8" font-family="DM Sans" fill="#8888a8">to section level?</text><rect x="216" y="160" width="80" height="22" rx="6" fill="#d97706"><animate attributeName="opacity" values=".7;1;.7" dur="1s" repeatCount="indefinite"/></rect><text x="230" y="175" font-size="9" font-family="DM Sans" fill="white" font-weight="600">Promote</text><g transform="translate(268,178)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 3:</b> Context on section — external filter <b>binds to context</b>', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="60" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Products</text><rect x="56" y="42" width="90" height="16" rx="8" fill="#d97706"/><text x="64" y="53" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="66" y="72" width="120" height="30" rx="6" fill="white" stroke="#3b82f6" stroke-width="1.5"/><text x="76" y="91" font-size="9" font-family="DM Sans" fill="#4a4a6a">🔍 Filter: Category</text><rect x="192" y="72" width="60" height="14" rx="4" fill="#3b82f612" stroke="#3b82f630"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="200" y="83" font-size="7" font-family="DM Mono" fill="#3b82f6">BOUND ⚡</text><rect x="56" y="116" width="348" height="170" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="110" width="130" height="16" rx="8" fill="#10b981"/><text x="74" y="121" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items (inherited)</text><text x="76" y="142" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 1 · Tech</text><text x="76" y="166" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 2 · Design</text><text x="76" y="190" font-size="9" font-family="DM Sans" fill="#4a4a6a">Item 3 · Tech</text><rect x="140" y="280" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="160" y="294" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ External filter controls UoU active</text></svg>`; } }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context:flow4'] = [
-  { caption: '<b>Step 1:</b> Repeater bound to context — user clicks <b>⚡</b> on Items to switch', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="260" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="228" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="208" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"/><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><text x="76" y="98" font-size="9" font-family="DM Sans" fill="#4a4a6a">Product 1</text><text x="76" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">Product 2</text><rect x="310" y="10" width="140" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/><text x="322" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text><text x="322" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Items</text><rect x="322" y="58" width="116" height="20" rx="4" fill="#10b98112" stroke="#10b98130"/><text x="330" y="72" font-size="8" font-family="DM Mono" fill="#10b981">Stores · items</text><rect x="416" y="58" width="20" height="20" rx="4" fill="#3b82f615" stroke="#3b82f640"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="422" y="72" font-size="10" fill="#3b82f6">⚡</text><g transform="translate(434,76)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
-  { caption: '<b>Step 2:</b> Context picker — select <b>CMS Articles</b> from section contexts', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="200" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/><rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/><text x="256" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Select Context Source</text><text x="256" y="52" font-size="8" font-family="DM Mono" fill="#8888a8">THIS REPEATER</text><rect x="256" y="58" width="180" height="26" rx="5" fill="#10b98112" stroke="#10b98130"/><text x="268" y="75" font-size="9" font-family="DM Sans" fill="#10b981">📦 Stores · items</text><text x="400" y="75" font-size="7" font-family="DM Sans" fill="#10b981">current</text><text x="256" y="102" font-size="8" font-family="DM Mono" fill="#8888a8">SECTION CONTEXTS</text><rect x="256" y="108" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="stroke" values="#e0e0ea;#3b82f6;#e0e0ea" dur="1.5s" repeatCount="indefinite"/></rect><text x="268" y="125" font-size="9" font-family="DM Sans" fill="#4a4a6a">📋 CMS · Articles</text><rect x="256" y="140" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="157" font-size="9" font-family="DM Sans" fill="#4a4a6a">📊 CMS · Events</text><g transform="translate(320,130)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
-  { caption: '<b>Step 3:</b> Repeater rebound to <b>CMS Articles</b> — shows new data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="348" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"><animate attributeName="stroke" values="#10b981;#3b82f6" dur=".6s" fill="freeze"/></rect><rect x="66" y="64" width="100" height="16" rx="8" fill="#3b82f6"><animate attributeName="fill" values="#10b981;#3b82f6" dur=".6s" fill="freeze"/></rect><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📋 CMS · Articles</text><rect x="68" y="86" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="78" y="106" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">How to Build a React App</text><rect x="68" y="134" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="78" y="154" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Design Systems 101</text><rect x="68" y="182" width="324" height="42" rx="5" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".3s" fill="freeze"/></rect><text x="78" y="202" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">UX Research Methods</text><rect x="140" y="272" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="158" y="286" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Rebound to CMS · Articles</text></svg>`; } }
+SPEC_DEMO_STEPS_MAP['repeater-context:flow5'] = [
+  {
+    caption: '<b>Step 1:</b> Repeater is bound to 🛍 Stores. User clicks <b>⚡</b> on "Items" to switch to a different context.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Yoga Mat"</div></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Water Bottle"</div></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val bound">🛍 Stores · products</div><div class="dm-prop-bind bound" style="animation:pulse 1.2s infinite">⚡</div></div></div>' +
+          '<div style="padding:4px 0;font-size:8px;color:var(--t3)">2 inner elements bound to Stores fields</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 2:</b> Binding panel opens — user selects <b>📋 CMS Articles</b> from section contexts.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d);min-height:60px"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Connect · Value</div><div class="dm-insp-body" style="padding:0">' +
+          '<div style="padding:6px 10px;font-size:7px;font-family:\'DM Mono\',monospace;color:var(--t3);text-transform:uppercase;letter-spacing:.5px">This repeater</div>' +
+          '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;background:var(--grn-d);border-left:2px solid var(--grn)">' +
+            '<span style="font-size:10px">🛍</span><span style="font-size:9px;color:var(--grn);font-weight:500">Stores · products</span><span style="font-size:7px;color:var(--grn);margin-left:auto;font-family:\'DM Mono\',monospace">current</span>' +
+          '</div>' +
+          '<div style="padding:6px 10px;font-size:7px;font-family:\'DM Mono\',monospace;color:var(--t3);text-transform:uppercase;letter-spacing:.5px;margin-top:4px">Section contexts</div>' +
+          '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;border:1px solid var(--acc-b);border-radius:4px;margin:0 6px;background:var(--acc-d)">' +
+            '<span style="font-size:10px">📋</span><span style="font-size:9px;color:var(--acc);font-weight:500">CMS · Articles</span>' +
+          '</div>' +
+          '<div style="padding:6px 10px;display:flex;align-items:center;gap:6px;margin-top:2px">' +
+            '<span style="font-size:10px">📊</span><span style="font-size:9px;color:var(--t2)">CMS · Events</span>' +
+          '</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 3:</b> Inner elements were bound to Stores — confirmation dialog asks what to do with them.',
+    render: function() {
+      return '<div class="dm" style="position:relative">' +
+        '<div class="dm-canvas" style="opacity:.2"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section" style="min-height:80px"></div>' +
+        '</div>' +
+        '<div style="position:absolute;top:10px;left:50%;transform:translateX(-50%);width:270px;background:var(--sur);border:1px solid var(--b1);border-radius:12px;box-shadow:0 8px 32px #0003;padding:16px;z-index:2">' +
+          '<div style="font-size:12px;font-weight:700;color:var(--t1);margin-bottom:8px">Existing inner bindings</div>' +
+          '<div style="font-size:10px;color:var(--t2);line-height:1.6;margin-bottom:12px">This repeater has <b>2 inner bindings</b> connected to "Stores". Connecting to "CMS Articles" will make those bindings invalid.</div>' +
+          '<div style="display:flex;flex-direction:column;gap:6px">' +
+            '<div style="padding:8px;text-align:center;border:1px solid var(--acc);background:var(--acc-d);border-radius:6px;font-size:10px;color:var(--acc);font-weight:600;cursor:pointer">Keep bindings</div>' +
+            '<div style="padding:8px;text-align:center;border:1px solid var(--red,#e84393);border-radius:6px;font-size:10px;color:var(--red,#e84393);font-weight:500;cursor:pointer">Disconnect bindings</div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 4:</b> Repeater rebound to <b>📋 CMS Articles</b> — shows new data.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--acc-b);border-radius:6px;padding:8px;background:var(--acc-d)">' +
+              '<div style="font-size:8px;color:var(--acc);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Articles Feed</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div style="font-size:8px;font-weight:500;color:var(--t1)">How to Build a React App</div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div style="font-size:8px;font-weight:500;color:var(--t1)">Design Systems 101</div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val bound">📋 CMS Articles · items</div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:5px 0;font-size:9px;color:#22c55e;display:flex;align-items:center;gap:4px">✓ Rebound to CMS Articles</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context:flow5'] = [
+SPEC_DEMO_STEPS_MAP['repeater-context:flow6'] = [
+  {
+    caption: '<b>Step 1:</b> Repeater is bound with inner elements connected. User clicks <b>✕</b> on "Items" binding chip.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d)">' +
+              '<div style="font-size:8px;color:var(--grn);font-weight:600;margin-bottom:6px;font-family:\'DM Mono\',monospace">↻ Products Gallery</div>' +
+              '<div style="display:flex;gap:4px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Yoga Mat"</div></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px solid var(--b1);font-size:8px;color:var(--t2)">' +
+                  '<div style="width:100%;height:24px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div class="dm-el bound" style="margin:0;padding:4px 6px"><div class="dm-el-dot"></div><div class="dm-el-name" style="font-size:8px">Title</div><div class="dm-el-val bound" style="font-size:7px">"Water Bottle"</div></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val bound">🛍 Stores · products <span style="color:var(--red,#e84393);cursor:pointer;font-weight:600">✕</span></div><div class="dm-prop-bind bound">⚡</div></div></div>' +
+          '<div style="padding:4px 0;font-size:8px;color:var(--t3)">2 inner elements bound</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 2:</b> Confirmation dialog — warns about inner bindings being removed.',
+    render: function() {
+      return '<div class="dm" style="position:relative">' +
+        '<div class="dm-canvas" style="opacity:.3"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--grn-b);border-radius:6px;padding:8px;background:var(--grn-d);min-height:60px"></div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="position:absolute;top:20px;left:50%;transform:translateX(-50%);width:260px;background:var(--sur);border:1px solid var(--b1);border-radius:12px;box-shadow:0 8px 32px #0003;padding:16px;z-index:2">' +
+          '<div style="font-size:12px;font-weight:700;color:var(--t1);margin-bottom:8px">Disconnect repeater</div>' +
+          '<div style="font-size:10px;color:var(--t2);line-height:1.6;margin-bottom:12px">Disconnecting the repeater from its data source.<br><br><b style="color:var(--red,#e84393)">2 inner element bindings will be removed</b> — item fields can\'t stay connected without a data source.</div>' +
+          '<div style="display:flex;gap:8px">' +
+            '<div style="flex:1;padding:6px;text-align:center;border:1px solid var(--b1);border-radius:6px;font-size:10px;color:var(--t3);cursor:pointer">Cancel</div>' +
+            '<div style="flex:1;padding:6px;text-align:center;background:var(--red,#e84393);border:1px solid var(--red,#e84393);border-radius:6px;font-size:10px;color:white;font-weight:600;cursor:pointer"><div style="animation:pulse 1.2s infinite">Disconnect</div></div>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }
+  },
+  {
+    caption: '<b>Step 3:</b> Repeater disconnected — 3 default items with placeholder content. Yellow banner with "Connect data →" entry point.',
+    render: function() {
+      return '<div class="dm">' +
+        '<div class="dm-canvas"><div class="dm-canvas-label">Canvas</div>' +
+          '<div class="dm-section"><div class="dm-section-pill">Section · Hero</div>' +
+            '<div style="border:1px solid var(--b1);border-radius:6px;overflow:hidden;background:var(--sur2)">' +
+              '<div style="font-size:8px;color:var(--t3);font-weight:600;padding:8px 8px 0;font-family:\'DM Mono\',monospace">↻ Repeater — not connected</div>' +
+              '<div style="padding:4px 8px 6px;margin:4px 8px 0;background:#fff3cd;border-radius:4px;font-size:7px;color:#856404;line-height:1.4">Not connected to data — all items show the same placeholder content. <span style="text-decoration:underline;font-weight:600">Connect data →</span></div>' +
+              '<div style="display:flex;gap:4px;padding:6px 8px 8px">' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px dashed var(--b1)">' +
+                  '<div style="width:100%;height:20px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div style="height:8px;width:60%;background:var(--sur2);border-radius:2px;margin-bottom:2px"></div>' +
+                  '<div style="height:6px;width:40%;background:var(--sur2);border-radius:2px"></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px dashed var(--b1)">' +
+                  '<div style="width:100%;height:20px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div style="height:8px;width:60%;background:var(--sur2);border-radius:2px;margin-bottom:2px"></div>' +
+                  '<div style="height:6px;width:40%;background:var(--sur2);border-radius:2px"></div>' +
+                '</div>' +
+                '<div style="flex:1;padding:6px;border-radius:4px;background:var(--sur);border:1px dashed var(--b1)">' +
+                  '<div style="width:100%;height:20px;background:var(--sur2);border-radius:3px;margin-bottom:3px"></div>' +
+                  '<div style="height:8px;width:60%;background:var(--sur2);border-radius:2px;margin-bottom:2px"></div>' +
+                  '<div style="height:6px;width:40%;background:var(--sur2);border-radius:2px"></div>' +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div class="dm-inspector"><div class="dm-insp-head">Repeater Settings</div><div class="dm-insp-body">' +
+          '<div class="dm-prop"><div class="dm-prop-label">"Items"</div><div class="dm-prop-row"><div class="dm-prop-val" style="color:var(--t3);font-style:italic">Connect to an array field →</div><div class="dm-prop-bind">⚡</div></div></div>' +
+          '<div style="padding:6px 8px;margin-top:6px;background:var(--sur2);border:1px solid var(--b1);border-radius:6px;font-size:8px;color:var(--red,#e84393);display:flex;align-items:center;gap:4px">⚠ 2 inner bindings removed</div>' +
+        '</div></div>' +
+      '</div>';
+    }
+  }
+];
+
+SPEC_DEMO_STEPS_MAP['repeater-context:flow7'] = [
   { caption: '<b>Step 1:</b> User drags a <b>blank repeater</b> — no context attached', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="66" y="80" width="328" height="200" rx="10" fill="#fafafe" stroke="#c8c8d8" stroke-width="1.5" stroke-dasharray="8 4"/><text x="76" y="105" font-size="8" font-family="DM Mono" fill="#8888a8">🔄 Repeater · Blank</text><rect x="86" y="120" width="288" height="50" rx="6" fill="#f0f0f5" stroke="#e0e0ea" stroke-dasharray="4 2"/><rect x="96" y="130" width="80" height="10" rx="3" fill="#dddde5"/><rect x="96" y="146" width="120" height="8" rx="3" fill="#e8e8ee"/><rect x="86" y="178" width="288" height="50" rx="6" fill="#f0f0f5" stroke="#e0e0ea" stroke-dasharray="4 2"/><rect x="96" y="188" width="80" height="10" rx="3" fill="#dddde5"/><rect x="96" y="204" width="120" height="8" rx="3" fill="#e8e8ee"/><text x="180" y="260" font-size="9" font-family="DM Sans" fill="#b0b0c8">No data source connected</text><g transform="translate(200,150)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 2:</b> User clicks <b>⚡</b> on Items to connect data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="260" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="228" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="208" height="220" rx="10" fill="#fafafe" stroke="#c8c8d8" stroke-width="1.5"/><text x="66" y="94" font-size="8" font-family="DM Mono" fill="#8888a8">🔄 Repeater · Blank</text><rect x="310" y="10" width="140" height="300" rx="0" fill="#f5f5f8" stroke="#e0e0ea"/><text x="322" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Properties</text><text x="322" y="52" font-size="9" font-family="DM Sans" fill="#4a4a6a" font-weight="600">Items</text><rect x="322" y="58" width="116" height="20" rx="4" fill="white" stroke="#e0e0ea"/><text x="330" y="72" font-size="8" font-family="DM Sans" fill="#b0b0c8">Not connected</text><rect x="416" y="58" width="20" height="20" rx="4" fill="#3b82f615" stroke="#3b82f640"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="422" y="72" font-size="10" fill="#3b82f6">⚡</text><g transform="translate(434,76)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 3:</b> Choose <b>"+ Add new context"</b> — created on repeater', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="200" height="300" rx="8" fill="white" stroke="#e0e0ea" opacity=".3"/><rect x="240" y="10" width="210" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.08))"/><text x="256" y="30" font-size="10" font-family="DM Sans" fill="#1a1a2e" font-weight="600">Connect Repeater Items</text><text x="256" y="52" font-size="8" font-family="DM Mono" fill="#8888a8">USE EXISTING CONTEXT</text><rect x="256" y="58" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="75" font-size="9" font-family="DM Sans" fill="#4a4a6a">📦 Stores · items</text><rect x="256" y="90" width="180" height="26" rx="5" fill="white" stroke="#e0e0ea"/><text x="268" y="107" font-size="9" font-family="DM Sans" fill="#4a4a6a">📋 CMS · Articles</text><rect x="256" y="130" width="180" height="2" rx="1" fill="#e0e0ea"/><text x="256" y="150" font-size="8" font-family="DM Mono" fill="#8888a8">CREATE NEW</text><rect x="256" y="156" width="180" height="32" rx="5" fill="#3b82f608" stroke="#3b82f630"><animate attributeName="stroke-width" values="1;2;1" dur="1.2s" repeatCount="indefinite"/></rect><text x="268" y="176" font-size="9" font-family="DM Sans" fill="#3b82f6" font-weight="500">+ Add new context</text><g transform="translate(370,172)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 4:</b> Context connected — repeater <b>auto-binds Items</b> and shows data', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="30" y="10" width="400" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="46" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="46" y="48" width="368" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="56" y="70" width="348" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"><animate attributeName="stroke" values="#c8c8d8;#10b981" dur=".6s" fill="freeze"/></rect><rect x="66" y="64" width="90" height="16" rx="8" fill="#10b981"><animate attributeName="opacity" values="0;1" dur=".6s" fill="freeze"/></rect><text x="74" y="75" font-size="8" font-family="DM Sans" fill="white" font-weight="600">📦 Stores · items</text><rect x="68" y="86" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="136" y="112" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Yoga Mat</text><text x="136" y="126" font-size="8" font-family="DM Sans" fill="#8888a8">$49.99</text><rect x="68" y="142" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="136" y="168" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Running Shoes</text><text x="136" y="182" font-size="8" font-family="DM Sans" fill="#8888a8">$89.00</text><rect x="68" y="198" width="324" height="50" rx="6" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".3s" fill="freeze"/></rect><text x="136" y="224" font-size="10" font-family="DM Sans" fill="#4a4a6a" font-weight="500">Water Bottle</text><text x="136" y="238" font-size="8" font-family="DM Sans" fill="#8888a8">$24.99</text><rect x="140" y="272" width="180" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="168" y="286" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Connected · Items auto-bound</text></svg>`; } }
 ];
 
-SPEC_DEMO_STEPS_MAP['repeater-context:flow6'] = [
+SPEC_DEMO_STEPS_MAP['repeater-context:flow8'] = [
   { caption: '<b>Step 1:</b> Two repeaters, same <b>CMS Articles</b> type — each owns its own instance', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="440" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas</text><rect x="26" y="48" width="408" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><text x="40" y="50" font-size="8" font-family="DM Mono" fill="#8888a8">Section · Blog</text><rect x="36" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="1.5"/><rect x="46" y="60" width="100" height="16" rx="8" fill="#10b981"/><text x="54" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. A)</text><text x="46" y="90" font-size="8" font-family="DM Mono" fill="#10b981">Sort: Title A→Z · Show 6</text><rect x="46" y="98" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><rect x="46" y="136" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="156" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="46" y="174" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="54" y="194" font-size="9" font-family="DM Sans" fill="#4a4a6a">Remote Work Setup</text><rect x="240" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"/><rect x="250" y="60" width="100" height="16" rx="8" fill="#3b82f6"/><text x="258" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. B)</text><text x="250" y="90" font-size="8" font-family="DM Mono" fill="#3b82f6">Sort: Date Desc · Show 3</text><rect x="250" y="98" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="118" font-size="9" font-family="DM Sans" fill="#4a4a6a">Zero-Waste Kitchen Tips</text><rect x="250" y="136" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="156" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="250" y="174" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="194" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><g transform="translate(230,140)"><animate attributeName="opacity" values="1;.6;1" dur="1s" repeatCount="indefinite"/><path d="M-1,0 L1,0 C1.5,0 1.5,0.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C0.5,14.5 -0.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width="0.7" stroke-linejoin="round"/></g></svg>`; } },
   { caption: '<b>Step 2:</b> Each has its own <b>sort, filter, page size</b> — fully independent configs', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="220" height="300" rx="10" fill="white" stroke="#10b981" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.06))"/><text x="26" y="34" font-size="11" font-family="DM Sans" fill="#10b981" font-weight="600">Repeater A — Config</text><text x="26" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text><rect x="26" y="62" width="190" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="34" y="77" font-size="9" font-family="DM Sans" fill="#10b981">Title · A → Z</text><text x="26" y="100" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text><rect x="26" y="106" width="190" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="34" y="121" font-size="9" font-family="DM Sans" fill="#10b981">Category = "Tech"</text><text x="26" y="146" font-size="9" font-family="DM Mono" fill="#8888a8">PAGE SIZE</text><rect x="26" y="152" width="50" height="22" rx="5" fill="#10b98112" stroke="#10b98120"/><text x="42" y="167" font-size="9" font-family="DM Sans" fill="#10b981" font-weight="600">6</text><rect x="240" y="10" width="220" height="300" rx="10" fill="white" stroke="#3b82f6" stroke-width="1.5" filter="drop-shadow(0 4px 12px rgba(0,0,0,.06))"/><text x="256" y="34" font-size="11" font-family="DM Sans" fill="#3b82f6" font-weight="600">Repeater B — Config</text><text x="256" y="56" font-size="9" font-family="DM Mono" fill="#8888a8">SORT</text><rect x="256" y="62" width="190" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="264" y="77" font-size="9" font-family="DM Sans" fill="#3b82f6">Date · Descending</text><text x="256" y="100" font-size="9" font-family="DM Mono" fill="#8888a8">FILTER</text><rect x="256" y="106" width="190" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="264" y="121" font-size="9" font-family="DM Sans" fill="#3b82f6">Category = "Design"</text><text x="256" y="146" font-size="9" font-family="DM Mono" fill="#8888a8">PAGE SIZE</text><rect x="256" y="152" width="50" height="22" rx="5" fill="#3b82f612" stroke="#3b82f620"/><text x="272" y="167" font-size="9" font-family="DM Sans" fill="#3b82f6" font-weight="600">3</text><text x="230" y="240" font-size="9" font-family="DM Sans" fill="#8888a8" text-anchor="middle">Same type · Different instances</text></svg>`; } },
   { caption: '<b>Step 3:</b> Changing A\'s filter <b>does not affect</b> B — independent instances', render: function() { return `<svg viewBox="0 0 460 320" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%"><rect x="10" y="10" width="440" height="300" rx="8" fill="white" stroke="#e0e0ea"/><text x="26" y="34" font-size="10" font-family="DM Sans" fill="#8888a8">Canvas — after editing Repeater A's filter</text><rect x="26" y="48" width="408" height="250" rx="8" fill="#f8f8fc" stroke="#c8c8d8"/><rect x="36" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#10b981" stroke-width="2"><animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="1.5s" repeatCount="indefinite"/></rect><rect x="46" y="60" width="100" height="16" rx="8" fill="#10b981"/><text x="54" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. A)</text><text x="46" y="90" font-size="7" font-family="DM Mono" fill="#d97706">Filter changed → "Design"</text><rect x="46" y="100" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" fill="freeze"/></rect><text x="54" y="120" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="46" y="138" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"><animate attributeName="opacity" values="0;1" dur=".5s" begin=".15s" fill="freeze"/></rect><text x="54" y="158" font-size="9" font-family="DM Sans" fill="#4a4a6a">UI Patterns for Mobile</text><rect x="240" y="66" width="194" height="220" rx="10" fill="#fafafe" stroke="#3b82f6" stroke-width="1.5"/><rect x="250" y="60" width="100" height="16" rx="8" fill="#3b82f6"/><text x="258" y="71" font-size="7" font-family="DM Sans" fill="white" font-weight="600">📋 Articles (inst. B)</text><text x="250" y="90" font-size="7" font-family="DM Mono" fill="#8888a8">Unchanged</text><rect x="250" y="100" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="120" font-size="9" font-family="DM Sans" fill="#4a4a6a">Zero-Waste Kitchen Tips</text><rect x="250" y="138" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="158" font-size="9" font-family="DM Sans" fill="#4a4a6a">Design Systems 101</text><rect x="250" y="176" width="172" height="32" rx="4" fill="white" stroke="#e0e0ea"/><text x="258" y="196" font-size="9" font-family="DM Sans" fill="#4a4a6a">AI in Daily Life</text><rect x="130" y="282" width="200" height="20" rx="10" fill="#1a1a2e"><animate attributeName="opacity" values="0;1;1" dur="1s" fill="freeze"/></rect><text x="148" y="296" font-size="8" font-family="DM Sans" fill="#22c55e" font-weight="500">✓ Independent instances — no cross-effects</text></svg>`; } }
@@ -15068,6 +15635,19 @@ function sfAddRule() {
     if (didDrag) { didDrag = false; return; }
     origCanvasClick(e);
   };
+})();
+
+(function handleDeepLink() {
+  var hash = window.location.hash;
+  if (!hash) return;
+  var m = hash.match(/^#spec=(.+)$/);
+  if (!m) return;
+  var specId = decodeURIComponent(m[1]);
+  if (!PRODUCT_SPECS[specId]) return;
+  setTimeout(function() {
+    if (!S.productMode) toggleProductMode();
+    setTimeout(function() { openSpecPage(specId); }, 200);
+  }, 300);
 })();
 </script>
 
