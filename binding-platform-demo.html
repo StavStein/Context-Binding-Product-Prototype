@@ -192,8 +192,9 @@ body.product-mode .has-spec::after{content:'📋';position:absolute;top:-8px;rig
 body.product-mode #dd.has-spec{outline-offset:2px}
 body.product-mode #modal.has-spec{outline-offset:2px}
 .spec-status-wrap{position:relative;display:inline-flex;cursor:pointer}
-.spec-status-wrap:hover{opacity:.85}
-.spec-status-dd{position:absolute;top:100%;left:0;margin-top:4px;background:var(--sur);border:1px solid var(--b2);border-radius:8px;box-shadow:0 4px 16px #0002;overflow:hidden;z-index:10;min-width:140px;display:none}
+.spec-status-wrap:hover{opacity:.92}
+.spec-status-wrap:has(.spec-status-dd.open){opacity:1}
+.spec-status-dd{position:absolute;top:100%;left:0;margin-top:4px;background:var(--sur,#ffffff);border:1px solid var(--b2);border-radius:8px;box-shadow:0 4px 16px #0003;overflow:hidden;z-index:10;min-width:140px;display:none}
 .spec-status-dd.open{display:block}
 .spec-status-dd-item{padding:6px 12px;font-size:10px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;transition:.1s}
 .spec-status-dd-item:hover{background:var(--sur2)}
@@ -254,16 +255,19 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 @keyframes spec-pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .spec-demo-body{padding:8px;display:flex;justify-content:center;background:var(--bg);position:relative;min-height:340px}
 .spec-demo-canvas{position:relative;width:100%}
+.spec-demo-canvas.all-frames{display:flex;flex-direction:column;gap:24px}
 .spec-demo-canvas img{width:100%;height:auto;display:block;border-radius:4px}
 .demo-frame{position:relative;display:inline-block;width:100%}
-.demo-cursor{position:absolute;width:24px;height:24px;z-index:5;pointer-events:none;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3));animation:demo-cur .9s ease-in-out infinite}
-@keyframes demo-cur{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.65;transform:scale(.92)}}
-.demo-click{position:absolute;width:28px;height:28px;border-radius:50%;border:2px solid var(--acc);z-index:4;pointer-events:none;animation:demo-ring 1.4s ease-in-out infinite}
-@keyframes demo-ring{0%,100%{box-shadow:0 0 0 0 var(--acc-b);opacity:1}50%{box-shadow:0 0 0 8px transparent;opacity:.5}}
+.demo-step-frame{border:1px solid var(--b1);border-radius:10px;overflow:hidden;background:var(--sur);transition:border-color .2s}
+.demo-step-frame.active{border-color:var(--acc);box-shadow:0 0 0 1px var(--acc)}
+.demo-step-frame-label{padding:6px 12px;font-size:10px;font-weight:600;color:var(--t3);background:var(--sur2);border-bottom:1px solid var(--b1);font-family:'DM Mono',monospace}
+.demo-step-frame-label b{color:var(--t1)}
+.demo-cursor{position:absolute;width:20px;height:20px;z-index:5;pointer-events:none;background:url('demo-screens/cursor-pointer.png') center/contain no-repeat;animation:demo-cur .9s ease-in-out infinite}
+@keyframes demo-cur{0%,100%{opacity:1;transform:translate(-50%,-8%) scale(1)}50%{opacity:.85;transform:translate(-50%,-8%) scale(.94)}}
 .spec-demo-step{position:absolute;opacity:0;transition:opacity .4s ease}
 .spec-demo-step.active{opacity:1}
 .spec-demo-timeline{display:flex;align-items:center;gap:0;padding:10px 14px;border-top:1px solid var(--b1);background:var(--sur2)}
-.spec-demo-dot{width:8px;height:8px;border-radius:50%;background:var(--b2);cursor:pointer;transition:.2s;flex-shrink:0}
+.spec-demo-dot{width:18px;height:18px;border-radius:50%;background:var(--b2);cursor:pointer;transition:.2s;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;color:var(--sur);font-family:'DM Mono',monospace}
 .spec-demo-dot.active{background:var(--acc);box-shadow:0 0 8px var(--acc-b)}
 .spec-demo-dot.done{background:var(--grn)}
 .spec-demo-line{flex:1;height:2px;background:var(--b1)}
@@ -13190,7 +13194,7 @@ const PRODUCT_SPECS = {
   'connect-value-panel': {
     title: 'Connect · Value Panel',
     component: 'Binding Dropdown (#dd)',
-    status: 'implemented',
+    status: 'in-progress',
     owner: 'Context Binding Team',
     lastUpdated: 'Feb 2026',
     version: '2.0',
@@ -13357,7 +13361,7 @@ const PRODUCT_SPECS = {
   'repeater-context': {
     title: 'Repeater & Context',
     component: 'Repeater (.c-repeater)',
-    status: 'implemented',
+    status: 'in-progress',
     owner: 'Context Binding Team',
     lastUpdated: 'Feb 2026',
     version: '1.0',
@@ -13783,7 +13787,7 @@ const PRODUCT_SPECS = {
   'add-context-panel': {
     title: 'Add Context Panel',
     component: 'Context Picker Modal (#modal)',
-    status: 'implemented',
+    status: 'in-progress',
     owner: 'Context Binding Team',
     lastUpdated: 'Feb 2026',
     version: '1.0',
@@ -14135,10 +14139,6 @@ function getSpecIdForElement(elId) {
 
 function toggleProductMode() {
   const panel = document.getElementById('pm-panel');
-  if (S.productMode && !panel.classList.contains('open')) {
-    panel.classList.add('open');
-    return;
-  }
   S.productMode = !S.productMode;
   const btn = document.getElementById('product-mode-btn');
   btn.classList.toggle('product-mode-active', S.productMode);
@@ -14409,12 +14409,10 @@ document.addEventListener('click', function() {
 });
 
 /* ── SPEC DEMO ANIMATION ── */
-var _cursorSvg = '<svg viewBox="-3 -1 12 17" class="demo-cursor" style="POS"><path d="M-1,0 L1,0 C1.5,0 1.5,.5 1.5,1 L1.5,5.5 C2,5 2.5,4.5 3,4.5 C3.5,4.5 4,5 4,5.5 L4,6 C4.5,5.5 5,5 5.5,5 C6,5 6.5,5.5 6.5,6 L6.5,6.5 C7,6 7.5,5.5 8,5.5 C8.5,5.5 9,6 9,6.5 L9,11 C9,12 8.5,13 7.5,14 L6.5,14.5 L1.5,14.5 C.5,14.5 -.5,13.5 -1,12.5 L-2.5,10 C-3,9.5 -3,8.5 -2.5,8 C-2,7.5 -1.5,7.5 -1,8 L-1,1 Z" fill="white" stroke="#1a1a2e" stroke-width=".7" stroke-linejoin="round"/></svg>';
 function _demoScreen(src, curTop, curLeft) {
   var html = '<div class="demo-frame"><img src="' + src + '">';
   if (curTop !== undefined) {
-    html += '<div class="demo-click" style="top:' + curTop + ';left:' + curLeft + ';transform:translate(-50%,-50%)"></div>';
-    html += _cursorSvg.replace('POS', 'top:' + curTop + ';left:calc(' + curLeft + ' + 10px)');
+    html += '<div class="demo-cursor" style="top:' + curTop + ';left:' + curLeft + '"></div>';
   }
   return html + '</div>';
 }
@@ -14937,15 +14935,15 @@ SPEC_DEMO_STEPS_MAP['add-context-panel'] = [
   },
   {
     caption: '<b>Step 2:</b> <b>Add Context modal</b> opens — showing available CMS and Custom contexts',
-    render: function() { return _demoScreen('demo-screens/add-context-panel/step2.png', '30%', '61%'); }
+    render: function() { return _demoScreen('demo-screens/add-context-panel/step2.png', '30%', '51%'); }
   },
   {
     caption: '<b>Step 3:</b> User selects a context — <b>checkbox fills</b>, Apply button activates',
-    render: function() { return _demoScreen('demo-screens/add-context-panel/step3.png', '58%', '61%'); }
+    render: function() { return _demoScreen('demo-screens/add-context-panel/step3.png', '59%', '51%'); }
   },
   {
     caption: '<b>Step 4:</b> Context <b>applied</b> — section now has the selected context attached',
-    render: function() { return _demoScreen('demo-screens/add-context-panel/step4.png', '73%', '56%'); }
+    render: function() { return _demoScreen('demo-screens/add-context-panel/step4.png', '76%', '47%'); }
   },
   {
     caption: '<b>Step 5:</b> Inspector shows <b>attached context card</b> with fields available for binding',
@@ -14969,10 +14967,13 @@ function specDemoInit() {
   const steps = _getActiveSpecDemoSteps();
   if (!steps.length) return;
 
+  canvas.classList.remove('all-frames');
+  canvas.innerHTML = '';
+
   let tlHtml = '';
   steps.forEach(function(s, i) {
     if (i > 0) tlHtml += '<div class="spec-demo-line" id="spec-demo-line-' + (i-1) + '"></div>';
-    tlHtml += '<div class="spec-demo-dot" id="spec-demo-dot-' + i + '" onclick="specDemoGoTo(' + i + ')"></div>';
+    tlHtml += '<div class="spec-demo-dot" id="spec-demo-dot-' + i + '" onclick="specDemoGoTo(' + i + ')">' + (i + 1) + '</div>';
   });
   timeline.innerHTML = tlHtml;
 
@@ -14987,12 +14988,24 @@ function specDemoRender() {
   var steps = _getActiveSpecDemoSteps();
   if (!steps.length) return;
 
-  canvas.innerHTML = steps[_specDemoStep].render();
+  if (!canvas.classList.contains('all-frames')) {
+    var allHtml = '';
+    steps.forEach(function(s, i) {
+      allHtml += '<div class="demo-step-frame" id="demo-step-frame-' + i + '">' +
+        '<div class="demo-step-frame-label">' + s.caption + '</div>' +
+        '<div style="padding:8px">' + s.render() + '</div>' +
+      '</div>';
+    });
+    canvas.innerHTML = allHtml;
+    canvas.classList.add('all-frames');
+  }
   if (caption) caption.innerHTML = steps[_specDemoStep].caption;
 
   steps.forEach(function(s, i) {
+    var frame = document.getElementById('demo-step-frame-' + i);
     var dot = document.getElementById('spec-demo-dot-' + i);
     var line = document.getElementById('spec-demo-line-' + i);
+    if (frame) frame.classList.toggle('active', i === _specDemoStep);
     if (dot) {
       dot.className = 'spec-demo-dot' + (i === _specDemoStep ? ' active' : '') + (i < _specDemoStep ? ' done' : '');
     }
@@ -15000,6 +15013,8 @@ function specDemoRender() {
       line.className = 'spec-demo-line' + (i < _specDemoStep ? ' done' : '');
     }
   });
+  var activeFrame = document.getElementById('demo-step-frame-' + _specDemoStep);
+  if (activeFrame) activeFrame.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function specDemoNext() {
@@ -15063,10 +15078,12 @@ function specDemoScopedInit(scope, stepsKey) {
   st.stepsKey = stepsKey; st.step = 0;
   if (st.timer) { clearInterval(st.timer); st.timer = null; }
   st.playing = false;
+  canvas.classList.remove('all-frames');
+  canvas.innerHTML = '';
   var tlHtml = '';
   steps.forEach(function(s, i) {
     if (i > 0) tlHtml += '<div class="spec-demo-line" id="spec-demo-' + scope + '-line-' + (i-1) + '"></div>';
-    tlHtml += '<div class="spec-demo-dot" id="spec-demo-' + scope + '-dot-' + i + '" onclick="specDemoScopedGoTo(\'' + scope + '\',' + i + ')"></div>';
+    tlHtml += '<div class="spec-demo-dot" id="spec-demo-' + scope + '-dot-' + i + '" onclick="specDemoScopedGoTo(\'' + scope + '\',' + i + ')">' + (i + 1) + '</div>';
   });
   timeline.innerHTML = tlHtml;
   specDemoScopedRender(scope);
@@ -15081,14 +15098,28 @@ function specDemoScopedRender(scope) {
   if (!canvas || !st.stepsKey) return;
   var steps = SPEC_DEMO_STEPS_MAP[st.stepsKey] || [];
   if (!steps.length) return;
-  canvas.innerHTML = steps[st.step].render();
+  if (!canvas.classList.contains('all-frames')) {
+    var allHtml = '';
+    steps.forEach(function(s, i) {
+      allHtml += '<div class="demo-step-frame" id="demo-step-frame-' + scope + '-' + i + '">' +
+        '<div class="demo-step-frame-label">' + s.caption + '</div>' +
+        '<div style="padding:8px">' + s.render() + '</div>' +
+      '</div>';
+    });
+    canvas.innerHTML = allHtml;
+    canvas.classList.add('all-frames');
+  }
   if (caption) caption.innerHTML = steps[st.step].caption;
   steps.forEach(function(s, i) {
+    var frame = document.getElementById('demo-step-frame-' + scope + '-' + i);
     var dot = document.getElementById('spec-demo-' + scope + '-dot-' + i);
     var line = document.getElementById('spec-demo-' + scope + '-line-' + i);
+    if (frame) frame.classList.toggle('active', i === st.step);
     if (dot) dot.className = 'spec-demo-dot' + (i === st.step ? ' active' : '') + (i < st.step ? ' done' : '');
     if (line) line.className = 'spec-demo-line' + (i < st.step ? ' done' : '');
   });
+  var activeFrame = document.getElementById('demo-step-frame-' + scope + '-' + st.step);
+  if (activeFrame) activeFrame.scrollIntoView({behavior:'smooth', block:'nearest'});
 }
 
 function specDemoScopedNext(scope) {
