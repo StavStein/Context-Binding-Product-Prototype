@@ -77,6 +77,30 @@ When binding the Items property, the context picker should:
   - **Context-level fields** (from the parent context) — same value across all items. The binding UI should clearly indicate this distinction (e.g., "Same value across all rows")
 - Sub-arrays do **not** have context-level sort/filter/page size — if the user needs that, they bind to a **function** that returns a filtered/sorted array
 
+### 7a. Nested Repeaters
+
+A repeater inside a repeater item — e.g., a tags repeater inside each article item. The inner repeater binds to a sub-array field (e.g., `items › tags`).
+
+**Field dropdown behavior:**
+- The Items dropdown recursively collects all array and multiReference fields, including nested ones
+- Nested fields show a hierarchy path: `items › tags`
+- When a nested array is selected, inner elements expose the sub-array's own fields (e.g., `tag value`), not the parent context's top-level fields
+
+**Per-item scope:**
+- Each inner repeater instance can have a **different item count** based on the data of its parent item (e.g., article 1 has 3 tags, article 2 has 2 tags, article 3 has 4 tags)
+- Context-level fields (e.g., `totalItems`) show the **same value** across all inner items
+
+**Disconnect / reconnect lifecycle:**
+- Disconnecting the inner repeater's Items is a cascading action — removes all inner element bindings
+- After disconnect: all inner repeaters normalize to **3 default placeholder items** (the standard empty state)
+- A yellow warning appears **only on the first (template) inner repeater**: "Repeater is not connected to data. Connect Items to an array."
+- The full state (DOM, bindings, per-item counts) is saved on disconnect and **restored on reconnect** — the user gets back exactly what they had before
+
+**Visual behavior:**
+- Nested repeaters have a **transparent border by default** — they don't clutter the canvas
+- Border appears on **hover** (subtle gray), **direct selection** (accent), or **child selection** (faded accent)
+- This avoids the "pink rectangles everywhere" problem in deeply nested layouts
+
 ---
 
 ## 8. Add Repeater from CMS Presets
@@ -125,6 +149,8 @@ When binding the Items property, the context picker should:
 - Promote suggestion appears:
   - In **repeater settings** — message suggesting to promote when context is coupled
   - In **binding dropdown** for external elements — shows the repeater's context with a "Promote to section" action
+
+**Promote is a move, not a copy.** After promoting, the context is removed from the repeater's scope and exists **only** on the section. The repeater then inherits the context from its parent section, like any other element in that section.
 
 ### ⚠️ Filter ceiling principle (requires R&D approval)
 

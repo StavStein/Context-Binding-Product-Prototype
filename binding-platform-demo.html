@@ -7761,6 +7761,9 @@ function promoteRepCtx(repId, specificCtxId) {
     if (!S.ctxMap[sectionId].includes(ctxId)) {
       S.ctxMap[sectionId].push(ctxId);
     }
+    if (S.ctxMap[repId]) {
+      S.ctxMap[repId] = S.ctxMap[repId].filter(id => id !== ctxId);
+    }
   });
   const secEl = document.getElementById(sectionId);
   if (secEl) secEl.classList.add('has-ctx');
@@ -8828,7 +8831,9 @@ function doUnbindRepeater(elId) {
     syncRepVisualItems(repId);
   });
 
-  if (firstContainer) {
+  const firstRepDomEl = document.getElementById(allRepIds[0]);
+  const isNested = firstRepDomEl?.parentElement?.closest('.c-repeater');
+  if (isNested && firstContainer) {
     firstContainer.querySelectorAll('.rep-unconnected-warn').forEach(el => el.remove());
     const warn = document.createElement('div');
     warn.className = 'rep-unconnected-warn';

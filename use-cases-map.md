@@ -123,9 +123,9 @@ Each use case follows this structure:
 | C09 | I want to add a blank repeater and design it before connecting data | `Blank repeater` `Static design` | ⬜ |
 | C10 | I want to add a pre-designed repeater (preset/template) | `Add from preset` `Pre-bound repeater` | ⬜ |
 | C11 | I want two repeaters with the same data but different filters | `Multiple instances` `Per-repeater config` | ✅ |
-| C12 | I want to bind a repeater to a nested array (e.g. tags, reviews) | `Array binding` `Sub-context` | ⬜ |
+| C12 | I want to bind a repeater to a nested array (e.g. tags, reviews) | `Array binding` `Sub-context` | ✅ |
 | C13 | I want to use a repeater with A/B alternating layout pattern | `Repeater` `A/B pattern` | ⬜ |
-| C14 | I want a repeater inside a repeater (nested lists) | `Nested repeater` `Repeater in repeater` | ⬜ |
+| C14 | I want a repeater inside a repeater (nested lists) | `Nested repeater` `Repeater in repeater` | ✅ |
 
 ### Repeater Operations
 
@@ -345,7 +345,7 @@ Each use case follows this structure:
 |------|-------|---------|------------|----------------|
 | **A** — Data Sources | 17 | 6 | 5 | 6 |
 | **B** — Binding | 26 | 14 | 4 | 8 |
-| **C** — Repeater & List Renderers | 21 | 4 | 2 | 15 |
+| **C** — Repeater & List Renderers | 21 | 6 | 2 | 13 |
 | **D** — Configuration | 11 | 3 | 3 | 5 |
 | **E** — References | 8 | 8 | 0 | 0 |
 | **F** — Functions & Actions | 11 | 4 | 0 | 7 |
@@ -359,7 +359,7 @@ Each use case follows this structure:
 | **N** — Write Mode & Forms | 7 | 0 | 0 | 7 |
 | **O** — Custom Components & Dev | 5 | 0 | 0 | 5 |
 | **P** — CMS-Specific | 2 | 0 | 0 | 2 |
-| **TOTAL** | **166** | **59** | **19** | **88** |
+| **TOTAL** | **166** | **61** | **19** | **86** |
 
 ---
 
@@ -371,7 +371,7 @@ Each use case follows this structure:
 
 ### Key Takeaway
 
-**59 out of 166 use cases are prototyped (~36%), with 19 partially done.**
+**61 out of 166 use cases are prototyped (~37%), with 19 partially done.**
 
 Entire untouched areas:
 - **N — Write Mode & Forms** (7 use cases) — data collection, form submission, input validation, update records
