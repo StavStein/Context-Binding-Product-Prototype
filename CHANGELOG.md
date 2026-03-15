@@ -5,6 +5,41 @@
 
 ---
 
+## 2026-03-12
+
+### Update — V2 demo screenshots, pen design refresh, and Figma export pipeline
+
+**Branch:** `stavs/cursor-to-figma`  
+**Status:** In Progress
+
+#### V2 Demo Screenshots
+- Added **v2 screenshots** for all 8 context flows (`v2-f1` through `v2-f8`) in `demo-screens/ctx-final/`
+- Added **v2 screenshots** for all 6 repeater flows (`v2-r1` through `v2-r6`) in `demo-screens/repeater-flows/`
+- Added flow3 and flow6 variant screenshots (original + v2 + v3 versions)
+- Updated existing context and repeater screenshots with latest design changes
+
+#### Pen Design File
+- Major update to `pencil-new.pen` — refreshed flow designs and layout iterations
+
+#### Figma Export Pipeline
+- Updated `pen-to-figma/export-pen-data.js` — revised export logic
+- Updated `pen-to-figma/code.js` — plugin adjustments
+- Updated `pen-to-figma/pen-data.json` — regenerated data
+- Added `pen-to-figma/code-template.js` — new template for plugin code generation
+- Added `pen-to-figma/rebuild.js` — new script to automate plugin rebuilds
+
+#### Capture Scripts
+- Updated `add-cursors.js` and `capture-repeater.js` with refinements
+- Added `capture-missing-flows.js` — new script for capturing missing flow screenshots
+
+#### New Assets
+- `images/` folder — AI-generated images used in pen designs
+
+**Files changed:** 133 files (scripts, pen file, screenshots, Figma plugin)  
+**Risk:** Low — design assets and tooling only, no core prototype logic affected
+
+---
+
 ## 2026-03-11
 
 ### PR — `stavs/cursor-to-figma` — Demo viewer UX overhaul, cursor assets & screenshot capture tooling
