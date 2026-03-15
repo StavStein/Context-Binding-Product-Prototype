@@ -54,6 +54,7 @@ Each use case follows this structure:
 | B05 | I want to understand on the canvas which elements are connected and which are static | `Canvas pills` `Visual feedback` `Bound vs static` | ✅ | CNF |
 | B06 | I want to bind a property from an ancestor context (cross-context) | `Cross-context` `Ancestor binding` | 🔶 | CNF |
 | B07 | I want to bind a property to an entire object (not a single field) | `Object binding` `Compound` | ⬜ | High |
+| B08a | I want to understand what happened when a binding breaks (source removed, field deleted) | `Broken connection` `Error state` `Recovery` | ⬜ | High |
 
 ### Editing Bound Content
 
@@ -96,6 +97,7 @@ Each use case follows this structure:
 | B22 | I want to bind alt text for image accessibility | `Image alt` `Accessibility` `Auto-bind` | ✅ | High |
 | B23 | I want to mark an image as decorative (no alt text needed) | `Image settings` `Decorative` `Accessibility` | 🔶 | NTH |
 | B24 | I want to manage what happens when a bound field is empty | `Empty fields` `Fallback behavior` | ⬜ | High |
+| B25 | I want to bind a background property to data (color, gradient, image) | `Background binding` `Design property` `CSS binding` | ⬜ | High |
 
 ---
 
@@ -121,9 +123,9 @@ Each use case follows this structure:
 | C09 | I want to add a blank repeater and design it before connecting data | `Blank repeater` `Static design` | ⬜ |
 | C10 | I want to add a pre-designed repeater (preset/template) | `Add from preset` `Pre-bound repeater` | ⬜ |
 | C11 | I want two repeaters with the same data but different filters | `Multiple instances` `Per-repeater config` | ✅ |
-| C12 | I want to bind a repeater to a nested array (e.g. tags, reviews) | `Array binding` `Sub-context` | ⬜ |
+| C12 | I want to bind a repeater to a nested array (e.g. tags, reviews) | `Array binding` `Sub-context` | ✅ |
 | C13 | I want to use a repeater with A/B alternating layout pattern | `Repeater` `A/B pattern` | ⬜ |
-| C14 | I want a repeater inside a repeater (nested lists) | `Nested repeater` `Repeater in repeater` | ⬜ |
+| C14 | I want a repeater inside a repeater (nested lists) | `Nested repeater` `Repeater in repeater` | ✅ |
 
 ### Repeater Operations
 
@@ -342,8 +344,8 @@ Each use case follows this structure:
 | Area | Total | ✅ Done | 🔶 Partial | ⬜ Not Started |
 |------|-------|---------|------------|----------------|
 | **A** — Data Sources | 17 | 6 | 5 | 6 |
-| **B** — Binding | 24 | 14 | 4 | 6 |
-| **C** — Repeater & List Renderers | 21 | 4 | 2 | 15 |
+| **B** — Binding | 26 | 14 | 4 | 8 |
+| **C** — Repeater & List Renderers | 21 | 6 | 2 | 13 |
 | **D** — Configuration | 11 | 3 | 3 | 5 |
 | **E** — References | 8 | 8 | 0 | 0 |
 | **F** — Functions & Actions | 11 | 4 | 0 | 7 |
@@ -357,7 +359,7 @@ Each use case follows this structure:
 | **N** — Write Mode & Forms | 7 | 0 | 0 | 7 |
 | **O** — Custom Components & Dev | 5 | 0 | 0 | 5 |
 | **P** — CMS-Specific | 2 | 0 | 0 | 2 |
-| **TOTAL** | **164** | **59** | **19** | **86** |
+| **TOTAL** | **166** | **61** | **19** | **86** |
 
 ---
 
@@ -369,7 +371,7 @@ Each use case follows this structure:
 
 ### Key Takeaway
 
-**59 out of 164 use cases are prototyped (~36%), with 19 partially done.**
+**61 out of 166 use cases are prototyped (~37%), with 19 partially done.**
 
 Entire untouched areas:
 - **N — Write Mode & Forms** (7 use cases) — data collection, form submission, input validation, update records

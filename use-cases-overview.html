@@ -383,7 +383,7 @@ body {
 
     <div class="big-numbers">
       <div class="big-num total">
-        <div class="big-num-value">160</div>
+        <div class="big-num-value">168</div>
         <div class="big-num-label">Total Use Cases</div>
       </div>
       <div class="big-num done">
@@ -395,7 +395,7 @@ body {
         <div class="big-num-label">Partially Done</div>
       </div>
       <div class="big-num not-started">
-        <div class="big-num-value">86</div>
+        <div class="big-num-value">94</div>
         <div class="big-num-label">Not Started</div>
       </div>
     </div>
@@ -403,16 +403,16 @@ body {
     <div class="progress-bar-wrap">
       <div class="progress-bar-label">
         <span>Overall Progress</span>
-        <span>36% prototyped</span>
+        <span>35% prototyped</span>
       </div>
       <div class="progress-bar">
-        <div class="progress-done" style="width:36%"></div>
-        <div class="progress-partial" style="width:7.9%"></div>
+        <div class="progress-done" style="width:34.5%"></div>
+        <div class="progress-partial" style="width:9.5%"></div>
       </div>
     </div>
 
     <div class="exec-callout">
-      5 entire capability areas have zero prototyping coverage — representing 31 use cases. These include visitor-facing controls (UoU), forms &amp; write mode, design variants, custom components, and CMS-specific flows.
+      5 entire capability areas have zero prototyping coverage — representing 33 use cases. These include visitor-facing controls (UoU), forms &amp; write mode, design variants, custom components, and CMS-specific flows.
     </div>
   </div>
 
@@ -443,16 +443,16 @@ body {
         <p>Conditional styling based on data, variant switching, "Sale" badges, layout variants per item state</p>
       </div>
       <div class="untouched-card">
-        <div class="uc-count">2</div>
+        <div class="uc-count">4</div>
         <h4>P — CMS-Specific Flows</h4>
-        <p>Add field from context panel, collection usage overview</p>
+        <p>Add field from context panel, collection usage overview, broken bindings from deleted fields/collections</p>
       </div>
     </div>
   </div>
 
   <!-- ALL AREAS -->
   <div class="section-title">All Capability Areas</div>
-  <div class="section-subtitle">16 areas, 160 use cases — click any card to expand the full list</div>
+  <div class="section-subtitle">16 areas, 168 use cases — click any card to expand the full list</div>
 
   <div class="areas-grid">
 
@@ -500,15 +500,15 @@ body {
         <div class="area-card-id">SECTION B</div>
       </div>
       <div class="area-card-title">Binding Properties to Data</div>
-      <div class="area-card-subtitle">Connect, disconnect, cross-context, object binding, functions, formatters, panel UX, visibility, empty fields</div>
+      <div class="area-card-subtitle">Connect, disconnect, cross-context, object binding, functions, formatters, panel UX, visibility, a11y, rich text, rich content, link config, empty fields</div>
       <div class="area-card-stats">
         <span class="stat-done">14 done</span>
         <span class="stat-partial">4 partial</span>
-        <span class="stat-todo">6 not started</span>
+        <span class="stat-todo">12 not started</span>
       </div>
       <div class="area-progress">
-        <div class="progress-done" style="width:58.3%"></div>
-        <div class="progress-partial" style="width:16.7%"></div>
+        <div class="progress-done" style="width:46.7%"></div>
+        <div class="progress-partial" style="width:13.3%"></div>
       </div>
       <ul class="area-card-items collapsed" id="items-b">
         <li style="font-weight:600;color:var(--t2,#666);font-size:11px;letter-spacing:.5px;padding:6px 0 2px">CORE BINDING ACTIONS</li>
@@ -540,10 +540,17 @@ body {
         <li><span class="uc-status uc-partial">~</span> B21 — Show/hide element based on data <span style="font-size:9px;color:#888">High</span></li>
         <li><span class="uc-status uc-done">&#10003;</span> B22 — Bind alt text for image accessibility <span style="font-size:9px;color:#888">High</span></li>
         <li><span class="uc-status uc-partial">~</span> B23 — Mark image as decorative (no alt) <span style="font-size:9px;color:#aaa;font-style:italic">NTH</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B24 — Bind accessibility properties to data (aria-label, role) <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B25 — Bind rich text field to element <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B26 — Bind rich content field to element <span style="font-size:9px;color:#888">High</span></li>
+        <li style="font-weight:600;color:var(--t2,#666);font-size:11px;letter-spacing:.5px;padding:6px 0 2px">LINK BINDING &amp; CONFIGURATION</li>
+        <li><span class="uc-status uc-todo">&middot;</span> B27 — Configure link target (current tab / new tab) for bound URL <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B28 — Configure link type for bound URL (page / web / anchor / email / phone) <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B29 — Configure SEO rel attributes for bound links (nofollow, noopener) <span style="font-size:9px;color:#888">High</span></li>
         <li style="font-weight:600;color:var(--t2,#666);font-size:11px;letter-spacing:.5px;padding:6px 0 2px">EMPTY &amp; MISSING DATA</li>
-        <li><span class="uc-status uc-todo">&middot;</span> B24 — Manage behavior for empty bound fields <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> B30 — Manage behavior for empty bound fields <span style="font-size:9px;color:#888">High</span></li>
       </ul>
-      <span class="area-card-toggle" onclick="toggleItems('items-b', this)">Show all 24 &#9662;</span>
+      <span class="area-card-toggle" onclick="toggleItems('items-b', this)">Show all 30 &#9662;</span>
     </div>
 
     <!-- C -->
@@ -922,15 +929,17 @@ body {
         <div class="area-card-id">SECTION P</div>
       </div>
       <div class="area-card-title">CMS-Specific Flows</div>
-      <div class="area-card-subtitle">Schema editing, usage overview, collection management</div>
+      <div class="area-card-subtitle">Schema editing, usage overview, collection management, broken bindings from CMS changes</div>
       <div class="area-card-stats">
-        <span class="stat-todo">2 not started</span>
+        <span class="stat-todo">4 not started</span>
       </div>
       <div class="area-progress">
       </div>
       <ul class="area-card-items" id="items-p">
         <li><span class="uc-status uc-todo">&middot;</span> P01 — Add new field from context panel</li>
         <li><span class="uc-status uc-todo">&middot;</span> P02 — See which collections connect where</li>
+        <li><span class="uc-status uc-todo">&middot;</span> P03 — CMS field deleted that was bound to elements (broken binding) <span style="font-size:9px;color:#888">High</span></li>
+        <li><span class="uc-status uc-todo">&middot;</span> P04 — CMS collection deleted that was connected to pages (broken context) <span style="font-size:9px;color:#888">High</span></li>
       </ul>
     </div>
 
@@ -940,6 +949,13 @@ body {
   <div class="oos-section">
     <h3>Out of Scope — This Phase</h3>
     <p><strong>DB Drivers</strong> — Backend data connectivity layer. Mentioned in the high-level architecture but not part of the current context binding product scope. Will be addressed in a future phase.</p>
+  </div>
+
+  <!-- TBD — REQUIRES R&D SIGN-OFF -->
+  <div class="oos-section" style="background:#fffbeb;border-color:#fde68a">
+    <h3 style="color:#92400e">TBD — Requires R&D Sign-Off</h3>
+    <p style="margin-bottom:12px"><strong>Context filter = hard ceiling for UoU interactions</strong> — Context-level filters set by the site builder define the <strong>maximum dataset boundary</strong>. When UoU filters are applied at runtime by the site visitor (search, sort, filter dropdown), they can only <strong>narrow</strong> the results — never widen them. The visitor cannot discover or access items that were filtered out at the context level.</p>
+    <p style="font-size:12px;color:#78350f;line-height:1.6"><strong>R&D implication:</strong> The runtime query pipeline must enforce context-level filters as a hard constraint. UoU filters are intersected with (applied on top of) the context filter, never replace it. This must be guaranteed regardless of implementation (client-side, server-side, or hybrid). <em>Requires explicit R&D approval.</em></p>
   </div>
 
   <!-- FOOTER -->
