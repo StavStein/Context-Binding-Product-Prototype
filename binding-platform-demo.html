@@ -753,9 +753,15 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .prop-row.active-bind{border-color:var(--acc);background:var(--acc-d)}
 
 .prop-main{flex:1;min-width:0;padding:5px 10px 6px}
+.prop-row.value-preview .prop-main{background:var(--sur);border:none}
 .prop-val{display:flex;align-items:center;gap:5px;min-height:18px}
 .prop-static{background:transparent;border:none;outline:none;color:var(--t1);font-size:12px;font-family:'DM Sans',sans-serif;width:100%}
 .prop-static::placeholder{color:var(--t3);font-style:italic}
+.prop-preview-wrap{display:flex;flex-direction:column;gap:4px;flex:1;min-width:0}
+.prop-preview-label{font-size:10px;color:var(--t3);font-weight:500;letter-spacing:.02em}
+.prop-static-preview{font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif;line-height:1.45;max-height:40px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;text-overflow:ellipsis;width:100%;cursor:default;user-select:none;padding:5px 0 5px 10px;border-left:3px solid var(--b2);background:transparent}
+.prop-static-preview.empty{color:var(--t3);font-style:italic;border-left-color:var(--b1)}
+.prop-row.bound .prop-preview-wrap{display:none}
 .prop-bound-chip{display:none;align-items:center;gap:4px;background:var(--grn-d);border:1px solid var(--grn-b);border-radius:4px;padding:2px 7px;font-family:'DM Mono',monospace;font-size:10px;color:var(--grn);cursor:pointer;white-space:nowrap;max-width:180px;overflow:hidden;text-overflow:ellipsis}
 .prop-bound-detail{flex-direction:column;align-items:flex-start;gap:3px;max-width:none;overflow:visible;background:transparent;border:none;padding:0;flex:1}
 .prop-bound-ctx{font-size:10px;color:var(--t3);letter-spacing:.3px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:color .12s}
@@ -892,6 +898,7 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .ctx-card{background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative;margin:6px 14px}
 .ctx-card.primary{border-left:3px solid var(--acc);background:color-mix(in srgb, var(--acc) 4%, var(--sur2))}
 .ctx-card.unconfigured{border-left:3px solid var(--yel);border-style:dashed;border-left-style:solid;opacity:.85}
+.ctx-card.broken{border-left:3px solid var(--red);border-style:dashed;border-left-style:solid}
 .ctx-card-lock{display:flex;align-items:center;gap:4px;margin-top:4px;font-size:10px;color:var(--t3);font-style:italic}
 .ctx-card-lock svg{width:10px;height:10px;fill:none;stroke:var(--t3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .ctx-card-name{font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;flex-wrap:wrap;padding-right:60px}
@@ -1226,6 +1233,11 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .et-panel-input::placeholder{color:var(--t3);font-style:italic}
 .et-panel-input.bound{display:none}
 .et-panel-input-wrap.bound .et-panel-input{display:none}
+.et-panel-preview-wrap{flex:1;min-width:0;display:flex;flex-direction:column;gap:4px}
+.et-panel-preview-label{font-size:10px;color:var(--t3);font-weight:500;letter-spacing:.02em}
+.et-panel-preview{flex:1;min-width:0;padding:5px 0 5px 10px;border-left:3px solid var(--b2);background:transparent;font-size:12px;color:var(--t2);font-family:'DM Sans',sans-serif;line-height:1.45;max-height:52px;overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;text-overflow:ellipsis;cursor:default;user-select:none}
+.et-panel-preview.empty{color:var(--t3);font-style:italic;border-left-color:var(--b1)}
+.et-panel-input-wrap.bound .et-panel-preview-wrap{display:none}
 .et-panel-bound-tag{display:none;flex:1;min-width:0;padding:6px 10px;background:var(--grn-d);border:1px solid var(--grn-b);border-radius:8px;align-items:center;gap:6px;cursor:default}
 .et-panel-input-wrap.bound .et-panel-bound-tag{display:flex}
 .et-panel-bound-tag-ctx{font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;white-space:nowrap}
@@ -6887,7 +6899,7 @@ function updateInspectorToggle() {
 
 function renderActionBar() {
   const bar = document.getElementById('action-bar');
-  if (!S.sel || S.inspectorOpen) { bar.classList.remove('open'); updateInspectorToggle(); return; }
+  if (!S.sel) { bar.classList.remove('open'); updateInspectorToggle(); return; }
   const def = EL_DEFS[S.sel];
   if (!def) { bar.classList.remove('open'); updateInspectorToggle(); return; }
   const actions = ACTION_BAR_CONFIG[def.type];
@@ -6960,7 +6972,12 @@ function actionEditText() {
   if (!S.sel) return;
   const def = EL_DEFS[S.sel];
   if (!def || def.type !== 'Text') return;
-  openEtPanel();
+  const valueBound = S.bindings[S.sel + '|Value'];
+  if (valueBound) {
+    openEtPanel();
+  } else {
+    startInlineEdit(S.sel);
+  }
 }
 
 function openEtPanel() {
@@ -6986,12 +7003,20 @@ function renderEtPanel() {
   const tpl = def.repTemplate || elId;
   const staticVal = S.staticValues[tpl + '|Value'] || '';
 
+  const valEl = findValEl(elId);
+  const previewRaw = staticVal || (valEl ? valEl.textContent.trim() : '');
+  const previewText = previewRaw || 'No content yet';
+  const previewEmpty = !previewRaw;
+
   let html = '';
 
   html += `<div class="et-panel-row">
     <div class="et-panel-label">Text</div>
     <div class="et-panel-input-wrap ${valueBind ? 'bound' : ''}">
-      <input class="et-panel-input" placeholder="This is a title" value="${staticVal}" oninput="onEtPanelInput('${elId}',this.value)">
+      <div class="et-panel-preview-wrap">
+        <span class="et-panel-preview-label">On stage</span>
+        <div class="et-panel-preview${previewEmpty ? ' empty' : ''}">${previewText.replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>
+      </div>
       <div class="et-panel-bound-tag">
         <span class="et-panel-bound-tag-ctx">${valueCtx ? valueCtx.name : ''}</span>
         <span class="et-panel-bound-tag-field">${valueBind ? valueBind.fieldName : ''}<span class="et-panel-bound-tag-x" onclick="etPanelUnbind('${elId}','Value',event)">✕</span></span>
@@ -7034,7 +7059,8 @@ function etPanelConnect(elId, propKey, e) {
 function etPanelUnbind(elId, propKey, e) {
   e.stopPropagation();
   unbind(elId, propKey, e);
-  renderEtPanel();
+  closeEtPanel();
+  renderActionBar();
 }
 
 function actionSettings() {
@@ -7227,6 +7253,10 @@ function onInlineInput(e) {
   S.staticValues[tpl + '|Value'] = val;
   const propInput = document.querySelector(`#pr-${elId}-Value .prop-static`);
   if (propInput) propInput.value = val;
+  const propPreview = document.querySelector(`#pr-${elId}-Value .prop-static-preview`);
+  if (propPreview) { propPreview.textContent = val || 'No content yet'; propPreview.classList.toggle('empty', !val); }
+  const etPreview = document.querySelector('.et-panel-preview');
+  if (etPreview) { etPreview.textContent = val || 'No content yet'; etPreview.classList.toggle('empty', !val); }
   if (def?.repTemplate) {
     Object.keys(EL_DEFS).forEach(sibId => {
       if (sibId === elId) return;
@@ -8763,14 +8793,21 @@ function renderPropRow(elId, prop) {
     }
   }
 
+  const isTextValue = EL_DEFS[elId]?.type === 'Text' && prop.k === 'Value';
+  const previewRaw = staticVal || '';
+  const previewDisplay = previewRaw ? previewRaw.replace(/</g,'&lt;').replace(/>/g,'&gt;') : 'No content yet';
+  const staticFieldHtml = isTextValue
+    ? `<div class="prop-preview-wrap"><span class="prop-preview-label">On stage</span><div class="prop-static-preview${previewRaw ? '' : ' empty'}">${previewDisplay}</div></div>`
+    : `<input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
+             oninput="onStaticInput('${elId}','${prop.k}',this.value)">`;
+
   return `<div class="prop-wrap" id="pr-${elId}-${prop.k.replace(/\s/g,'_')}">
     <div class="prop-key">${prop.k}</div>
     <div class="prop-row-wrap">
-      <div class="prop-row ${isBound?'bound':''} ${isActiveDd?'active-bind':''}">
+      <div class="prop-row ${isBound?'bound':''} ${isActiveDd?'active-bind':''} ${isTextValue?'value-preview':''}">
         <div class="prop-main">
           <div class="prop-val">
-            <input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
-                   oninput="onStaticInput('${elId}','${prop.k}',this.value)">
+            ${staticFieldHtml}
             ${isBound && ctx ? `<div class="prop-bound-chip prop-bound-detail">
               <span class="prop-bound-ctx" ${isFnLibCtx(b.ctxId) ? `title="Open ${getFnLibName(b.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${ctx.icon} ${resolveCtxName(ctx.id)}</span>
               <span class="prop-bound-field">${displayFieldName(elId, b)}<span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>
@@ -9082,7 +9119,12 @@ function unbind(elId, propKey, e) {
 
   refreshElementBindTags();
 
-  toast('Binding removed');
+  if (propKey === 'Value' && S.sel === elId) {
+    closeEtPanel();
+    toast('Binding removed. You can edit the text directly on the stage.', true);
+  } else {
+    toast('Binding removed');
+  }
   updatePropRowDOM(elId, propKey);
   renderRP();
   if (def?.isMultiState) {
@@ -10560,31 +10602,17 @@ function renderListSettings(ctxId, ctx, configs) {
   </svg>`;
 
   const manualFilterCount = (S.filterRules[ctxId]||[]).length;
-  const totalFilterCount = manualFilterCount + (autoFilterActive ? 1 : 0);
-  const filterDesc = totalFilterCount > 0
-    ? totalFilterCount + ' filter' + (totalFilterCount > 1 ? 's' : '') + (autoFilterActive && manualFilterCount === 0 ? ' (auto)' : '')
-    : 'No filters';
-  const relColor = autoFilterActive ? 'var(--acc)' : '#888';
-  const relLabel = autoRel?.isStatic
-    ? resolveRelTokens(autoRelKey, autoRel.label)
-    : (autoFilterActive
-      ? `Filtered to match each <b>${autoFilterParent?.name || ''}</b> item`
-      : `Can filter to match each <b>${autoFilterParent?.name || ''}</b> item`);
-  const relSubtext = autoRel?.isStatic ? 'Static filter configured on this list' : 'Reference field detected between collections';
-  const relIcon = autoRel?.isStatic
-    ? `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${relColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`
-    : `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${relColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
-  const autoFilterHtml = autoRel ? `<div style="margin-top:6px;padding:6px 8px;border-radius:6px;background:color-mix(in srgb, ${relColor} 6%, transparent);border:1px solid color-mix(in srgb, ${relColor} 15%, transparent);font-size:11px;line-height:1.5;color:var(--t2);display:flex;align-items:flex-start;gap:6px">${relIcon}<div>${relLabel}<br><span style="opacity:.6;font-size:10px">${relSubtext}</span></div></div>` : '';
+  const totalFilterCount = (autoRel && autoRel.active ? 1 : 0) + manualFilterCount;
+  const filterCountLine = totalFilterCount > 0 ? totalFilterCount + ' filter' + (totalFilterCount > 1 ? 's' : '') : 'No filters';
 
   const filterRow = `<div class="ctx-cfg-row">
-    <div class="ctx-cfg-lbl">Filter ${autoFilterActive ? `<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:color-mix(in srgb, var(--acc) 12%, transparent);color:var(--acc);margin-left:4px;font-weight:500">${filterDesc}</span>` : ''}<span class="cfg-info">?<span class="cfg-info-tip">Rules that determine which items from the collection are displayed</span></span></div>
+    <div class="ctx-cfg-lbl">Filter <span class="cfg-info">?<span class="cfg-info-tip">Rules that determine which items from the collection are displayed</span></span></div>
     <div class="ctx-cfg-right">
-      ${autoFilterHtml}
-      <div class="cfg-prop-row ${filterBound?'bound':''}" style="${autoFilterHtml ? 'margin-top:6px' : ''}">
+      <div class="cfg-prop-row ${filterBound?'bound':''}">
         <div class="cfg-main">
           <div class="cfg-val">
-            <div class="sf-inline-entry" onclick="openSfDialog('filter')">
-              <span class="sf-inline-desc">${autoFilterHtml ? (manualFilterCount > 0 ? manualFilterCount + ' manual filter' + (manualFilterCount > 1 ? 's' : '') : 'No manual filters') : filterDesc}</span>
+            <div class="sf-inline-entry" onclick="openSfDialog('filter')" title="Add or edit filter rules">
+              <span class="sf-inline-desc">Filters: ${filterCountLine}</span>
               <span class="sf-inline-arrow">›</span>
             </div>
             ${filterBound && fSrc ? `<div class="cfg-bound-detail">
@@ -10643,7 +10671,8 @@ function renderListSettings(ctxId, ctx, configs) {
   const pageSizeCfg = {key:'pageSize', label:'Page size', input:'number', default:'36', description:'Max items loaded per page in the repeater'};
   const pageSizeRow = renderCfgRow(pageSizeCfg, ctxId);
 
-  const hasOtherCfgs = configs.length > 0;
+  const configsToShow = autoRel ? configs.filter(c => c.key !== 'filterByArticle') : configs;
+  const hasOtherCfgs = configsToShow.length > 0;
 
   return `<div class="ctx-settings-section">
     <div class="ctx-settings-section-lbl">List Configuration</div>
@@ -10654,7 +10683,7 @@ function renderListSettings(ctxId, ctx, configs) {
   </div>
   ${hasOtherCfgs ? `<div class="ctx-settings-section">
     <div class="ctx-settings-section-lbl">General Settings</div>
-    ${configs.map(cfg => renderCfgRow(cfg, ctxId)).join('')}
+    ${configsToShow.map(cfg => renderCfgRow(cfg, ctxId)).join('')}
   </div>` : ''}`;
 }
 
@@ -16144,6 +16173,569 @@ const PRODUCT_SPECS = {
         <div class="spec-text" style="margin-top:8px">The Binding Controller is the bridge between the inspector and the Connect · Value Panel. It shows the current state and provides entry/exit points for binding operations.</div>`
       }
     ]
+  },
+
+  'context-card': {
+    title: 'Context Card',
+    component: 'Context Instance (.ctx-card)',
+    status: 'in-progress',
+    owner: 'Context Binding Team',
+    lastUpdated: 'Mar 2026',
+    version: '2.0',
+    sections: [
+      {
+        title: '📌 Overview',
+        type: 'html',
+        content: `<div class="spec-text" style="line-height:1.8">
+          The <b>Context Card</b> represents a single data source instance attached to a page or container. It is the primary surface for understanding what data is available, where it comes from, and how it's configured.
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:140px">Concept</th><th>Description</th></tr>
+          <tr><td><b>Where it appears</b></td><td>In the Context section of the inspector panel, under the selected page or container.</td></tr>
+          <tr><td><b>Core parts</b></td><td>Name + type badge, source label, action menu (⚙ / &lt;/&gt; / ⋯), usage toggle, expandable fields list.</td></tr>
+          <tr><td><b>Role</b></td><td>Entry point to context configuration, source code, field exploration, and field binding via drag or click.</td></tr>
+        </table>`
+      },
+      {
+        title: '🏗️ Anatomy',
+        type: 'html',
+        content: `<div class="spec-wireframe">
+          <div class="spec-wireframe-label">Context Card — Anatomy</div>
+          <div class="spec-wireframe-body">
+            <svg viewBox="0 0 340 200" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:340px">
+              <rect x="1" y="1" width="338" height="198" rx="8" stroke="#c8c8d8" fill="#f5f5f8"/>
+              <!-- Name row -->
+              <text x="12" y="24" font-size="12" font-family="DM Sans" fill="#1a1a2e" font-weight="500">Weather App</text>
+              <rect x="104" y="11" width="42" height="18" rx="3" fill="#3b82f612" stroke="#3b82f640"/>
+              <text x="112" y="24" font-size="9" font-family="DM Mono" fill="#3b82f6" font-weight="500">object</text>
+              <!-- Source -->
+              <text x="12" y="40" font-size="10" font-family="DM Mono" fill="#8888a8">from Custom Code</text>
+              <!-- Menu buttons -->
+              <rect x="258" y="7" width="22" height="22" rx="5" stroke="#c8c8d8" fill="white"/>
+              <text x="262" y="22" font-size="8" font-family="DM Mono" fill="#8888a8" font-weight="700">&lt;/&gt;</text>
+              <rect x="284" y="7" width="22" height="22" rx="5" stroke="#c8c8d8" fill="white"/>
+              <text x="291" y="21" font-size="11" fill="#8888a8">⚙</text>
+              <text x="316" y="22" font-size="14" fill="#8888a8">⋯</text>
+              <!-- Divider -->
+              <line x1="12" y1="50" x2="328" y2="50" stroke="#e0e0ea"/>
+              <!-- Usage toggle -->
+              <text x="22" y="66" font-size="10" fill="#8888a8">›</text>
+              <text x="32" y="66" font-size="10" font-family="DM Mono" fill="#e84393" font-weight="600">In use</text>
+              <!-- Fields list (expanded) -->
+              <text x="16" y="86" font-size="9" font-family="DM Mono" fill="#8888a8" letter-spacing="0.3">WHAT THIS CONTEXT EXPOSES</text>
+              <rect x="12" y="94" width="316" height="24" rx="4" fill="white" stroke="#e0e0ea"/>
+              <text x="20" y="110" font-size="10" font-family="DM Mono" fill="#4a4a6a">city</text>
+              <text x="280" y="110" font-size="9" font-family="DM Mono" fill="#8888a8">string</text>
+              <rect x="12" y="122" width="316" height="24" rx="4" fill="white" stroke="#e0e0ea"/>
+              <text x="20" y="138" font-size="10" font-family="DM Mono" fill="#4a4a6a">temperature</text>
+              <text x="280" y="138" font-size="9" font-family="DM Mono" fill="#8888a8">number</text>
+              <rect x="12" y="150" width="316" height="24" rx="4" fill="white" stroke="#e0e0ea"/>
+              <text x="20" y="166" font-size="10" font-family="DM Mono" fill="#4a4a6a">condition</text>
+              <text x="280" y="166" font-size="9" font-family="DM Mono" fill="#8888a8">enum</text>
+              <!-- Open Source link -->
+              <text x="12" y="190" font-size="10" font-family="DM Sans" fill="#3b82f6">📂 Open Source</text>
+            </svg>
+          </div>
+        </div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:160px">Part</th><th>Description</th></tr>
+          <tr><td><b>Context name</b></td><td>Display name of the context instance. Can be renamed via the ⋯ menu. Shows the instance name if customized, otherwise the original context name.</td></tr>
+          <tr><td><b>Type badge</b></td><td><code>object</code> (single item) or <code>list</code> (collection with items). Lists also show item count.</td></tr>
+          <tr><td><b>Source label</b></td><td>"from {source}" — indicates origin: CMS, Custom Code, Wix Stores, Wix Bookings, etc.</td></tr>
+          <tr><td><b>Code button <code>&lt;/&gt;</code></b></td><td>Visible only for Custom Code sources. Opens the source code file in the code editor.</td></tr>
+          <tr><td><b>Gear button ⚙</b></td><td>Opens the configuration panel. Visible when the context has configurable properties.</td></tr>
+          <tr><td><b>Dots menu ⋯</b></td><td>Actions: Configuration, Open Source / Open Collection / Open in Dashboard, Rename, Remove.</td></tr>
+          <tr><td><b>Usage toggle</b></td><td>Expandable section. Shows "In use" (pink) when fields are bound to elements, or "Not connected" (gray) when idle.</td></tr>
+          <tr><td><b>Fields list</b></td><td>Expandable list of all exposed fields with type indicators. Organized into sections: Data fields, Actions, Metadata, System fields.</td></tr>
+          <tr><td><b>Auto-filter row</b></td><td>Appears when a reference relationship is detected between this context and another. Shows a toggle to enable/disable automatic filtering.</td></tr>
+        </table>`
+      },
+      {
+        title: '🎨 Visual States',
+        type: 'html',
+        content: `<div class="spec-text">The context card adapts its appearance based on the context type, source, configuration status, and usage.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:180px">State</th><th>Appearance</th></tr>
+          <tr>
+            <td><b>Default</b></td>
+            <td>Standard card with gray border. Name + type badge + source label. Usage toggle shows "Not connected".</td>
+          </tr>
+          <tr>
+            <td><b>Primary (page context)</b></td>
+            <td>Left blue accent border. Slightly tinted blue background. Shows a "Page" badge and lock message: "Comes with this page". Cannot be removed.</td>
+          </tr>
+          <tr>
+            <td><b>Broken source</b> <span style="font-size:9px;padding:1px 5px;border-radius:3px;background:var(--yel);color:#000;font-weight:600;vertical-align:middle">TBD</span></td>
+            <td>Dashed border with left red accent. Shows red "Broken" badge. Error message: "Source unavailable — collection, app, or code file was removed". Exact recovery UX (reconnect flow, remove prompt) pending product decision.</td>
+          </tr>
+          <tr>
+            <td><b>In use</b></td>
+            <td>Usage toggle shows <b style="color:#e84393">In use</b> in pink. Hovering the toggle highlights all bound elements on the canvas.</td>
+          </tr>
+          <tr>
+            <td><b>Not connected</b></td>
+            <td>Usage toggle shows "Not connected" in gray. Context is available but no fields are bound to any element.</td>
+          </tr>
+          <tr>
+            <td><b>Fields expanded</b></td>
+            <td>Expandable fields list is open, showing all data fields, actions, metadata, and system fields in organized sections.</td>
+          </tr>
+          <tr>
+            <td><b>Custom Code source</b></td>
+            <td>Shows <code>&lt;/&gt;</code> code button in the menu area. Opens source code file on click. Dots menu includes "Open Source".</td>
+          </tr>
+          <tr>
+            <td><b>CMS source</b></td>
+            <td>No code button. Dots menu shows "Open Collection". Fields list includes "Add field" action.</td>
+          </tr>
+          <tr>
+            <td><b>App source</b></td>
+            <td>No code button. Dots menu shows "Open in Dashboard".</td>
+          </tr>
+          <tr>
+            <td><b>System context</b></td>
+            <td>Appears in the collapsible "System Contexts" section. Cannot be removed (remove option is disabled with tooltip explanation).</td>
+          </tr>
+          <tr>
+            <td><b>With auto-filter</b></td>
+            <td>Shows a filter row with link icon, relationship label, toggle switch, and info tooltip. Filter can be turned on/off with a confirmation step when disabling.</td>
+          </tr>
+          <tr>
+            <td><b>Inherited (from parent)</b></td>
+            <td>Not shown as a card — instead listed in the "Also available from parent containers" section with a navigation arrow to jump to the parent.</td>
+          </tr>
+        </table>`
+      },
+      {
+        title: '🖼 Live State Gallery',
+        type: 'html',
+        content: `<div class="spec-text" style="margin-bottom:6px">Each card is rendered at actual panel width using real CSS classes. Labels indicate the state and source type.</div>
+        <div style="font-size:9px;color:var(--t3);margin-bottom:14px;display:flex;gap:14px;flex-wrap:wrap">
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--b3);display:inline-block"></span> Default</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--acc);display:inline-block"></span> Primary</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:var(--red);display:inline-block"></span> Broken source</span>
+          <span style="display:flex;align-items:center;gap:4px"><span style="width:8px;height:8px;border-radius:50%;background:#e84393;display:inline-block"></span> In use</span>
+        </div>
+
+        <div style="overflow-x:auto">
+        <table style="border-collapse:separate;border-spacing:12px 14px;width:100%">
+          <thead><tr>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Default · Not connected</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Primary · Page context</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Broken source <span style="font-size:8px;padding:1px 4px;border-radius:2px;background:var(--yel);color:#000;font-weight:700;vertical-align:middle;text-transform:none;letter-spacing:0">TBD</span></th>
+          </tr></thead>
+          <tbody>
+          <tr>
+            <!-- Default · Not connected -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">📰 Articles <span class="type-badge tb-list">list · 12 items</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from CMS</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)">
+                  <span>›</span>
+                  <span>Not connected</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- Primary · Page context -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:color-mix(in srgb, var(--acc) 4%, var(--sur2));border:1px solid var(--b2);border-left:3px solid var(--acc);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">🛍 Current Product <span class="type-badge tb-obj">object</span><span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Wix Stores</div>
+                <div style="display:flex;align-items:center;gap:4px;margin-top:4px;font-size:10px;color:var(--t3);font-style:italic">
+                  <svg viewBox="0 0 24 24" style="width:10px;height:10px;fill:none;stroke:var(--t3);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Comes with this page
+                </div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3)">›</span>
+                  <span>In use</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- Broken source (TBD) -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px dashed var(--b2);border-left:3px solid var(--red);border-left-style:solid;border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">📰 Articles <span class="type-badge tb-list">list</span><span class="type-badge" style="background:color-mix(in srgb, var(--red) 15%, transparent);color:var(--red);font-weight:600">Broken</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from CMS</div>
+                <div style="display:flex;align-items:center;gap:4px;margin-top:4px;font-size:10px;color:var(--red)">
+                  <svg viewBox="0 0 24 24" style="width:10px;height:10px;fill:none;stroke:var(--red);stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg> Source unavailable — collection was removed
+                </div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)">
+                  <span>›</span>
+                  <span>Not connected</span>
+                </div>
+              </div>
+              <div style="font-size:9px;color:var(--yel);margin-top:5px;font-style:italic;padding:0 2px">TBD — Recovery UX (reconnect, remove prompt) pending product decision</div>
+            </div></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <!-- Row 2 -->
+        <div style="overflow-x:auto;margin-top:8px">
+        <table style="border-collapse:separate;border-spacing:12px 14px;width:100%">
+          <thead><tr>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Custom Code · In use</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">CMS · In use</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">System context</th>
+          </tr></thead>
+          <tbody>
+          <tr>
+            <!-- Custom Code · In use -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:80px">Weather App <span class="type-badge tb-obj">object</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Custom Code</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:var(--t3)">&lt;/&gt;</span>
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3)">›</span>
+                  <span>In use</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- CMS · In use -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">📰 Articles <span class="type-badge tb-list">list · 12 items</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from CMS</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3)">›</span>
+                  <span>In use</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- System context -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">⚙ Current User <span class="type-badge tb-obj">object</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from System</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)">
+                  <span>›</span>
+                  <span>Not connected</span>
+                </div>
+              </div>
+            </div></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <!-- Row 3 -->
+        <div style="overflow-x:auto;margin-top:8px">
+        <table style="border-collapse:separate;border-spacing:12px 14px;width:100%">
+          <thead><tr>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">With auto-filter (on)</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">With auto-filter (off)</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Inherited (from parent)</th>
+          </tr></thead>
+          <tbody>
+          <tr>
+            <!-- With auto-filter (on) -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">🛍 Products <span class="type-badge tb-list">list · 8 items</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Wix Stores</div>
+                <div style="display:flex;align-items:center;gap:8px;margin:6px 0 2px;padding:5px 8px;background:var(--b1);border:1px solid var(--b2);border-radius:5px;font-size:10px;color:var(--t2)">
+                  <div style="flex:1;display:flex;align-items:center;gap:5px">
+                    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Filtered by Category
+                  </div>
+                  <div style="position:relative;width:30px;height:16px;flex-shrink:0">
+                    <div style="position:absolute;inset:0;background:var(--acc);border-radius:8px"></div>
+                    <div style="position:absolute;width:12px;height:12px;border-radius:50%;background:white;top:2px;left:16px"></div>
+                  </div>
+                </div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3)">›</span>
+                  <span>In use</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- With auto-filter (off) -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:50px">🛍 Products <span class="type-badge tb-list">list · 8 items</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Wix Stores</div>
+                <div style="display:flex;align-items:center;gap:8px;margin:6px 0 2px;padding:5px 8px;background:var(--b1);border:1px solid var(--b2);border-radius:5px;font-size:10px;color:var(--t3)">
+                  <div style="flex:1;display:flex;align-items:center;gap:5px;opacity:.6">
+                    <svg viewBox="0 0 24 24" style="width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+                    Filtered by Category
+                  </div>
+                  <div style="position:relative;width:30px;height:16px;flex-shrink:0">
+                    <div style="position:absolute;inset:0;background:var(--b2);border-radius:8px"></div>
+                    <div style="position:absolute;width:12px;height:12px;border-radius:50%;background:white;top:2px;left:2px"></div>
+                  </div>
+                </div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:var(--t3)">
+                  <span>›</span>
+                  <span>Not connected</span>
+                </div>
+              </div>
+            </div></td>
+            <!-- Inherited (from parent) -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="padding:0">
+                <div style="font-size:10px;color:var(--t3);margin-bottom:4px;font-family:'DM Mono',monospace;text-transform:uppercase;letter-spacing:.3px">Also available from parent</div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:500;color:var(--t2);background:var(--sur2);border:1px solid var(--b2);opacity:.75">
+                  <span>📰 Articles</span>
+                  <span style="font-size:10px;color:var(--t3);margin-left:auto">→</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;padding:8px 10px;border-radius:8px;font-size:12px;font-weight:500;color:var(--t2);background:var(--sur2);border:1px solid var(--b2);opacity:.75;margin-top:4px">
+                  <span>☁️ Weather App</span>
+                  <span style="font-size:10px;color:var(--t3);margin-left:auto">→</span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size:9px;color:var(--t3);margin-top:5px;font-style:italic;padding:0 2px">Not a card — listed as clickable items that navigate to the parent container.</div>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        </div>
+
+        <!-- Row 4: Fields expanded -->
+        <div style="overflow-x:auto;margin-top:8px">
+        <table style="border-collapse:separate;border-spacing:12px 14px;width:100%">
+          <thead><tr>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Fields expanded · In use</th>
+            <th style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;text-align:left;padding:0 0 4px;vertical-align:bottom">Dots menu open</th>
+          </tr></thead>
+          <tbody>
+          <tr>
+            <!-- Fields expanded -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:80px">Weather App <span class="type-badge tb-obj">object</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Custom Code</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:var(--t3)">&lt;/&gt;</span>
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t3);font-size:16px;padding:2px 4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3);display:inline-block;transform:rotate(90deg)">›</span>
+                  <span>In use</span>
+                </div>
+                <div style="border-top:1px solid var(--b1);margin-top:4px;padding-top:6px">
+                  <div style="font-size:10px;color:var(--t3);text-transform:uppercase;letter-spacing:.3px;padding:0 4px 6px;font-family:'DM Mono',monospace">What this context exposes</div>
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;margin-bottom:2px;font-size:11px;font-family:'DM Mono',monospace;color:var(--t1)">
+                    <span style="font-size:9px;color:var(--t3)">Aa</span> city
+                    <span style="margin-left:auto;font-size:9px;color:var(--t3)">string</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;margin-bottom:2px;font-size:11px;font-family:'DM Mono',monospace;color:var(--t1);background:color-mix(in srgb, #e84393 6%, transparent)">
+                    <span style="font-size:9px;color:var(--t3)">#</span> temperature
+                    <span style="margin-left:auto;font-size:9px;color:#e84393;font-weight:600">bound</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;margin-bottom:2px;font-size:11px;font-family:'DM Mono',monospace;color:var(--t1)">
+                    <span style="font-size:9px;color:var(--t3)">◇</span> condition
+                    <span style="margin-left:auto;font-size:9px;color:var(--t3)">enum</span>
+                  </div>
+                  <div style="display:flex;align-items:center;gap:6px;padding:4px 6px;border-radius:4px;font-size:11px;font-family:'DM Mono',monospace;color:var(--t1);background:color-mix(in srgb, #e84393 6%, transparent)">
+                    <span style="font-size:9px;color:var(--t3)">🖼</span> weatherImage
+                    <span style="margin-left:auto;font-size:9px;color:#e84393;font-weight:600">bound</span>
+                  </div>
+                </div>
+              </div>
+            </div></td>
+            <!-- Dots menu open -->
+            <td style="vertical-align:top"><div style="width:260px;pointer-events:none;position:relative">
+              <div style="background:var(--sur2);border:1px solid var(--b2);border-radius:8px;padding:8px 10px;position:relative">
+                <div style="font-weight:500;font-size:12px;display:flex;align-items:center;gap:4px;padding-right:80px">Weather App <span class="type-badge tb-obj">object</span></div>
+                <div style="font-size:10px;color:var(--t3);font-family:'DM Mono',monospace;margin-top:2px">from Custom Code</div>
+                <div style="position:absolute;top:7px;right:10px;display:flex;align-items:center;gap:4px">
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;color:var(--t3)">&lt;/&gt;</span>
+                  <span style="width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;font-size:12px;color:var(--t3)">⚙</span>
+                  <span style="color:var(--t1);font-size:16px;padding:2px 4px;background:var(--b2);border-radius:4px">⋯</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:5px;margin-top:5px;padding:4px 0 0;border-top:1px solid var(--b1);font-size:10px;font-family:'DM Mono',monospace;color:#e84393;font-weight:600">
+                  <span style="color:var(--t3)">›</span>
+                  <span>In use</span>
+                </div>
+              </div>
+              <div style="position:absolute;right:10px;top:32px;background:var(--sur3);border:1px solid var(--b2);border-radius:8px;padding:4px;min-width:150px;z-index:5;box-shadow:0 8px 30px #0002">
+                <div style="padding:7px 10px;border-radius:5px;font-size:11px;white-space:nowrap">⚙️ Configuration</div>
+                <div style="padding:7px 10px;border-radius:5px;font-size:11px;white-space:nowrap">📂 Open Source</div>
+                <div style="height:1px;background:var(--b2);margin:2px 4px"></div>
+                <div style="padding:7px 10px;border-radius:5px;font-size:11px;white-space:nowrap">✏️ Rename</div>
+                <div style="height:1px;background:var(--b2);margin:2px 4px"></div>
+                <div style="padding:7px 10px;border-radius:5px;font-size:11px;white-space:nowrap;color:#ef4444">🗑 Remove context</div>
+              </div>
+            </div></td>
+          </tr>
+          </tbody>
+        </table>
+        </div>`
+      },
+      {
+        title: '📋 Dots Menu (⋯) Actions',
+        type: 'html',
+        content: `<div class="spec-text">The 3-dot dropdown menu provides context-level actions. Available actions vary by source type and context role.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:180px">Action</th><th>Condition</th><th>Behavior</th></tr>
+          <tr>
+            <td><b>⚙️ Configuration</b></td>
+            <td>Context has <code>config</code> array</td>
+            <td>Opens the context configuration panel (slides in from the right, replacing the context list)</td>
+          </tr>
+          <tr>
+            <td><b>📂 Open Source</b></td>
+            <td>Custom Code contexts</td>
+            <td>Opens the code editor with the context's source file</td>
+          </tr>
+          <tr>
+            <td><b>📂 Open Collection</b></td>
+            <td>CMS contexts</td>
+            <td>Deep-link to the CMS collection editor (external)</td>
+          </tr>
+          <tr>
+            <td><b>📂 Open in Dashboard</b></td>
+            <td>App contexts (Stores, Bookings)</td>
+            <td>Deep-link to the app's dashboard (external)</td>
+          </tr>
+          <tr>
+            <td><b>✏️ Rename</b></td>
+            <td>Always</td>
+            <td>Inline rename — card name becomes an editable input</td>
+          </tr>
+          <tr>
+            <td><b>🗑 Remove context</b></td>
+            <td>Not primary page context, not System</td>
+            <td>Confirmation dialog → removes context from scope. Disabled with tooltip for page/system contexts.</td>
+          </tr>
+        </table>`
+      },
+      {
+        title: '⚙️ Configuration Panel',
+        type: 'html',
+        content: `<div class="spec-text">Opened via the gear button or "Configuration" in the dots menu. Panel slides in, replacing the context list. Contains a back button to return.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:160px">Section</th><th>Description</th></tr>
+          <tr>
+            <td><b>Header (row 1)</b></td>
+            <td>Context icon + name + type badge</td>
+          </tr>
+          <tr>
+            <td><b>Header (row 2)</b></td>
+            <td>"from {source}" label on the left. "Open Source / Open Collection / Open in Dashboard" button on the right. Custom Code contexts show <code>&lt;/&gt;</code> icon instead of 📂.</td>
+          </tr>
+          <tr>
+            <td><b>Instance Name</b></td>
+            <td>Editable input to rename this specific instance. Useful when multiple instances of the same source are in scope.</td>
+          </tr>
+          <tr>
+            <td><b>General Settings</b></td>
+            <td>Config options defined by the context (selects, toggles, date pickers, number inputs). Each can be bound to a data source via the bind button.</td>
+          </tr>
+          <tr>
+            <td><b>List-specific settings</b></td>
+            <td>For <code>list</code> type: Filter rules, Sort configuration, Limit, Random sort toggle. Includes auto-filter status if a relationship is detected.</td>
+          </tr>
+        </table>`
+      },
+      {
+        title: '🔀 Source Types',
+        type: 'html',
+        content: `<div class="spec-text">The card adapts its UI elements based on the context's source type.</div>
+        <table class="spec-table" style="margin-top:12px">
+          <tr><th style="width:140px">Source</th><th>Code btn</th><th>Menu action</th><th>Config panel link</th><th>Bound property hint</th></tr>
+          <tr>
+            <td><b>Custom Code</b></td>
+            <td><code>&lt;/&gt;</code> button</td>
+            <td>📂 Open Source</td>
+            <td><code>&lt;/&gt;</code> Open Source</td>
+            <td>"ƒ Defined in code — <u>open source file</u>"</td>
+          </tr>
+          <tr>
+            <td><b>CMS</b></td>
+            <td>—</td>
+            <td>📂 Open Collection</td>
+            <td>📂 Open Collection</td>
+            <td>"📝 Edit in CMS"</td>
+          </tr>
+          <tr>
+            <td><b>Wix Stores / Bookings</b></td>
+            <td>—</td>
+            <td>📂 Open in Dashboard</td>
+            <td>📂 Open in Dashboard</td>
+            <td>"📝 Edit in {App}"</td>
+          </tr>
+          <tr>
+            <td><b>System</b></td>
+            <td>—</td>
+            <td>📂 Open Source</td>
+            <td>📂 Open Source</td>
+            <td>— (no edit link)</td>
+          </tr>
+          <tr>
+            <td><b>Function Library</b></td>
+            <td colspan="4">Not a context card — appears in the Connect · Value Panel as a binding source. Clicking a bound function chip shows tooltip "Open {libName} code file" but does not navigate.</td>
+          </tr>
+        </table>`
+      },
+      {
+        title: '🖱️ Interactions',
+        type: 'html',
+        content: `<table class="spec-table">
+          <tr><th style="width:200px">Action</th><th>Result</th></tr>
+          <tr><td>Click <b>usage toggle</b> (› In use)</td><td>Expand/collapse the fields list</td></tr>
+          <tr><td>Hover <b>usage toggle</b> (when in use)</td><td>All bound elements on the canvas are highlighted</td></tr>
+          <tr><td>Click <b>&lt;/&gt; button</b></td><td>Open code editor for this context's source file</td></tr>
+          <tr><td>Click <b>⚙ gear button</b></td><td>Open configuration panel</td></tr>
+          <tr><td>Click <b>⋯ dots</b></td><td>Open the dropdown action menu</td></tr>
+          <tr><td>Click <b>field row</b> in expanded list</td><td>Add a new element bound to this field on the canvas</td></tr>
+          <tr><td>Click <b>context name</b> on bound chip</td><td>Navigate to the context's parent scope (page/section) and open its configuration</td></tr>
+          <tr><td>Click <b>rename</b></td><td>Card name becomes an inline editable input. Enter or blur to confirm.</td></tr>
+          <tr><td>Click <b>remove</b></td><td>Confirmation dialog. On confirm: context is removed from scope and all bindings to it are disconnected.</td></tr>
+          <tr><td><b>Auto-filter toggle off</b></td><td>Inline confirmation appears: "will no longer be filtered". Two actions: "Keep filter" / "Turn off".</td></tr>
+        </table>`
+      },
+      {
+        title: '🔗 Related Components',
+        type: 'html',
+        content: `<div class="spec-flow">
+          <div class="spec-flow-step">Add Context Panel</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step" style="border-color:var(--grn);color:var(--grn);font-weight:600">Context Card (this)</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Configuration Panel</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Binding Controller</div>
+          <div class="spec-flow-arrow">→</div>
+          <div class="spec-flow-step">Connect · Value Panel</div>
+        </div>
+        <div class="spec-text" style="margin-top:8px">The Context Card is the hub for managing a data source. It connects the Add Context flow to the Configuration Panel and provides the fields that appear in the Connect · Value Panel when binding element properties.</div>`
+      }
+    ]
   }
 };
 
@@ -16164,6 +16756,7 @@ function getSpecIdForElement(elId) {
   if (el && el.closest('.dd')) return 'connect-value-panel';
   if (el && el.closest('.c-repeater')) return 'repeater-context';
   if (el && el.closest('#modal')) return 'add-context-panel';
+  if (el && el.closest('.ctx-card')) return 'context-card';
   if (el && (el.closest('.prop-row-wrap') || el.closest('.et-panel-row') || el.closest('#et-panel'))) return 'binding-controller';
   return null;
 }
@@ -16210,6 +16803,9 @@ function _addSpecIndicators() {
   document.querySelectorAll('.c-repeater').forEach(function(el) {
     if (getSpecIdForElement(el.id)) el.classList.add('has-spec');
   });
+  document.querySelectorAll('.ctx-card').forEach(function(el) {
+    el.classList.add('has-spec');
+  });
   var dd = document.getElementById('dd');
   if (dd) dd.classList.add('has-spec');
   var modal = document.getElementById('modal');
@@ -16226,7 +16822,7 @@ document.addEventListener('click', function(e) {
   if (!S.productMode) return;
   var el = e.target.closest('.has-spec');
   if (!el) return;
-  var specId = getSpecIdForElement(el.id);
+  var specId = el.classList.contains('ctx-card') ? 'context-card' : getSpecIdForElement(el.id);
   if (specId) {
     e.preventDefault();
     e.stopPropagation();
@@ -17927,13 +18523,10 @@ function getAvailableFields() {
     if (b) ctx = findSource(b.ctxId);
   }
   if (!ctx) return [];
-  const topLevel = ctx.fields.filter(f => f.type !== 'array' && f.type !== 'multiReference');
-  if (topLevel.length > 0) return topLevel;
-  const itemsField = ctx.fields.find(f => f.type === 'array' && f.itemFields);
-  if (itemsField) {
-    return itemsField.itemFields.filter(f => f.type !== 'array' && f.type !== 'multiReference');
-  }
-  return [];
+  const topLevel = (ctx.fields || []).filter(f => f.type !== 'array' && f.type !== 'multiReference');
+  const itemsField = (ctx.fields || []).find(f => f.type === 'array' && f.itemFields);
+  const itemFields = itemsField ? (itemsField.itemFields || []).filter(f => f.type !== 'array' && f.type !== 'multiReference') : [];
+  return [...topLevel, ...itemFields];
 }
 
 function openSfDialog(type) {
@@ -17956,6 +18549,7 @@ function closeSfDialog() {
   document.querySelectorAll('.sf-rule-popup').forEach(p => p.classList.remove('open'));
   sfDialogType = null;
   sfTempRules = [];
+  renderBody();
 }
 
 function applySfDialog() {
@@ -18011,14 +18605,30 @@ function renderSfBody() {
     }).join('')
     + '<div class="sf-add" onclick="sfAddRule()">+ Add new sort</div>';
   } else {
+    const ctxId = S.ctxSettingsView || '';
+    let autoRel = S.ctxRelationships[ctxId] || null;
+    let autoRelKey = ctxId;
+    if (!autoRel) {
+      const matchKey = Object.keys(S.ctxRelationships || {}).find(function(k) { return k.endsWith('::' + ctxId); });
+      if (matchKey) { autoRel = S.ctxRelationships[matchKey]; autoRelKey = matchKey; }
+    }
+    const totalCount = (autoRel && autoRel.active ? 1 : 0) + sfTempRules.length;
     const titleEl = document.getElementById('sf-dialog-title');
-    titleEl.innerHTML = 'Filter <span class="sf-count">(' + sfTempRules.length + ')</span> <span class="sf-count">▾</span>';
+    titleEl.innerHTML = 'Filter <span class="sf-count">(' + totalCount + ')</span> <span class="sf-count">▾</span>';
+    const relLabel = autoRel ? resolveRelTokens(autoRelKey, autoRel.label) : '';
+    const relConfirmMsg = autoRel ? (resolveRelTokens(autoRelKey, autoRel.confirmMsg) || '') : '';
+    const safeRelKey = autoRelKey ? String(autoRelKey).replace(/'/g, "\\'") : '';
+    const ctx = findSource(ctxId);
+    const parentCtxName = autoRel && autoRel.linkedTo ? (findSource(autoRel.linkedTo)?.name || autoRel.linkedTo) : '';
+    const childCtxName = ctx ? (ctx.name || ctxId) : ctxId;
+    const infoTooltip = autoRel ? 'We detected a reference field between ' + childCtxName + ' and ' + parentCtxName + '. This filter was applied automatically so each item only shows its related data.' : '';
+    const autoToggleHtml = autoRel ? '<div class="ctx-filter-row' + (autoRel.active ? '' : ' off') + '" style="margin:0 20px 12px"><div class="ctx-filter-label"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> ' + relLabel + '<span class="ctx-filter-info"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4"/><circle cx="8" cy="5" r="0.5" fill="currentColor" stroke="none"/></svg><span class="ctx-filter-info-tip">' + infoTooltip + '</span></span></div><label class="ctx-filter-toggle" onclick="event.stopPropagation()"><input type="checkbox" ' + (autoRel.active ? 'checked' : '') + ' onchange="onFilterToggle(event,\'' + safeRelKey + '\');renderSfBody()"><span class="ctx-filter-slider"></span></label><div class="ctx-filter-confirm" id="filter-confirm-' + String(autoRelKey).replace(/"/g, '&quot;') + '"><div class="ctx-filter-confirm-msg">' + relConfirmMsg + '</div><div class="ctx-filter-confirm-actions"><button class="btn-keep" type="button" onclick="cancelFilterToggle(event,\'' + safeRelKey + '\')">Keep filter</button><button class="btn-off" type="button" onclick="confirmFilterOff(event,\'' + safeRelKey + '\');renderSfBody()">Turn off</button></div></div></div>' : '';
     if (sfTempRules.length === 0) {
-      body.innerHTML = '<div style="padding:20px;text-align:center;color:#999;font-size:13px">No filters applied</div>'
+      body.innerHTML = autoToggleHtml + '<div style="padding:20px;text-align:center;color:#999;font-size:13px">No filter rules added yet</div>'
         + '<div class="sf-add" onclick="sfAddRule()">+ Add new filter</div>';
       return;
     }
-    body.innerHTML = sfTempRules.map(function(rule, i) {
+    body.innerHTML = autoToggleHtml + sfTempRules.map(function(rule, i) {
       const fields = getAvailableFields();
       const fieldDef = rule.field ? fields.find(function(f) { return f.name === rule.field; }) : null;
       const refCtx = fieldDef && fieldDef.referencedCollection ? findSource(fieldDef.referencedCollection) : null;
