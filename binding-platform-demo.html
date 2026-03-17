@@ -853,6 +853,12 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .ctx-filter-row.off .ctx-filter-label{opacity:.6}
 .ctx-filter-label{flex:1;display:flex;align-items:center;gap:5px}
 .ctx-filter-label svg{width:11px;height:11px;stroke:currentColor;fill:none;stroke-width:2;flex-shrink:0}
+.ctx-filter-info{display:inline-flex;align-items:center;margin-left:2px;color:var(--t3);cursor:help;position:relative}
+.ctx-filter-info svg{width:13px;height:13px;opacity:.45;transition:opacity .15s}
+.ctx-filter-info:hover svg{opacity:1}
+.ctx-filter-info .ctx-filter-info-tip{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);width:220px;padding:8px 10px;border-radius:6px;background:var(--t1);color:var(--bg);font-size:11px;line-height:1.5;z-index:100;pointer-events:none;box-shadow:0 2px 8px rgba(0,0,0,.18)}
+.ctx-filter-info .ctx-filter-info-tip::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:var(--t1)}
+.ctx-filter-info:hover .ctx-filter-info-tip{display:block}
 .ctx-filter-toggle{position:relative;width:30px;height:16px;flex-shrink:0;cursor:pointer}
 .ctx-filter-toggle input{opacity:0;width:0;height:0;position:absolute}
 .ctx-filter-slider{position:absolute;inset:0;background:var(--b2);border-radius:8px;transition:.2s}
@@ -1300,6 +1306,9 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .ctx-gear{width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;
   cursor:pointer;color:var(--t3);background:transparent;transition:.15s;flex-shrink:0;font-size:12px;line-height:1}
 .ctx-gear:hover{color:var(--acc);border-color:var(--acc-b);background:var(--acc-d)}
+.ctx-code-btn{width:24px;height:24px;border-radius:5px;border:1px solid var(--b2);display:flex;align-items:center;justify-content:center;
+  cursor:pointer;color:var(--t3);background:transparent;transition:.15s;flex-shrink:0;font-family:'DM Mono',monospace;font-size:9px;font-weight:700;line-height:1}
+.ctx-code-btn:hover{color:var(--yel);border-color:color-mix(in srgb, var(--yel) 40%, transparent);background:color-mix(in srgb, var(--yel) 8%, transparent)}
 
 .ctx-settings-panel{animation:ctxSlideIn .18s ease}
 @keyframes ctxSlideIn{from{opacity:0;transform:translateX(8px)}to{opacity:1;transform:none}}
@@ -1311,10 +1320,14 @@ body.product-mode #modal.has-spec{outline-offset:2px}
 .ctx-back:hover{color:var(--t1);background:var(--sur2)}
 .ctx-back-arrow{font-size:14px;line-height:1}
 
-.ctx-settings-head{padding:12px 14px 10px;border-bottom:1px solid var(--b1);display:flex;align-items:center;gap:8px}
+.ctx-settings-head{padding:12px 14px 10px;border-bottom:1px solid var(--b1);display:flex;flex-direction:column;gap:6px}
+.ctx-settings-head-row1{display:flex;align-items:center;gap:8px}
+.ctx-settings-head-row2{display:flex;align-items:center;justify-content:space-between;gap:8px}
 .ctx-settings-icon{font-size:18px}
 .ctx-settings-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;flex:1;min-width:0}
 .ctx-settings-badge{font-size:9px;padding:1px 5px;border-radius:3px;font-family:'DM Mono',monospace;font-weight:500}
+.ctx-settings-open-src{font-size:11px;color:var(--acc);cursor:pointer;padding:3px 7px;border-radius:5px;border:1px solid var(--acc-b);background:var(--acc-d);transition:.15s;white-space:nowrap;display:flex;align-items:center;gap:4px}
+.ctx-settings-open-src:hover{background:color-mix(in srgb, var(--acc) 15%, transparent);border-color:var(--acc)}
 
 .ctx-settings-section{padding:12px 14px;border-bottom:1px solid var(--b1)}
 .ctx-settings-section:last-child{border-bottom:none}
@@ -4472,6 +4485,36 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
                       </div>
                     </div>
                   </div>
+                  <div class="c-repeater bound" id="repeater-hn-auth-1" onclick="selEl(event,'repeater-hn-auth-1')" style="margin-top:4px;border-radius:6px">
+                    <div class="ctx-pill rep-pill" id="pill-repeater-hn-auth-1"></div>
+                    <div class="c-el-overlay"></div>
+                    <div class="rep-header" onclick="selElSettings(event,'repeater-hn-auth-1')">
+                      <span class="rep-icon">↻</span>
+                      <span class="rep-label">Repeater</span>
+                      <span class="rep-count" id="rep-count-hn-auth-1">2 items</span>
+                      <div class="rep-bind-btn" onclick="openDd(event,'repeater-hn-auth-1','Items')" title="Connect to list">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12"><circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/></svg>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:4px;padding:4px 6px">
+                      <div class="rep-item" id="rep-hn-a1-1" onclick="selEl(event,'rep-hn-a1-1')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-1-1" onclick="selEl(event,'el-hn-an-1-1')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Sarah Chen</div>
+                        </div>
+                      </div>
+                      <div class="rep-item" id="rep-hn-a1-2" onclick="selEl(event,'rep-hn-a1-2')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-1-2" onclick="selEl(event,'el-hn-an-1-2')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Mark Rivera</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
               <!-- Item 2 -->
@@ -4521,6 +4564,44 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
                           <div class="c-el-overlay" style="border-radius:20px"></div>
                           <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags.tag value</div></div>
                           <div style="padding:2px 7px;background:var(--acc-d);color:var(--acc);border-radius:12px;font-size:10px;font-weight:500;line-height:1.4">Frontend</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="c-repeater bound" id="repeater-hn-auth-2" onclick="selEl(event,'repeater-hn-auth-2')" style="margin-top:4px;border-radius:6px">
+                    <div class="ctx-pill rep-pill" id="pill-repeater-hn-auth-2"></div>
+                    <div class="c-el-overlay"></div>
+                    <div class="rep-header" onclick="selElSettings(event,'repeater-hn-auth-2')">
+                      <span class="rep-icon">↻</span>
+                      <span class="rep-label">Repeater</span>
+                      <span class="rep-count" id="rep-count-hn-auth-2">3 items</span>
+                      <div class="rep-bind-btn" onclick="openDd(event,'repeater-hn-auth-2','Items')" title="Connect to list">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12"><circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/></svg>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:4px;padding:4px 6px">
+                      <div class="rep-item" id="rep-hn-a2-1" onclick="selEl(event,'rep-hn-a2-1')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-2-1" onclick="selEl(event,'el-hn-an-2-1')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Mark Rivera</div>
+                        </div>
+                      </div>
+                      <div class="rep-item" id="rep-hn-a2-2" onclick="selEl(event,'rep-hn-a2-2')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-2-2" onclick="selEl(event,'el-hn-an-2-2')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Jane Doe</div>
+                        </div>
+                      </div>
+                      <div class="rep-item" id="rep-hn-a2-3" onclick="selEl(event,'rep-hn-a2-3')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-2-3" onclick="selEl(event,'el-hn-an-2-3')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Emma Wilson</div>
                         </div>
                       </div>
                     </div>
@@ -4590,6 +4671,28 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
                           <div class="c-el-overlay" style="border-radius:20px"></div>
                           <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">📚 Articles · tags.tag value</div></div>
                           <div style="padding:2px 7px;background:var(--acc-d);color:var(--acc);border-radius:12px;font-size:10px;font-weight:500;line-height:1.4">Design</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="c-repeater bound" id="repeater-hn-auth-3" onclick="selEl(event,'repeater-hn-auth-3')" style="margin-top:4px;border-radius:6px">
+                    <div class="ctx-pill rep-pill" id="pill-repeater-hn-auth-3"></div>
+                    <div class="c-el-overlay"></div>
+                    <div class="rep-header" onclick="selElSettings(event,'repeater-hn-auth-3')">
+                      <span class="rep-icon">↻</span>
+                      <span class="rep-label">Repeater</span>
+                      <span class="rep-count" id="rep-count-hn-auth-3">1 items</span>
+                      <div class="rep-bind-btn" onclick="openDd(event,'repeater-hn-auth-3','Items')" title="Connect to list">
+                        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" width="12" height="12"><circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/></svg>
+                      </div>
+                    </div>
+                    <div style="display:flex;flex-direction:column;gap:4px;padding:4px 6px">
+                      <div class="rep-item" id="rep-hn-a3-1" onclick="selEl(event,'rep-hn-a3-1')" style="cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)">
+                        <div class="c-el-overlay" style="border-radius:6px"></div>
+                        <div class="c-el c-el-text bound" id="el-hn-an-3-1" onclick="selEl(event,'el-hn-an-3-1')" style="cursor:pointer">
+                          <div class="c-el-overlay" style="border-radius:4px"></div>
+                          <div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div>
+                          <div style="font-size:11px;color:var(--t2)">Jane Doe</div>
                         </div>
                       </div>
                     </div>
@@ -4797,8 +4900,52 @@ html.dark .code-highlight-line{background:#313244;border-left-color:#f9e2af}
 
 <script>
 /* ── DATA ── */
+// ── CMS Platform Constants ──
+const CMS_LIST_STATES = [
+  {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
+  {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
+  {name:'displayState', type:'states', sample:'"hasItems"', enumValues:['loading','noItems','noResults','hasItems']},
+];
+
+const CMS_COLLECTION_FIELDS = [
+  {name:'totalItems', type:'number', sample:'24', description:'Total items in collection'},
+  {name:'currentPage', type:'number', sample:'1', description:'Current page number'},
+  {name:'currentCount', type:'number', sample:'12', description:'Items on current page'},
+  {name:'hasMore', type:'boolean', sample:'true', description:'More items available'},
+  {name:'isLoading', type:'boolean', sample:'false', description:'Data is loading'},
+  {name:'activeFilters', type:'number', sample:'0', description:'Active filter count'},
+];
+
+const CMS_ITEM_SYSTEM_FIELDS = [
+  {name:'_id', type:'string', sample:'"abc-123"'},
+  {name:'_createdDate', type:'dateTime', sample:'"Jan 1, 2025"'},
+  {name:'_updatedDate', type:'dateTime', sample:'"Mar 10, 2025"'},
+  {name:'_owner', type:'string', sample:'"user-xyz"'},
+];
+
+const CMS_OBJECT_SYSTEM_FIELDS = [
+  {name:'_id', type:'string', sample:'"abc-123"'},
+  {name:'_createdDate', type:'dateTime', sample:'"Jan 1, 2025"'},
+  {name:'_updatedDate', type:'dateTime', sample:'"Mar 10, 2025"'},
+  {name:'_owner', type:'string', sample:'"user-xyz"'},
+];
+
+const CMS_ITEM_ACTIONS = [
+  {name:'navigateToItem', label:'Navigate to item page', icon:''},
+  {name:'openInEditor', label:'Open in editor', icon:''},
+  {name:'shareItem', label:'Share item', icon:''},
+];
+
+const CMS_CONTEXT_ACTIONS = [
+  {name:'applyFilters', label:'Apply filters', icon:''},
+  {name:'resetFilters', label:'Reset filters', icon:''},
+  {name:'sort', label:'Sort', icon:''},
+  {name:'loadMore', label:'Load more', icon:''},
+  {name:'refresh', label:'Refresh data', icon:''},
+];
+
 const CTX_DEFS = [
-  { id:'weather', name:'Weather App', icon:'', type:'object', source:'Custom Code', group:'Custom',
+  { id:'weather', name:'Weather App', icon:'', type:'object', source:'Custom Code', group:'Custom', customCode: true,
     description:'Show your visitors the current weather — temperature, conditions, and more. Works with auto-detected location or a city you choose. Great for travel sites, outdoor businesses, and event pages.',
     fields:[
       {name:'city',        type:'string',  sample:'"Tel Aviv"'},
@@ -4826,7 +4973,7 @@ const CTX_DEFS = [
       {key:'refresh',  label:'Refresh',   input:'select', options:['On load only','Every 5 min','Every 15 min','Every 30 min'], default:'On load only', description:'How often weather data is re-fetched from the source'},
     ]},
 
-  { id:'countdown', name:'Countdown Timer', icon:'', type:'object', source:'Custom Code', group:'Custom',
+  { id:'countdown', name:'Countdown Timer', icon:'', type:'object', source:'Custom Code', group:'Custom', customCode: true,
     description:'Add a live countdown to any date — a product launch, sale, event, or deadline. Shows days, hours, and minutes remaining. You decide what happens when time runs out.',
     fields:[
       {name:'targetDate',      type:'dateTime', sample:'"Dec 31, 2026 00:00"'},
@@ -4852,7 +4999,7 @@ const CTX_DEFS = [
       {key:'onExpire', label:'On expire',      input:'select', options:['Show "Expired"','Hide element','Show custom message','Trigger action'], default:'Show "Expired"', description:'What happens when the countdown reaches zero'},
     ]},
 
-  { id:'user-location', name:'User Location', icon:'', type:'object', source:'Custom Code', group:'Custom',
+  { id:'user-location', name:'User Location', icon:'', type:'object', source:'Custom Code', group:'Custom', customCode: true,
     description:'Know where your visitors are coming from — city, country, and timezone. Use it to show the nearest store, adjust content by region, or display a local greeting.',
     fields:[
       {name:'city',          type:'string',  sample:'"Tel Aviv"'},
@@ -4881,7 +5028,7 @@ const CTX_DEFS = [
       {key:'fallback',  label:'Fallback city', input:'address', default:'New York, NY', description:'Default city when location is unavailable or denied. Start typing to search.'},
     ]},
 
-  { id:'currency-rates', name:'Currency Converter', icon:'', type:'object', source:'Custom Code', group:'Custom',
+  { id:'currency-rates', name:'Currency Converter', icon:'', type:'object', source:'Custom Code', group:'Custom', customCode: true,
     description:'Display live currency exchange rates on your site. Perfect for international shops, travel agencies, or any business with customers in different countries.',
     fields:[
       {name:'baseCurrency',     type:'string',  sample:'"USD"'},
@@ -4908,7 +5055,7 @@ const CTX_DEFS = [
       {key:'amount',   label:'Default amount',  input:'number', default:'100', description:'The default amount to convert'},
     ]},
 
-  { id:'social-proof', name:'Social Proof', icon:'', type:'object', source:'Custom Code', group:'Custom',
+  { id:'social-proof', name:'Social Proof', icon:'', type:'object', source:'Custom Code', group:'Custom', customCode: true,
     description:'Build trust and create urgency — show how many people are viewing, who just bought, how many items are left, and customer ratings. Ideal for product pages and landing pages.',
     fields:[
       {name:'activeVisitors',    type:'number',  sample:'"47"'},
@@ -4939,9 +5086,7 @@ const CTX_DEFS = [
 
   { id:'cms-articles', name:'Articles', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:12,
     fields:[
-      {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
-      {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
-      {name:'displayState', type:'states', sample:'"hasItems"', enumValues:['loading','noItems','noResults','hasItems']},
+      ...CMS_LIST_STATES,
       {name:'items',       type:'array',   sample:'[{title, author, …}]', itemFields:[
         {name:'title',       type:'string',  sample:'"Article Title"'},
         {name:'author',      type:'string',  sample:'"Jane Doe"'},
@@ -4952,94 +5097,68 @@ const CTX_DEFS = [
         {name:'tags',        type:'array',   sample:'["Tech","AI","Design"]', itemFields:[
           {name:'tag value',  type:'string',  sample:'"Tech"'},
         ]},
+        {name:'authors', type:'multiReference', sample:'[{name, bio}]', referencedCollection:'cms-article-authors', refFields:[
+          {name:'name', type:'string', sample:'"Jane Doe"'},
+          {name:'bio',  type:'string', sample:'"Tech writer"'},
+          {name:'avatar', type:'image', sample:'[img url]'},
+          {name:'role', type:'string', sample:'"Lead Author"'},
+        ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
-      {name:'featuredItems', type:'array',   sample:'[{title, author, …}]', itemFields:[
-        {name:'title',       type:'string',  sample:'"Featured Article"'},
-        {name:'author',      type:'string',  sample:'"Alex Morgan"'},
-        {name:'publishedAt', type:'dateTime',sample:'"Feb 20, 2025"'},
-        {name:'thumbnail',   type:'image',   sample:'[img url]'},
-        {name:'isFeatured',  type:'boolean', sample:'true'},
+      ...CMS_COLLECTION_FIELDS,
+    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
+    config:[]},
+  { id:'cms-article-authors', name:'Article Authors', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:6,
+    fields:[
+      ...CMS_LIST_STATES,
+      {name:'items', type:'array', sample:'[{name, bio, …}]', itemFields:[
+        {name:'name',    type:'string', sample:'"Jane Doe"'},
+        {name:'bio',     type:'string', sample:'"Tech writer & researcher"'},
+        {name:'avatar',  type:'image',  sample:'[img url]'},
+        {name:'role',    type:'string', sample:'"Lead Author"'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
-      {name:'totalItems',   type:'number',  sample:'24', description:'Total articles in collection'},
-      {name:'currentPage',  type:'number',  sample:'1', description:'Current page number'},
-      {name:'hasMore',      type:'boolean', sample:'true', description:'More items available'},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-      {name:'shareItem',      label:'Share item',             icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters',  label:'Apply filters',   icon:''},
-      {name:'resetFilters',  label:'Reset filters',   icon:''},
-      {name:'sort',          label:'Sort',             icon:''},
-      {name:'loadMore',      label:'Load more',        icon:''},
-      {name:'refresh',       label:'Refresh data',     icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',    label:'Total items',        type:'number',  sample:'42'},
-      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'12'},
-      {name:'currentPage',   label:'Current page',       type:'number',  sample:'1'},
-      {name:'hasNextPage',   label:'Has next page',      type:'boolean', sample:'true'},
-      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'2'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[
+      {key:'filterByArticle', label:'Filter by article (Ref → Articles)', input:'toggle', options:['On','Off'], default:'On', description:'Show only authors related to the current article'},
     ]},
   { id:'cms-my-team', name:'My Team', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:8,
     fields:[
-      {name:'itemsStatus', type:'states', sample:'"hasItems"', enumValues:['loading','empty','hasItems']},
-      {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{name, role, …}]', itemFields:[
         {name:'name',    type:'string', sample:'"Riley Carter"'},
         {name:'role',    type:'string', sample:'"Content Crafter"'},
         {name:'tagline', type:'string', sample:'"Weaving words into wonders"'},
         {name:'image',   type:'image',  sample:'[img url]'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-      {name:'shareItem',      label:'Share item',             icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters',  label:'Apply filters',   icon:''},
-      {name:'resetFilters',  label:'Reset filters',   icon:''},
-      {name:'sort',          label:'Sort',             icon:''},
-      {name:'loadMore',      label:'Load more',        icon:''},
-      {name:'refresh',       label:'Refresh data',     icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',    label:'Total items',        type:'number',  sample:'3'},
-      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'3'},
-      {name:'currentPage',   label:'Current page',       type:'number',  sample:'1'},
-      {name:'hasNextPage',   label:'Has next page',      type:'boolean', sample:'false'},
-      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'0'},
-    ],
-    config:[
-    ]},
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
+    config:[]},
   { id:'cms-empty-collection', name:'Empty Collection', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:0,
     fields:[
-      {name:'itemsStatus', type:'states', sample:'"empty"', enumValues:['loading','empty','hasItems']},
-      {name:'loadState', type:'states', sample:'"ready"', enumValues:['loading','ready']},
-      {name:'displayState', type:'states', sample:'"noItems"', enumValues:['loading','noItems','noResults','hasItems']},
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[]', itemFields:[
         {name:'title', type:'string', sample:'"Title"'},
         {name:'author', type:'string', sample:'"Author"'},
         {name:'thumbnail', type:'image', sample:'[img url]'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
-      {name:'totalItems', type:'number', sample:'0'},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[],
-    contextActions:[
-      {name:'refresh', label:'Refresh data', icon:''},
-    ],
-    metadata:[
-      {name:'totalCount', label:'Total items', type:'number', sample:'0'},
-      {name:'currentCount', label:'Items on page', type:'number', sample:'0'},
-      {name:'isLoading', label:'Is loading', type:'boolean', sample:'false'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'stores-current-item', name:'Current Item', icon:'', type:'object', source:'Wix Stores', group:'Apps',
     description:'The product currently being viewed on a dynamic product page. Provides all product fields — name, price, images, description, inventory status, and variants.',
@@ -5129,6 +5248,7 @@ const CTX_DEFS = [
     ]},
   { id:'cms-categories', name:'Categories', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:6,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'categories', type:'array', sample:'[{name, articles, …}]', itemFields:[
         {name:'name',        type:'string', sample:'"Technology"'},
         {name:'description', type:'string', sample:'"Latest tech news…"'},
@@ -5142,29 +5262,17 @@ const CTX_DEFS = [
             {name:'tag value',  type:'string',  sample:'"Tech"'},
           ]},
         ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
       {name:'name',        type:'string', sample:'"Technology"'},
       {name:'description', type:'string', sample:'"Latest tech news…"'},
       {name:'icon',        type:'string', sample:'"💻"'},
       {name:'articleCount',type:'number', sample:'"12"'},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters',  label:'Apply filters',   icon:''},
-      {name:'resetFilters',  label:'Reset filters',   icon:''},
-      {name:'sort',          label:'Sort',             icon:''},
-      {name:'loadMore',      label:'Load more',        icon:''},
-      {name:'refresh',       label:'Refresh data',     icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',    label:'Total items',        type:'number',  sample:'8'},
-      {name:'currentCount',  label:'Items on page',      type:'number',  sample:'8'},
-      {name:'isLoading',     label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters', label:'Active filter count', type:'number',  sample:'0'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'system-identity', name:'Identity', icon:'', type:'object', source:'System', group:'System',
     fields:[
@@ -5246,6 +5354,7 @@ const CTX_DEFS = [
   // ── Reference Field Collections ──────────────────────────────────
   { id:'cms-team-members', name:'Team Members', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:6,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{name, role, …}]', itemFields:[
         {name:'name',  type:'string', sample:'"Riley Carter"'},
         {name:'image', type:'image',  sample:'[img url]'},
@@ -5257,28 +5366,17 @@ const CTX_DEFS = [
             {name:'roleIcon',    type:'string', sample:'"🎨"'},
             {name:'description', type:'string', sample:'"Creates user-centered interfaces"'},
           ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'resetFilters', label:'Reset filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items',        type:'number',  sample:'6'},
-      {name:'currentCount', label:'Items on page',      type:'number',  sample:'6'},
-      {name:'isLoading',    label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'0'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-team-members-filtered', name:'Team Members', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:2,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{name, role, …}]', itemFields:[
         {name:'name',  type:'string', sample:'"Riley Carter"'},
         {name:'image', type:'image',  sample:'[img url]'},
@@ -5290,28 +5388,17 @@ const CTX_DEFS = [
             {name:'roleIcon',    type:'string', sample:'"🎨"'},
             {name:'description', type:'string', sample:'"Creates user-centered interfaces"'},
           ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'resetFilters', label:'Reset filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items',        type:'number',  sample:'2'},
-      {name:'currentCount', label:'Items on page',      type:'number',  sample:'2'},
-      {name:'isLoading',    label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'1'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-team-members-by-role', name:'Team Members', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:2,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{name, role, …}]', itemFields:[
         {name:'name',  type:'string', sample:'"Riley Carter"'},
         {name:'image', type:'image',  sample:'[img url]'},
@@ -5323,32 +5410,22 @@ const CTX_DEFS = [
             {name:'roleIcon',    type:'string', sample:'"🎨"'},
             {name:'description', type:'string', sample:'"Creates user-centered interfaces"'},
           ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'resetFilters', label:'Reset filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items',        type:'number',  sample:'2'},
-      {name:'currentCount', label:'Items on page',      type:'number',  sample:'2'},
-      {name:'isLoading',    label:'Is loading',         type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'1'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-roles', name:'Roles', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:4,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{roleName, roleIcon, …}]', itemFields:[
         {name:'roleName',    type:'string', sample:'"UX Designer"'},
         {name:'roleIcon',    type:'string', sample:'"🎨"'},
         {name:'description', type:'string', sample:'"Creates user-centered interfaces"'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
       {name:'teamMembers', type:'array', isReverseRef:true, reverseFrom:'cms-team-members', reverseField:'role',
         sample:'[{name, image, …}]',
@@ -5357,44 +5434,30 @@ const CTX_DEFS = [
           {name:'image', type:'image',  sample:'[img url]'},
           {name:'email', type:'string', sample:'"riley@studio.com"'},
         ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'4'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-roles-other', name:'Roles', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:3,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{roleName, roleIcon, …}]', itemFields:[
         {name:'roleName',    type:'string', sample:'"Developer"'},
         {name:'roleIcon',    type:'string', sample:'"💻"'},
         {name:'description', type:'string', sample:'"Builds and maintains software systems"'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'3'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'1'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-books-other', name:'Books', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:3,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{title, coverImage, …}]', itemFields:[
         {name:'title',         type:'string', sample:'"The Design of Everyday Things"'},
         {name:'coverImage',    type:'image',  sample:'[img url]'},
@@ -5407,33 +5470,17 @@ const CTX_DEFS = [
             {name:'image', type:'image',  sample:'[img url]'},
             {name:'bio',   type:'string', sample:'"Cognitive scientist…"'},
           ]},
-        {name:'relatedBooks', type:'multiReference', sample:'"Sprint, Lean UX"',
-          referencedCollection:'cms-books',
-          refFields:[
-            {name:'title',      type:'string', sample:'"Sprint"'},
-            {name:'coverImage', type:'image',  sample:'[img url]'},
-            {name:'genre',      type:'string', sample:'"Business"'},
-          ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'3'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'2'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-books', name:'Books', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:8,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{title, authors, …}]', itemFields:[
         {name:'title',         type:'string', sample:'"The Design of Everyday Things"'},
         {name:'coverImage',    type:'image',  sample:'[img url]'},
@@ -5453,30 +5500,23 @@ const CTX_DEFS = [
             {name:'coverImage', type:'image',  sample:'[img url]'},
             {name:'genre',      type:'string', sample:'"Business"'},
           ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'8'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-authors', name:'Authors', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:5,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{name, image, …}]', itemFields:[
         {name:'name',    type:'string', sample:'"Don Norman"'},
         {name:'image',   type:'image',  sample:'[img url]'},
         {name:'bio',     type:'string', sample:'"Cognitive scientist & designer"'},
         {name:'website', type:'url',    sample:'"https://jnd.org"'},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
       {name:'books', type:'array', isReverseRef:true, reverseFrom:'cms-books', reverseField:'authors',
         sample:'[{title, coverImage, …}]',
@@ -5486,19 +5526,11 @@ const CTX_DEFS = [
           {name:'publishedYear', type:'number', sample:'"1988"'},
           {name:'genre',         type:'string', sample:'"Design"'},
         ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'5'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   // ── Reference: Current Item contexts (dynamic pages) ─────────────
   { id:'cms-team-member-current', name:'Current Team Member', icon:'', type:'object', source:'CMS', group:'CMS',
@@ -5514,6 +5546,7 @@ const CTX_DEFS = [
           {name:'roleIcon',    type:'string', sample:'"🎨"'},
           {name:'description', type:'string', sample:'"Creates user-centered interfaces"'},
         ]},
+      ...CMS_OBJECT_SYSTEM_FIELDS,
     ],
     contextActions:[], metadata:[], config:[]},
   { id:'cms-role-current', name:'Current Role', icon:'', type:'object', source:'CMS', group:'CMS',
@@ -5529,10 +5562,12 @@ const CTX_DEFS = [
           {name:'image', type:'image',  sample:'[img url]'},
           {name:'email', type:'string', sample:'"riley@studio.com"'},
         ]},
+      ...CMS_OBJECT_SYSTEM_FIELDS,
     ],
     contextActions:[], metadata:[], config:[]},
   { id:'cms-books-by-author', name:'Books by Same Author', icon:'', type:'list', source:'CMS', group:'CMS', itemCount:2,
     fields:[
+      ...CMS_LIST_STATES,
       {name:'items', type:'array', sample:'[{title, coverImage, …}]', itemFields:[
         {name:'title',         type:'string', sample:'"Emotional Design"'},
         {name:'coverImage',    type:'image',  sample:'[img url]'},
@@ -5545,23 +5580,13 @@ const CTX_DEFS = [
             {name:'image', type:'image',  sample:'[img url]'},
             {name:'bio',   type:'string', sample:'"Cognitive scientist…"'},
           ]},
+        ...CMS_ITEM_SYSTEM_FIELDS,
       ]},
+      ...CMS_COLLECTION_FIELDS,
     ],
-    itemActions:[
-      {name:'navigateToItem', label:'Navigate to item page', icon:''},
-      {name:'openInEditor',   label:'Open in editor',        icon:''},
-    ],
-    contextActions:[
-      {name:'applyFilters', label:'Apply filters', icon:''},
-      {name:'sort',         label:'Sort',           icon:''},
-      {name:'loadMore',     label:'Load more',      icon:''},
-      {name:'refresh',      label:'Refresh data',   icon:''},
-    ],
-    metadata:[
-      {name:'totalCount',   label:'Total items', type:'number',  sample:'2'},
-      {name:'isLoading',    label:'Is loading',  type:'boolean', sample:'false'},
-      {name:'activeFilters',label:'Active filter count', type:'number', sample:'2'},
-    ],
+    itemActions: CMS_ITEM_ACTIONS,
+    contextActions: CMS_CONTEXT_ACTIONS,
+    metadata: [],
     config:[]},
   { id:'cms-book-current', name:'Current Book', icon:'', type:'object', source:'CMS', group:'CMS',
     isDynamicPageCtx: true,
@@ -5585,6 +5610,7 @@ const CTX_DEFS = [
           {name:'coverImage', type:'image',  sample:'[img url]'},
           {name:'genre',      type:'string', sample:'"Business"'},
         ]},
+      ...CMS_OBJECT_SYSTEM_FIELDS,
     ],
     contextActions:[], metadata:[], config:[]},
   { id:'cms-author-current', name:'Current Author', icon:'', type:'object', source:'CMS', group:'CMS',
@@ -5602,6 +5628,7 @@ const CTX_DEFS = [
           {name:'publishedYear', type:'number', sample:'"1988"'},
           {name:'genre',         type:'string', sample:'"Design"'},
         ]},
+      ...CMS_OBJECT_SYSTEM_FIELDS,
     ],
     contextActions:[], metadata:[], config:[]},
 ];
@@ -5906,6 +5933,21 @@ const EL_DEFS = {
   'el-hn-tv-3-2': {name:'Tag Value', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-tv', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-hn-tv-3-3': {name:'Tag Value', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-tv', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   'el-hn-tv-3-4': {name:'Tag Value', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-tv', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'repeater-hn-auth-1': {name:'Authors Repeater', type:'Repeater', section:'sec-home-nested', isRepeater:true, contextModel:'on-repeater', repTemplate:'repeater-hn-auth', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-hn-auth-2': {name:'Authors Repeater', type:'Repeater', section:'sec-home-nested', isRepeater:true, contextModel:'on-repeater', repTemplate:'repeater-hn-auth', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'repeater-hn-auth-3': {name:'Authors Repeater', type:'Repeater', section:'sec-home-nested', isRepeater:true, contextModel:'on-repeater', repTemplate:'repeater-hn-auth', props:[{k:'Items',t:'list'},{k:'Visible',t:'boolean'},{k:'onItemReady',t:'function'},{k:'onItemRemoved',t:'function'},{k:'onMouseIn',t:'function'},{k:'onMouseOut',t:'function'},{k:'onViewportEnter',t:'function'},{k:'onViewportLeave',t:'function'}]},
+  'rep-hn-a1-1': {name:'Author 1', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'rep-hn-a1-2': {name:'Author 2', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'rep-hn-a2-1': {name:'Author 1', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'rep-hn-a2-2': {name:'Author 2', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'rep-hn-a2-3': {name:'Author 3', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'rep-hn-a3-1': {name:'Author 1', type:'RepItem', section:'sec-home-nested', isRepItem:true, props:[]},
+  'el-hn-an-1-1': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-hn-an-1-2': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-hn-an-2-1': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-hn-an-2-2': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-hn-an-2-3': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
+  'el-hn-an-3-1': {name:'Author Name', type:'Text', section:'sec-home-nested', repTemplate:'el-hn-an', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
   // Items List page
   'sec-items':    {name:'Section · Items',    type:'Section',  isContainer:true, page:'items-list', parentPage:'page-items', props:[]},
   'el-items-title':{name:'Page Title',  type:'Text',    section:'sec-items', props:[{k:'Value',t:'string'},{k:'Visible',t:'boolean'}]},
@@ -6332,6 +6374,9 @@ const S = {
     'repeater-hn-tags-1': [],
     'repeater-hn-tags-2': [],
     'repeater-hn-tags-3': [],
+    'repeater-hn-auth-1': ['cms-article-authors'],
+    'repeater-hn-auth-2': ['cms-article-authors'],
+    'repeater-hn-auth-3': ['cms-article-authors'],
     'sec-items':       [],
     'repeater-items': [],
     'sec-rel-product': [],
@@ -6415,6 +6460,9 @@ const S = {
     'cms-team-members-by-role': {linkedTo: 'cms-role-current', label: 'Filtered by: role = ⚡ Current Role', active: true},
     'cms-roles-other': {linkedTo: 'cms-role-current', label: 'Filtered by: roleName ≠ ⚡ Current Role', active: true},
     'cms-books-by-author': {linkedTo: 'cms-book-current', label: 'Filtered (2): authors ∩ ⚡ Current Book · authors, title ≠ ⚡ Current Book', active: true},
+    'repeater-hn-auth-1::cms-article-authors': {linkedTo: 'cms-articles', label: 'Filtered to match the current {parent} item', active: true, confirmMsg: 'This will remove the filter — all {child} items will appear in every {parent} item, not just the related ones.', toastOn: 'Filter restored — showing related {child} only', toastOff: 'Filter removed — showing all {child}'},
+    'repeater-hn-auth-2::cms-article-authors': {linkedTo: 'cms-articles', label: 'Filtered to match the current {parent} item', active: true, confirmMsg: 'This will remove the filter — all {child} items will appear in every {parent} item, not just the related ones.', toastOn: 'Filter restored — showing related {child} only', toastOff: 'Filter removed — showing all {child}'},
+    'repeater-hn-auth-3::cms-article-authors': {linkedTo: 'cms-articles', label: 'Filtered to match the current {parent} item', active: true, confirmMsg: 'This will remove the filter — all {child} items will appear in every {parent} item, not just the related ones.', toastOn: 'Filter restored — showing related {child} only', toastOff: 'Filter removed — showing all {child}'},
     'cms-books-other': {linkedTo: 'cms-book-current', label: 'Filtered (2): title ≠ ⚡ Current Book, title ∉ ⚡ relatedBooks', active: true},
   },
   ctxInstanceDefs: [],
@@ -6451,6 +6499,15 @@ const S = {
     'el-hn-tv-3-2|Value': {ctxId:'cms-articles', fieldName:'tag value', sample:'"UX"'},
     'el-hn-tv-3-3|Value': {ctxId:'cms-articles', fieldName:'tag value', sample:'"React"'},
     'el-hn-tv-3-4|Value': {ctxId:'cms-articles', fieldName:'tag value', sample:'"Design"'},
+    'repeater-hn-auth-1|Items': {ctxId:'cms-article-authors', fieldName:'items', sample:'[{name, bio, …}]'},
+    'repeater-hn-auth-2|Items': {ctxId:'cms-article-authors', fieldName:'items', sample:'[{name, bio, …}]'},
+    'repeater-hn-auth-3|Items': {ctxId:'cms-article-authors', fieldName:'items', sample:'[{name, bio, …}]'},
+    'el-hn-an-1-1|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Sarah Chen"'},
+    'el-hn-an-1-2|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Mark Rivera"'},
+    'el-hn-an-2-1|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Mark Rivera"'},
+    'el-hn-an-2-2|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Jane Doe"'},
+    'el-hn-an-2-3|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Emma Wilson"'},
+    'el-hn-an-3-1|Value': {ctxId:'cms-article-authors', fieldName:'name', sample:'"Jane Doe"'},
     'el-rel-title|Value':    {ctxId:'stores-current-item', fieldName:'name',        sample:'"Sunny Day Tee"'},
     'el-rel-desc|Value':     {ctxId:'stores-current-item', fieldName:'description', sample:'"Classic cotton tee…"'},
     'el-rel-img|Source':     {ctxId:'stores-current-item', fieldName:'image',       sample:'[img url]'},
@@ -6713,9 +6770,22 @@ function navToSectionCtx(elId, e) {
   pillNavCtx(sectionId, firstCtxId);
 }
 
+function isFnLibCtx(ctxId) {
+  if (!ctxId) return false;
+  return FN_DEFS.some(f => f.id === ctxId) || FN_LIBS.some(l => l.id === ctxId);
+}
+
+function getFnLibName(ctxId) {
+  const fn = FN_DEFS.find(f => f.id === ctxId);
+  if (fn) return fn.source;
+  const lib = FN_LIBS.find(l => l.id === ctxId);
+  if (lib) return lib.name;
+  return '';
+}
+
 function pillNavCtx(targetId, ctxId) {
   S.sel = targetId;
-  S.ctxSettingsView = ctxId || null;
+  S.ctxSettingsView = isFnLibCtx(ctxId) ? null : (ctxId || null);
   S.inspectorOpen = true;
   updateSelectionVisual(targetId);
   S.tab = 'settings';
@@ -8560,7 +8630,7 @@ function renderImageSettings(elId, def, templateNote, visibleProp) {
         <div class="prop-main"><div class="prop-val">
           ${linkBound && linkCtx
             ? `<div class="prop-bound-chip prop-bound-detail">
-                <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${linkCtx.icon} ${linkCtx.name}</span>
+                <span class="prop-bound-ctx" ${isFnLibCtx(linkB.ctxId) ? `title="Open ${getFnLibName(linkB.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${linkCtx.icon} ${linkCtx.name}</span>
                 <span class="prop-bound-field">${displayFieldName(elId, linkB)}<span class="chip-x" onclick="unbind('${elId}','Links to',event)">✕</span></span>
               </div>`
             : `<span style="display:flex;align-items:center;gap:6px">${linkIcon}<input class="prop-static" placeholder="Choose a link" readonly style="cursor:default"></span>`}
@@ -8676,12 +8746,13 @@ function renderPropRow(elId, prop) {
     const isFunction = b.ctxId.startsWith('lib-') || b.fnHasParams;
     const src = ctx.source;
     if (isFunction) {
+      const fnLibName = getFnLibName(b.ctxId);
       editSourceHtml = `<div style="display:flex;align-items:center;gap:4px;padding:2px 0 0;font-size:10px;color:var(--t3);font-style:italic">
-        <span style="font-size:9px">ƒ</span> Computed value — edit in code
+        <span style="font-size:9px">ƒ</span> Defined in code — <span style="color:var(--acc);cursor:pointer;font-style:normal;text-decoration:underline" onclick="openCtxSource(event,'${b.ctxId}')" title="Open ${fnLibName} code file">open source file</span>
       </div>`;
     } else if (src === 'Custom Code') {
       editSourceHtml = `<div style="display:flex;align-items:center;gap:4px;padding:2px 0 0;font-size:10px;color:var(--t3);font-style:italic">
-        <span style="font-size:9px">ƒ</span> Computed value — edit in code
+        <span style="font-size:9px">ƒ</span> Defined in code — <span style="color:var(--acc);cursor:pointer;font-style:normal;text-decoration:underline" onclick="openCodeEditor(event,'${b.ctxId}')">open source file</span>
       </div>`;
     } else if (src === 'CMS') {
       editSourceHtml = `<div style="padding:2px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer" onclick="event.stopPropagation()">📝 Edit in CMS</span></div>`;
@@ -8701,7 +8772,7 @@ function renderPropRow(elId, prop) {
             <input class="prop-static" placeholder="${propPlaceholder(prop.k)}" value="${staticVal}"
                    oninput="onStaticInput('${elId}','${prop.k}',this.value)">
             ${isBound && ctx ? `<div class="prop-bound-chip prop-bound-detail">
-              <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${ctx.icon} ${resolveCtxName(ctx.id)}</span>
+              <span class="prop-bound-ctx" ${isFnLibCtx(b.ctxId) ? `title="Open ${getFnLibName(b.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${ctx.icon} ${resolveCtxName(ctx.id)}</span>
               <span class="prop-bound-field">${displayFieldName(elId, b)}<span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>
             </div>` : `<span class="prop-bound-chip"><span class="chip-x" onclick="unbind('${elId}','${prop.k}',event)">✕</span></span>`}
           </div>
@@ -8713,8 +8784,8 @@ function renderPropRow(elId, prop) {
         </svg>
       </div>
     </div>
-    ${fnParamsHtml}
     ${editSourceHtml}
+    ${fnParamsHtml}
   </div>`;
 }
 
@@ -8732,7 +8803,7 @@ function renderFnParams(elId, propKey, binding) {
     let innerHtml;
     if (isBoundCtx && pCtx) {
       innerHtml = `<div class="prop-bound-chip prop-bound-detail" style="display:flex">
-        <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${pCtx.icon} ${pCtx.name}</span>
+        <span class="prop-bound-ctx" ${isFnLibCtx(pb.ctxId) ? `title="Open ${getFnLibName(pb.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${pCtx.icon} ${pCtx.name}</span>
         <span class="prop-bound-field">${displayFieldName(elId, pb)}<span class="chip-x" onclick="unbindParam('${elId}','${propKey}','${p.name}',event)">✕</span></span>
       </div>`;
     } else {
@@ -8778,7 +8849,7 @@ function renderVisibleProp(elId, prop) {
           <div class="prop-main">
             <div class="prop-val">
               <div class="prop-bound-chip prop-bound-detail" style="display:flex">
-                <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${ctx.icon} ${resolveCtxName(ctx.id)}</span>
+                <span class="prop-bound-ctx" ${isFnLibCtx(b.ctxId) ? `title="Open ${getFnLibName(b.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${ctx.icon} ${resolveCtxName(ctx.id)}</span>
                 <span class="prop-bound-field">${displayFieldName(elId, b)}<span class="chip-x" onclick="unbind('${elId}','Visible',event)">✕</span></span>
               </div>
             </div>
@@ -8826,7 +8897,7 @@ function renderEventHandlerProp(elId, propKey) {
           <div class="prop-main">
             <div class="prop-val">
               <div class="prop-bound-chip prop-bound-detail" style="display:flex">
-                <span class="prop-bound-ctx" onclick="navToSectionCtx('${elId}',event)">${ctx.icon} ${resolveCtxName(ctx.id)}</span>
+                <span class="prop-bound-ctx" ${isFnLibCtx(b.ctxId) ? `title="Open ${getFnLibName(b.ctxId)} code file" style="cursor:default"` : `onclick="navToSectionCtx('${elId}',event)"`}>${ctx.icon} ${resolveCtxName(ctx.id)}</span>
                 <span class="prop-bound-field">${displayFieldName(elId, b)}<span class="chip-x" onclick="unbind('${elId}','${propKey}',event)">✕</span></span>
               </div>
             </div>
@@ -10168,14 +10239,29 @@ function renderCtxList() {
       const scopedRelKey = `${ctxTarget}::${c.id}`;
       const relKey = S.ctxRelationships[scopedRelKey] ? scopedRelKey : c.id;
       const rel = S.ctxRelationships[relKey];
-      const hasRel = rel && (rel.isStatic || ctxIds.includes(rel.linkedTo));
-      const relConfirmMsg = rel?.confirmMsg || `${findSource(c.id)?.name||c.id} will no longer be filtered by the current product. All locations will be shown instead.`;
+      const allScopeCtxIds = [...ctxIds, ...inheritedCtxs.map(ic => ic.id)];
+      if (isRepeater) {
+        const repDom = document.getElementById(ctxTarget);
+        let ancestor = repDom?.parentElement?.closest('.c-repeater');
+        while (ancestor) {
+          const ancCtx = S.ctxMap[ancestor.id] || [];
+          ancCtx.forEach(id => { if (!allScopeCtxIds.includes(id)) allScopeCtxIds.push(id); });
+          ancestor = ancestor.parentElement?.closest('.c-repeater');
+        }
+      }
+      const hasRel = rel && (rel.isStatic || allScopeCtxIds.includes(rel.linkedTo));
+      const parentCtxName = rel?.linkedTo ? (findSource(rel.linkedTo)?.name || rel.linkedTo) : '';
+      const childCtxName = c.name || c.id;
+      const resolveRelText = (t) => t ? t.replace(/\{parent\}/g, parentCtxName).replace(/\{child\}/g, childCtxName) : '';
+      const relLabel = hasRel ? resolveRelText(rel.label) : '';
+      const relConfirmMsg = hasRel ? (resolveRelText(rel.confirmMsg) || `${childCtxName} will no longer be filtered. All items will be shown.`) : '';
       const safeRelKey = relKey.replace(/'/g, "\\'");
-      const filterToggleHtml = hasRel ? `<div class="ctx-filter-row${rel.active ? '' : ' off'}" id="ctx-filter-${relKey}"><div class="ctx-filter-label"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> ${rel.label}</div><label class="ctx-filter-toggle" onclick="event.stopPropagation()"><input type="checkbox" ${rel.active ? 'checked' : ''} onchange="onFilterToggle(event,'${safeRelKey}')"><span class="ctx-filter-slider"></span></label><div class="ctx-filter-confirm" id="filter-confirm-${relKey}"><div class="ctx-filter-confirm-msg">${relConfirmMsg}</div><div class="ctx-filter-confirm-actions"><button class="btn-keep" onclick="cancelFilterToggle(event,'${safeRelKey}')">Keep filter</button><button class="btn-off" onclick="confirmFilterOff(event,'${safeRelKey}')">Turn off</button></div></div></div>` : '';
+      const infoTooltip = hasRel ? `We detected a reference field between <b>${childCtxName}</b> and <b>${parentCtxName}</b>. This filter was applied automatically so each item only shows its related data.` : '';
+      const filterToggleHtml = hasRel ? `<div class="ctx-filter-row${rel.active ? '' : ' off'}" id="ctx-filter-${relKey}"><div class="ctx-filter-label"><svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg> ${relLabel}<span class="ctx-filter-info"><svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="8" cy="8" r="6.5"/><path d="M8 7v4"/><circle cx="8" cy="5" r="0.5" fill="currentColor" stroke="none"/></svg><span class="ctx-filter-info-tip">${infoTooltip}</span></span></div><label class="ctx-filter-toggle" onclick="event.stopPropagation()"><input type="checkbox" ${rel.active ? 'checked' : ''} onchange="onFilterToggle(event,'${safeRelKey}')"><span class="ctx-filter-slider"></span></label><div class="ctx-filter-confirm" id="filter-confirm-${relKey}"><div class="ctx-filter-confirm-msg">${relConfirmMsg}</div><div class="ctx-filter-confirm-actions"><button class="btn-keep" onclick="cancelFilterToggle(event,'${safeRelKey}')">Keep filter</button><button class="btn-off" onclick="confirmFilterOff(event,'${safeRelKey}')">Turn off</button></div></div></div>` : '';
       return `
       <div class="ctx-group">
         <div class="ctx-card${primary ? ' primary' : ''}${isUnconfigured ? ' unconfigured' : ''}">
-          <div class="ctx-card-name">${c.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:11px;font-weight:700;color:var(--yel)">&lt;/&gt;</span> ' : c.icon ? c.icon + ' ' : ''}${getCtxDisplayName(c.id, S.sel)} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}${c.itemCount ? ' · ' + c.itemCount + ' items' : ''}</span>${primary && isPage ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
+          <div class="ctx-card-name">${c.icon ? c.icon + ' ' : ''}${getCtxDisplayName(c.id, S.sel)} <span class="type-badge ${c.type==='list'?'tb-list':'tb-obj'}">${c.type}${c.itemCount ? ' · ' + c.itemCount + ' items' : ''}</span>${primary && isPage ? '<span class="type-badge" style="background:var(--b2);color:var(--t2)">Page</span>' : ''}${isUnconfigured ? '<span class="type-badge" style="background:var(--yel);color:#000;font-weight:600">New</span>' : ''}</div>
           <div class="ctx-card-src">from ${c.source}</div>
           ${primary && isPage ? '<div class="ctx-card-lock"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Comes with this page</div>' : ''}
           ${isUnconfigured ? '<div class="ctx-card-lock" style="color:var(--yel);font-style:normal"><svg viewBox="0 0 24 24" style="stroke:var(--yel)"><path d="M12 9v4"/><circle cx="12" cy="16" r="0.5"/><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/></svg> Configure settings to use as binding source</div>' : ''}
@@ -10191,12 +10277,13 @@ function renderCtxList() {
             ${fieldsHtml}
           </div>
           <div class="ctx-card-menu" id="cmenu-${c.id}" style="display:flex;align-items:center;gap:4px">
+            ${c.source === 'Custom Code' ? `<span class="ctx-code-btn" onclick="openCodeEditor(event,'${c.id}')" title="Open source code">&lt;/&gt;</span>` : ''}
             ${hasConfig ? `<span class="ctx-gear" onclick="openCtxSettings(event,'${c.id}')" title="${configCount} settings">⚙</span>` : ''}
             <span class="ctx-card-dots" onclick="toggleCtxMenu(event,'${c.id}','${S.sel}')">⋯</span>
             <div class="ctx-card-dropdown" id="cdrop-${c.id}">
-              ${hasConfig ? `<div class="ctx-dd-item" onclick="openCtxSettings(event,'${c.id}')">⚙️ Settings</div>` : ''}
-              ${c.customCode ? `<div class="ctx-dd-item" onclick="openCodeEditor(event,'${c.id}')">🖥 Edit context code</div>` : ''}
-              ${(hasConfig || c.customCode) ? `<div class="ctx-dd-sep"></div>` : ''}
+              ${hasConfig ? `<div class="ctx-dd-item" onclick="openCtxSettings(event,'${c.id}')">⚙️ Configuration</div>` : ''}
+              <div class="ctx-dd-item" onclick="openCtxSource(event,'${c.id}')">📂 ${c.source === 'CMS' ? 'Open Collection' : c.group === 'Apps' || c.source === 'Wix Stores' || c.source === 'Wix Bookings' ? 'Open in Dashboard' : 'Open Source'}</div>
+              <div class="ctx-dd-sep"></div>
               <div class="ctx-dd-item" onclick="startRenameCtx(event,'${c.id}','${S.sel}')">✏️ Rename</div>
               <div class="ctx-dd-sep"></div>
               ${(primary && isPage) || c.group === 'System'
@@ -10307,6 +10394,16 @@ function openCtxSettings(e, ctxId) {
   renderBody();
 }
 
+function openCtxSource(e, ctxId) {
+  if (e) e.stopPropagation();
+  document.querySelectorAll('.ctx-card-dropdown.open').forEach(d => d.classList.remove('open'));
+  const ctx = findSource(ctxId);
+  if (!ctx) return;
+  if (ctx.source === 'Custom Code') {
+    openCodeEditor(null, ctxId);
+  }
+}
+
 function openCodeEditor(e, ctxId) {
   if (e) e.stopPropagation();
   document.querySelectorAll('.ctx-card-dropdown.open').forEach(d => d.classList.remove('open'));
@@ -10399,12 +10496,15 @@ function renderCtxSettings(ctxId) {
         <span>Back to settings</span>
       </div>
       <div class="ctx-settings-head">
-        <span class="ctx-settings-icon">${ctx.icon}</span>
-        <div style="flex:1;min-width:0">
+        <div class="ctx-settings-head-row1">
+          <span class="ctx-settings-icon">${ctx.icon}</span>
           <div class="ctx-settings-title">${displayName}</div>
-          <div class="ctx-card-src" style="margin-top:2px">from ${ctx.source}</div>
+          <span class="ctx-settings-badge ${badgeClass}">${ctx.type}</span>
         </div>
-        <span class="ctx-settings-badge ${badgeClass}">${ctx.type}</span>
+        <div class="ctx-settings-head-row2">
+          <div class="ctx-card-src" style="margin:0">from ${ctx.source}</div>
+          <span class="ctx-settings-open-src" onclick="openCtxSource(event,'${ctxId}')">${ctx.customCode ? '<span style="font-family:\'DM Mono\',monospace;font-size:10px;font-weight:700">&lt;/&gt;</span>' : '📂'} ${ctx.source === 'CMS' ? 'Open Collection' : ctx.group === 'Apps' || ctx.source === 'Wix Stores' || ctx.source === 'Wix Bookings' ? 'Open in Dashboard' : 'Open Source'}</span>
+        </div>
       </div>
       <div class="ctx-settings-section">
         <div class="ctx-cfg-row">
@@ -10413,7 +10513,7 @@ function renderCtxSettings(ctxId) {
             <div class="cfg-prop-row">
               <div class="cfg-main">
                 <div class="cfg-val">
-                  <input class="sf-input" value="${displayName}" style="width:100%;box-sizing:border-box"
+                  <input class="cfg-static" value="${displayName}" style="width:100%"
                     onblur="renameCtxFromSettings('${ctxId}', this.value)"
                     onkeydown="if(event.key==='Enter')this.blur()">
                 </div>
@@ -10431,9 +10531,6 @@ function renderCtxSettings(ctxId) {
           <div class="cfg-empty-msg">This context has no configurable properties.<br>All settings are managed by the app.</div>
         </div>
       </div>`)}
-      <div class="ctx-settings-section" style="border-top:1px solid var(--b1);padding-top:10px;margin-top:4px">
-        <div class="ctx-fields-open" onclick="event.stopPropagation()" style="margin:0">📂 ${ctx.source === 'CMS' ? 'Open Collection' : ctx.group === 'Apps' || ctx.source === 'Wix Stores' || ctx.source === 'Wix Bookings' ? 'Open in Dashboard' : 'Open Source'}</div>
-      </div>
     </div>`;
 }
 
@@ -10446,18 +10543,48 @@ function renderListSettings(ctxId, ctx, configs) {
   const fSrc = filterBound ? findSource(filterBound.ctxId) : null;
   const sSrc = sortBound ? findSource(sortBound.ctxId) : null;
 
+  let autoRel = null;
+  let autoRelKey = null;
+  if (S.ctxRelationships[ctxId]) {
+    autoRel = S.ctxRelationships[ctxId];
+    autoRelKey = ctxId;
+  } else {
+    const matchKey = Object.keys(S.ctxRelationships).find(k => k.endsWith('::' + ctxId));
+    if (matchKey) { autoRel = S.ctxRelationships[matchKey]; autoRelKey = matchKey; }
+  }
+  const autoFilterActive = autoRel && autoRel.active;
+  const autoFilterParent = autoRel?.linkedTo ? findSource(autoRel.linkedTo) : null;
+
   const bindSvg = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
     <circle cx="4.5" cy="3.5" r="2"/><circle cx="11.5" cy="12.5" r="2"/><path d="M4.5 5.5C4.5 9 11.5 7 11.5 10.5"/>
   </svg>`;
 
+  const manualFilterCount = (S.filterRules[ctxId]||[]).length;
+  const totalFilterCount = manualFilterCount + (autoFilterActive ? 1 : 0);
+  const filterDesc = totalFilterCount > 0
+    ? totalFilterCount + ' filter' + (totalFilterCount > 1 ? 's' : '') + (autoFilterActive && manualFilterCount === 0 ? ' (auto)' : '')
+    : 'No filters';
+  const relColor = autoFilterActive ? 'var(--acc)' : '#888';
+  const relLabel = autoRel?.isStatic
+    ? resolveRelTokens(autoRelKey, autoRel.label)
+    : (autoFilterActive
+      ? `Filtered to match each <b>${autoFilterParent?.name || ''}</b> item`
+      : `Can filter to match each <b>${autoFilterParent?.name || ''}</b> item`);
+  const relSubtext = autoRel?.isStatic ? 'Static filter configured on this list' : 'Reference field detected between collections';
+  const relIcon = autoRel?.isStatic
+    ? `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${relColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg>`
+    : `<svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="${relColor}" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:1px"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>`;
+  const autoFilterHtml = autoRel ? `<div style="margin-top:6px;padding:6px 8px;border-radius:6px;background:color-mix(in srgb, ${relColor} 6%, transparent);border:1px solid color-mix(in srgb, ${relColor} 15%, transparent);font-size:11px;line-height:1.5;color:var(--t2);display:flex;align-items:flex-start;gap:6px">${relIcon}<div>${relLabel}<br><span style="opacity:.6;font-size:10px">${relSubtext}</span></div></div>` : '';
+
   const filterRow = `<div class="ctx-cfg-row">
-    <div class="ctx-cfg-lbl">Filter <span class="cfg-info">?<span class="cfg-info-tip">Rules that determine which items from the collection are displayed</span></span></div>
+    <div class="ctx-cfg-lbl">Filter ${autoFilterActive ? `<span style="font-size:9px;padding:1px 5px;border-radius:3px;background:color-mix(in srgb, var(--acc) 12%, transparent);color:var(--acc);margin-left:4px;font-weight:500">${filterDesc}</span>` : ''}<span class="cfg-info">?<span class="cfg-info-tip">Rules that determine which items from the collection are displayed</span></span></div>
     <div class="ctx-cfg-right">
-      <div class="cfg-prop-row ${filterBound?'bound':''}">
+      ${autoFilterHtml}
+      <div class="cfg-prop-row ${filterBound?'bound':''}" style="${autoFilterHtml ? 'margin-top:6px' : ''}">
         <div class="cfg-main">
           <div class="cfg-val">
             <div class="sf-inline-entry" onclick="openSfDialog('filter')">
-              <span class="sf-inline-desc">${(S.filterRules[ctxId]||[]).length > 0 ? (S.filterRules[ctxId]||[]).length + ' filter' + ((S.filterRules[ctxId]||[]).length > 1 ? 's' : '') : 'No filters'}</span>
+              <span class="sf-inline-desc">${autoFilterHtml ? (manualFilterCount > 0 ? manualFilterCount + ' manual filter' + (manualFilterCount > 1 ? 's' : '') : 'No manual filters') : filterDesc}</span>
               <span class="sf-inline-arrow">›</span>
             </div>
             ${filterBound && fSrc ? `<div class="cfg-bound-detail">
@@ -12785,18 +12912,24 @@ function applyBindingToCanvas(elId, propKey, field, ctxId) {
     }
 
     if (domEl.classList.contains('c-el-img')) {
-      const cimgEl = document.getElementById('cimg-' + elId) || domEl.querySelector('img');
-      if (cimgEl) {
-        const def2 = EL_DEFS[elId];
-        const tplKey = def2?.repTemplate || elId;
-        const sibIds = Object.keys(EL_DEFS).filter(id => EL_DEFS[id].repTemplate === tplKey);
-        const imgIdx = Math.max(0, sibIds.indexOf(elId));
-        const parentRep = domEl.closest('.c-repeater');
-        const repB = parentRep ? S.bindings[parentRep.id + '|Items'] : null;
-        const row = repB ? getRepSampleRow(repB.ctxId, imgIdx) : {};
-        const rowImg = row[field.name];
-        cimgEl.src = (rowImg && rowImg !== '[img url]' && rowImg.startsWith('http')) ? rowImg : ARTICLE_IMAGES[imgIdx % ARTICLE_IMAGES.length];
+      let cimgEl = document.getElementById('cimg-' + elId) || domEl.querySelector('img');
+      if (!cimgEl) {
+        cimgEl = document.createElement('img');
+        cimgEl.id = 'cimg-' + elId;
+        cimgEl.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+        const overlay = domEl.querySelector('.c-el-overlay');
+        if (overlay) domEl.insertBefore(cimgEl, overlay);
+        else domEl.prepend(cimgEl);
       }
+      const def2 = EL_DEFS[elId];
+      const tplKey = def2?.repTemplate || elId;
+      const sibIds = Object.keys(EL_DEFS).filter(id => EL_DEFS[id].repTemplate === tplKey);
+      const imgIdx = Math.max(0, sibIds.indexOf(elId));
+      const parentRep = domEl.closest('.c-repeater');
+      const repB = parentRep ? S.bindings[parentRep.id + '|Items'] : null;
+      const row = repB ? getRepSampleRow(repB.ctxId, imgIdx) : {};
+      const rowImg = row[field.name];
+      cimgEl.src = (rowImg && rowImg !== '[img url]' && rowImg.startsWith('http')) ? rowImg : ARTICLE_IMAGES[imgIdx % ARTICLE_IMAGES.length];
       const imgBindTag = domEl.querySelector('.el-bind-tag');
       const ctxLabel = `${ctxName} · ${dfn}`;
       if (imgBindTag) imgBindTag.innerHTML = buildBindTagHTML(elId, ctxLabel);
@@ -13327,9 +13460,6 @@ function renderExplorerDetail(ctxId) {
 
   const isList = ctx.type === 'list';
   const dataFields = ctx.fields || [];
-  const itemArrayField = isList ? dataFields.find(f => f.type === 'array' && f.itemFields) : null;
-  const topLevelFields = itemArrayField ? dataFields.filter(f => f !== itemArrayField) : dataFields;
-  const itemFields = itemArrayField ? itemArrayField.itemFields : [];
 
   let previewHtml = '';
   if (isList && sampleRows && sampleRows.length > 0) {
@@ -13352,14 +13482,7 @@ function renderExplorerDetail(ctxId) {
   }
 
   let fieldsHtml = '';
-  if (isList && itemFields.length > 0) {
-    fieldsHtml += renderExplorerSection('Item fields', itemFields, true, '↻');
-    if (topLevelFields.length > 0) {
-      fieldsHtml += renderExplorerSection('Collection-level fields', topLevelFields, false, '📋');
-    }
-  } else {
-    fieldsHtml += renderExplorerSection('Data fields', dataFields, true, '📋');
-  }
+  fieldsHtml += renderExplorerSection('Fields', dataFields, true, '📋');
 
   const allActions = [
     ...((isList && ctx.itemActions) ? ctx.itemActions.map(a => ({...a, _scope: 'per item'})) : []),
@@ -13379,7 +13502,7 @@ function renderExplorerDetail(ctxId) {
   if (ctx.group && ctx.group !== ctx.source) metaParts.push(`<span>${ctx.group}</span>`);
   if (ctx.itemCount) metaParts.push(`<span>${ctx.itemCount} items</span>`);
 
-  const fieldCount = isList ? itemFields.length : dataFields.length;
+  const fieldCount = dataFields.length;
   const actionCount = allActions.length;
   const metaFieldCount = ctx.metadata ? ctx.metadata.length : 0;
   let summaryHtml = '<div class="ctx-explorer-summary">';
@@ -13438,39 +13561,37 @@ function renderExplorerDetail(ctxId) {
 }
 
 function renderExplorerSection(title, fields, openDefault, sectionIcon) {
-  const rows = fields.map(f => {
-    const sampleText = (f.sample || '').replace(/^"|"$/g, '');
-    let subFields = '';
-    if (f.itemFields && f.itemFields.length > 0) {
-      subFields = `<div style="padding-left:30px;margin-top:2px">${f.itemFields.map(sf => `
-        <div class="ctx-explorer-field" style="border-color:color-mix(in srgb, var(--b1) 30%, transparent)">
-          <div class="ctx-explorer-field-icon" style="font-size:9px;color:var(--acc);background:color-mix(in srgb, var(--acc) 8%, transparent)">↳</div>
-          <div class="ctx-explorer-field-name" style="font-size:11px">${sf.name}</div>
-          <div class="ctx-explorer-field-type">${sf.type}</div>
-          <div class="ctx-explorer-field-sample">${(sf.sample || '').replace(/^"|"$/g, '')}</div>
-        </div>`).join('')}</div>`;
-    }
-    if (f.refFields && f.refFields.length > 0) {
-      const refCtx = f.referencedCollection ? CTX_DEFS.find(c => c.id === f.referencedCollection) : null;
-      const refName = refCtx ? refCtx.name : f.referencedCollection || '';
-      subFields = `<div style="padding-left:30px;margin-top:2px"><div style="font-size:9px;color:#8b5cf6;padding:3px 0 1px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px"><span style="width:5px;height:5px;border-radius:50%;background:#8b5cf6;display:inline-block"></span> ref → ${refName}</div>${f.refFields.map(sf => `
-        <div class="ctx-explorer-field" style="border-color:color-mix(in srgb, var(--b1) 30%, transparent)">
-          <div class="ctx-explorer-field-icon" style="font-size:9px;color:#8b5cf6;background:color-mix(in srgb, #8b5cf6 8%, transparent)">↳</div>
-          <div class="ctx-explorer-field-name" style="font-size:11px">${sf.name}</div>
-          <div class="ctx-explorer-field-type">${sf.type}</div>
-          <div class="ctx-explorer-field-sample">${(sf.sample || '').replace(/^"|"$/g, '')}</div>
-        </div>`).join('')}</div>`;
-    }
-    return `<div>
-      <div class="ctx-explorer-field">
-        <div class="ctx-explorer-field-icon">${getFieldTypeIcon(f.type)}</div>
-        <div class="ctx-explorer-field-name">${f.name}</div>
-        <div class="ctx-explorer-field-type">${f.type}</div>
-        <div class="ctx-explorer-field-sample">${sampleText}</div>
-      </div>
-      ${subFields}
-    </div>`;
-  }).join('');
+  function renderFieldRows(fields, depth) {
+    const indent = depth * 26;
+    return fields.map(f => {
+      const sampleText = (f.sample || '').replace(/^"|"$/g, '');
+      const isSystem = f.name.startsWith('_');
+      const sysBadge = isSystem ? '<span style="font-size:8px;padding:1px 4px;border-radius:3px;background:color-mix(in srgb, var(--b1) 60%, transparent);color:var(--t2);margin-left:4px;font-family:\'DM Mono\',monospace;letter-spacing:.3px">sys</span>' : '';
+      let childRows = '';
+      if (f.itemFields && f.itemFields.length > 0) {
+        childRows = renderFieldRows(f.itemFields, depth + 1);
+      }
+      if (f.refFields && f.refFields.length > 0) {
+        const refCtx = f.referencedCollection ? CTX_DEFS.find(c => c.id === f.referencedCollection) : null;
+        const refName = refCtx ? refCtx.name : f.referencedCollection || '';
+        childRows = `<div style="padding-left:${indent + 26}px;margin-top:2px"><div style="font-size:9px;color:#8b5cf6;padding:3px 0 1px;font-family:'DM Mono',monospace;display:flex;align-items:center;gap:4px"><span style="width:5px;height:5px;border-radius:50%;background:#8b5cf6;display:inline-block"></span> ref → ${refName}</div></div>` + renderFieldRows(f.refFields, depth + 1);
+      }
+      const iconStyle = depth > 0 ? `font-size:9px;color:var(--acc);background:color-mix(in srgb, var(--acc) 8%, transparent)` : '';
+      const icon = depth > 0 ? '↳' : getFieldTypeIcon(f.type);
+      const nameStyle = depth > 0 ? 'font-size:11px' : '';
+      const borderStyle = depth > 0 ? 'border-color:color-mix(in srgb, var(--b1) 30%, transparent)' : '';
+      return `<div>
+        <div class="ctx-explorer-field" style="padding-left:${indent}px;${borderStyle}">
+          <div class="ctx-explorer-field-icon" style="${iconStyle}">${icon}</div>
+          <div class="ctx-explorer-field-name" style="${nameStyle}">${f.name}${sysBadge}</div>
+          <div class="ctx-explorer-field-type">${f.type}</div>
+          <div class="ctx-explorer-field-sample">${sampleText}</div>
+        </div>
+        ${childRows}
+      </div>`;
+    }).join('');
+  }
+  const rows = renderFieldRows(fields, 0);
 
   const iconHtml = sectionIcon ? `<span class="exp-sec-icon">${sectionIcon}</span>` : '';
   return `<div class="ctx-explorer-section">
@@ -13907,11 +14028,20 @@ function onFilterToggle(e, relKey) {
     if (confirm) confirm.classList.add('open');
   } else {
     rel.active = true;
+    syncSiblingRelationships(relKey, true);
     renderBody();
     const ctxId = relKey.includes('::') ? relKey.split('::')[1] : relKey;
-    updateRepeaterForFilter(ctxId, true);
-    showLinkToast(rel.toastOn || 'Filter restored — showing filtered locations');
+    updateRepeaterForFilter(ctxId, true, relKey);
+    showLinkToast(resolveRelTokens(relKey, rel.toastOn || 'Filter restored — showing filtered locations'));
   }
+}
+function resolveRelTokens(relKey, text) {
+  if (!text) return text;
+  const ctxId = relKey.includes('::') ? relKey.split('::')[1] : relKey;
+  const rel = S.ctxRelationships[relKey];
+  const parentName = rel?.linkedTo ? (findSource(rel.linkedTo)?.name || rel.linkedTo) : '';
+  const childName = findSource(ctxId)?.name || ctxId;
+  return text.replace(/\{parent\}/g, parentName).replace(/\{child\}/g, childName);
 }
 function cancelFilterToggle(e, relKey) {
   e.stopPropagation();
@@ -13922,12 +14052,24 @@ function confirmFilterOff(e, relKey) {
   e.stopPropagation();
   const rel = S.ctxRelationships[relKey];
   if (rel) rel.active = false;
+  syncSiblingRelationships(relKey, false);
   renderBody();
   const ctxId = relKey.includes('::') ? relKey.split('::')[1] : relKey;
-  updateRepeaterForFilter(ctxId, false);
-  showLinkToast(rel?.toastOff || 'Filter removed — showing all locations');
+  updateRepeaterForFilter(ctxId, false, relKey);
+  showLinkToast(resolveRelTokens(relKey, rel?.toastOff || 'Filter removed — showing all locations'));
 }
-function updateRepeaterForFilter(ctxId, isFiltered) {
+function syncSiblingRelationships(relKey, active) {
+  if (!relKey.includes('::')) return;
+  const ctxId = relKey.split('::')[1];
+  Object.keys(S.ctxRelationships).forEach(k => {
+    if (k.endsWith('::' + ctxId)) S.ctxRelationships[k].active = active;
+  });
+}
+function updateRepeaterForFilter(ctxId, isFiltered, relKey) {
+  if (ctxId === 'cms-article-authors') {
+    updateAuthorsRepeaterFilter(isFiltered);
+    return;
+  }
   const repCountEl = document.getElementById('rep-count-rel-locations');
   if (!repCountEl) return;
   if (isFiltered) {
@@ -13935,6 +14077,40 @@ function updateRepeaterForFilter(ctxId, isFiltered) {
   } else {
     repCountEl.textContent = '📍 locations · 12 items (all)';
   }
+}
+function updateAuthorsRepeaterFilter(isFiltered) {
+  const allAuthors = REP_SAMPLE_DATA['cms-article-authors'] || [];
+  const filteredAuthors = [
+    ['Sarah Chen', 'Mark Rivera'],
+    ['Mark Rivera', 'Jane Doe', 'Emma Wilson'],
+    ['Jane Doe'],
+  ];
+  [1, 2, 3].forEach((n, idx) => {
+    const repId = 'repeater-hn-auth-' + n;
+    const repEl = document.getElementById(repId);
+    if (!repEl) return;
+    const container = getRepContainer(repEl) || repEl.querySelector('[style*="flex-direction:column"]');
+    if (!container) return;
+    const names = isFiltered ? filteredAuthors[idx] : allAuthors.map(a => a.name);
+    container.innerHTML = '';
+    names.forEach((name, i) => {
+      const itemId = isFiltered ? ('rep-hn-a' + n + '-' + (i + 1)) : '';
+      const elId = isFiltered ? ('el-hn-an-' + n + '-' + (i + 1)) : '';
+      const item = document.createElement('div');
+      item.className = 'rep-item';
+      if (itemId) item.id = itemId;
+      item.setAttribute('onclick', itemId ? "selEl(event,'" + itemId + "')" : '');
+      item.style.cssText = 'cursor:pointer;position:relative;padding:6px 8px;border-radius:6px;border:1px solid var(--b1)';
+      item.innerHTML = `<div class="c-el-overlay" style="border-radius:6px"></div><div class="c-el c-el-text bound" ${elId ? 'id="' + elId + '"' : ''} onclick="${elId ? "selEl(event,'" + elId + "')" : ''}" style="cursor:pointer"><div class="c-el-overlay" style="border-radius:4px"></div><div class="el-tags"><div class="el-type-tag">Text</div><div class="el-bind-tag">✏️ Article Authors · items.name</div></div><div style="font-size:11px;color:var(--t2)">${name}</div></div>`;
+      container.appendChild(item);
+    });
+    const countEl = document.getElementById('rep-count-hn-auth-' + n);
+    if (countEl) {
+      countEl.textContent = isFiltered
+        ? names.length + ' items'
+        : names.length + ' of ' + allAuthors.length + ' items (unfiltered)';
+    }
+  });
 }
 function showLinkToast(msg) {
   let toast = document.getElementById('link-toast');
@@ -17111,9 +17287,9 @@ const ARTICLE_IMAGES = [
 ];
 const REP_SAMPLE_DATA = {
   'cms-articles': [
-    {title:"The Future of AI in Design", author:"Sarah Chen", category:"Tech", readTime:"5 min", publishedAt:"Jan 15, 2025", thumbnail:ARTICLE_IMAGES[0]},
-    {title:"Building Better Products", author:"Mark Rivera", category:"Product", readTime:"8 min", publishedAt:"Feb 3, 2025", thumbnail:ARTICLE_IMAGES[1]},
-    {title:"Design Systems at Scale", author:"Jane Doe", category:"Design", readTime:"6 min", publishedAt:"Mar 22, 2025", thumbnail:ARTICLE_IMAGES[2]},
+    {title:"The Future of AI in Design", author:"Sarah Chen", category:"Tech", readTime:"5 min", publishedAt:"Jan 15, 2025", thumbnail:ARTICLE_IMAGES[0], authors:["Sarah Chen","Mark Rivera"]},
+    {title:"Building Better Products", author:"Mark Rivera", category:"Product", readTime:"8 min", publishedAt:"Feb 3, 2025", thumbnail:ARTICLE_IMAGES[1], authors:["Mark Rivera","Jane Doe","Emma Wilson"]},
+    {title:"Design Systems at Scale", author:"Jane Doe", category:"Design", readTime:"6 min", publishedAt:"Mar 22, 2025", thumbnail:ARTICLE_IMAGES[2], authors:["Jane Doe"]},
     {title:"Why Accessibility Matters", author:"Lena Park", category:"Design", readTime:"4 min", publishedAt:"Apr 10, 2025", thumbnail:ARTICLE_IMAGES[3]},
     {title:"Scaling Microservices", author:"David Kim", category:"Tech", readTime:"7 min", publishedAt:"May 1, 2025", thumbnail:ARTICLE_IMAGES[4]},
     {title:"The Art of Prototyping", author:"Emma Wilson", category:"Product", readTime:"3 min", publishedAt:"May 18, 2025", thumbnail:ARTICLE_IMAGES[5]},
@@ -17133,6 +17309,14 @@ const REP_SAMPLE_DATA = {
     {storeName:"Downtown Flagship", address:"123 Main St, New York", phone:"(212) 555-0100", openHours:"9am–9pm"},
     {storeName:"Mall of America", address:"456 Shopping Blvd, Minneapolis", phone:"(612) 555-0200", openHours:"10am–8pm"},
     {storeName:"Beachside Store", address:"789 Ocean Dr, Miami", phone:"(305) 555-0300", openHours:"10am–7pm"}
+  ],
+  'cms-article-authors': [
+    {name:"Sarah Chen", bio:"Tech writer & AI researcher", role:"Lead Author", avatar:"[img url]"},
+    {name:"Mark Rivera", bio:"Product strategist", role:"Co-Author", avatar:"[img url]"},
+    {name:"Jane Doe", bio:"Design systems lead", role:"Lead Author", avatar:"[img url]"},
+    {name:"Lena Park", bio:"Accessibility advocate", role:"Contributor", avatar:"[img url]"},
+    {name:"David Kim", bio:"Backend architect", role:"Lead Author", avatar:"[img url]"},
+    {name:"Emma Wilson", bio:"UX prototyping expert", role:"Co-Author", avatar:"[img url]"},
   ],
   'cms-empty-collection': [],
   'cms-my-team': [
@@ -17239,12 +17423,18 @@ function applyRepBindingToAll(templateKey, propKey, field, ctxId) {
     if (srcTag) srcTag.textContent = ctx ? 'Connected · ' + field.name : '';
     const bindTag = domEl.querySelector('.el-bind-tag');
     if (bindTag) bindTag.textContent = ctx ? 'Connected · ' + field.name : '';
-    if (domEl.classList.contains('c-el-img') || domEl.classList.contains('c-el-badge') && false) {
-      const cimg = document.getElementById('cimg-' + elId) || domEl.querySelector('img');
-      if (cimg) {
-        const imgVal = realVal && realVal !== '[img url]' && realVal.startsWith('http') ? realVal : ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length];
-        cimg.src = imgVal;
+    if (domEl.classList.contains('c-el-img')) {
+      let cimg = document.getElementById('cimg-' + elId) || domEl.querySelector('img');
+      if (!cimg) {
+        cimg = document.createElement('img');
+        cimg.id = 'cimg-' + elId;
+        cimg.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block';
+        const ov = domEl.querySelector('.c-el-overlay');
+        if (ov) domEl.insertBefore(cimg, ov);
+        else domEl.prepend(cimg);
       }
+      const imgVal = realVal && realVal !== '[img url]' && realVal.startsWith('http') ? realVal : ARTICLE_IMAGES[idx % ARTICLE_IMAGES.length];
+      cimg.src = imgVal;
     } else {
       const valEl = findValEl(elId);
       if (valEl) {
@@ -17633,7 +17823,7 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
     : '';
 
   var actionsHtml = isBound
-    ? '<span class="prop-bound-ctx" onclick="navToSectionCtx(\'' + elId + '\',event)">' + ctxIcon + ' ' + ctxName + '</span>'
+    ? '<span class="prop-bound-ctx" ' + (b && isFnLibCtx(b.ctxId) ? 'title="Open ' + getFnLibName(b.ctxId) + ' code file" style="cursor:default"' : 'onclick="navToSectionCtx(\'' + elId + '\',event)"') + '>' + ctxIcon + ' ' + ctxName + '</span>'
     + '<span class="prop-bound-field">' + fieldName + '<span class="chip-x" onclick="unbind(\'' + elId + '\',\'' + propK + '\',event)">&#x2715;</span></span>'
     : '';
 
@@ -17645,9 +17835,13 @@ function renderImgPropRow(elId, propK, isBound, isActiveDd, ctx, b) {
   if (isBound && ctx) {
     var isFunction = (b.ctxId && b.ctxId.indexOf('lib-') === 0) || b.fnHasParams;
     var src = ctx.source;
-    if (isFunction || src === 'Custom Code') {
+    if (isFunction) {
+      var fnLibName = getFnLibName(b.ctxId);
       editSourceHtml = '<div style="display:flex;align-items:center;gap:4px;padding:2px 0 0;font-size:10px;color:var(--t3);font-style:italic">'
-        + '<span style="font-size:9px">ƒ</span> Computed value — edit in code</div>';
+        + '<span style="font-size:9px">ƒ</span> Defined in code — <span style="color:var(--acc);cursor:pointer;font-style:normal;text-decoration:underline" onclick="openCtxSource(event,\'' + b.ctxId + '\')" title="Open ' + fnLibName + ' code file">open source file</span></div>';
+    } else if (src === 'Custom Code') {
+      editSourceHtml = '<div style="display:flex;align-items:center;gap:4px;padding:2px 0 0;font-size:10px;color:var(--t3);font-style:italic">'
+        + '<span style="font-size:9px">ƒ</span> Defined in code — <span style="color:var(--acc);cursor:pointer;font-style:normal;text-decoration:underline" onclick="openCodeEditor(event,\'' + b.ctxId + '\')">open source file</span></div>';
     } else if (src === 'CMS') {
       editSourceHtml = '<div style="padding:2px 0 0"><span style="font-size:10px;color:var(--acc);cursor:pointer" onclick="event.stopPropagation()">📝 Edit in CMS</span></div>';
     } else if (src !== 'System') {
