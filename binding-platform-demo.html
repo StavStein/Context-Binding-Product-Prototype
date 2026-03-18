@@ -9181,6 +9181,23 @@ function doUnbindRepeater(elId) {
     });
   }
 
+  const parentCtxId = S.bindings[elId + '|Items']?.ctxId || null;
+  const keepConnectedInnerReps = new Set();
+  if (parentCtxId) {
+    const firstRepDom = document.getElementById(allRepIds[0]);
+    if (firstRepDom) {
+      firstRepDom.querySelectorAll('.c-repeater').forEach(innerRepEl => {
+        const innerId = innerRepEl.id;
+        const innerItemsB = S.bindings[innerId + '|Items'];
+        const innerCtxId = innerItemsB?.ctxId;
+        if (!innerCtxId || innerCtxId === parentCtxId) return;
+        const relKey = innerId + '::' + innerCtxId;
+        const rel = S.ctxRelationships[relKey];
+        if (rel && rel.linkedTo === parentCtxId) keepConnectedInnerReps.add(innerId);
+      });
+    }
+  }
+
   if (!S._savedNestedRepState) S._savedNestedRepState = {};
   if (!S._savedNestedBindings) S._savedNestedBindings = {};
   const templateKey = def.repTemplate || elId;
@@ -9215,6 +9232,9 @@ function doUnbindRepeater(elId) {
       if (childDef.section !== sectionId || !childDef.repTemplate) return;
       const childDom = document.getElementById(childId);
       if (repDom && childDom && !repDom.contains(childDom)) return;
+      if (keepConnectedInnerReps.has(childId)) return;
+      const innerRepAncestor = childDom && repDom && childDom.closest('.c-repeater');
+      if (innerRepAncestor && innerRepAncestor !== repDom && repDom.contains(innerRepAncestor) && keepConnectedInnerReps.has(innerRepAncestor.id)) return;
       Object.keys(S.bindings).forEach(bk => {
         if (bk.startsWith(childId + '|')) {
           const b = S.bindings[bk];
@@ -9251,6 +9271,15 @@ function doUnbindRepeater(elId) {
         }
       });
       firstItem.querySelectorAll('.c-repeater').forEach(innerRep => {
+        if (keepConnectedInnerReps.has(innerRep.id)) {
+          const innerCtxId = S.bindings[innerRep.id + '|Items']?.ctxId;
+          if (innerCtxId) {
+            const relKey = innerRep.id + '::' + innerCtxId;
+            const rel = S.ctxRelationships[relKey];
+            if (rel) { rel.active = false; syncSiblingRelationships(relKey, false); }
+          }
+          return;
+        }
         innerRep.classList.remove('bound');
         const pill = innerRep.querySelector('.rep-pill');
         if (pill) pill.innerHTML = '';
@@ -9289,6 +9318,14 @@ function doUnbindRepeater(elId) {
     }
     container?.querySelectorAll('.rep-unconnected-warn').forEach(el => el.remove());
     syncRepVisualItems(repId);
+  });
+
+  keepConnectedInnerReps.forEach(innerRepId => {
+    const innerCtxId = S.bindings[innerRepId + '|Items']?.ctxId;
+    if (innerCtxId) {
+      const relKey = innerRepId + '::' + innerCtxId;
+      updateRepeaterForFilter(innerCtxId, false, relKey);
+    }
   });
 
   const firstRepDomEl = document.getElementById(allRepIds[0]);
@@ -10311,16 +10348,21 @@ function renderCtxList() {
       const relKey = S.ctxRelationships[scopedRelKey] ? scopedRelKey : c.id;
       const rel = S.ctxRelationships[relKey];
       const allScopeCtxIds = [...ctxIds, ...inheritedCtxs.map(ic => ic.id)];
+      let linkedCtxIsParentItems = false;
       if (isRepeater) {
         const repDom = document.getElementById(ctxTarget);
         let ancestor = repDom?.parentElement?.closest('.c-repeater');
         while (ancestor) {
           const ancCtx = S.ctxMap[ancestor.id] || [];
           ancCtx.forEach(id => { if (!allScopeCtxIds.includes(id)) allScopeCtxIds.push(id); });
+          if (rel?.linkedTo) {
+            const ancItemsB = S.bindings[ancestor.id + '|Items'];
+            if (ancItemsB && ancItemsB.ctxId === rel.linkedTo) linkedCtxIsParentItems = true;
+          }
           ancestor = ancestor.parentElement?.closest('.c-repeater');
         }
       }
-      const hasRel = rel && (rel.isStatic || allScopeCtxIds.includes(rel.linkedTo));
+      const hasRel = rel && (rel.isStatic || (allScopeCtxIds.includes(rel.linkedTo) && (rel.isStatic || linkedCtxIsParentItems)));
       const parentCtxName = rel?.linkedTo ? (findSource(rel.linkedTo)?.name || rel.linkedTo) : '';
       const childCtxName = c.name || c.id;
       const resolveRelText = (t) => t ? t.replace(/\{parent\}/g, parentCtxName).replace(/\{child\}/g, childCtxName) : '';

@@ -111,7 +111,9 @@ A repeater inside a repeater item — e.g., a tags repeater inside each article 
 - After disconnect: all inner repeaters normalize to **3 default placeholder items** (the standard empty state)
 - A yellow warning appears **only on the first (template) inner repeater**: "Repeater is not connected to data. Connect Items to an array."
 - The full state (DOM, bindings, per-item counts) is saved on disconnect and **restored on reconnect** — the user gets back exactly what they had before
-- **Outer repeater disconnect cascades to inner repeaters:** When the outer repeater's Items is disconnected, all inner repeaters also disconnect — including their own Items binding — since the inner array field (e.g., `tags`) comes from the same context. All items become identical placeholders. Inner repeater pills are cleared, elements reset to default, and styles are preserved. Reconnecting the outer repeater restores the full nested state
+- **Outer repeater disconnect — two behaviors for inner repeaters:**
+  - **Inner repeater bound to same context (nested array):** e.g. tags repeater bound to `items.tags`. When the outer (articles) repeater's Items is disconnected, this inner repeater **disconnects fully** — its Items binding and all inner element bindings are removed. All items become identical placeholders. Rationale: the nested field comes from the same context; once the parent has no Items, there is no source for the sub-array.
+  - **Inner repeater with its own context (reference relationship):** e.g. authors repeater with context `cms-article-authors`, auto-filtered by the current article. When the outer repeater's Items is disconnected, this inner repeater **stays connected** — its Items binding and element bindings are kept. Only the **auto-filter is turned off**: the relationship (filter by current parent item) is set inactive, so the repeater shows **all items** from its context (e.g. all authors) instead of the filtered subset. The user can turn the filter back on from the filter panel when the outer repeater is reconnected.
 
 **Field path display:**
 - Inside a repeater, bound fields show their **full array path** in the property panel and canvas bind tags
@@ -124,6 +126,18 @@ A repeater inside a repeater item — e.g., a tags repeater inside each article 
 - Nested repeaters have a **transparent border by default** — they don't clutter the canvas
 - Border appears on **hover** (subtle gray), **direct selection** (accent), or **child selection** (faded accent)
 - This avoids the "pink rectangles everywhere" problem in deeply nested layouts
+
+### 7b. Relationship filter toggle (context card)
+
+When a list context has an **auto-detected relationship** to another context (e.g. Article Authors filtered by the current Articles item), the context card can show a row: **"Filtered to match the current [Parent] item"** with a toggle and an info tooltip.
+
+**When the row is shown:**
+- The toggle row appears **only when a real relationship is in effect**:
+  - **Static relationship:** the context has a static filter (e.g. "Filtered by role = UX Designer") — the row is always shown.
+  - **Reference relationship:** the row is shown only if (1) the linked (parent) context is in scope, and (2) **some ancestor repeater has its Items bound to that linked context**. If the parent repeater is disconnected from Items, there is no "current parent item" to filter by, so the row is **hidden**.
+- If there is **no relationship** defined for this context in this scope (e.g. the same context type used on a different repeater with no parent link), the row does not appear.
+
+**Rationale:** When the parent repeater is not bound to Items, the relationship filter is meaningless; showing the toggle would be confusing. Hiding it keeps the UI consistent with the actual data (no filter in effect).
 
 ---
 
